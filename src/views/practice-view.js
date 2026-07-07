@@ -9,6 +9,7 @@ import {
   isCore2HighYieldPattern,
 } from '../core2-study-map.js?v=20260707-core2-process-flows';
 import { renderQuestionAnalysis } from './question-analysis-view.js';
+import { renderFavoriteSyncControls } from './favorite-sync-view.js';
 
 const TEXT = {
   questionSuffix: '\u9898',
@@ -727,6 +728,8 @@ function renderPracticeNavigator(
   source = null,
   currentNumber = 1,
   total = 1,
+  favoriteCount = 0,
+  favoriteSync = {},
 ) {
   const toggleLabel = isProgressCollapsed ? TEXT.expandProgress : TEXT.collapseProgress;
   const sourceLabel = String(source?.label ?? '').trim();
@@ -773,6 +776,12 @@ function renderPracticeNavigator(
               ${TEXT.practiceSource}：${escapeHtml(sourceLabel)}
             </a>
           ` : ''}
+          ${renderFavoriteSyncControls({
+    favoriteCount,
+    syncText: favoriteSync.text,
+    syncMessage: favoriteSync.message,
+    syncMessageKind: favoriteSync.kind,
+  })}
         </div>
       </aside>
   `;
@@ -787,6 +796,8 @@ export function renderPracticeView(
   {
     isFavorite = false,
     isProgressCollapsed = false,
+    favoriteCount = 0,
+    favoriteSync = {},
   } = {},
 ) {
   const currentNumber = session.currentIndex + 1;
@@ -837,7 +848,16 @@ export function renderPracticeView(
           ${renderPracticeLearningSummary(question, feedback)}
         ` : ''}
       </article>
-      ${renderPracticeNavigator(bankLabel, modeLabel, isProgressCollapsed, session.source, currentNumber, total)}
+      ${renderPracticeNavigator(
+    bankLabel,
+    modeLabel,
+    isProgressCollapsed,
+    session.source,
+    currentNumber,
+    total,
+    favoriteCount,
+    favoriteSync,
+  )}
     </section>
   `;
 }

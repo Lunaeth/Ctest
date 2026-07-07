@@ -2,7 +2,7 @@
 
 This folder wraps the local A+ practice app in a native Android WebView.
 
-- Default screen orientation: landscape.
+- Default screen orientation: portrait.
 - Start page: `#/practice`.
 - Web assets are copied from the repository root during Gradle build.
 

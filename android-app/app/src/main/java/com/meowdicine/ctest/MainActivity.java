@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        webView.loadUrl("https://appassets.androidplatform.net/assets/www/index.html?v=android-apk#/practice");
+        webView.loadUrl("https://appassets.androidplatform.net/assets/www/index.html?v=20260707-mobile-sync-portrait#/practice");
     }
 
     @Override

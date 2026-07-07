@@ -1,5 +1,7 @@
 ﻿import { escapeHtml } from '../learning-annotations.js';
 
+import { renderFavoriteSyncControls } from './favorite-sync-view.js';
+
 const CORE1_VISUAL_ENTRIES = [
   {
     href: './network-map.html?v=20260705-port-reference',
@@ -240,6 +242,9 @@ export function renderLearningView(
     modules = [],
     activeModuleId = 'all',
     isNavigatorCollapsed = false,
+    favoriteSyncText = '',
+    favoriteSyncMessage = '',
+    favoriteSyncMessageKind = 'info',
   } = {},
 ) {
   const stemHtml = question.learning?.stemHtml ?? escapeHtml(question.stem);
@@ -302,6 +307,12 @@ export function renderLearningView(
           </button>
           <p>已收藏 <strong>${favoriteCount}</strong> 题</p>
           <p>先抓题眼，再看每个选项的对错理由；收藏题适合后续做深度复盘。</p>
+          ${renderFavoriteSyncControls({
+    favoriteCount,
+    syncText: favoriteSyncText,
+    syncMessage: favoriteSyncMessage,
+    syncMessageKind: favoriteSyncMessageKind,
+  })}
         </div>
       </aside>
     </section>

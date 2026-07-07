@@ -299,8 +299,16 @@ test('index exposes a collapsible sidebar control with fresh app cache keys', ()
   assert.match(html, /aria-controls="app-sidebar"/);
   assert.match(html, /title="收起侧边栏"/);
   assert.doesNotMatch(html, /`r`n/);
-  assert.match(html, /styles\.css\?v=20260707-android-landscape-jump/);
-  assert.match(html, /src\/app\.js\?v=20260707-android-landscape-jump/);
+  assert.match(html, /styles\.css\?v=20260707-mobile-sync-portrait/);
+  assert.match(html, /src\/app\.js\?v=20260707-mobile-sync-portrait/);
+});
+
+test('practice options stay vertical for phone APK use', () => {
+  const css = fs.readFileSync('styles.css', 'utf8');
+  const practiceOptionRule = css.match(/\.practice-question-panel \.option-list\s*\{[^}]+}/)?.[0] ?? '';
+
+  assert.match(practiceOptionRule, /grid-template-columns:\s*1fr/);
+  assert.doesNotMatch(css, /\.practice-question-panel \.option-list\s*\{[^}]+repeat\(2,/);
 });
 
 async function loadAppModule() {
@@ -1761,6 +1769,98 @@ test('learning favorite entry starts a practice session with favorited questions
     core2: null,
     awsSaa: null,
   });
+});
+
+test('favorite sync export renders shareable question ids', async () => {
+  const fetchImpl = createQuestionBankFetch({
+    './data/questions.en.json': sampleEnglishQuestions,
+  });
+  const env = setupAppEnvironment('#/learn');
+  const storage = createMutableStorage({
+    'question-app.preferences': { activeBankId: 'en', practiceMode: 'sequential' },
+    'question-app.favorites': {
+      zh: [],
+      en: [101],
+      core2: [],
+      awsSaa: [],
+    },
+  });
+  globalThis.window.navigator = {
+    clipboard: {
+      writtenText: '',
+      async writeText(text) {
+        this.writtenText = text;
+      },
+    },
+  };
+  globalThis.fetch = fetchImpl;
+
+  const app = await loadAppModule();
+  await app.bootstrapApp({
+    fetch: fetchImpl,
+    storage,
+    window: globalThis.window,
+    document: globalThis.document,
+  });
+
+  await env.listeners.click({
+    target: {
+      closest(selector) {
+        return selector === '[data-action]'
+          ? { dataset: { action: 'export-favorites' } }
+          : null;
+      },
+    },
+  });
+
+  assert.match(env.appElement.innerHTML, /CtestFavorites-v1/);
+  assert.match(env.appElement.innerHTML, /bank=en/);
+  assert.match(env.appElement.innerHTML, /ids=101/);
+  assert.equal(globalThis.window.navigator.clipboard.writtenText.includes('ids=101'), true);
+});
+
+test('favorite sync import merges pasted ids into the current bank', async () => {
+  const fetchImpl = createQuestionBankFetch({
+    './data/questions.en.json': sampleEnglishQuestions,
+  });
+  const input = { value: 'CtestFavorites-v1\nbank=en\nids=101' };
+  const env = setupAppEnvironment('#/learn', {
+    querySelectorImpl(selector, { appElement }) {
+      if (selector === '#app') return appElement;
+      if (selector === '[data-favorite-sync-input]') return input;
+      return undefined;
+    },
+  });
+  const storage = createMutableStorage({
+    'question-app.preferences': { activeBankId: 'en', practiceMode: 'sequential' },
+  });
+  globalThis.fetch = fetchImpl;
+
+  const app = await loadAppModule();
+  await app.bootstrapApp({
+    fetch: fetchImpl,
+    storage,
+    window: globalThis.window,
+    document: globalThis.document,
+  });
+
+  await env.listeners.click({
+    target: {
+      closest(selector) {
+        return selector === '[data-action]'
+          ? { dataset: { action: 'import-favorites' } }
+          : null;
+      },
+    },
+  });
+
+  assert.deepEqual(storage.dump()['question-app.favorites'], {
+    zh: [],
+    en: [101],
+    core2: [],
+    awsSaa: [],
+  });
+  assert.match(env.appElement.innerHTML, /已导入 1 题，新增 1 题/);
 });
 
 test('learning navigator can collapse to the right and persist preference', async () => {

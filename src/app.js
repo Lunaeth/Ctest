@@ -22,6 +22,11 @@ import {
   getCore2SymptomId,
 } from './core2-study-map.js?v=20260707-core2-process-flows';
 import { applyLearningAnnotations } from './learning-annotations.js?v=20260707-core2-priority-feedback';
+import {
+  buildFavoriteSyncText,
+  mergeFavoriteIds,
+  parseFavoriteSyncText,
+} from './favorite-sync.js';
 import { sanitizeQuestionBankData } from './question-bank-sanitizer.js';
 import {
   buildCore1ModuleStats,
@@ -29,9 +34,9 @@ import {
 } from './study-modules.js?v=20260707-core2-priority-feedback';
 import { renderHomeView } from './views/home-view.js?v=20260707-core2-process-flows';
 import { renderExamView } from './views/exam-view.js';
-import { renderLearningView } from './views/learning-view.js?v=20260707-android-landscape-jump';
+import { renderLearningView } from './views/learning-view.js?v=20260707-mobile-sync-portrait';
 import { renderMistakesView } from './views/mistakes-view.js?v=20260707-core2-priority-feedback';
-import { renderPracticeView } from './views/practice-view.js?v=20260707-android-landscape-jump';
+import { renderPracticeView } from './views/practice-view.js?v=20260707-mobile-sync-portrait';
 import { renderResultsView } from './views/results-view.js';
 
 const QUESTION_BANKS = [
@@ -111,6 +116,11 @@ let archiveSyncQueue = Promise.resolve();
 let lastRenderedRoute = null;
 let pendingScrollSave = null;
 let skipNextRoutePositionSave = false;
+let favoriteSyncState = {
+  text: '',
+  message: '',
+  kind: 'info',
+};
 const questionBankCache = new Map();
 const boundDocuments = new WeakSet();
 const boundWindows = new WeakSet();
@@ -930,6 +940,100 @@ function getFavoriteQuestions() {
     .filter(Boolean);
 }
 
+async function sendFavoriteSyncText(text) {
+  const navigatorObject = appWindow?.navigator;
+
+  try {
+    if (navigatorObject?.share) {
+      await navigatorObject.share({
+        title: 'A+ Ctest 收藏题号',
+        text,
+      });
+      return '已打开手机分享菜单，可以发到微信/邮箱/电脑。';
+    }
+  } catch {
+    // Fall back to clipboard/manual copy below.
+  }
+
+  try {
+    if (navigatorObject?.clipboard?.writeText) {
+      await navigatorObject.clipboard.writeText(text);
+      return '已复制收藏文本，发到电脑后粘贴导入。';
+    }
+  } catch {
+    // Manual copy is still available from the textarea.
+  }
+
+  return '已生成收藏文本；长按文本框复制后发到电脑。';
+}
+
+async function exportFavoriteSyncText() {
+  if (!state.favorites.length) {
+    favoriteSyncState = {
+      text: '',
+      message: '当前题库还没有收藏题。',
+      kind: 'warning',
+    };
+    return;
+  }
+
+  const text = buildFavoriteSyncText({
+    bankId: state.bankId,
+    bankLabel: getActiveBankLabel(),
+    questions: state.questions,
+    favoriteIds: state.favorites,
+  });
+
+  favoriteSyncState = {
+    text,
+    message: await sendFavoriteSyncText(text),
+    kind: 'success',
+  };
+}
+
+function importFavoriteSyncText(documentObject) {
+  const input = documentObject.querySelector('[data-favorite-sync-input]');
+  const text = input?.value?.trim() ?? '';
+
+  if (!text) {
+    favoriteSyncState = {
+      ...favoriteSyncState,
+      message: '先粘贴手机发来的收藏文本或题号。',
+      kind: 'warning',
+    };
+    return false;
+  }
+
+  const parsed = parseFavoriteSyncText(text, state.questions);
+  if (parsed.bankId && parsed.bankId !== state.bankId) {
+    favoriteSyncState = {
+      ...favoriteSyncState,
+      message: `这段收藏属于 ${parsed.bankId}；请先切到对应题库再导入。`,
+      kind: 'warning',
+    };
+    return false;
+  }
+
+  if (!parsed.ids.length) {
+    favoriteSyncState = {
+      ...favoriteSyncState,
+      message: '没有识别到当前题库中的有效题号。',
+      kind: 'warning',
+    };
+    return false;
+  }
+
+  const before = new Set(state.favorites);
+  state.favorites = mergeFavoriteIds(state.favorites, parsed.ids);
+  const addedCount = parsed.ids.filter((id) => !before.has(id)).length;
+  favoriteSyncState = {
+    text,
+    message: `已导入 ${parsed.ids.length} 题，新增 ${addedCount} 题。`,
+    kind: 'success',
+  };
+  return true;
+}
+
 function toggleCurrentPracticeFavorite() {
   ensurePracticeSession();
   const currentId = state.currentPractice.order[state.currentPractice.currentIndex];
@@ -966,6 +1070,8 @@ function renderPractice() {
     {
       isFavorite: state.favorites.includes(question.id),
       isProgressCollapsed: state.preferences.practiceProgressCollapsed === true,
+      favoriteCount: state.favorites.length,
+      favoriteSync: favoriteSyncState,
     },
   );
 }
@@ -998,6 +1104,9 @@ function renderLearning() {
       modules,
       activeModuleId: getActiveLearningModuleId(),
       isNavigatorCollapsed: state.preferences.learningNavCollapsed === true,
+      favoriteSyncText: favoriteSyncState.text,
+      favoriteSyncMessage: favoriteSyncState.message,
+      favoriteSyncMessageKind: favoriteSyncState.kind,
     },
   );
 }
@@ -1251,6 +1360,21 @@ function ensureEventBindings(windowObject, documentObject) {
       if (action === 'toggle-learning-nav') {
         state.preferences.learningNavCollapsed = state.preferences.learningNavCollapsed !== true;
         persistState();
+        renderApp(windowObject, documentObject);
+        return;
+      }
+
+      if (action === 'export-favorites') {
+        await exportFavoriteSyncText();
+        renderApp(windowObject, documentObject);
+        return;
+      }
+
+      if (action === 'import-favorites') {
+        const changed = importFavoriteSyncText(documentObject);
+        if (changed) {
+          persistState();
+        }
         renderApp(windowObject, documentObject);
         return;
       }
