@@ -2,32 +2,32 @@
   const visualEntries = activeBankId === 'core2'
     ? [
       {
-        href: './core2-visual.html?v=20260707-core2-priority-feedback',
+        href: './core2-visual.html?v=20260707-core2-process-flows',
         title: 'Core 2 总图',
         summary: '五类高频题型总览',
       },
       {
-        href: './core2-visual.html?v=20260707-core2-priority-feedback#security',
+        href: './core2-visual.html?v=20260707-core2-process-flows#security',
         title: 'Security',
         summary: 'Malware / MFA / Access',
       },
       {
-        href: './core2-visual.html?v=20260707-core2-priority-feedback#os-commands',
+        href: './core2-visual.html?v=20260707-core2-process-flows#os-commands',
         title: 'OS Commands',
         summary: 'Windows / Linux / tools',
       },
       {
-        href: './core2-visual.html?v=20260707-core2-priority-feedback#app-troubleshooting',
+        href: './core2-visual.html?v=20260707-core2-process-flows#app-troubleshooting',
         title: 'App Troubleshooting',
         summary: 'Apps / Services / logs',
       },
       {
-        href: './core2-visual.html?v=20260707-core2-priority-feedback#ops-support',
+        href: './core2-visual.html?v=20260707-core2-process-flows#ops-support',
         title: 'Ops Support',
         summary: 'Backup / change / support',
       },
       {
-        href: './core2-visual.html?v=20260707-core2-priority-feedback#remote-network',
+        href: './core2-visual.html?v=20260707-core2-process-flows#remote-network',
         title: 'Remote / Network',
         summary: 'VPN / RDP / VNC / Wi-Fi',
       },

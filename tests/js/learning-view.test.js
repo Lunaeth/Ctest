@@ -59,7 +59,7 @@ test('renderLearningView shows bold keywords and separate correct and wrong expl
   assert.match(html, /Core 2 English Question Bank/);
   assert.match(html, /<strong>DHCP<\/strong>/);
   assert.match(html, /data-action="select-learning-bank"/);
-  assert.doesNotMatch(html, /core2-visual\.html\?v=20260707-core2-priority-feedback/);
+  assert.doesNotMatch(html, /core2-visual\.html\?v=20260707-core2-process-flows/);
   assert.match(html, /printer-visual\.html\?v=20260705-visual-maps-source-backed/);
   assert.match(html, /hardware-visual\.html\?v=20260706-hardware-processes/);
   assert.match(html, /network-map\.html\?v=20260705-port-reference/);
@@ -95,13 +95,13 @@ test('renderLearningView shows only the Core 2 visual map for Core 2 learning', 
     activeBankId: 'core2',
   });
 
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows/);
   assert.match(html, /Core 2 总图/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#security/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#os-commands/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#app-troubleshooting/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#ops-support/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#remote-network/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows#security/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows#os-commands/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows#app-troubleshooting/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows#ops-support/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows#remote-network/);
   assert.doesNotMatch(html, /printer-visual\.html\?v=20260705-visual-maps-source-backed/);
   assert.doesNotMatch(html, /hardware-visual\.html\?v=20260706-hardware-processes/);
   assert.doesNotMatch(html, /network-map\.html\?v=20260705-port-reference/);

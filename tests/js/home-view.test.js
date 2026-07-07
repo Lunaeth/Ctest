@@ -26,7 +26,7 @@ test('renderHomeView shows summary cards and action buttons', () => {
   assert.match(html, /data-mode="sequential"/);
   assert.match(html, /data-action="select-bank"/);
   assert.match(html, /knowledge visualizations/);
-  assert.doesNotMatch(html, /core2-visual\.html\?v=20260707-core2-priority-feedback/);
+  assert.doesNotMatch(html, /core2-visual\.html\?v=20260707-core2-process-flows/);
   assert.match(html, /network-map\.html\?v=20260705-port-reference/);
   assert.match(html, /troubleshooting-visual\.html\?v=20260705-troubleshooting-visual/);
   assert.match(html, /printer-visual\.html\?v=20260705-visual-maps-source-backed/);
@@ -57,13 +57,13 @@ test('renderHomeView shows only the Core 2 study map when Core 2 is active', () 
     ],
   });
 
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows/);
   assert.match(html, /Core 2 总图/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#security/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#os-commands/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#app-troubleshooting/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#ops-support/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#remote-network/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows#security/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows#os-commands/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows#app-troubleshooting/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows#ops-support/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows#remote-network/);
   assert.doesNotMatch(html, /network-map\.html\?v=20260705-port-reference/);
   assert.doesNotMatch(html, /troubleshooting-visual\.html\?v=20260705-troubleshooting-visual/);
   assert.doesNotMatch(html, /printer-visual\.html\?v=20260705-visual-maps-source-backed/);

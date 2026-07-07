@@ -299,8 +299,8 @@ test('index exposes a collapsible sidebar control with fresh app cache keys', ()
   assert.match(html, /aria-controls="app-sidebar"/);
   assert.match(html, /title="收起侧边栏"/);
   assert.doesNotMatch(html, /`r`n/);
-  assert.match(html, /styles\.css\?v=20260707-core2-priority-feedback/);
-  assert.match(html, /src\/app\.js\?v=20260707-core2-priority-feedback/);
+  assert.match(html, /styles\.css\?v=20260707-core2-process-flows/);
+  assert.match(html, /src\/app\.js\?v=20260707-core2-process-flows/);
 });
 
 async function loadAppModule() {
@@ -1210,7 +1210,7 @@ test('learning module selection filters Core 2 high-frequency questions and star
   assert.match(env.appElement.innerHTML, /sensitive data/);
   assert.match(env.appElement.innerHTML, /data-section="practice-study-tags"/);
   assert.match(env.appElement.innerHTML, /Security \/ Malware/);
-  assert.match(env.appElement.innerHTML, /core2-visual\.html\?v=20260707-core2-priority-feedback&amp;q=Security%20%2F%20Malware#security/);
+  assert.match(env.appElement.innerHTML, /core2-visual\.html\?v=20260707-core2-process-flows&amp;q=Security%20%2F%20Malware#security/);
   assert.deepEqual(storage.dump()['question-app.current-practice'], {
     zh: null,
     en: null,
@@ -1323,7 +1323,7 @@ test('pending Core 2 visual-map filtered request starts symptom-focused practice
   assert.doesNotMatch(env.appElement.innerHTML, /Windows PC at the main office/);
   assert.match(env.appElement.innerHTML, /Core 2 图谱筛选：linux gui/);
   assert.match(env.appElement.innerHTML, /来源：返回图谱：linux gui/);
-  assert.match(env.appElement.innerHTML, /core2-visual\.html\?v=20260707-core2-priority-feedback&amp;q=linux%20gui#symptom-legacy-linux-gui/);
+  assert.match(env.appElement.innerHTML, /core2-visual\.html\?v=20260707-core2-process-flows&amp;q=linux%20gui#symptom-legacy-linux-gui/);
   assert.equal(storage.dump()['question-app.pending-core2-module-practice'], undefined);
   assert.deepEqual(storage.dump()['question-app.current-practice'], {
     zh: null,
@@ -1335,7 +1335,7 @@ test('pending Core 2 visual-map filtered request starts symptom-focused practice
       label: 'Core 2 图谱筛选：linux gui',
       source: {
         label: '返回图谱：linux gui',
-        url: './core2-visual.html?v=20260707-core2-priority-feedback&q=linux%20gui#symptom-legacy-linux-gui',
+        url: './core2-visual.html?v=20260707-core2-process-flows&q=linux%20gui#symptom-legacy-linux-gui',
       },
       hydrateFromProgress: false,
     },
@@ -1505,7 +1505,7 @@ test('Core 2 practice feedback can start focused review for the shown symptom ro
       label: 'Core 2 图谱筛选：Legacy Linux GUI',
       source: {
         label: '返回图谱：Legacy Linux GUI',
-        url: './core2-visual.html?v=20260707-core2-priority-feedback&q=Legacy%20Linux%20GUI#symptom-legacy-linux-gui',
+        url: './core2-visual.html?v=20260707-core2-process-flows&q=Legacy%20Linux%20GUI#symptom-legacy-linux-gui',
       },
       hydrateFromProgress: false,
     },
@@ -1568,9 +1568,9 @@ test('Core 2 favorite entry starts answer-review practice with explanations', as
   assert.match(env.appElement.innerHTML, /\u6b63\u786e\u7b54\u6848/);
   assert.match(env.appElement.innerHTML, /data-section="practice-symptom-guide"/);
   assert.match(env.appElement.innerHTML, /Lost phone, user unaware/);
-  assert.match(env.appElement.innerHTML, /core2-visual\.html\?v=20260707-core2-priority-feedback&amp;q=Security#symptom-lost-phone-user-unaware/);
+  assert.match(env.appElement.innerHTML, /core2-visual\.html\?v=20260707-core2-process-flows&amp;q=Security#symptom-lost-phone-user-unaware/);
   assert.match(env.appElement.innerHTML, /practice-symptom-guide__priority/);
-  assert.match(env.appElement.innerHTML, /core2-visual\.html\?v=20260707-core2-priority-feedback&amp;q=high-yield#symptom-lost-phone-user-unaware/);
+  assert.match(env.appElement.innerHTML, /core2-visual\.html\?v=20260707-core2-process-flows&amp;q=high-yield#symptom-lost-phone-user-unaware/);
   assert.match(env.appElement.innerHTML, /重点/);
   assert.match(env.appElement.innerHTML, /Encryption/);
   assert.match(env.appElement.innerHTML, /Security<\/small>/);

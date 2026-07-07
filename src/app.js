@@ -20,18 +20,18 @@ import {
   CORE2_SYMPTOM_MAP,
   getCore2SymptomGroup,
   getCore2SymptomId,
-} from './core2-study-map.js?v=20260707-core2-priority-feedback';
+} from './core2-study-map.js?v=20260707-core2-process-flows';
 import { applyLearningAnnotations } from './learning-annotations.js?v=20260707-core2-priority-feedback';
 import { sanitizeQuestionBankData } from './question-bank-sanitizer.js';
 import {
   buildCore1ModuleStats,
   buildCore2ModuleStats,
 } from './study-modules.js?v=20260707-core2-priority-feedback';
-import { renderHomeView } from './views/home-view.js?v=20260707-core2-priority-feedback';
+import { renderHomeView } from './views/home-view.js?v=20260707-core2-process-flows';
 import { renderExamView } from './views/exam-view.js';
-import { renderLearningView } from './views/learning-view.js?v=20260707-core2-priority-feedback';
+import { renderLearningView } from './views/learning-view.js?v=20260707-core2-process-flows';
 import { renderMistakesView } from './views/mistakes-view.js?v=20260707-core2-priority-feedback';
-import { renderPracticeView } from './views/practice-view.js?v=20260707-core2-priority-feedback';
+import { renderPracticeView } from './views/practice-view.js?v=20260707-core2-process-flows';
 import { renderResultsView } from './views/results-view.js';
 
 const QUESTION_BANKS = [
@@ -66,7 +66,7 @@ const SIDEBAR_SHORT_LABELS = {
   mistakes: '\u9519',
 };
 const PENDING_CORE2_MODULE_PRACTICE_MAX_AGE_MS = 10 * 60 * 1000;
-const CORE2_VISUAL_URL = './core2-visual.html?v=20260707-core2-priority-feedback';
+const CORE2_VISUAL_URL = './core2-visual.html?v=20260707-core2-process-flows';
 const CORE2_MATCH_STOP_WORDS = new Set([
   'and',
   'are',

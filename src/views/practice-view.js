@@ -7,7 +7,7 @@ import {
   getCore2SymptomGroup,
   getCore2SymptomId,
   isCore2HighYieldPattern,
-} from '../core2-study-map.js?v=20260707-core2-priority-feedback';
+} from '../core2-study-map.js?v=20260707-core2-process-flows';
 import { renderQuestionAnalysis } from './question-analysis-view.js';
 
 const TEXT = {
@@ -50,7 +50,7 @@ const TEXT = {
   compareInstruction: '\u9009\u5b8c\u70b9\u5bf9\u7167\u7b54\u6848 / Enter',
 };
 
-const CORE2_VISUAL_URL = './core2-visual.html?v=20260707-core2-priority-feedback';
+const CORE2_VISUAL_URL = './core2-visual.html?v=20260707-core2-process-flows';
 
 const CORE2_STUDY_TAG_LABELS = {
   security: 'Security / Malware',

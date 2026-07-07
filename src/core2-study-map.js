@@ -10,6 +10,94 @@ export const CORE2_OVERVIEW = {
   ],
 };
 
+export const CORE2_TRUE_PROCESS_FLOWS = [
+  {
+    id: 'malware-removal',
+    title: 'Malware removal',
+    summary: 'Contain first; clean or reimage; educate last.',
+    priority: 'Must know',
+    trap: 'Do not restore files before containment.',
+    steps: [
+      { stage: 'Identify', action: 'Confirm pop-ups, ransomware, redirects, or bad link' },
+      { stage: 'Isolate', action: 'Disconnect network or quarantine the system' },
+      { stage: 'Restore off', action: 'Disable System Restore before cleaning when asked' },
+      { stage: 'Remediate', action: 'Update definitions, scan, clean install, or reimage' },
+      { stage: 'Recover', action: 'Restore from a known-good backup' },
+      { stage: 'Educate', action: 'User education prevents future infections' },
+    ],
+  },
+  {
+    id: 'troubleshooting-methodology',
+    title: 'Troubleshooting methodology',
+    summary: 'First/next questions favor low-risk direct checks.',
+    priority: 'Must know',
+    trap: 'Do not skip to rebuild when a direct check exists.',
+    steps: [
+      { stage: 'Identify', action: 'Ask open-ended questions and review tickets' },
+      { stage: 'Theory', action: 'Pick likely cause from symptom and scope' },
+      { stage: 'Test', action: 'Use known-good, Event Viewer, Device Manager' },
+      { stage: 'Plan', action: 'Apply direct fix with rollback awareness' },
+      { stage: 'Verify', action: 'Confirm function and document findings' },
+    ],
+  },
+  {
+    id: 'change-management',
+    title: 'Change management',
+    summary: 'Risk, rollback, approval, then implementation.',
+    priority: 'Must know',
+    trap: 'Emergency change is for critical risk, not normal updates.',
+    steps: [
+      { stage: 'Scope', action: 'Start with risk analysis and impact' },
+      { stage: 'Plan', action: 'Prepare backup plan and rollback plan' },
+      { stage: 'Test', action: 'Use sandbox testing for risky changes' },
+      { stage: 'Approve', action: 'Use standard or emergency change path' },
+      { stage: 'Validate', action: 'Confirm service and document the change' },
+    ],
+  },
+  {
+    id: 'backup-restore',
+    title: 'Backup / restore verification',
+    summary: 'Backups count only when restore is proven.',
+    priority: 'High',
+    trap: 'Backup testing is the answer when recovery must be proven.',
+    steps: [
+      { stage: 'Baseline', action: 'Full backup creates a recovery baseline' },
+      { stage: '3-2-1', action: 'Use multiple copies and media types' },
+      { stage: 'Run', action: 'Use incremental or differential after baseline' },
+      { stage: 'Verify', action: 'Backup testing proves recovery is possible' },
+      { stage: 'Maintain', action: 'Purge old backups by policy' },
+    ],
+  },
+  {
+    id: 'incident-documentation',
+    title: 'Incident response / documentation',
+    summary: 'Contain first; report what happened and impact.',
+    priority: 'High',
+    trap: 'Incident report fits management summary and root cause.',
+    steps: [
+      { stage: 'Detect', action: 'Use logs, EDR, or user report' },
+      { stage: 'Contain', action: 'Isolate or quarantine affected systems' },
+      { stage: 'Escalate', action: 'Use SLA, vendor, or senior technician' },
+      { stage: 'Recover', action: 'Restore service or reimage from backup' },
+      { stage: 'Document', action: 'Incident report, ticket notes, user education' },
+    ],
+  },
+  {
+    id: 'os-recovery',
+    title: 'OS boot / update / recovery',
+    summary: 'Match symptom to repair tool; avoid full reinstall.',
+    priority: 'High',
+    trap: 'Use reimage only after faster repair or remediation fails.',
+    steps: [
+      { stage: 'Boot', action: 'OS Not Found -> check boot order or options' },
+      { stage: 'MBR / GPT', action: 'Repair MBR; use GPT for large disks' },
+      { stage: 'Driver', action: 'BSOD after driver -> Safe mode + roll back' },
+      { stage: 'Patch', action: 'Bad update -> roll back or uninstall update' },
+      { stage: 'Files / disk', action: 'Missing files -> sfc; disk issue -> chkdsk' },
+    ],
+  },
+];
+
 export const CORE2_HIGH_FREQUENCY_MODULES = [
   {
     id: 'security',

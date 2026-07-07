@@ -368,7 +368,7 @@ test('renderPracticeView shows the Core 2 visual review query after feedback', (
   assert.match(html, /data-symptom-id="symptom-legacy-linux-gui"/);
   assert.match(html, /data-query="Legacy Linux GUI"/);
   assert.match(html, /class="practice-symptom-guide__priority"/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback&amp;q=high-yield#symptom-legacy-linux-gui/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows&amp;q=high-yield#symptom-legacy-linux-gui/);
   assert.match(html, /重点/);
   assert.match(html, /练这类题/);
 });
@@ -406,7 +406,7 @@ test('renderPracticeView shows Core 2 confusion tips after feedback', () => {
   assert.match(html, /patterns/);
   assert.match(html, /看 Remote Windows PC -&gt; 选 RDP \+ VPN/);
   assert.match(html, /易混答案对照/);
-  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#remote-confusions/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-process-flows#remote-confusions/);
   assert.match(html, /Windows GUI from home/);
   assert.match(html, /RDP \+ VPN/);
   assert.match(html, /SSH is command line; VNC fits Linux GUI/);

@@ -27,6 +27,7 @@ import {
   CORE2_OVERVIEW,
   CORE2_SYMPTOM_GROUPS,
   CORE2_SYMPTOM_MAP,
+  CORE2_TRUE_PROCESS_FLOWS,
   buildCore2DecisionMnemonic,
   getCore2ModuleSnapshot,
   getCore2SymptomGroup,
@@ -126,6 +127,13 @@ function collectCore2VisibleText() {
     CORE2_OVERVIEW.title,
     CORE2_OVERVIEW.summary,
     ...CORE2_OVERVIEW.examRules,
+    ...CORE2_TRUE_PROCESS_FLOWS.flatMap((flow) => [
+      flow.title,
+      flow.summary,
+      flow.priority,
+      flow.trap,
+      ...flow.steps.flatMap((step) => [step.stage, step.action]),
+    ]),
     ...getCore2CramCards().flatMap((card) => [
       card.label,
       card.priority,
@@ -365,6 +373,38 @@ test('core2 visual map covers high-frequency study modules', () => {
   assert.ok(CORE2_SYMPTOM_MAP.some((row) => row.answer === 'winver'));
 });
 
+test('core2 visual map covers true process cards', () => {
+  assert.deepEqual(
+    CORE2_TRUE_PROCESS_FLOWS.map((flow) => flow.id),
+    [
+      'malware-removal',
+      'troubleshooting-methodology',
+      'change-management',
+      'backup-restore',
+      'incident-documentation',
+      'os-recovery',
+    ],
+  );
+
+  const malware = CORE2_TRUE_PROCESS_FLOWS.find((flow) => flow.id === 'malware-removal');
+  assert.ok(malware.steps.some((step) => step.action.includes('quarantine the system')));
+  assert.ok(malware.steps.some((step) => step.action.includes('Disable System Restore')));
+  assert.ok(malware.steps.at(-1).action.includes('User education'));
+
+  const change = CORE2_TRUE_PROCESS_FLOWS.find((flow) => flow.id === 'change-management');
+  assert.ok(change.steps.some((step) => step.action.includes('risk analysis')));
+  assert.ok(change.steps.some((step) => step.action.includes('rollback plan')));
+  assert.ok(change.steps.some((step) => step.action.includes('sandbox testing')));
+
+  const backup = CORE2_TRUE_PROCESS_FLOWS.find((flow) => flow.id === 'backup-restore');
+  assert.ok(backup.steps.some((step) => step.action.includes('Full backup')));
+  assert.ok(backup.steps.some((step) => step.action.includes('Backup testing')));
+
+  const os = CORE2_TRUE_PROCESS_FLOWS.find((flow) => flow.id === 'os-recovery');
+  assert.ok(os.steps.some((step) => step.action.includes('sfc')));
+  assert.ok(os.steps.some((step) => step.action.includes('chkdsk')));
+});
+
 test('core2 symptom map covers all current local Core 2 questions', () => {
   const { covered, total } = getCore2SymptomCoverageStats();
 
@@ -395,11 +435,19 @@ test('core2 visual page renders symptom group navigation', () => {
   const styles = fs.readFileSync('study-visual.css', 'utf8');
 
   assert.match(html, /core2-cram/);
+  assert.match(html, /core2-processes/);
   assert.match(source, /renderCramCards/);
+  assert.match(source, /renderTrueProcesses/);
+  assert.match(source, /CORE2_TRUE_PROCESS_FLOWS/);
+  assert.match(source, /true-process-section/);
+  assert.match(source, /core2-process-card/);
+  assert.match(source, /process-trap/);
   assert.match(source, /getCore2CramCards/);
   assert.match(source, /cram-practice-link/);
   assert.match(styles, /\.cram-grid/);
   assert.match(styles, /\.cram-card/);
+  assert.match(styles, /\.process-card:target/);
+  assert.match(styles, /\.process-trap/);
   assert.match(source, /symptom-group-nav/);
   assert.match(source, /symptom-group-row/);
   assert.match(source, /symptom-group-practice-link/);
@@ -755,6 +803,15 @@ test('core2 visual map anchor terms are backed by the local Core 2 bank', () => 
     'dlp',
     'ddos',
     'winver',
+    'disable system restore',
+    'rollback plan',
+    'backup plan',
+    'sandbox testing',
+    'document findings',
+    'sfc',
+    'chkdsk',
+    'safe mode',
+    'reimage',
     ...CORE2_HIGH_YIELD_TERMS,
   ].forEach((term) => {
     assert.ok(bankText.includes(term), `${term} missing from Core 2 bank`);

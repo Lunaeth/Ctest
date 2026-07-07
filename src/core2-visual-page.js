@@ -5,14 +5,15 @@ import {
   CORE2_OVERVIEW,
   CORE2_SYMPTOM_GROUPS,
   CORE2_SYMPTOM_MAP,
+  CORE2_TRUE_PROCESS_FLOWS,
   buildCore2DecisionMnemonic,
   getCore2ModuleSnapshot,
   getCore2SymptomGroup,
   getCore2SymptomId,
   isCore2HighYieldPattern,
-} from './core2-study-map.js?v=20260707-core2-priority-feedback';
+} from './core2-study-map.js?v=20260707-core2-process-flows';
 
-const APP_LEARN_URL = './index.html?v=20260707-core2-priority-feedback#/learn';
+const APP_LEARN_URL = './index.html?v=20260707-core2-process-flows#/learn';
 const PENDING_CORE2_MODULE_PRACTICE_KEY = 'question-app.pending-core2-module-practice';
 
 export { buildCore2DecisionMnemonic, getCore2ModuleSnapshot };
@@ -66,6 +67,42 @@ function renderRules() {
       <ul class="rule-grid">
         ${CORE2_OVERVIEW.examRules.map((rule) => `<li>${escapeHtml(rule)}</li>`).join('')}
       </ul>
+    </section>
+  `;
+}
+
+function renderTrueProcesses() {
+  getElement('core2-processes').innerHTML = `
+    <section class="visual-section true-process-section">
+      <div class="section-title-row">
+        <div>
+          <h2>Core 2 真流程速记</h2>
+          <p>只背会考顺序的流程；其他题继续按场景和题眼判断</p>
+        </div>
+      </div>
+      <div class="process-grid core2-process-grid">
+        ${CORE2_TRUE_PROCESS_FLOWS.map((flow) => `
+          <article class="process-card core2-process-card" id="${escapeHtml(flow.id)}">
+            <div class="process-card__head">
+              <h3>${escapeHtml(flow.title)}</h3>
+              <span class="priority-pill">${escapeHtml(flow.priority)}</span>
+              <p>${escapeHtml(flow.summary)}</p>
+            </div>
+            <ol class="process-steps">
+              ${flow.steps.map((step) => `
+                <li>
+                  <strong>${escapeHtml(step.stage)}</strong>
+                  <span>${escapeHtml(step.action)}</span>
+                </li>
+              `).join('')}
+            </ol>
+            <p class="process-trap">
+              <strong>排除</strong>
+              ${escapeHtml(flow.trap)}
+            </p>
+          </article>
+        `).join('')}
+      </div>
     </section>
   `;
 }
@@ -598,6 +635,7 @@ function main() {
   getElement('visual-title').textContent = CORE2_OVERVIEW.title;
   getElement('visual-summary').textContent = CORE2_OVERVIEW.summary;
   renderRules();
+  renderTrueProcesses();
   renderCramCards();
   renderModules();
   renderConfusionSets();
