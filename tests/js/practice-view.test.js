@@ -373,7 +373,7 @@ test('renderPracticeView shows the Core 2 visual review query after feedback', (
   assert.match(html, /练这类题/);
 });
 
-test('renderPracticeView places all option explanations first after grading feedback', () => {
+test('renderPracticeView places option explanations and structured analysis before study hints', () => {
   const html = renderPracticeView({
     id: 2,
     stem: 'A technician needs remote support for a legacy Linux GUI session.',
@@ -387,6 +387,10 @@ test('renderPracticeView places all option explanations first after grading feed
     analysis: {
       source: 'core2',
       whyChoose: 'VNC shows the Linux GUI session.',
+      outline: [
+        '题干要求 remote Linux GUI.',
+        '答案要能看到 graphical desktop.',
+      ],
       whyNotChoose: [
         { key: 'A', reason: 'SSH is command line, not GUI.' },
       ],
@@ -403,19 +407,25 @@ test('renderPracticeView places all option explanations first after grading feed
 
   const feedbackIndex = html.indexOf('class="feedback is-wrong"');
   const explanationsIndex = html.indexOf('data-section="practice-option-explanations"');
+  const analysisIndex = html.indexOf('class="question-analysis"');
   const decisionIndex = html.indexOf('data-section="practice-exam-decision"');
   const mistakeIndex = html.indexOf('data-section="practice-mistake-reason"');
   const summaryIndex = html.indexOf('data-section="practice-learning-summary"');
 
   assert.notEqual(feedbackIndex, -1);
   assert.notEqual(explanationsIndex, -1);
+  assert.notEqual(analysisIndex, -1);
   assert.notEqual(decisionIndex, -1);
   assert.notEqual(mistakeIndex, -1);
   assert.notEqual(summaryIndex, -1);
+  assert.match(html, /VNC shows the Linux GUI session\./);
+  assert.match(html, /SSH is command line, not GUI\./);
+  assert.match(html, /题干要求 remote Linux GUI\./);
   assert.ok(feedbackIndex < explanationsIndex, 'feedback should appear before option explanations');
-  assert.ok(explanationsIndex < decisionIndex, 'option explanations should appear before exam decision');
-  assert.ok(explanationsIndex < mistakeIndex, 'option explanations should appear before mistake reason');
-  assert.ok(explanationsIndex < summaryIndex, 'option explanations should appear before learning summary');
+  assert.ok(explanationsIndex < analysisIndex, 'option explanations should appear before structured analysis');
+  assert.ok(analysisIndex < decisionIndex, 'structured analysis should appear before exam decision');
+  assert.ok(analysisIndex < mistakeIndex, 'structured analysis should appear before mistake reason');
+  assert.ok(analysisIndex < summaryIndex, 'structured analysis should appear before learning summary');
 });
 
 test('renderPracticeView shows Core 2 confusion tips after feedback', () => {

@@ -31,7 +31,7 @@ import { renderHomeView } from './views/home-view.js?v=20260707-core2-process-fl
 import { renderExamView } from './views/exam-view.js';
 import { renderLearningView } from './views/learning-view.js?v=20260707-core2-process-flows';
 import { renderMistakesView } from './views/mistakes-view.js?v=20260707-core2-priority-feedback';
-import { renderPracticeView } from './views/practice-view.js?v=20260707-practice-explanations-first';
+import { renderPracticeView } from './views/practice-view.js?v=20260707-practice-analysis-front';
 import { renderResultsView } from './views/results-view.js';
 
 const QUESTION_BANKS = [

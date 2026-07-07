@@ -804,10 +804,10 @@ export function renderPracticeView(
             <p>${TEXT.correctAnswer}：${feedback.correctAnswer.map(escapeHtml).join(', ')}</p>
           </div>
           ${renderPracticeOptionExplanations(question, feedback.selectedAnswer ?? selectedAnswer)}
+          ${renderQuestionAnalysis(question.analysis)}
           ${renderPracticeExamDecision(question, feedback)}
           ${renderPracticeMistakeReason(question, feedback)}
           ${renderPracticeLearningSummary(question, feedback)}
-          ${renderQuestionAnalysis(question.analysis)}
         ` : ''}
       </article>
       ${renderPracticeNavigator(bankLabel, modeLabel, isProgressCollapsed, session.source)}
