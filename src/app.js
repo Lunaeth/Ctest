@@ -29,9 +29,9 @@ import {
 } from './study-modules.js?v=20260707-core2-priority-feedback';
 import { renderHomeView } from './views/home-view.js?v=20260707-core2-process-flows';
 import { renderExamView } from './views/exam-view.js';
-import { renderLearningView } from './views/learning-view.js?v=20260707-core2-process-flows';
+import { renderLearningView } from './views/learning-view.js?v=20260707-android-landscape-jump';
 import { renderMistakesView } from './views/mistakes-view.js?v=20260707-core2-priority-feedback';
-import { renderPracticeView } from './views/practice-view.js?v=20260707-practice-analysis-front';
+import { renderPracticeView } from './views/practice-view.js?v=20260707-android-landscape-jump';
 import { renderResultsView } from './views/results-view.js';
 
 const QUESTION_BANKS = [
@@ -842,6 +842,34 @@ function movePracticeIndex(offset) {
   );
 }
 
+function getQuestionJumpValue(documentObject, kind, target = null) {
+  if (target?.dataset?.questionJumpInput === kind) {
+    return target.value;
+  }
+
+  const input = documentObject.querySelector(`[data-question-jump-input="${kind}"]`);
+  return input?.value;
+}
+
+function parseQuestionJumpIndex(value, total) {
+  const numericValue = Number(value);
+  if (!Number.isFinite(numericValue) || total <= 0) return null;
+
+  return Math.max(0, Math.min(total - 1, Math.trunc(numericValue) - 1));
+}
+
+function jumpPracticeQuestion(documentObject, target = null) {
+  ensurePracticeSession();
+  const index = parseQuestionJumpIndex(
+    getQuestionJumpValue(documentObject, 'practice', target),
+    state.currentPractice.order.length,
+  );
+  if (index === null) return false;
+
+  state.currentPractice.currentIndex = index;
+  return true;
+}
+
 function removeMistake(questionId) {
   state.mistakes = state.mistakes.filter((id) => id !== questionId);
 }
@@ -871,6 +899,18 @@ function setLearningIndex(index, moduleId = getActiveLearningModuleId()) {
 
 function moveLearningIndex(offset) {
   setLearningIndex(getLearningIndex() + offset);
+}
+
+function jumpLearningQuestion(documentObject, target = null) {
+  const learningQuestions = getLearningQuestions();
+  const index = parseQuestionJumpIndex(
+    getQuestionJumpValue(documentObject, 'learning', target),
+    learningQuestions.length,
+  );
+  if (index === null) return false;
+
+  setLearningIndex(index);
+  return true;
 }
 
 function toggleFavorite(questionId) {
@@ -1339,6 +1379,13 @@ function ensureEventBindings(windowObject, documentObject) {
         return;
       }
 
+      if (action === 'jump-practice-question') {
+        if (!jumpPracticeQuestion(documentObject)) return;
+        persistState();
+        renderApp(windowObject, documentObject);
+        return;
+      }
+
       if (action === 'learning-prev') {
         moveLearningIndex(-1);
         persistState();
@@ -1348,6 +1395,13 @@ function ensureEventBindings(windowObject, documentObject) {
 
       if (action === 'learning-next') {
         moveLearningIndex(1);
+        persistState();
+        renderApp(windowObject, documentObject);
+        return;
+      }
+
+      if (action === 'jump-learning-question') {
+        if (!jumpLearningQuestion(documentObject)) return;
         persistState();
         renderApp(windowObject, documentObject);
         return;
@@ -1473,6 +1527,20 @@ function ensureEventBindings(windowObject, documentObject) {
     });
 
     documentObject.addEventListener('keydown', (event) => {
+      const jumpInput = event.target?.closest?.('[data-question-jump-input]');
+      if (jumpInput && event.key === 'Enter') {
+        const didJump = jumpInput.dataset.questionJumpInput === 'practice'
+          ? jumpPracticeQuestion(documentObject, jumpInput)
+          : jumpLearningQuestion(documentObject, jumpInput);
+        if (!didJump) return;
+        persistState();
+        if (typeof event.preventDefault === 'function') {
+          event.preventDefault();
+        }
+        renderApp(windowObject, documentObject);
+        return;
+      }
+
       if (normalizeRoute(windowObject.location.hash) !== 'practice') return;
       if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
       if (isTypingTarget(event.target)) return;

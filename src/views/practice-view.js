@@ -28,6 +28,8 @@ const TEXT = {
   currentBank: '\u5f53\u524d\u9898\u5e93',
   currentMode: '\u5f53\u524d\u6a21\u5f0f',
   practiceSource: '\u6765\u6e90',
+  jumpToQuestion: '\u8df3\u5230\u9898\u53f7',
+  jump: '\u8df3\u8f6c',
   random: '\u968f\u673a',
   sequential: '\u987a\u5e8f',
   collapseProgress: '\u6536\u8d77\u7ec3\u4e60\u8fdb\u5ea6',
@@ -718,14 +720,24 @@ function renderPracticeLearningSummary(question, feedback) {
   `;
 }
 
-function renderPracticeNavigator(bankLabel, modeLabel, isProgressCollapsed, source = null) {
+function renderPracticeNavigator(
+  bankLabel,
+  modeLabel,
+  isProgressCollapsed,
+  source = null,
+  currentNumber = 1,
+  total = 1,
+) {
   const toggleLabel = isProgressCollapsed ? TEXT.expandProgress : TEXT.collapseProgress;
   const sourceLabel = String(source?.label ?? '').trim();
   const sourceUrl = String(source?.url ?? '').trim();
   return `
       <aside class="panel navigator-panel practice-progress-panel ${isProgressCollapsed ? 'is-collapsed' : ''}" id="practice-nav">
         <div class="practice-progress-header">
-          <h3>${TEXT.progress}</h3>
+          <div>
+            <h3>${TEXT.progress}</h3>
+            <p class="practice-progress-compact">\u7b2c ${currentNumber} / ${total} \u9898</p>
+          </div>
           <button
             class="practice-progress-toggle"
             type="button"
@@ -741,6 +753,21 @@ function renderPracticeNavigator(bankLabel, modeLabel, isProgressCollapsed, sour
         <div class="practice-progress-body" id="practice-progress-body" ${isProgressCollapsed ? 'hidden' : ''}>
           <p>${TEXT.currentBank}：${escapeHtml(bankLabel)}</p>
           <p>${TEXT.currentMode}：${escapeHtml(modeLabel)}</p>
+          <div class="question-jump-control" aria-label="${TEXT.jumpToQuestion}">
+            <label for="practice-question-jump">${TEXT.jumpToQuestion}</label>
+            <div class="question-jump-control__row">
+              <input
+                id="practice-question-jump"
+                type="number"
+                min="1"
+                max="${total}"
+                value="${currentNumber}"
+                inputmode="numeric"
+                data-question-jump-input="practice"
+              />
+              <button class="secondary-btn" type="button" data-action="jump-practice-question">${TEXT.jump}</button>
+            </div>
+          </div>
           ${sourceLabel && sourceUrl ? `
             <a class="practice-source-link" href="${escapeHtml(sourceUrl)}">
               ${TEXT.practiceSource}：${escapeHtml(sourceLabel)}
@@ -768,7 +795,7 @@ export function renderPracticeView(
   const isMultiple = question.type === 'multiple';
 
   return `
-    <section class="workspace-grid">
+    <section class="workspace-grid ${isProgressCollapsed ? 'is-practice-progress-collapsed' : ''}">
       <article class="panel question-panel practice-question-panel">
         <div class="practice-topbar">
           <div class="question-meta">
@@ -810,7 +837,7 @@ export function renderPracticeView(
           ${renderPracticeLearningSummary(question, feedback)}
         ` : ''}
       </article>
-      ${renderPracticeNavigator(bankLabel, modeLabel, isProgressCollapsed, session.source)}
+      ${renderPracticeNavigator(bankLabel, modeLabel, isProgressCollapsed, session.source, currentNumber, total)}
     </section>
   `;
 }

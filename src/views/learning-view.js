@@ -207,6 +207,26 @@ function renderQuestionTags(question, modules) {
   `;
 }
 
+function renderLearningJumpControl(currentIndex, total) {
+  return `
+    <div class="question-jump-control" aria-label="跳到题号">
+      <label for="learning-question-jump">跳到题号</label>
+      <div class="question-jump-control__row">
+        <input
+          id="learning-question-jump"
+          type="number"
+          min="1"
+          max="${total}"
+          value="${currentIndex + 1}"
+          inputmode="numeric"
+          data-question-jump-input="learning"
+        />
+        <button class="secondary-btn" type="button" data-action="jump-learning-question">跳转</button>
+      </div>
+    </div>
+  `;
+}
+
 export function renderLearningView(
   question,
   currentIndex,
@@ -259,7 +279,7 @@ export function renderLearningView(
         <div class="learning-nav__header">
           <div>
             <h3>英文题库学习</h3>
-            <p class="learning-nav__compact">收藏 ${favoriteCount}</p>
+            <p class="learning-nav__compact">第 ${currentIndex + 1} / ${total} 题</p>
           </div>
           <button
             class="learning-nav-toggle"
@@ -272,6 +292,7 @@ export function renderLearningView(
           </button>
         </div>
         <div class="learning-nav__body" id="learning-nav-body" ${isNavigatorCollapsed ? 'hidden' : ''}>
+          ${renderLearningJumpControl(currentIndex, total)}
           <button
             class="secondary-btn learning-nav__favorite-entry"
             data-action="start-favorites-practice"

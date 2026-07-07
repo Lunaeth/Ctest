@@ -25,3 +25,10 @@ node_modules/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Android APK build outputs
+android-app/.gradle/
+android-app/build/
+android-app/app/build/
+android-app/app/src/main/assets/www/
+dist/

@@ -305,6 +305,10 @@ body {
   gap: 20px;
 }
 
+.workspace-grid.is-practice-progress-collapsed {
+  grid-template-columns: minmax(0, 1fr) 76px;
+}
+
 .learning-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
@@ -374,6 +378,7 @@ body {
   align-self: start;
   display: grid;
   gap: 16px;
+  transition: padding 160ms ease;
 }
 
 .practice-progress-header {
@@ -385,6 +390,15 @@ body {
 
 .practice-progress-header h3 {
   margin: 0;
+}
+
+.practice-progress-compact {
+  display: none;
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
 .practice-progress-toggle {
@@ -442,12 +456,67 @@ body {
 }
 
 .practice-progress-panel.is-collapsed {
+  justify-self: end;
   gap: 0;
-  padding-block: 18px;
+  padding: 14px 12px;
+  width: 76px;
+}
+
+.practice-progress-panel.is-collapsed .practice-progress-header {
+  display: grid;
+  justify-items: center;
+}
+
+.practice-progress-panel.is-collapsed h3 {
+  margin: 0;
+  max-width: 2.5em;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.practice-progress-panel.is-collapsed .practice-progress-compact {
+  display: block;
+  text-align: center;
+}
+
+.practice-progress-panel.is-collapsed .practice-progress-toggle {
+  order: -1;
 }
 
 .practice-progress-panel.is-collapsed .practice-progress-toggle span {
   transform: rotate(0deg);
+}
+
+.question-jump-control {
+  display: grid;
+  gap: 8px;
+}
+
+.question-jump-control label {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.question-jump-control__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.question-jump-control input {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  padding: 9px 10px;
+}
+
+.question-jump-control .secondary-btn {
+  padding: 9px 12px;
 }
 
 .question-panel .question-stem {
@@ -870,6 +939,16 @@ body {
   gap: 12px;
 }
 
+.practice-question-panel .option-list {
+  align-items: stretch;
+}
+
+@media (min-width: 780px) {
+  .practice-question-panel .option-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .option-item {
   display: flex;
   gap: 12px;
@@ -878,6 +957,10 @@ body {
   border: 1px solid var(--line);
   border-radius: 16px;
   background: #fbfcff;
+}
+
+.practice-question-panel .option-item {
+  min-height: 74px;
 }
 
 .question-panel .option-item span {
@@ -1541,10 +1624,52 @@ body {
   line-height: 1.7;
 }
 
+@media (orientation: landscape) and (max-height: 620px) {
+  .content-area {
+    padding: 16px;
+  }
+
+  .question-panel,
+  .navigator-panel,
+  .learning-panel {
+    padding: 18px;
+  }
+
+  .practice-question-panel .question-stem {
+    font-size: 22px;
+    line-height: 1.34;
+    margin: 12px 0 16px;
+  }
+
+  .practice-question-panel .option-list {
+    gap: 10px;
+  }
+
+  .practice-question-panel .option-item {
+    min-height: 62px;
+    padding: 12px 14px;
+  }
+
+  .practice-answer-prompt,
+  .practice-study-strip {
+    margin-bottom: 12px;
+  }
+
+  .toolbar {
+    margin-top: 14px;
+  }
+
+  .feedback {
+    margin-top: 14px;
+    padding: 12px 14px;
+  }
+}
+
 @media (max-width: 960px) {
   .app-shell,
   .hero-grid,
   .workspace-grid,
+  .workspace-grid.is-practice-progress-collapsed,
   .learning-layout,
   .results-layout,
   .visual-entry-panel,

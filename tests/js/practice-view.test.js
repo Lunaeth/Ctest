@@ -325,9 +325,36 @@ test('renderPracticeView shows a persisted practice source link', () => {
   }, null, [], 'Core 2 English Question Bank');
 
   assert.match(html, /当前模式：Core 2 图谱筛选：linux gui/);
+  assert.match(html, /data-question-jump-input="practice"/);
+  assert.match(html, /data-action="jump-practice-question"/);
+  assert.match(html, /value="1"/);
   assert.match(html, /class="practice-source-link"/);
   assert.match(html, /来源：返回图谱：linux gui/);
   assert.match(html, /core2-visual\.html\?v=test&amp;q=linux%20gui#symptom-legacy-linux-gui/);
+});
+
+test('renderPracticeView can collapse the progress rail without hiding current question position', () => {
+  const html = renderPracticeView({
+    id: 2,
+    stem: 'Question 2',
+    type: 'single',
+    options: [
+      { key: 'A', text: 'Alpha' },
+      { key: 'B', text: 'Beta' },
+    ],
+    answer: ['B'],
+  }, {
+    currentIndex: 1,
+    order: [1, 2, 3],
+    mode: 'sequential',
+  }, null, [], 'Core 1 English Question Bank', {
+    isProgressCollapsed: true,
+  });
+
+  assert.match(html, /workspace-grid is-practice-progress-collapsed/);
+  assert.match(html, /practice-progress-panel is-collapsed/);
+  assert.match(html, /第 2 \/ 3 题/);
+  assert.match(html, /aria-expanded="false"/);
 });
 
 test('renderPracticeView shows the Core 2 visual review query after feedback', () => {

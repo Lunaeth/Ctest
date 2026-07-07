@@ -76,6 +76,9 @@ test('renderLearningView shows bold keywords and separate correct and wrong expl
   assert.match(html, /aria-pressed="true"/);
   assert.match(html, /data-action="toggle-learning-nav"/);
   assert.match(html, /aria-expanded="true"/);
+  assert.match(html, /data-question-jump-input="learning"/);
+  assert.match(html, /data-action="jump-learning-question"/);
+  assert.match(html, /value="1"/);
   assert.match(html, /data-action="start-favorites-practice"/);
   assert.match(html, /练收藏题/);
   assert.match(html, /\u5df2\u6536\u85cf <strong>3<\/strong> \u9898/);
@@ -123,7 +126,7 @@ test('renderLearningView can collapse the right learning navigator', () => {
 
   assert.match(html, /learning-layout is-learning-nav-collapsed/);
   assert.match(html, /learning-nav is-collapsed/);
-  assert.match(html, /收藏 39/);
+  assert.match(html, /第 1 \/ 1 题/);
   assert.match(html, /aria-expanded="false"/);
   assert.match(html, /hidden/);
 });

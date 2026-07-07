@@ -299,8 +299,8 @@ test('index exposes a collapsible sidebar control with fresh app cache keys', ()
   assert.match(html, /aria-controls="app-sidebar"/);
   assert.match(html, /title="收起侧边栏"/);
   assert.doesNotMatch(html, /`r`n/);
-  assert.match(html, /styles\.css\?v=20260707-practice-analysis-front/);
-  assert.match(html, /src\/app\.js\?v=20260707-practice-analysis-front/);
+  assert.match(html, /styles\.css\?v=20260707-android-landscape-jump/);
+  assert.match(html, /src\/app\.js\?v=20260707-android-landscape-jump/);
 });
 
 async function loadAppModule() {
@@ -1018,6 +1018,58 @@ test('learning navigation persists the per-bank learning index', async () => {
       closest(selector) {
         return selector === '[data-action]'
           ? { dataset: { action: 'learning-next' } }
+          : null;
+      },
+    },
+  });
+
+  assert.equal(storage.dump()['question-app.preferences']?.learningIndexByBank?.en, 1);
+  assert.match(env.appElement.innerHTML, /English Question 2/);
+});
+
+test('learning question jump moves directly to a typed question number', async () => {
+  const englishLearningQuestions = [
+    ...sampleEnglishQuestions,
+    {
+      id: 102,
+      topic: 'Topic 2',
+      stem: 'English Question 2',
+      options: [
+        { key: 'A', text: 'DHCP' },
+        { key: 'B', text: 'DNS' },
+      ],
+      answer: ['B'],
+      type: 'single',
+    },
+  ];
+  const fetchImpl = createQuestionBankFetch({
+    './data/questions.en.json': englishLearningQuestions,
+  });
+  const jumpInput = { value: '2' };
+  const env = setupAppEnvironment('#/learn', {
+    querySelectorImpl(selector) {
+      if (selector === '[data-question-jump-input="learning"]') return jumpInput;
+      return undefined;
+    },
+  });
+  const storage = createMutableStorage({
+    'question-app.preferences': { activeBankId: 'en', practiceMode: 'sequential' },
+  });
+  globalThis.fetch = fetchImpl;
+
+  const app = await loadAppModule();
+  await app.bootstrapApp({
+    fetch: fetchImpl,
+    storage,
+    window: globalThis.window,
+    document: globalThis.document,
+  });
+
+  await env.listeners.click({
+    target: {
+      closest(selector) {
+        return selector === '[data-action]'
+          ? { dataset: { action: 'jump-learning-question' } }
           : null;
       },
     },
@@ -2674,6 +2726,60 @@ test('practice navigation persists currentIndex on next and prev', async () => {
       awsSaa: null,
     },
   ]);
+});
+
+test('practice question jump moves directly to a typed question number', async () => {
+  const jumpInput = {
+    value: '2',
+    dataset: { questionJumpInput: 'practice' },
+    closest(selector) {
+      return selector === '[data-question-jump-input]' ? jumpInput : null;
+    },
+  };
+  const env = setupAppEnvironment('#/practice', {
+    querySelectorImpl(selector) {
+      if (selector === '[data-question-jump-input="practice"]') return jumpInput;
+      return undefined;
+    },
+  });
+  const storage = createMutableStorage({
+    'question-app.preferences': { practiceMode: 'sequential' },
+  });
+  globalThis.fetch = async () => ({
+    ok: true,
+    json: async () => sampleQuestions,
+  });
+
+  const app = await loadAppModule();
+  await app.bootstrapApp({
+    fetch: globalThis.fetch,
+    storage,
+    window: globalThis.window,
+    document: globalThis.document,
+  });
+
+  await env.listeners.click({
+    target: {
+      closest(selector) {
+        return selector === '[data-action]'
+          ? { dataset: { action: 'jump-practice-question' } }
+          : null;
+      },
+    },
+  });
+
+  assert.match(env.appElement.innerHTML, /Question 2/);
+  assert.equal(storage.dump()['question-app.current-practice']?.zh?.currentIndex, 1);
+
+  jumpInput.value = '1';
+  env.dispatchDocument('keydown', {
+    key: 'Enter',
+    target: jumpInput,
+    preventDefault() {},
+  });
+
+  assert.match(env.appElement.innerHTML, /Question 1/);
+  assert.equal(storage.dump()['question-app.current-practice']?.zh?.currentIndex, 0);
 });
 
 test('exam route renders unanswered questions and supports prev/next navigation', async () => {

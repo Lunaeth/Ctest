@@ -1,0 +1,38 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.meowdicine.ctest'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.meowdicine.ctest'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+}
+
+dependencies {
+    implementation 'androidx.webkit:webkit:1.11.0'
+}
+
+tasks.register('syncWebAssets', Copy) {
+    from(rootProject.projectDir.parentFile) {
+        include '*.html'
+        include '*.css'
+        include 'data/**'
+        include 'src/**'
+        exclude 'android-app/**'
+        exclude '.git/**'
+        exclude 'tests/**'
+        exclude 'docs/**'
+        exclude 'scripts/**'
+        exclude 'node_modules/**'
+    }
+    into layout.projectDirectory.dir('src/main/assets/www')
+}
+
+preBuild.dependsOn(syncWebAssets)
