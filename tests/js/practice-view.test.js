@@ -373,6 +373,51 @@ test('renderPracticeView shows the Core 2 visual review query after feedback', (
   assert.match(html, /练这类题/);
 });
 
+test('renderPracticeView places all option explanations first after grading feedback', () => {
+  const html = renderPracticeView({
+    id: 2,
+    stem: 'A technician needs remote support for a legacy Linux GUI session.',
+    type: 'single',
+    options: [
+      { key: 'A', text: 'SSH' },
+      { key: 'B', text: 'VNC' },
+    ],
+    answer: ['B'],
+    learning: { studyTags: ['remote-network'] },
+    analysis: {
+      source: 'core2',
+      whyChoose: 'VNC shows the Linux GUI session.',
+      whyNotChoose: [
+        { key: 'A', reason: 'SSH is command line, not GUI.' },
+      ],
+    },
+  }, {
+    currentIndex: 0,
+    order: [2],
+    mode: 'sequential',
+  }, {
+    correct: false,
+    selectedAnswer: ['A'],
+    correctAnswer: ['B'],
+  }, ['A'], 'Core 2 English Question Bank');
+
+  const feedbackIndex = html.indexOf('class="feedback is-wrong"');
+  const explanationsIndex = html.indexOf('data-section="practice-option-explanations"');
+  const decisionIndex = html.indexOf('data-section="practice-exam-decision"');
+  const mistakeIndex = html.indexOf('data-section="practice-mistake-reason"');
+  const summaryIndex = html.indexOf('data-section="practice-learning-summary"');
+
+  assert.notEqual(feedbackIndex, -1);
+  assert.notEqual(explanationsIndex, -1);
+  assert.notEqual(decisionIndex, -1);
+  assert.notEqual(mistakeIndex, -1);
+  assert.notEqual(summaryIndex, -1);
+  assert.ok(feedbackIndex < explanationsIndex, 'feedback should appear before option explanations');
+  assert.ok(explanationsIndex < decisionIndex, 'option explanations should appear before exam decision');
+  assert.ok(explanationsIndex < mistakeIndex, 'option explanations should appear before mistake reason');
+  assert.ok(explanationsIndex < summaryIndex, 'option explanations should appear before learning summary');
+});
+
 test('renderPracticeView shows Core 2 confusion tips after feedback', () => {
   const html = renderPracticeView({
     id: 64,

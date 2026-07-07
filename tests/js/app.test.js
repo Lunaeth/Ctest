@@ -299,8 +299,8 @@ test('index exposes a collapsible sidebar control with fresh app cache keys', ()
   assert.match(html, /aria-controls="app-sidebar"/);
   assert.match(html, /title="收起侧边栏"/);
   assert.doesNotMatch(html, /`r`n/);
-  assert.match(html, /styles\.css\?v=20260707-core2-process-flows/);
-  assert.match(html, /src\/app\.js\?v=20260707-core2-process-flows/);
+  assert.match(html, /styles\.css\?v=20260707-practice-explanations-first/);
+  assert.match(html, /src\/app\.js\?v=20260707-practice-explanations-first/);
 });
 
 async function loadAppModule() {

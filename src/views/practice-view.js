@@ -803,10 +803,10 @@ export function renderPracticeView(
             <strong>${feedback.correct ? TEXT.correct : TEXT.wrong}</strong>
             <p>${TEXT.correctAnswer}：${feedback.correctAnswer.map(escapeHtml).join(', ')}</p>
           </div>
+          ${renderPracticeOptionExplanations(question, feedback.selectedAnswer ?? selectedAnswer)}
           ${renderPracticeExamDecision(question, feedback)}
           ${renderPracticeMistakeReason(question, feedback)}
           ${renderPracticeLearningSummary(question, feedback)}
-          ${renderPracticeOptionExplanations(question, feedback.selectedAnswer ?? selectedAnswer)}
           ${renderQuestionAnalysis(question.analysis)}
         ` : ''}
       </article>
