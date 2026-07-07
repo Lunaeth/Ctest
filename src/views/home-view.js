@@ -3,8 +3,33 @@
     ? [
       {
         href: './core2-visual.html?v=20260707-core2-priority-feedback',
-        title: 'Core 2 高频',
-        summary: 'Security / OS / Apps / Ops / Remote',
+        title: 'Core 2 总图',
+        summary: '五类高频题型总览',
+      },
+      {
+        href: './core2-visual.html?v=20260707-core2-priority-feedback#security',
+        title: 'Security',
+        summary: 'Malware / MFA / Access',
+      },
+      {
+        href: './core2-visual.html?v=20260707-core2-priority-feedback#os-commands',
+        title: 'OS Commands',
+        summary: 'Windows / Linux / tools',
+      },
+      {
+        href: './core2-visual.html?v=20260707-core2-priority-feedback#app-troubleshooting',
+        title: 'App Troubleshooting',
+        summary: 'Apps / Services / logs',
+      },
+      {
+        href: './core2-visual.html?v=20260707-core2-priority-feedback#ops-support',
+        title: 'Ops Support',
+        summary: 'Backup / change / support',
+      },
+      {
+        href: './core2-visual.html?v=20260707-core2-priority-feedback#remote-network',
+        title: 'Remote / Network',
+        summary: 'VPN / RDP / VNC / Wi-Fi',
       },
     ]
     : [

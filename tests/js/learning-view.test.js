@@ -96,7 +96,12 @@ test('renderLearningView shows only the Core 2 visual map for Core 2 learning', 
   });
 
   assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback/);
-  assert.match(html, /Core 2 高频图/);
+  assert.match(html, /Core 2 总图/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#security/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#os-commands/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#app-troubleshooting/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#ops-support/);
+  assert.match(html, /core2-visual\.html\?v=20260707-core2-priority-feedback#remote-network/);
   assert.doesNotMatch(html, /printer-visual\.html\?v=20260705-visual-maps-source-backed/);
   assert.doesNotMatch(html, /hardware-visual\.html\?v=20260706-hardware-processes/);
   assert.doesNotMatch(html, /network-map\.html\?v=20260705-port-reference/);
