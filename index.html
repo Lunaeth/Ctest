@@ -4,26 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>刷题系统</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=20260707-core2-priority-feedback" />
   </head>
   <body>
     <div class="app-shell">
-      <aside class="sidebar">
+      <aside class="sidebar" id="app-sidebar">
+        <button
+          class="sidebar-toggle"
+          type="button"
+          data-action="toggle-sidebar"
+          aria-label="收起侧边栏"
+          aria-expanded="true"
+          aria-controls="app-sidebar"
+          title="收起侧边栏"
+        >
+          <span aria-hidden="true"></span>
+        </button>
         <div class="brand">
           <h1>刷题系统</h1>
-          <p>桌面练习台</p>
+          <p>桌面练习</p>
         </div>
         <nav class="nav-links">
           <button data-route="home">首页</button>
           <button data-route="practice">练习</button>
+          <button data-route="learn">学习</button>
           <button data-route="exam">考试</button>
-          <button data-route="mistakes">错题本</button>
+          <button data-route="mistakes">错题</button>
         </nav>
       </aside>
       <main class="content-area">
         <div id="app">正在初始化题库...</div>
       </main>
     </div>
-    <script type="module" src="./src/app.js"></script>
+    <script type="module" src="./src/app.js?v=20260707-core2-priority-feedback"></script>
   </body>
 </html>

@@ -22,6 +22,22 @@ function hydrateProgress(session, questions, progress = {}) {
   return session;
 }
 
+function normalizeSessionLabel(value) {
+  const label = String(value ?? '').trim();
+  return label ? label.slice(0, 80) : '';
+}
+
+function normalizeSessionSource(source) {
+  const label = normalizeSessionLabel(source?.label);
+  const url = String(source?.url ?? '').trim();
+  if (!label || !url) return null;
+
+  return {
+    label,
+    url: url.slice(0, 240),
+  };
+}
+
 export function createPracticeSession(questions, mode = 'sequential') {
   const ids = questions.map((question) => question.id);
   return {
@@ -29,6 +45,7 @@ export function createPracticeSession(questions, mode = 'sequential') {
     order: mode === 'random' ? shuffleIds(ids) : ids,
     currentIndex: 0,
     hydrateFromProgress: true,
+    revealedAnswerIds: [],
     answers: {},
     feedback: {},
   };
@@ -54,12 +71,27 @@ export function restorePracticeSession(questions, persistedSession, progress = {
     : 0;
   const session = {
     mode: persistedSession?.mode === 'random' ? 'random' : 'sequential',
+    label: normalizeSessionLabel(persistedSession?.label),
+    source: normalizeSessionSource(persistedSession?.source),
     order: validOrder,
     currentIndex,
     hydrateFromProgress: persistedSession?.hydrateFromProgress !== false,
+    showAnswerReview: persistedSession?.showAnswerReview === true,
+    revealedAnswerIds: [],
     answers: {},
     feedback: {},
   };
+
+  if (session.showAnswerReview) {
+    session.revealedAnswerIds = [...validOrder];
+    for (const questionId of validOrder) {
+      const question = questions.find((item) => item.id === questionId);
+      if (!question) continue;
+      session.answers[questionId] = [...question.answer];
+      session.feedback[questionId] = gradePracticeAnswer(question, question.answer);
+    }
+    return session;
+  }
 
   if (session.hydrateFromProgress === false) {
     return session;
@@ -75,9 +107,23 @@ export function snapshotPracticeSession(session) {
     order: [...session.order],
     currentIndex: session.currentIndex,
   };
+  const label = normalizeSessionLabel(session.label);
+  const source = normalizeSessionSource(session.source);
+
+  if (label) {
+    snapshot.label = label;
+  }
+
+  if (source) {
+    snapshot.source = source;
+  }
 
   if (session.hydrateFromProgress === false) {
     snapshot.hydrateFromProgress = false;
+  }
+
+  if (session.showAnswerReview === true) {
+    snapshot.showAnswerReview = true;
   }
 
   return snapshot;

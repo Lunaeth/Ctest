@@ -16,6 +16,26 @@ const mistakeEntries = [
       ],
     },
     answer: ['C'],
+    learning: {
+      keyPointHtml: '关键点：<strong>Gamma</strong> 是本题题眼。',
+      speedTipHtml: '速通：看到 <strong>Gamma</strong> 先排除 Delta。',
+      studyNotesHtml: [
+        '高频：Gamma 常和核心动作绑定。',
+        '排除：Delta 是干扰方向。',
+      ],
+      options: [
+        {
+          key: 'C',
+          isCorrect: true,
+          explanationHtml: '<strong>Gamma clue</strong> explains why C is correct.',
+        },
+        {
+          key: 'D',
+          isCorrect: false,
+          explanationHtml: 'Delta distractor explains why D is wrong.',
+        },
+      ],
+    },
     options: [
       { key: 'C', text: 'Gamma' },
       { key: 'D', text: 'Delta' },
@@ -48,6 +68,16 @@ test('renderMistakesView lists mistake questions with answers and structured ana
   assert.match(html, /Question 2/);
   assert.match(html, /Question 1/);
   assert.match(html, /C\. Gamma/);
+  assert.match(html, /data-section="mistake-options"/);
+  assert.match(html, /data-section="mistake-learning-summary"/);
+  assert.match(html, /关键点：<strong>Gamma<\/strong> 是本题题眼/);
+  assert.match(html, /速通：看到 <strong>Gamma<\/strong> 先排除 Delta/);
+  assert.match(html, /高频：Gamma 常和核心动作绑定/);
+  assert.match(html, /排除：Delta 是干扰方向/);
+  assert.match(html, /Gamma clue/);
+  assert.match(html, /Delta distractor/);
+  assert.match(html, /class="mistake-option is-correct"/);
+  assert.match(html, /class="mistake-option is-wrong"/);
   assert.match(html, /分析提纲/);
   assert.match(html, /为什么选/);
   assert.match(html, /为什么不选/);

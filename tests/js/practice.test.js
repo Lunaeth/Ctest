@@ -4,6 +4,7 @@ import {
   createPracticeSession,
   gradePracticeAnswer,
   restorePracticeSession,
+  snapshotPracticeSession,
 } from '../../src/practice.js';
 
 const sampleQuestions = [
@@ -66,4 +67,67 @@ test('restorePracticeSession keeps retry sessions blank instead of reusing old s
   assert.deepEqual(session.order, [2, 1]);
   assert.deepEqual(session.answers, {});
   assert.deepEqual(session.feedback, {});
+});
+
+test('restorePracticeSession reveals answers for review sessions', () => {
+  const session = restorePracticeSession(
+    sampleQuestions,
+    {
+      mode: 'sequential',
+      order: [2, 1],
+      currentIndex: 0,
+      hydrateFromProgress: false,
+      showAnswerReview: true,
+    },
+    {
+      2: { selectedAnswer: ['D'] },
+      1: { selectedAnswer: ['B'] },
+    },
+  );
+
+  assert.equal(session.showAnswerReview, true);
+  assert.deepEqual(session.revealedAnswerIds, [2, 1]);
+  assert.deepEqual(session.answers[2], ['C']);
+  assert.equal(session.feedback[2].correct, true);
+  assert.deepEqual(snapshotPracticeSession(session), {
+    mode: 'sequential',
+    order: [2, 1],
+    currentIndex: 0,
+    hydrateFromProgress: false,
+    showAnswerReview: true,
+  });
+});
+
+test('snapshot and restore preserve focused practice label and source', () => {
+  const session = restorePracticeSession(
+    sampleQuestions,
+    {
+      mode: 'sequential',
+      label: 'Core 2 图谱筛选：vpn remote',
+      source: {
+        label: '返回图谱：vpn remote',
+        url: './core2-visual.html?v=test&q=vpn%20remote#symptom-remote-windows-pc',
+      },
+      order: [1, 2],
+      currentIndex: 0,
+      hydrateFromProgress: false,
+    },
+  );
+
+  assert.equal(session.label, 'Core 2 图谱筛选：vpn remote');
+  assert.deepEqual(session.source, {
+    label: '返回图谱：vpn remote',
+    url: './core2-visual.html?v=test&q=vpn%20remote#symptom-remote-windows-pc',
+  });
+  assert.deepEqual(snapshotPracticeSession(session), {
+    mode: 'sequential',
+    order: [1, 2],
+    currentIndex: 0,
+    label: 'Core 2 图谱筛选：vpn remote',
+    source: {
+      label: '返回图谱：vpn remote',
+      url: './core2-visual.html?v=test&q=vpn%20remote#symptom-remote-windows-pc',
+    },
+    hydrateFromProgress: false,
+  });
 });

@@ -1,15 +1,20 @@
 function renderOutline(analysis) {
+  const outline = Array.isArray(analysis.outline) ? analysis.outline : [];
+  if (!outline.length) return '';
+
   return `
     <div class="analysis-section">
       <strong>分析提纲</strong>
       <ul>
-        ${analysis.outline.map((item) => `<li>${item}</li>`).join('')}
+        ${outline.map((item) => `<li>${item}</li>`).join('')}
       </ul>
     </div>
   `;
 }
 
 function renderWhyChoose(analysis) {
+  if (!analysis.whyChoose) return '';
+
   return `
     <div class="analysis-section">
       <strong>为什么选</strong>
@@ -19,12 +24,15 @@ function renderWhyChoose(analysis) {
 }
 
 function renderWhyNotChoose(analysis) {
+  const whyNotChoose = Array.isArray(analysis.whyNotChoose) ? analysis.whyNotChoose : [];
+  if (!whyNotChoose.length) return '';
+
   return `
     <div class="analysis-section">
       <strong>为什么不选</strong>
       <ul>
-        ${analysis.whyNotChoose
-          .map((item) => `<li><span>${item.key}. ${item.text}</span>：${item.reason}</li>`)
+        ${whyNotChoose
+          .map((item) => `<li><span>${item.key}. ${item.text ?? ''}</span>：${item.reason}</li>`)
           .join('')}
       </ul>
     </div>

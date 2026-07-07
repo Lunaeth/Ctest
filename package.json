@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "serve": "python -m http.server 4173",
+    "serve": "node scripts/serve-static.mjs 4173",
     "test": "node --test tests/js/*.test.js",
     "test:parser": "python -m unittest discover -s tests/python -p \"test_*.py\""
   }

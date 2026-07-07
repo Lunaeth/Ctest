@@ -2,6 +2,12 @@ import { getCore2Explanation } from './core2-explanations.js';
 
 const DEFAULT_LEAD_SUMMARY = '题干前半段已经给出了当前场景和限制条件';
 const DEFAULT_OPTION_ROLE = '表示另一类不同的技术、工具或控制方向';
+const WEAK_STORED_ANALYSIS_PATTERNS = [
+  /题干要找的不是它/,
+  /最符合当前场景/,
+  /最直接对应题干给出的目标、风险或症状/,
+  /直接对应题干的症状或需求/,
+];
 
 const OPTION_METADATA = [
   { patterns: ['totp', 'one-time password'], name: '时间型一次性口令', role: '向用户提供可立即输入的动态认证码', category: '认证凭据' },
@@ -613,6 +619,7 @@ function buildLegacyDrivenAnalysis(question, ctx) {
 function localizeAnalysis(question, analysis) {
   return {
     ...analysis,
+    source: 'core2',
     outline: analysis.outline.map((item) => localizeTextByOptions(question, item)),
     whyChoose: localizeTextByOptions(question, analysis.whyChoose),
     whyNotChoose: analysis.whyNotChoose.map((item) => ({
@@ -664,9 +671,14 @@ function buildWhyNotChooseReason(option, leadSummary, focus, answerRole, ctx) {
     return `${localized} 解决的是${role}，和题目要找的“${focus}”不是一回事。`;
   }
 
+  const needType = getNeedType(ctx.stem);
+  const targetAction = isDefaultOptionRole(answerRole)
+    ? '直接完成题干目标'
+    : answerRole;
+
   return isDefaultOptionRole(role)
-    ? `${localized} 和正确项不是同一类技术或控制点，题干要找的不是它。`
-    : `${localized} 更偏向${role}，和题干要解决的“${getNeedType(ctx.stem)}”不完全对位，所以不是最佳答案。`;
+    ? `${localized} 可先排除：题干归在“${needType}”，应选能${targetAction}的项；这个选项没有覆盖这条主路径。`
+    : `${localized} 更偏向${role}，和题干要解决的“${needType}”不完全对位，所以不是最佳答案。`;
 }
 
 function isGenericLegacyExplanation(explanation = '') {
@@ -674,6 +686,17 @@ function isGenericLegacyExplanation(explanation = '') {
   return text.includes('最符合当前场景')
     || text.includes('直接对应题干的症状或需求')
     || text.includes('最直接对应题干给出的目标、风险或症状');
+}
+
+function hasWeakStoredCore2Analysis(record) {
+  const combined = [
+    record?.explanation,
+    ...(record?.analysis?.outline ?? []),
+    record?.analysis?.whyChoose,
+    ...(record?.analysis?.whyNotChoose ?? []).map((item) => item.reason),
+  ].join('\n');
+
+  return WEAK_STORED_ANALYSIS_PATTERNS.some((pattern) => pattern.test(combined));
 }
 
 function looksLikeCommandText(optionText = '') {
@@ -1200,11 +1223,11 @@ export function applyStoredCore2Analyses(questions = [], records = []) {
 
   return questions.map((question) => {
     const record = analysisMap.get(question.id);
-    if (record?.analysis && record?.explanation) {
+    if (record?.analysis && record?.explanation && !hasWeakStoredCore2Analysis(record)) {
       return {
         ...question,
         explanation: record.explanation,
-        analysis: record.analysis,
+        analysis: localizeAnalysis(question, record.analysis),
       };
     }
 

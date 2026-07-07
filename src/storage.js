@@ -1,10 +1,12 @@
 const DEFAULT_KEYS = {
   progress: 'question-app.progress',
   mistakes: 'question-app.mistakes',
+  favorites: 'question-app.favorites',
   examHistory: 'question-app.exam-history',
   preferences: 'question-app.preferences',
   currentPractice: 'question-app.current-practice',
   currentExam: 'question-app.current-exam',
+  pendingCore2ModulePractice: 'question-app.pending-core2-module-practice',
 };
 
 const memoryStorage = (() => {

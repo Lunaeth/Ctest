@@ -79,6 +79,10 @@ test('createInitialState scopes banked values to the active question bank', () =
       zh: [1],
       en: [2, 999],
     },
+    favorites: {
+      zh: [1],
+      en: [3, 999],
+    },
     examHistory: {
       zh: [{ score: 18, total: 20 }],
       en: [{ score: 7, total: 10 }],
@@ -92,12 +96,19 @@ test('createInitialState scopes banked values to the active question bank', () =
   assert.equal(state.bankId, 'en');
   assert.deepEqual(state.progress, { 2: { correct: false } });
   assert.deepEqual(state.mistakes, [2]);
+  assert.deepEqual(state.favorites, [3]);
   assert.deepEqual(state.examHistory, [{ score: 7, total: 10 }]);
   assert.deepEqual(state.progressByBank, {
     zh: { 1: { correct: true } },
     en: { 2: { correct: false } },
     core2: {},
     awsSaa: {},
+  });
+  assert.deepEqual(state.favoritesByBank, {
+    zh: [1],
+    en: [3],
+    core2: [],
+    awsSaa: [],
   });
   assert.deepEqual(state.preferences, {
     activeBankId: 'en',
@@ -118,6 +129,11 @@ test('createInitialState supports a third configured bank bucket', () => {
       en: [],
       core2: [201, 999],
     },
+    favorites: {
+      zh: [],
+      en: [],
+      core2: [202, 999],
+    },
     examHistory: {
       zh: [],
       en: [],
@@ -132,6 +148,7 @@ test('createInitialState supports a third configured bank bucket', () => {
   assert.equal(state.bankId, 'core2');
   assert.deepEqual(state.progress, { 201: { correct: true } });
   assert.deepEqual(state.mistakes, [201]);
+  assert.deepEqual(state.favorites, [202]);
   assert.deepEqual(state.examHistory, [{ score: 1, total: 2 }]);
   assert.deepEqual(state.progressByBank, {
     zh: {},
@@ -139,12 +156,19 @@ test('createInitialState supports a third configured bank bucket', () => {
     core2: { 201: { correct: true } },
     awsSaa: {},
   });
+  assert.deepEqual(state.favoritesByBank, {
+    zh: [],
+    en: [],
+    core2: [202],
+    awsSaa: [],
+  });
 });
 
 test('createInitialState migrates legacy single-bank records into zh buckets', () => {
   const state = createInitialState([{ id: 1 }], {
     progress: { 1: { correct: true } },
     mistakes: [1],
+    favorites: [1],
     examHistory: [{ score: 1, total: 1 }],
     currentPractice: { mode: 'sequential', order: [1], currentIndex: 0 },
     currentExam: { order: [1], answers: {}, currentIndex: 0, startedAt: 10 },
@@ -159,6 +183,12 @@ test('createInitialState migrates legacy single-bank records into zh buckets', (
     awsSaa: {},
   });
   assert.deepEqual(state.mistakesByBank, {
+    zh: [1],
+    en: [],
+    core2: [],
+    awsSaa: [],
+  });
+  assert.deepEqual(state.favoritesByBank, {
     zh: [1],
     en: [],
     core2: [],
