@@ -35,4 +35,10 @@ tasks.register('syncWebAssets', Copy) {
     into layout.projectDirectory.dir('src/main/assets/www')
 }
 
-preBuild.dependsOn(syncWebAssets)
+tasks.register('deleteDesktopIni', Delete) {
+    delete fileTree(projectDir) {
+        include '**/desktop.ini'
+    }
+}
+
+preBuild.dependsOn(deleteDesktopIni, syncWebAssets)
