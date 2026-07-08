@@ -36,7 +36,10 @@ import { renderHomeView } from './views/home-view.js?v=20260707-core2-process-fl
 import { renderExamView } from './views/exam-view.js';
 import { renderLearningView } from './views/learning-view.js?v=20260707-mobile-sync-portrait';
 import { renderMistakesView } from './views/mistakes-view.js?v=20260707-core2-priority-feedback';
-import { renderPracticeView } from './views/practice-view.js?v=20260707-mobile-sync-portrait';
+import {
+  normalizePracticeFontScale,
+  renderPracticeView,
+} from './views/practice-view.js?v=20260707-practice-font-scale';
 import { renderResultsView } from './views/results-view.js';
 
 const QUESTION_BANKS = [
@@ -1042,6 +1045,16 @@ function toggleCurrentPracticeFavorite() {
   return true;
 }
 
+function getPracticeFontScale() {
+  return normalizePracticeFontScale(state.preferences.practiceFontScale);
+}
+
+function setPracticeFontScale(value) {
+  const rawValue = Number(value);
+  const scale = rawValue > 2 ? rawValue / 100 : rawValue;
+  state.preferences.practiceFontScale = normalizePracticeFontScale(scale);
+}
+
 function renderPractice() {
   ensurePracticeSession();
 
@@ -1072,6 +1085,7 @@ function renderPractice() {
       isProgressCollapsed: state.preferences.practiceProgressCollapsed === true,
       favoriteCount: state.favorites.length,
       favoriteSync: favoriteSyncState,
+      fontScale: getPracticeFontScale(),
     },
   );
 }
@@ -1625,6 +1639,14 @@ function ensureEventBindings(windowObject, documentObject) {
     });
 
     documentObject.addEventListener('change', (event) => {
+      const scaleInput = event.target?.closest?.('[data-practice-font-scale]');
+      if (scaleInput) {
+        setPracticeFontScale(scaleInput.value);
+        persistState();
+        renderApp(windowObject, documentObject);
+        return;
+      }
+
       const input = event.target?.closest?.('input[name="answer"]');
       if (!input) return;
       if (normalizeRoute(windowObject.location.hash) !== 'practice') return;

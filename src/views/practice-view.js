@@ -54,6 +54,9 @@ const TEXT = {
 };
 
 const CORE2_VISUAL_URL = './core2-visual.html?v=20260707-core2-process-flows';
+const DEFAULT_PRACTICE_FONT_SCALE = 0.82;
+const MIN_PRACTICE_FONT_SCALE = 0.72;
+const MAX_PRACTICE_FONT_SCALE = 1;
 
 const CORE2_STUDY_TAG_LABELS = {
   security: 'Security / Malware',
@@ -91,6 +94,43 @@ function tokenizeStudyText(value) {
     .replace(/[^a-z0-9+]+/g, ' ')
     .split(/\s+/)
     .filter((token) => token.length >= 3 && !MATCH_STOP_WORDS.has(token));
+}
+
+export function normalizePracticeFontScale(value) {
+  const numericValue = Number(value);
+  if (!Number.isFinite(numericValue)) return DEFAULT_PRACTICE_FONT_SCALE;
+
+  return Math.min(
+    MAX_PRACTICE_FONT_SCALE,
+    Math.max(MIN_PRACTICE_FONT_SCALE, numericValue),
+  );
+}
+
+function renderPracticeFontControl(fontScale) {
+  const normalizedScale = normalizePracticeFontScale(fontScale);
+  const percentage = Math.round(normalizedScale * 100);
+
+  return `
+    <div class="practice-font-control" aria-label="练习字号">
+      <div class="practice-font-control__header">
+        <label for="practice-font-scale">字号</label>
+        <strong>${percentage}%</strong>
+      </div>
+      <input
+        id="practice-font-scale"
+        type="range"
+        min="72"
+        max="100"
+        step="2"
+        value="${percentage}"
+        data-practice-font-scale
+      />
+      <div class="practice-font-control__ticks" aria-hidden="true">
+        <span>小</span>
+        <span>默认</span>
+      </div>
+    </div>
+  `;
 }
 
 function renderFavoriteButton(question, isFavorite) {
@@ -730,6 +770,7 @@ function renderPracticeNavigator(
   total = 1,
   favoriteCount = 0,
   favoriteSync = {},
+  fontScale = DEFAULT_PRACTICE_FONT_SCALE,
 ) {
   const toggleLabel = isProgressCollapsed ? TEXT.expandProgress : TEXT.collapseProgress;
   const sourceLabel = String(source?.label ?? '').trim();
@@ -756,6 +797,7 @@ function renderPracticeNavigator(
         <div class="practice-progress-body" id="practice-progress-body" ${isProgressCollapsed ? 'hidden' : ''}>
           <p>${TEXT.currentBank}：${escapeHtml(bankLabel)}</p>
           <p>${TEXT.currentMode}：${escapeHtml(modeLabel)}</p>
+          ${renderPracticeFontControl(fontScale)}
           <div class="question-jump-control" aria-label="${TEXT.jumpToQuestion}">
             <label for="practice-question-jump">${TEXT.jumpToQuestion}</label>
             <div class="question-jump-control__row">
@@ -798,16 +840,18 @@ export function renderPracticeView(
     isProgressCollapsed = false,
     favoriteCount = 0,
     favoriteSync = {},
+    fontScale = DEFAULT_PRACTICE_FONT_SCALE,
   } = {},
 ) {
   const currentNumber = session.currentIndex + 1;
   const total = session.order.length;
   const modeLabel = session.label || (session.mode === 'random' ? TEXT.random : TEXT.sequential);
   const isMultiple = question.type === 'multiple';
+  const normalizedFontScale = normalizePracticeFontScale(fontScale);
 
   return `
     <section class="workspace-grid ${isProgressCollapsed ? 'is-practice-progress-collapsed' : ''}">
-      <article class="panel question-panel practice-question-panel">
+      <article class="panel question-panel practice-question-panel" style="--practice-font-scale: ${normalizedFontScale}">
         <div class="practice-topbar">
           <div class="question-meta">
             <span>${escapeHtml(bankLabel)}</span>
@@ -857,6 +901,7 @@ export function renderPracticeView(
     total,
     favoriteCount,
     favoriteSync,
+    normalizedFontScale,
   )}
     </section>
   `;

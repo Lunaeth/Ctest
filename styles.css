@@ -357,6 +357,11 @@ body {
 
 .practice-question-panel {
   font-family: Arial, Helvetica, sans-serif;
+  --practice-font-scale: 0.82;
+}
+
+.practice-question-panel .question-stem {
+  font-size: calc(27px * var(--practice-font-scale, 0.82));
 }
 
 .practice-topbar {
@@ -517,6 +522,46 @@ body {
 
 .question-jump-control .secondary-btn {
   padding: 9px 12px;
+}
+
+.practice-font-control {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fbfcff;
+}
+
+.practice-font-control__header,
+.practice-font-control__ticks {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.practice-font-control label {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.practice-font-control strong {
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 900;
+}
+
+.practice-font-control input[type="range"] {
+  accent-color: var(--accent);
+  width: 100%;
+}
+
+.practice-font-control__ticks {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.2;
 }
 
 .favorite-sync-panel {
@@ -1034,7 +1079,20 @@ body {
 }
 
 .practice-question-panel .option-item span {
+  font-size: calc(1rem * var(--practice-font-scale, 0.82));
   font-weight: 400;
+  line-height: 1.48;
+}
+
+.practice-question-panel .practice-answer-prompt,
+.practice-question-panel .practice-study-strip,
+.practice-question-panel .feedback,
+.practice-question-panel .practice-option-explanations,
+.practice-question-panel .practice-exam-decision,
+.practice-question-panel .practice-mistake-reason,
+.practice-question-panel .practice-learning-summary,
+.practice-question-panel .question-analysis {
+  font-size: calc(1rem * var(--practice-font-scale, 0.82));
 }
 
 .toolbar {

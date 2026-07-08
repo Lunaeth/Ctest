@@ -299,8 +299,8 @@ test('index exposes a collapsible sidebar control with fresh app cache keys', ()
   assert.match(html, /aria-controls="app-sidebar"/);
   assert.match(html, /title="收起侧边栏"/);
   assert.doesNotMatch(html, /`r`n/);
-  assert.match(html, /styles\.css\?v=20260707-mobile-sync-portrait/);
-  assert.match(html, /src\/app\.js\?v=20260707-mobile-sync-portrait/);
+  assert.match(html, /styles\.css\?v=20260707-practice-font-scale/);
+  assert.match(html, /src\/app\.js\?v=20260707-practice-font-scale/);
 });
 
 test('practice options stay vertical for phone APK use', () => {
@@ -309,6 +309,8 @@ test('practice options stay vertical for phone APK use', () => {
 
   assert.match(practiceOptionRule, /grid-template-columns:\s*1fr/);
   assert.doesNotMatch(css, /\.practice-question-panel \.option-list\s*\{[^}]+repeat\(2,/);
+  assert.match(css, /--practice-font-scale:\s*0\.82/);
+  assert.match(css, /font-size:\s*calc\(27px \* var\(--practice-font-scale/);
 });
 
 async function loadAppModule() {
@@ -2339,6 +2341,41 @@ test('practice progress panel can collapse and persist the preference', async ()
   assert.match(env.appElement.innerHTML, /practice-progress-panel is-collapsed/);
   assert.match(env.appElement.innerHTML, /aria-expanded="false"/);
   assert.equal(storage.dump()['question-app.preferences']?.practiceProgressCollapsed, true);
+});
+
+test('practice font scale control persists the selected size', async () => {
+  const env = setupAppEnvironment('#/practice');
+  const storage = createMutableStorage({
+    'question-app.preferences': { practiceMode: 'sequential' },
+  });
+  globalThis.fetch = async () => ({
+    ok: true,
+    json: async () => sampleQuestions,
+  });
+
+  const app = await loadAppModule();
+  await app.bootstrapApp({
+    fetch: globalThis.fetch,
+    storage,
+    window: globalThis.window,
+    document: globalThis.document,
+  });
+
+  assert.match(env.appElement.innerHTML, /data-practice-font-scale/);
+  assert.match(env.appElement.innerHTML, /style="--practice-font-scale: 0\.82"/);
+
+  env.dispatchDocument('change', {
+    target: {
+      value: '74',
+      closest(selector) {
+        return selector === '[data-practice-font-scale]' ? this : null;
+      },
+    },
+  });
+
+  assert.equal(storage.dump()['question-app.preferences']?.practiceFontScale, 0.74);
+  assert.match(env.appElement.innerHTML, /style="--practice-font-scale: 0\.74"/);
+  assert.match(env.appElement.innerHTML, /value="74"/);
 });
 
 test('multiple-choice practice waits for compare answer before grading', async () => {

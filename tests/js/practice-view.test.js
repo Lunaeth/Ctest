@@ -5,6 +5,7 @@ import {
   buildPracticeExamDecision,
   buildPracticeMistakeReason,
   getPracticeAnswerPrompt,
+  normalizePracticeFontScale,
   renderPracticeView,
   selectPracticeModuleFlow,
 } from '../../src/views/practice-view.js';
@@ -278,6 +279,13 @@ test('getPracticeAnswerPrompt summarizes needed and selected counts for multiple
   );
 });
 
+test('normalizePracticeFontScale defaults and clamps practice text size', () => {
+  assert.equal(normalizePracticeFontScale(undefined), 0.82);
+  assert.equal(normalizePracticeFontScale(0.5), 0.72);
+  assert.equal(normalizePracticeFontScale(1.2), 1);
+  assert.equal(normalizePracticeFontScale(0.9), 0.9);
+});
+
 test('renderPracticeView shows a compact multiple-choice answer prompt', () => {
   const html = renderPracticeView({
     id: 64,
@@ -300,6 +308,31 @@ test('renderPracticeView shows a compact multiple-choice answer prompt', () => {
   assert.match(html, /data-section="practice-answer-prompt"/);
   assert.match(html, /多选题：需选 2 个，已选 1 个；选完点对照答案 \/ Enter/);
   assert.match(html, /Core 2 高频/);
+});
+
+test('renderPracticeView exposes adjustable practice font scale', () => {
+  const html = renderPracticeView({
+    id: 1,
+    stem: 'Question 1',
+    type: 'single',
+    options: [
+      { key: 'A', text: 'Alpha' },
+      { key: 'B', text: 'Beta' },
+    ],
+    answer: ['A'],
+  }, {
+    currentIndex: 0,
+    order: [1],
+    mode: 'sequential',
+  }, null, [], 'Core 1 English Question Bank', {
+    fontScale: 0.76,
+  });
+
+  assert.match(html, /style="--practice-font-scale: 0\.76"/);
+  assert.match(html, /class="practice-font-control"/);
+  assert.match(html, /data-practice-font-scale/);
+  assert.match(html, /value="76"/);
+  assert.match(html, /字号/);
 });
 
 test('renderPracticeView shows a persisted practice source link', () => {
