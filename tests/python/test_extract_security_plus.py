@@ -28,6 +28,12 @@ Salting adds random data before hashing and prevents identical passwords from sh
         self.assertEqual(question["type"], "single")
         self.assertIn("Salting adds random data", question["discussion"]["summary"])
         self.assertIn("存在分歧", question["learning"]["speedTipHtml"])
+        self.assertIn("B", question["discussion"]["optionEvidence"])
+        self.assertIn(
+            "Salting adds random data",
+            question["discussion"]["optionEvidence"]["B"][0]["text"],
+        )
+        self.assertNotIn("不是社区最高票答案", str(question["learning"]))
 
     def test_multiselect_uses_highest_voted_answer_combination(self):
         block = """Question #20 Topic 1

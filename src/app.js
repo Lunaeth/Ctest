@@ -22,6 +22,7 @@ import {
   getCore2SymptomId,
 } from './core2-study-map.js?v=20260707-core2-process-flows';
 import { applyLearningAnnotations } from './learning-annotations.js?v=20260720-security-plus';
+import { decorateSecurityPlusQuestions } from './security-plus-analysis.js?v=20260720-security-plus-analysis';
 import {
   buildFavoriteSyncText,
   mergeFavoriteIds,
@@ -1311,6 +1312,10 @@ async function loadQuestions(fetchImpl, bankId = DEFAULT_BANK_ID) {
     } else {
       hydratedQuestions = decorateCore2Questions(questions);
     }
+  }
+
+  if (bank.id === SECURITY_PLUS_BANK_ID) {
+    hydratedQuestions = decorateSecurityPlusQuestions(hydratedQuestions);
   }
 
   if (LEARNING_BANK_IDS.has(bank.id)) {

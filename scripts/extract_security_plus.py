@@ -181,6 +181,59 @@ def select_discussion_comments(
     return selected
 
 
+def select_option_discussion_comments(
+    comments: list[ParsedComment],
+    option: dict,
+    limit: int = 2,
+) -> list[ParsedComment]:
+    """Keep the strongest discussion evidence that specifically addresses an option."""
+    option_key = option["key"]
+    option_text = option["text"]
+    option_marker = re.compile(rf"(?:^|\s){re.escape(option_key)}[.):\-]\s*", re.IGNORECASE)
+    option_phrase = re.compile(re.escape(option_text), re.IGNORECASE)
+
+    candidates = []
+    for comment in comments:
+        if not is_substantive_comment(comment):
+            continue
+        explicitly_selected = option_key in comment.selected_answer
+        explicitly_mentioned = bool(option_marker.search(comment.text) or option_phrase.search(comment.text))
+        if explicitly_selected or explicitly_mentioned:
+            candidates.append((comment, explicitly_selected, explicitly_mentioned))
+
+    candidates.sort(
+        key=lambda item: (
+            not (item[0].highly_voted and item[1]),
+            not item[1],
+            not item[0].highly_voted,
+            not item[2],
+            -len(item[0].text),
+        )
+    )
+
+    selected: list[ParsedComment] = []
+    seen_texts: set[str] = set()
+    for comment, _, _ in candidates:
+        normalized = comment.text.lower()
+        if normalized in seen_texts:
+            continue
+        selected.append(comment)
+        seen_texts.add(normalized)
+        if len(selected) >= limit:
+            break
+    return selected
+
+
+def serialize_comment(comment: ParsedComment) -> dict:
+    return {
+        "author": comment.author,
+        "age": comment.age,
+        "highlyVoted": comment.highly_voted,
+        "selectedAnswer": comment.selected_answer,
+        "text": truncate_comment(comment.text),
+    }
+
+
 def choose_community_answer(
     options: list[dict],
     official_answer: list[str],
@@ -255,13 +308,16 @@ def build_learning_data(
     for option in question["options"]:
         is_correct = option["key"] in answer_set
         if is_correct:
-            explanation = f"{option['key']}. {option['text']} 是社区最高票答案。"
+            explanation = (
+                f"{option['key']}. {option['text']} 与题干限制的匹配度最高，"
+                "也是本题采用的 community consensus（社区共识）。"
+            )
             if summary:
-                explanation += f" 高赞讨论指出：{summary}"
+                explanation += f" Discussion evidence（讨论依据）：{summary}"
         else:
             explanation = (
-                f"{option['key']}. {option['text']} 不是社区最高票答案。"
-                f" 本题讨论的主要依据指向 {answer_text}。"
+                f"{option['key']}. {option['text']} 代表一个相关概念，但它的典型用途"
+                f"没有直接覆盖本题的关键限制；相比之下，{answer_text} 与题意更直接对应。"
             )
         option_explanations.append(
             {
@@ -300,16 +356,14 @@ def build_learning_data(
     discussion = {
         "summary": summary,
         "voteDistribution": votes,
-        "highlights": [
-            {
-                "author": comment.author,
-                "age": comment.age,
-                "highlyVoted": comment.highly_voted,
-                "selectedAnswer": comment.selected_answer,
-                "text": truncate_comment(comment.text),
-            }
-            for comment in selected_comments
-        ],
+        "highlights": [serialize_comment(comment) for comment in selected_comments],
+        "optionEvidence": {
+            option["key"]: [
+                serialize_comment(comment)
+                for comment in select_option_discussion_comments(comments, option)
+            ]
+            for option in question["options"]
+        },
     }
     return learning, {"analysis": analysis, "discussion": discussion}
 

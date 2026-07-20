@@ -22,6 +22,11 @@ test('Security+ SY0-701 bank is valid quiz-service JSON', () => {
     assert.equal(question.type, question.answer.length === 1 ? 'single' : 'multiple');
     assert.ok(question.learning?.options?.length === question.options.length);
     assert.ok(question.analysis?.whyChoose);
+    assert.deepEqual(
+      Object.keys(question.discussion?.optionEvidence ?? {}),
+      optionKeys,
+      `Question ${question.id} must retain discussion evidence by option`,
+    );
   }
 });
 
