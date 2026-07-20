@@ -1,5 +1,5 @@
 import { escapeHtml } from './learning-annotations.js?v=20260707-core2-priority-feedback';
-import { SECURITY_PLUS_DOMAINS } from './security-plus-study-map.js?v=20260720-security-plus';
+import { SECURITY_PLUS_DOMAINS } from './security-plus-study-map.js?v=20260720-security-plus-bilingual';
 
 const PREFERENCES_KEY = 'question-app.preferences';
 
@@ -48,7 +48,7 @@ function renderDomains() {
       <article class="process-card core2-process-card" id="${escapeHtml(domain.id)}">
         <div class="process-card__head">
           <div>
-            <p class="eyebrow">Domain ${escapeHtml(domain.number)}</p>
+            <p class="eyebrow">领域 Domain ${escapeHtml(domain.number)}</p>
             <h3>${escapeHtml(domain.label)}</h3>
             <p>${escapeHtml(domain.summary)}</p>
           </div>
@@ -62,7 +62,7 @@ function renderDomains() {
             class="cram-practice-link"
             data-action="start-security-plus-module"
             data-module-id="${escapeHtml(domain.id)}"
-            href="./index.html?v=20260720-security-plus#/learn"
+            href="./index.html?v=20260720-security-plus-bilingual#/learn"
           >练习此领域</a>
         </div>
       </article>

@@ -22,7 +22,7 @@ import {
   getCore2SymptomId,
 } from './core2-study-map.js?v=20260707-core2-process-flows';
 import { applyLearningAnnotations } from './learning-annotations.js?v=20260720-security-plus';
-import { decorateSecurityPlusQuestions } from './security-plus-analysis.js?v=20260720-security-plus-evidence';
+import { decorateSecurityPlusQuestions } from './security-plus-analysis.js?v=20260720-security-plus-bilingual-2';
 import {
   buildFavoriteSyncText,
   mergeFavoriteIds,
@@ -33,10 +33,10 @@ import {
   buildCore1ModuleStats,
   buildCore2ModuleStats,
   buildSecurityPlusModuleStats,
-} from './study-modules.js?v=20260720-security-plus';
-import { renderHomeView } from './views/home-view.js?v=20260720-security-plus';
+} from './study-modules.js?v=20260720-security-plus-bilingual';
+import { renderHomeView } from './views/home-view.js?v=20260720-security-plus-bilingual';
 import { renderExamView } from './views/exam-view.js';
-import { renderLearningView } from './views/learning-view.js?v=20260720-security-plus';
+import { renderLearningView } from './views/learning-view.js?v=20260720-security-plus-bilingual';
 import { renderMistakesView } from './views/mistakes-view.js?v=20260707-core2-priority-feedback';
 import {
   normalizePracticeFontScale,
@@ -59,7 +59,7 @@ const QUESTION_BANKS = [
   {
     id: 'securityPlus',
     label: 'Security+ SY0-701',
-    file: './data/questions.security-plus.json?v=20260720-security-plus-evidence',
+    file: './data/questions.security-plus.json?v=20260720-security-plus-bilingual',
   },
   { id: 'awsSaa', label: 'AWS SAA Screenshots', file: './data/questions.aws-saa.json' },
 ];

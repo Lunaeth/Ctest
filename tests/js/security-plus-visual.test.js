@@ -14,6 +14,13 @@ test('Security+ visual map covers all five SY0-701 exam domains', () => {
   ), 0), 100);
   assert.ok(SECURITY_PLUS_DOMAINS.every((domain) => domain.flow.length >= 4));
   assert.ok(SECURITY_PLUS_DOMAINS.every((domain) => domain.traps.length >= 3));
+  assert.ok(SECURITY_PLUS_DOMAINS.every((domain) => /[\u3400-\u9fff]/.test(domain.label)));
+  assert.ok(SECURITY_PLUS_DOMAINS.every((domain) => /[A-Za-z]/.test(domain.label)));
+  assert.ok(SECURITY_PLUS_DOMAINS.every((domain) => (
+    [...domain.signals, ...domain.flow, ...domain.traps].every((row) => (
+      /[\u3400-\u9fff]/.test(row) && /[A-Za-z]/.test(row)
+    ))
+  )));
 });
 
 test('Security+ visual page links domain cards back to focused learning', () => {
@@ -21,7 +28,7 @@ test('Security+ visual page links domain cards back to focused learning', () => 
   const pageScript = fs.readFileSync('./src/security-plus-visual-page.js', 'utf8');
 
   assert.match(html, /security-plus-domains/);
-  assert.match(html, /Security\+ Study Map/);
+  assert.match(html, /Security\+ 学习地图｜Study Map/);
   assert.match(pageScript, /start-security-plus-module/);
   assert.match(pageScript, /activeBankId = 'securityPlus'/);
   assert.match(pageScript, /securityPlus:\$\{moduleId\}/);

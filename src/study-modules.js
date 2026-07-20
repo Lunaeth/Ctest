@@ -492,9 +492,9 @@ const CORE2_MODULES = [
 const SECURITY_PLUS_MODULES = [
   {
     id: 'sec-general-concepts',
-    label: '1.0 General Security Concepts',
-    shortLabel: 'General',
-    description: 'controls / CIA / zero trust / change / cryptography',
+    label: '1.0 General Security Concepts｜通用安全概念',
+    shortLabel: 'General｜通用概念',
+    description: 'controls（控制）/ CIA triad / zero trust（零信任）/ cryptography（密码学）',
     keywords: [
       { term: 'cia triad', weight: 9 },
       { term: 'confidentiality', weight: 6 },
@@ -526,9 +526,9 @@ const SECURITY_PLUS_MODULES = [
   },
   {
     id: 'sec-threats-mitigations',
-    label: '2.0 Threats, Vulnerabilities, and Mitigations',
-    shortLabel: 'Threats',
-    description: 'actors / vectors / vulnerabilities / indicators / mitigation',
+    label: '2.0 Threats, Vulnerabilities, and Mitigations｜威胁、漏洞与缓解',
+    shortLabel: 'Threats｜威胁漏洞',
+    description: 'actors（攻击者）/ vectors（向量）/ indicators（迹象）/ mitigations（缓解）',
     keywords: [
       { term: 'threat actor', weight: 8 },
       { term: 'nation-state', weight: 9 },
@@ -561,9 +561,9 @@ const SECURITY_PLUS_MODULES = [
   },
   {
     id: 'sec-architecture',
-    label: '3.0 Security Architecture',
-    shortLabel: 'Architecture',
-    description: 'cloud / network / resilience / data protection',
+    label: '3.0 Security Architecture｜安全架构',
+    shortLabel: 'Architecture｜安全架构',
+    description: 'cloud（云）/ network（网络）/ resilience（韧性）/ data protection（数据保护）',
     keywords: [
       { term: 'security architecture', weight: 9 },
       { term: 'cloud', weight: 5 },
@@ -597,9 +597,9 @@ const SECURITY_PLUS_MODULES = [
   },
   {
     id: 'sec-operations',
-    label: '4.0 Security Operations',
-    shortLabel: 'Operations',
-    description: 'IAM / monitoring / vulnerability / incident response',
+    label: '4.0 Security Operations｜安全运营',
+    shortLabel: 'Operations｜安全运营',
+    description: 'IAM（身份访问）/ monitoring（监控）/ vulnerability（漏洞）/ incident response（事件响应）',
     keywords: [
       { term: 'security operations', weight: 9 },
       { term: 'asset inventory', weight: 8 },
@@ -633,9 +633,9 @@ const SECURITY_PLUS_MODULES = [
   },
   {
     id: 'sec-program-management',
-    label: '5.0 Security Program Management and Oversight',
-    shortLabel: 'Governance',
-    description: 'governance / risk / compliance / third party / awareness',
+    label: '5.0 Security Program Management and Oversight｜安全项目管理与监督',
+    shortLabel: 'Governance｜治理',
+    description: 'governance（治理）/ risk（风险）/ compliance（合规）/ third party（第三方）/ awareness（意识）',
     keywords: [
       { term: 'governance', weight: 8 },
       { term: 'policy', weight: 5 },
@@ -683,7 +683,9 @@ const CORE2_ALL_MODULE = {
 
 const SECURITY_PLUS_ALL_MODULE = {
   ...ALL_MODULE,
-  description: 'Security+ SY0-701 all study questions',
+  label: 'All Questions｜全部题目',
+  shortLabel: 'All｜全部',
+  description: 'Security+ SY0-701 全部学习题目（all study questions）',
 };
 
 const MAX_CORE2_TAGS = 3;

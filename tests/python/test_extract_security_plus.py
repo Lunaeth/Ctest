@@ -103,6 +103,30 @@ Input sanitization blocks a cross-site scripting attempt from executing.
         self.assertEqual(question["options"][0]["text"], '<script>alert("Warning!");</script>')
         self.assertEqual(question["answer"], ["A"])
 
+    def test_multiline_option_strips_trailing_most_voted_marker(self):
+        block = """Question #4 Topic 1
+Which rule should be selected?
+A. Allow outbound DNS to the approved resolver
+B. Deny outbound DNS to every destination
+C. Allow inbound DNS from every destination
+D. Access list outbound permit 10.50.10.25/32 0.0.0.0/0 port 53
+Access list outbound deny 0.0.0.0/0 0.0.0.0/0 port 53 Most Voted
+Correct Answer:A
+Community vote distribution
+D (91%) A (9%)
+Comments
+networkPro Highly Voted1 month ago
+Selected Answer: D
+The two rules permit the approved resolver first and then deny all other DNS traffic.
+"""
+
+        question = parse_question_block(block)
+
+        option_d = next(option for option in question["options"] if option["key"] == "D")
+        self.assertNotIn("Most Voted", option_d["text"])
+        self.assertEqual(question["answer"], ["D"])
+        self.assertEqual(question["answerSource"], "community-vote")
+
 
 if __name__ == "__main__":
     unittest.main()

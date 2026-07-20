@@ -439,7 +439,14 @@ def parse_question_block(block: str) -> dict:
             continue
 
         if options:
-            options[-1]["text"] = clean_text(f'{options[-1]["text"]} {line}')
+            is_most_voted = bool(MOST_VOTED_RE.search(line))
+            continuation = clean_text(MOST_VOTED_RE.sub("", line))
+            if is_most_voted and options[-1]["key"] not in marked_keys:
+                marked_keys.append(options[-1]["key"])
+            if continuation:
+                options[-1]["text"] = clean_text(
+                    f'{options[-1]["text"]} {continuation}'
+                )
         else:
             stem_lines.append(line)
 

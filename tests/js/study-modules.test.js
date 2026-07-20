@@ -117,4 +117,7 @@ test('buildSecurityPlusModuleStats exposes all five SY0-701 domains', () => {
   assert.equal(counts['sec-general-concepts'], 1);
   assert.equal(counts['sec-architecture'], 1);
   assert.equal(counts['sec-operations'], 1);
+  assert.ok(stats.every((module) => /[\u3400-\u9fff]/.test(module.label)));
+  assert.ok(stats.every((module) => /[A-Za-z]/.test(module.label)));
+  assert.ok(stats.every((module) => /[\u3400-\u9fff]/.test(module.description)));
 });

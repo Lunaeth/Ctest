@@ -2,29 +2,34 @@
   const visualEntries = activeBankId === 'securityPlus'
     ? [
       {
-        href: './security-plus-visual.html?v=20260720-security-plus',
+        href: './security-plus-visual.html?v=20260720-security-plus-bilingual',
         title: 'Security+ 总图',
         summary: '五个 SY0-701 考试领域',
       },
       {
-        href: './security-plus-visual.html?v=20260720-security-plus#sec-general-concepts',
-        title: 'General Concepts',
-        summary: 'Controls / CIA / crypto',
+        href: './security-plus-visual.html?v=20260720-security-plus-bilingual#sec-general-concepts',
+        title: 'General Concepts｜通用概念',
+        summary: 'Controls（控制）/ CIA / crypto（密码学）',
       },
       {
-        href: './security-plus-visual.html?v=20260720-security-plus#sec-threats-mitigations',
-        title: 'Threats',
-        summary: 'Actors / attacks / mitigations',
+        href: './security-plus-visual.html?v=20260720-security-plus-bilingual#sec-threats-mitigations',
+        title: 'Threats｜威胁与漏洞',
+        summary: 'Actors（攻击者）/ attacks（攻击）/ mitigations（缓解）',
       },
       {
-        href: './security-plus-visual.html?v=20260720-security-plus#sec-operations',
-        title: 'Operations',
-        summary: 'IAM / monitoring / incident response',
+        href: './security-plus-visual.html?v=20260720-security-plus-bilingual#sec-architecture',
+        title: 'Architecture｜安全架构',
+        summary: 'Cloud（云）/ network（网络）/ resilience（韧性）',
       },
       {
-        href: './security-plus-visual.html?v=20260720-security-plus#sec-program-management',
-        title: 'Governance',
-        summary: 'Risk / compliance / awareness',
+        href: './security-plus-visual.html?v=20260720-security-plus-bilingual#sec-operations',
+        title: 'Operations｜安全运营',
+        summary: 'IAM（身份访问）/ monitoring（监控）/ incident response（事件响应）',
+      },
+      {
+        href: './security-plus-visual.html?v=20260720-security-plus-bilingual#sec-program-management',
+        title: 'Governance｜安全治理',
+        summary: 'Risk（风险）/ compliance（合规）/ awareness（意识）',
       },
     ]
     : activeBankId === 'core2'

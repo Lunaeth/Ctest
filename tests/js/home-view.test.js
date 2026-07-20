@@ -85,6 +85,10 @@ test('renderHomeView shows the Security+ study map for the SY0-701 bank', () => 
 
   assert.match(html, /security-plus-visual\.html\?v=20260720-security-plus/);
   assert.match(html, /五个 SY0-701 考试领域/);
+  assert.match(html, /General Concepts｜通用概念/);
+  assert.match(html, /Architecture｜安全架构/);
+  assert.match(html, /Operations｜安全运营/);
+  assert.match(html, /Governance｜安全治理/);
   assert.match(html, /data-bank-id="securityPlus"/);
   assert.doesNotMatch(html, /core2-visual\.html/);
   assert.doesNotMatch(html, /printer-visual\.html/);
