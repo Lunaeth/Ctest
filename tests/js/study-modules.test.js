@@ -3,10 +3,13 @@ import assert from 'node:assert/strict';
 import {
   buildCore1ModuleStats,
   buildCore2ModuleStats,
+  buildSecurityPlusModuleStats,
   getCore1StudyModules,
   getCore1StudyTags,
   getCore2StudyModules,
   getCore2StudyTags,
+  getSecurityPlusStudyModules,
+  getSecurityPlusStudyTags,
 } from '../../src/study-modules.js';
 
 test('getCore1StudyTags maps Core 1 questions to exam study modules', () => {
@@ -83,4 +86,35 @@ test('buildCore2ModuleStats counts all and high-frequency modules', () => {
   assert.equal(counts['os-commands'], 1);
   assert.equal(counts['app-troubleshooting'], 1);
   assert.equal(counts['ops-support'], 0);
+});
+
+test('getSecurityPlusStudyTags maps SY0-701 questions to exam domains', () => {
+  const threatQuestion = {
+    stem: 'A threat actor uses phishing to deliver ransomware and steal credentials.',
+    options: [{ key: 'A', text: 'Social engineering' }, { key: 'B', text: 'Load balancer' }],
+    answer: ['A'],
+  };
+  const governanceQuestion = {
+    stem: 'Which risk assessment artifact records risk appetite and third-party vendor exposure?',
+    options: [{ key: 'A', text: 'Risk register' }, { key: 'B', text: 'SIEM' }],
+    answer: ['A'],
+  };
+
+  assert.ok(getSecurityPlusStudyTags(threatQuestion).includes('sec-threats-mitigations'));
+  assert.ok(getSecurityPlusStudyTags(governanceQuestion).includes('sec-program-management'));
+});
+
+test('buildSecurityPlusModuleStats exposes all five SY0-701 domains', () => {
+  const questions = [
+    { learning: { studyTags: ['sec-general-concepts'] } },
+    { learning: { studyTags: ['sec-operations', 'sec-architecture'] } },
+  ];
+  const stats = buildSecurityPlusModuleStats(questions);
+  const counts = Object.fromEntries(stats.map((module) => [module.id, module.count]));
+
+  assert.equal(getSecurityPlusStudyModules({ includeAll: true }).length, 6);
+  assert.equal(counts.all, 2);
+  assert.equal(counts['sec-general-concepts'], 1);
+  assert.equal(counts['sec-architecture'], 1);
+  assert.equal(counts['sec-operations'], 1);
 });

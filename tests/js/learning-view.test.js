@@ -111,6 +111,44 @@ test('renderLearningView shows only the Core 2 visual map for Core 2 learning', 
   assert.doesNotMatch(html, /troubleshooting-visual\.html\?v=20260705-troubleshooting-visual/);
 });
 
+test('renderLearningView shows Security+ discussion evidence and study map', () => {
+  const question = {
+    id: 1,
+    stem: 'Which threat actor is most likely?',
+    options: [
+      { key: 'A', text: 'Hacktivist' },
+      { key: 'B', text: 'Organized crime' },
+    ],
+    answer: ['B'],
+    type: 'single',
+    discussion: {
+      summary: 'Organized crime has the resources to conduct attacks for hire.',
+      voteDistribution: [
+        { answer: ['B'], percent: 64 },
+        { answer: ['A'], percent: 36 },
+      ],
+      highlights: [
+        {
+          author: 'reader',
+          highlyVoted: true,
+          text: 'The group has resources and expertise for sophisticated attacks.',
+        },
+      ],
+    },
+  };
+  const html = renderLearningView(question, 0, 1, 'Security+ SY0-701', {
+    activeBankId: 'securityPlus',
+  });
+
+  assert.match(html, /security-plus-visual\.html\?v=20260720-security-plus/);
+  assert.match(html, /社区讨论依据/);
+  assert.match(html, /Most Voted/);
+  assert.match(html, /B · 64%/);
+  assert.match(html, /Highly Voted/);
+  assert.doesNotMatch(html, /core2-visual\.html/);
+  assert.doesNotMatch(html, /printer-visual\.html/);
+});
+
 test('renderLearningView can collapse the right learning navigator', () => {
   const question = {
     id: 1,

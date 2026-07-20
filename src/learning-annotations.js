@@ -1,7 +1,8 @@
 ﻿import {
   getCore1StudyTags,
   getCore2StudyTags,
-} from './study-modules.js?v=20260707-core2-priority-feedback';
+  getSecurityPlusStudyTags,
+} from './study-modules.js?v=20260720-security-plus';
 
 const TERM_RULES = [
   {
@@ -5539,6 +5540,7 @@ export function buildLearningAnnotation(question) {
 
 function getStudyTags(question, bankId) {
   if (bankId === 'core2') return getCore2StudyTags(question);
+  if (bankId === 'securityPlus') return getSecurityPlusStudyTags(question);
   return getCore1StudyTags(question);
 }
 

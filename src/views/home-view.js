@@ -1,5 +1,33 @@
 ﻿export function renderHomeView({ stats, banks, activeBankId }) {
-  const visualEntries = activeBankId === 'core2'
+  const visualEntries = activeBankId === 'securityPlus'
+    ? [
+      {
+        href: './security-plus-visual.html?v=20260720-security-plus',
+        title: 'Security+ 总图',
+        summary: '五个 SY0-701 考试领域',
+      },
+      {
+        href: './security-plus-visual.html?v=20260720-security-plus#sec-general-concepts',
+        title: 'General Concepts',
+        summary: 'Controls / CIA / crypto',
+      },
+      {
+        href: './security-plus-visual.html?v=20260720-security-plus#sec-threats-mitigations',
+        title: 'Threats',
+        summary: 'Actors / attacks / mitigations',
+      },
+      {
+        href: './security-plus-visual.html?v=20260720-security-plus#sec-operations',
+        title: 'Operations',
+        summary: 'IAM / monitoring / incident response',
+      },
+      {
+        href: './security-plus-visual.html?v=20260720-security-plus#sec-program-management',
+        title: 'Governance',
+        summary: 'Risk / compliance / awareness',
+      },
+    ]
+    : activeBankId === 'core2'
     ? [
       {
         href: './core2-visual.html?v=20260707-core2-process-flows',

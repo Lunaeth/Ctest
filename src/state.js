@@ -1,4 +1,5 @@
-const BANK_IDS = ['zh', 'en', 'core2', 'awsSaa'];
+const BANK_IDS = ['zh', 'en', 'core2', 'securityPlus', 'awsSaa'];
+const LEGACY_BANK_IDS = ['zh', 'en', 'core2', 'awsSaa'];
 const DEFAULT_BANK_ID = 'zh';
 
 function asObject(value) {
@@ -31,14 +32,20 @@ function normalizeBankId(value) {
 function normalizeBankBuckets(value, normalizeValue) {
   if (hasBankBuckets(value)) {
     const bucket = asObject(value);
+    const configuredBankIds = [
+      ...LEGACY_BANK_IDS,
+      ...BANK_IDS.filter((bankId) => (
+        !LEGACY_BANK_IDS.includes(bankId) && Object.hasOwn(bucket, bankId)
+      )),
+    ];
     return Object.fromEntries(
-      BANK_IDS.map((bankId) => [bankId, normalizeValue(bucket[bankId])]),
+      configuredBankIds.map((bankId) => [bankId, normalizeValue(bucket[bankId])]),
     );
   }
 
   return {
     ...Object.fromEntries(
-      BANK_IDS.map((bankId) => [bankId, normalizeValue(undefined)]),
+      LEGACY_BANK_IDS.map((bankId) => [bankId, normalizeValue(undefined)]),
     ),
     [DEFAULT_BANK_ID]: normalizeValue(value),
   };
@@ -77,6 +84,9 @@ function selectActiveBuckets(questions, preferences, persisted) {
   progressByBank[bankId] = normalizeProgressEntries(questions, progressByBank[bankId]);
   mistakesByBank[bankId] = normalizeMistakes(questions, mistakesByBank[bankId]);
   favoritesByBank[bankId] = normalizeMistakes(questions, favoritesByBank[bankId]);
+  examHistoryByBank[bankId] = asArray(examHistoryByBank[bankId]);
+  currentPracticeByBank[bankId] = asPracticeSession(currentPracticeByBank[bankId]);
+  currentExamByBank[bankId] = asExamSession(currentExamByBank[bankId]);
 
   return {
     bankId,

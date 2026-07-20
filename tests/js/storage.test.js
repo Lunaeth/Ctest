@@ -164,6 +164,37 @@ test('createInitialState supports a third configured bank bucket', () => {
   });
 });
 
+test('createInitialState creates independent Security+ learning buckets when active', () => {
+  const state = createInitialState([{ id: 501 }, { id: 502 }], {
+    progress: {
+      zh: {},
+      securityPlus: { 501: { correct: true } },
+    },
+    mistakes: {
+      zh: [],
+      securityPlus: [502, 999],
+    },
+    favorites: {
+      zh: [],
+      securityPlus: [501],
+    },
+    examHistory: {
+      securityPlus: [{ score: 80, total: 90 }],
+    },
+    preferences: {
+      activeBankId: 'securityPlus',
+      practiceMode: 'random',
+    },
+  });
+
+  assert.equal(state.bankId, 'securityPlus');
+  assert.deepEqual(state.progress, { 501: { correct: true } });
+  assert.deepEqual(state.mistakes, [502]);
+  assert.deepEqual(state.favorites, [501]);
+  assert.deepEqual(state.examHistory, [{ score: 80, total: 90 }]);
+  assert.deepEqual(state.progressByBank.securityPlus, { 501: { correct: true } });
+});
+
 test('createInitialState migrates legacy single-bank records into zh buckets', () => {
   const state = createInitialState([{ id: 1 }], {
     progress: { 1: { correct: true } },

@@ -69,3 +69,23 @@ test('renderHomeView shows only the Core 2 study map when Core 2 is active', () 
   assert.doesNotMatch(html, /printer-visual\.html\?v=20260705-visual-maps-source-backed/);
   assert.doesNotMatch(html, /hardware-visual\.html\?v=20260706-hardware-processes/);
 });
+
+test('renderHomeView shows the Security+ study map for the SY0-701 bank', () => {
+  const html = renderHomeView({
+    stats: {
+      totalQuestions: 606,
+      answeredCount: 0,
+      accuracy: 0,
+      mistakeCount: 0,
+      lastExamScore: '暂无',
+    },
+    activeBankId: 'securityPlus',
+    banks: [{ id: 'securityPlus', label: 'Security+ SY0-701' }],
+  });
+
+  assert.match(html, /security-plus-visual\.html\?v=20260720-security-plus/);
+  assert.match(html, /五个 SY0-701 考试领域/);
+  assert.match(html, /data-bank-id="securityPlus"/);
+  assert.doesNotMatch(html, /core2-visual\.html/);
+  assert.doesNotMatch(html, /printer-visual\.html/);
+});

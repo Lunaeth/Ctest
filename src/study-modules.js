@@ -489,6 +489,186 @@ const CORE2_MODULES = [
   },
 ];
 
+const SECURITY_PLUS_MODULES = [
+  {
+    id: 'sec-general-concepts',
+    label: '1.0 General Security Concepts',
+    shortLabel: 'General',
+    description: 'controls / CIA / zero trust / change / cryptography',
+    keywords: [
+      { term: 'cia triad', weight: 9 },
+      { term: 'confidentiality', weight: 6 },
+      { term: 'integrity', weight: 6 },
+      { term: 'availability', weight: 6 },
+      { term: 'non-repudiation', weight: 8 },
+      { term: 'authentication', weight: 5 },
+      { term: 'authorization', weight: 5 },
+      { term: 'accounting', weight: 5 },
+      { term: 'zero trust', weight: 9 },
+      { term: 'least privilege', weight: 7 },
+      { term: 'segmentation', weight: 5 },
+      { term: 'security control', weight: 8 },
+      { term: 'preventive control', weight: 8 },
+      { term: 'detective control', weight: 8 },
+      { term: 'corrective control', weight: 8 },
+      { term: 'compensating control', weight: 8 },
+      { term: 'deterrent control', weight: 8 },
+      { term: 'change management', weight: 8 },
+      { term: 'digital signature', weight: 8 },
+      { term: 'hashing', weight: 7 },
+      { term: 'salting', weight: 8 },
+      { term: 'encryption', weight: 6 },
+      { term: 'public key', weight: 7 },
+      { term: 'private key', weight: 7 },
+      { term: 'certificate authority', weight: 8 },
+      { term: 'pki', weight: 8 },
+    ],
+  },
+  {
+    id: 'sec-threats-mitigations',
+    label: '2.0 Threats, Vulnerabilities, and Mitigations',
+    shortLabel: 'Threats',
+    description: 'actors / vectors / vulnerabilities / indicators / mitigation',
+    keywords: [
+      { term: 'threat actor', weight: 8 },
+      { term: 'nation-state', weight: 9 },
+      { term: 'hacktivist', weight: 8 },
+      { term: 'insider threat', weight: 8 },
+      { term: 'social engineering', weight: 8 },
+      { term: 'phishing', weight: 8 },
+      { term: 'smishing', weight: 8 },
+      { term: 'vishing', weight: 8 },
+      { term: 'business email compromise', weight: 9 },
+      { term: 'malware', weight: 7 },
+      { term: 'ransomware', weight: 9 },
+      { term: 'trojan', weight: 8 },
+      { term: 'rootkit', weight: 8 },
+      { term: 'keylogger', weight: 8 },
+      { term: 'sql injection', weight: 9 },
+      { term: 'cross-site scripting', weight: 9 },
+      { term: 'xss', weight: 9 },
+      { term: 'buffer overflow', weight: 8 },
+      { term: 'directory traversal', weight: 8 },
+      { term: 'privilege escalation', weight: 8 },
+      { term: 'password spraying', weight: 8 },
+      { term: 'brute force', weight: 7 },
+      { term: 'credential stuffing', weight: 8 },
+      { term: 'vulnerability', weight: 5 },
+      { term: 'zero-day', weight: 8 },
+      { term: 'attack surface', weight: 7 },
+      { term: 'mitigation', weight: 5 },
+    ],
+  },
+  {
+    id: 'sec-architecture',
+    label: '3.0 Security Architecture',
+    shortLabel: 'Architecture',
+    description: 'cloud / network / resilience / data protection',
+    keywords: [
+      { term: 'security architecture', weight: 9 },
+      { term: 'cloud', weight: 5 },
+      { term: 'iaas', weight: 8 },
+      { term: 'paas', weight: 8 },
+      { term: 'saas', weight: 8 },
+      { term: 'shared responsibility', weight: 9 },
+      { term: 'virtualization', weight: 7 },
+      { term: 'container', weight: 7 },
+      { term: 'serverless', weight: 8 },
+      { term: 'microservices', weight: 8 },
+      { term: 'network segmentation', weight: 8 },
+      { term: 'dmz', weight: 8 },
+      { term: 'firewall', weight: 6 },
+      { term: 'load balancer', weight: 7 },
+      { term: 'waf', weight: 8 },
+      { term: 'vpn', weight: 7 },
+      { term: 'sase', weight: 9 },
+      { term: 'sd-wan', weight: 8 },
+      { term: 'high availability', weight: 8 },
+      { term: 'fault tolerance', weight: 8 },
+      { term: 'redundancy', weight: 7 },
+      { term: 'disaster recovery', weight: 8 },
+      { term: 'data classification', weight: 8 },
+      { term: 'data sovereignty', weight: 8 },
+      { term: 'data residency', weight: 8 },
+      { term: 'tokenization', weight: 8 },
+      { term: 'data masking', weight: 8 },
+      { term: 'dlp', weight: 8 },
+    ],
+  },
+  {
+    id: 'sec-operations',
+    label: '4.0 Security Operations',
+    shortLabel: 'Operations',
+    description: 'IAM / monitoring / vulnerability / incident response',
+    keywords: [
+      { term: 'security operations', weight: 9 },
+      { term: 'asset inventory', weight: 8 },
+      { term: 'vulnerability scan', weight: 8 },
+      { term: 'penetration test', weight: 8 },
+      { term: 'patch management', weight: 8 },
+      { term: 'hardening', weight: 7 },
+      { term: 'baseline', weight: 6 },
+      { term: 'siem', weight: 9 },
+      { term: 'soar', weight: 9 },
+      { term: 'ids', weight: 7 },
+      { term: 'ips', weight: 7 },
+      { term: 'edr', weight: 9 },
+      { term: 'xdr', weight: 9 },
+      { term: 'log', weight: 5 },
+      { term: 'alert', weight: 5 },
+      { term: 'incident response', weight: 9 },
+      { term: 'containment', weight: 8 },
+      { term: 'eradication', weight: 8 },
+      { term: 'recovery', weight: 6 },
+      { term: 'forensics', weight: 8 },
+      { term: 'chain of custody', weight: 9 },
+      { term: 'identity and access management', weight: 9 },
+      { term: 'mfa', weight: 8 },
+      { term: 'sso', weight: 8 },
+      { term: 'federation', weight: 7 },
+      { term: 'provisioning', weight: 6 },
+      { term: 'automation', weight: 6 },
+      { term: 'playbook', weight: 7 },
+    ],
+  },
+  {
+    id: 'sec-program-management',
+    label: '5.0 Security Program Management and Oversight',
+    shortLabel: 'Governance',
+    description: 'governance / risk / compliance / third party / awareness',
+    keywords: [
+      { term: 'governance', weight: 8 },
+      { term: 'policy', weight: 5 },
+      { term: 'standard', weight: 5 },
+      { term: 'procedure', weight: 5 },
+      { term: 'guideline', weight: 6 },
+      { term: 'risk assessment', weight: 9 },
+      { term: 'risk register', weight: 9 },
+      { term: 'risk appetite', weight: 8 },
+      { term: 'risk tolerance', weight: 8 },
+      { term: 'risk transfer', weight: 8 },
+      { term: 'risk acceptance', weight: 8 },
+      { term: 'third-party', weight: 7 },
+      { term: 'vendor', weight: 6 },
+      { term: 'supply chain', weight: 8 },
+      { term: 'sla', weight: 8 },
+      { term: 'memorandum of understanding', weight: 8 },
+      { term: 'mou', weight: 8 },
+      { term: 'compliance', weight: 8 },
+      { term: 'regulation', weight: 7 },
+      { term: 'gdpr', weight: 9 },
+      { term: 'pci dss', weight: 9 },
+      { term: 'hipaa', weight: 9 },
+      { term: 'audit', weight: 7 },
+      { term: 'security awareness', weight: 9 },
+      { term: 'phishing simulation', weight: 8 },
+      { term: 'business impact analysis', weight: 9 },
+      { term: 'rto', weight: 8 },
+      { term: 'rpo', weight: 8 },
+    ],
+  },
+];
+
 const ALL_MODULE = {
   id: 'all',
   label: 'All Questions',
@@ -501,8 +681,15 @@ const CORE2_ALL_MODULE = {
   description: 'Core 2 all high-frequency study questions',
 };
 
+const SECURITY_PLUS_ALL_MODULE = {
+  ...ALL_MODULE,
+  description: 'Security+ SY0-701 all study questions',
+};
+
 const MAX_CORE2_TAGS = 3;
 const MIN_CORE2_TAG_SCORE = 7;
+const MAX_SECURITY_PLUS_TAGS = 2;
+const MIN_SECURITY_PLUS_TAG_SCORE = 5;
 
 function normalizeText(value = '') {
   return String(value).toLowerCase().replace(/\s+/g, ' ').trim();
@@ -586,6 +773,11 @@ export function getCore2StudyModules({ includeAll = false } = {}) {
   return includeAll ? [{ ...CORE2_ALL_MODULE }, ...modules] : modules;
 }
 
+export function getSecurityPlusStudyModules({ includeAll = false } = {}) {
+  const modules = SECURITY_PLUS_MODULES.map((module) => ({ ...module }));
+  return includeAll ? [{ ...SECURITY_PLUS_ALL_MODULE }, ...modules] : modules;
+}
+
 export function getQuestionStudySource(question) {
   return normalizeText([
     question.topic,
@@ -620,12 +812,38 @@ export function getCore2StudyTags(question) {
   return ['app-troubleshooting'];
 }
 
+export function getSecurityPlusStudyTags(question) {
+  const source = getQuestionStudySource(question);
+  const answerSource = getCorrectAnswerSource(question);
+  const ranked = SECURITY_PLUS_MODULES
+    .map((module, index) => ({
+      id: module.id,
+      score: scoreModule(source, answerSource, module),
+      index,
+    }))
+    .filter((module) => module.score >= MIN_SECURITY_PLUS_TAG_SCORE)
+    .sort((left, right) => right.score - left.score || left.index - right.index)
+    .slice(0, MAX_SECURITY_PLUS_TAGS)
+    .map((module) => module.id);
+
+  return ranked.length ? ranked : ['sec-operations'];
+}
+
 export function buildCore1ModuleStats(questions = []) {
   return buildModuleStats(questions, CORE1_MODULES, ALL_MODULE, getCore1StudyTags);
 }
 
 export function buildCore2ModuleStats(questions = []) {
   return buildModuleStats(questions, CORE2_MODULES, CORE2_ALL_MODULE, getCore2StudyTags);
+}
+
+export function buildSecurityPlusModuleStats(questions = []) {
+  return buildModuleStats(
+    questions,
+    SECURITY_PLUS_MODULES,
+    SECURITY_PLUS_ALL_MODULE,
+    getSecurityPlusStudyTags,
+  );
 }
 
 export function getModuleById(moduleId) {

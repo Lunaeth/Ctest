@@ -58,6 +58,34 @@ const CORE2_VISUAL_ENTRIES = [
   },
 ];
 
+const SECURITY_PLUS_VISUAL_ENTRIES = [
+  {
+    href: './security-plus-visual.html?v=20260720-security-plus',
+    title: 'Security+ 总图',
+    summary: '五个 SY0-701 考试领域',
+  },
+  {
+    href: './security-plus-visual.html?v=20260720-security-plus#sec-threats-mitigations',
+    title: 'Threats',
+    summary: 'Actors / attacks / mitigations',
+  },
+  {
+    href: './security-plus-visual.html?v=20260720-security-plus#sec-architecture',
+    title: 'Architecture',
+    summary: 'Cloud / network / resilience',
+  },
+  {
+    href: './security-plus-visual.html?v=20260720-security-plus#sec-operations',
+    title: 'Operations',
+    summary: 'IAM / monitoring / incident response',
+  },
+  {
+    href: './security-plus-visual.html?v=20260720-security-plus#sec-program-management',
+    title: 'Governance',
+    summary: 'Risk / compliance / awareness',
+  },
+];
+
 function getOptionAnnotation(question, key) {
   return question.learning?.options?.find((item) => item.key === key);
 }
@@ -120,11 +148,55 @@ function renderStudyNotes(question) {
   `;
 }
 
+function renderDiscussionEvidence(question) {
+  const discussion = question.discussion;
+  if (!discussion) return '';
+
+  const votes = Array.isArray(discussion.voteDistribution)
+    ? discussion.voteDistribution.slice(0, 5)
+    : [];
+  const highlights = Array.isArray(discussion.highlights)
+    ? discussion.highlights.slice(0, 2)
+    : [];
+  if (!discussion.summary && !votes.length && !highlights.length) return '';
+
+  return `
+    <section class="learning-discussion" aria-label="community discussion evidence">
+      <div class="learning-discussion__header">
+        <strong>社区讨论依据</strong>
+        <span>判题采用 Most Voted</span>
+      </div>
+      ${votes.length ? `
+        <div class="learning-discussion__votes">
+          ${votes.map((vote) => `
+            <span>${escapeHtml((vote.answer ?? []).join(''))} · ${escapeHtml(vote.percent)}%</span>
+          `).join('')}
+        </div>
+      ` : ''}
+      ${discussion.summary ? `<p>${escapeHtml(discussion.summary)}</p>` : ''}
+      ${highlights.length ? `
+        <details>
+          <summary>查看高赞讨论摘录</summary>
+          <div class="learning-discussion__highlights">
+            ${highlights.map((comment) => `
+              <blockquote>
+                <strong>${escapeHtml(comment.author || 'Community')}</strong>
+                ${comment.highlyVoted ? '<em>Highly Voted</em>' : ''}
+                <p>${escapeHtml(comment.text)}</p>
+              </blockquote>
+            `).join('')}
+          </div>
+        </details>
+      ` : ''}
+    </section>
+  `;
+}
+
 function renderLearningBankTabs(coreBanks, activeBankId) {
   if (!coreBanks.length) return '';
 
   return `
-    <div class="learning-bank-tabs" aria-label="A+ Core question bank">
+    <div class="learning-bank-tabs" aria-label="Certification question bank">
       ${coreBanks.map((bank) => `
         <button
           class="learning-bank-tab ${bank.id === activeBankId ? 'is-active' : ''}"
@@ -139,6 +211,7 @@ function renderLearningBankTabs(coreBanks, activeBankId) {
 }
 
 function getVisualEntries(activeBankId) {
+  if (activeBankId === 'securityPlus') return SECURITY_PLUS_VISUAL_ENTRIES;
   return activeBankId === 'core2' ? CORE2_VISUAL_ENTRIES : CORE1_VISUAL_ENTRIES;
 }
 
@@ -272,6 +345,7 @@ export function renderLearningView(
         </div>
         ${renderSpeedTip(question)}
         ${renderStudyNotes(question)}
+        ${renderDiscussionEvidence(question)}
         <div class="learning-option-list">
           ${question.options.map((option) => renderOption(question, option)).join('')}
         </div>
@@ -283,7 +357,7 @@ export function renderLearningView(
       <aside class="panel navigator-panel learning-nav ${isNavigatorCollapsed ? 'is-collapsed' : ''}">
         <div class="learning-nav__header">
           <div>
-            <h3>英文题库学习</h3>
+            <h3>${escapeHtml(bankLabel)} 学习</h3>
             <p class="learning-nav__compact">第 ${currentIndex + 1} / ${total} 题</p>
           </div>
           <button

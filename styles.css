@@ -909,6 +909,75 @@ body {
   line-height: 1.7;
 }
 
+.learning-discussion {
+  margin: 0 0 20px;
+  padding: 14px 16px;
+  border: 1px solid rgba(111, 66, 193, 0.26);
+  border-radius: 12px;
+  background: #faf7ff;
+}
+
+.learning-discussion__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.learning-discussion__header span,
+.learning-discussion__votes span,
+.learning-discussion blockquote em {
+  border-radius: 999px;
+  background: #f1eafe;
+  color: #6334ad;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 800;
+  padding: 4px 8px;
+}
+
+.learning-discussion__votes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.learning-discussion > p,
+.learning-discussion blockquote p {
+  margin: 10px 0 0;
+  line-height: 1.7;
+}
+
+.learning-discussion details {
+  margin-top: 12px;
+}
+
+.learning-discussion summary {
+  color: #6334ad;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.learning-discussion__highlights {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.learning-discussion blockquote {
+  margin: 0;
+  padding: 10px 12px;
+  border-left: 3px solid #8b5fc4;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.learning-discussion blockquote em {
+  margin-left: 6px;
+}
+
 .learning-option-list {
   display: grid;
   gap: 14px;

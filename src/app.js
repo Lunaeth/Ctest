@@ -21,7 +21,7 @@ import {
   getCore2SymptomGroup,
   getCore2SymptomId,
 } from './core2-study-map.js?v=20260707-core2-process-flows';
-import { applyLearningAnnotations } from './learning-annotations.js?v=20260707-core2-priority-feedback';
+import { applyLearningAnnotations } from './learning-annotations.js?v=20260720-security-plus';
 import {
   buildFavoriteSyncText,
   mergeFavoriteIds,
@@ -31,10 +31,11 @@ import { sanitizeQuestionBankData } from './question-bank-sanitizer.js';
 import {
   buildCore1ModuleStats,
   buildCore2ModuleStats,
-} from './study-modules.js?v=20260707-core2-priority-feedback';
-import { renderHomeView } from './views/home-view.js?v=20260707-core2-process-flows';
+  buildSecurityPlusModuleStats,
+} from './study-modules.js?v=20260720-security-plus';
+import { renderHomeView } from './views/home-view.js?v=20260720-security-plus';
 import { renderExamView } from './views/exam-view.js';
-import { renderLearningView } from './views/learning-view.js?v=20260707-mobile-sync-portrait';
+import { renderLearningView } from './views/learning-view.js?v=20260720-security-plus';
 import { renderMistakesView } from './views/mistakes-view.js?v=20260707-core2-priority-feedback';
 import {
   normalizePracticeFontScale,
@@ -54,13 +55,19 @@ const QUESTION_BANKS = [
       './data/questions.core2.curated.analysis.json',
     ],
   },
+  {
+    id: 'securityPlus',
+    label: 'Security+ SY0-701',
+    file: './data/questions.security-plus.json',
+  },
   { id: 'awsSaa', label: 'AWS SAA Screenshots', file: './data/questions.aws-saa.json' },
 ];
 const QUESTION_BANK_MAP = new Map(QUESTION_BANKS.map((bank) => [bank.id, bank]));
 const DEFAULT_LEARNING_BANK_ID = 'en';
-const LEARNING_BANK_IDS = new Set(['en', 'core2']);
+const LEARNING_BANK_IDS = new Set(['en', 'core2', 'securityPlus']);
 const CORE1_BANK_ID = 'en';
 const CORE2_BANK_ID = 'core2';
+const SECURITY_PLUS_BANK_ID = 'securityPlus';
 const DEFAULT_LEARNING_MODULE_ID = 'all';
 const POSITION_MEMORY_ROUTES = new Set(['mistakes']);
 const POSITION_ANCHOR_SELECTOR = '.mistake-card[data-question-id]';
@@ -160,6 +167,10 @@ function getLearningModules() {
 
   if (state?.bankId === CORE2_BANK_ID) {
     return buildCore2ModuleStats(state.questions);
+  }
+
+  if (state?.bankId === SECURITY_PLUS_BANK_ID) {
+    return buildSecurityPlusModuleStats(state.questions);
   }
 
   return [];
