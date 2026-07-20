@@ -22,7 +22,7 @@ import {
   getCore2SymptomId,
 } from './core2-study-map.js?v=20260707-core2-process-flows';
 import { applyLearningAnnotations } from './learning-annotations.js?v=20260720-security-plus';
-import { decorateSecurityPlusQuestions } from './security-plus-analysis.js?v=20260720-security-plus-analysis';
+import { decorateSecurityPlusQuestions } from './security-plus-analysis.js?v=20260720-security-plus-evidence';
 import {
   buildFavoriteSyncText,
   mergeFavoriteIds,
@@ -59,7 +59,7 @@ const QUESTION_BANKS = [
   {
     id: 'securityPlus',
     label: 'Security+ SY0-701',
-    file: './data/questions.security-plus.json',
+    file: './data/questions.security-plus.json?v=20260720-security-plus-evidence',
   },
   { id: 'awsSaa', label: 'AWS SAA Screenshots', file: './data/questions.aws-saa.json' },
 ];

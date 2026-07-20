@@ -39,7 +39,10 @@ test('Security+ cryptography options explain distinct uses instead of vote rank'
   );
 
   assert.match(explanations.A, /反复执行哈希|KDF/);
+  assert.match(explanations.A, /Discussion contrast（讨论对照）/);
+  assert.match(explanations.A, /支持正确答案的讨论/);
   assert.match(explanations.B, /隐藏展示中的部分敏感字段/);
+  assert.doesNotMatch(explanations.B, /Discussion contrast（讨论对照）/);
   assert.match(explanations.C, /隐藏在图片、音频/);
   assert.match(explanations.D, /哈希前加入随机且唯一的数据/);
   assert.match(explanations.D, /Discussion evidence（讨论依据）/);
@@ -69,4 +72,3 @@ test('every Security+ option receives substantive Chinese-English analysis', () 
     }
   }
 });
-

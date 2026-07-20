@@ -18,6 +18,9 @@ Comments
 studyUser Highly Voted1 year ago
 Selected Answer: B
 Salting adds random data before hashing and prevents identical passwords from sharing a hash.
+minorityUser2 months ago
+Selected Answer: A
+Encryption is the answer because stored passwords should always be protected with encryption.
 """
 
         question = parse_question_block(block)
@@ -28,11 +31,12 @@ Salting adds random data before hashing and prevents identical passwords from sh
         self.assertEqual(question["type"], "single")
         self.assertIn("Salting adds random data", question["discussion"]["summary"])
         self.assertIn("存在分歧", question["learning"]["speedTipHtml"])
-        self.assertIn("B", question["discussion"]["optionEvidence"])
+        self.assertIn("B", question["discussion"]["optionAnalysisEvidence"])
         self.assertIn(
             "Salting adds random data",
-            question["discussion"]["optionEvidence"]["B"][0]["text"],
+            question["discussion"]["optionAnalysisEvidence"]["B"][0]["text"],
         )
+        self.assertEqual(question["discussion"]["optionAnalysisEvidence"]["A"], [])
         self.assertNotIn("不是社区最高票答案", str(question["learning"]))
 
     def test_multiselect_uses_highest_voted_answer_combination(self):

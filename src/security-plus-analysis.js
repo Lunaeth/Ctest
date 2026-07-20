@@ -199,17 +199,14 @@ function cleanEvidence(value, option) {
   return text.length > 260 ? `${text.slice(0, 257).trim()}...` : text;
 }
 
-function getEvidence(question, option, { highlyVotedOnly = false } = {}) {
-  const optionEvidence = question.discussion?.optionEvidence?.[option.key] ?? [];
-  const eligible = highlyVotedOnly
-    ? optionEvidence.filter((item) => item.highlyVoted)
-    : optionEvidence;
+function getEvidence(question, option, { stripOptionLabel = true } = {}) {
+  const eligible = question.discussion?.optionAnalysisEvidence?.[option.key] ?? [];
   const evidence = eligible.find((item) => (
     item.highlyVoted && (item.selectedAnswer ?? []).includes(option.key)
   )) ?? eligible.find((item) => item.highlyVoted)
     ?? eligible.find((item) => (item.selectedAnswer ?? []).includes(option.key))
     ?? eligible[0];
-  return evidence ? cleanEvidence(evidence.text, option) : '';
+  return evidence ? cleanEvidence(evidence.text, stripOptionLabel ? option : null) : '';
 }
 
 function getConsensusEvidence(question, correctOptions) {
@@ -236,10 +233,10 @@ function buildWrongExplanation(question, option, scenario, correctLabels, consen
   const role = term
     ? `${label} 通常用于${term.role}`
     : `${label} 只有在题干明确要求它所描述的对象、动作或控制层级时才成立`;
-  const ownEvidence = getEvidence(question, option, { highlyVotedOnly: true });
+  const ownEvidence = getEvidence(question, option, { stripOptionLabel: false });
   const contrast = `但本题的关键线索是“${scenario.clue}”，判断重点是${scenario.focus}；${correctLabels} 对这条限制的覆盖更直接，因此该项不是 best answer（最佳答案）`;
-  const discussion = ownEvidence && ownEvidence !== consensusEvidence
-    ? ` Discussion contrast（讨论对照）：高赞讨论中与该项关联的观点是“${ownEvidence}”，但这没有完整覆盖上述题干限制。`
+  const discussion = ownEvidence
+    ? ` Discussion contrast（讨论对照）：支持正确答案的讨论在比较该项时指出“${ownEvidence}”；结合上述题干限制，它仍不如 ${correctLabels} 直接。`
     : consensusEvidence
       ? ` Discussion evidence（讨论依据）：${consensusEvidence}`
       : '';

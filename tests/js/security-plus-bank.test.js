@@ -23,10 +23,19 @@ test('Security+ SY0-701 bank is valid quiz-service JSON', () => {
     assert.ok(question.learning?.options?.length === question.options.length);
     assert.ok(question.analysis?.whyChoose);
     assert.deepEqual(
-      Object.keys(question.discussion?.optionEvidence ?? {}),
+      Object.keys(question.discussion?.optionAnalysisEvidence ?? {}),
       optionKeys,
-      `Question ${question.id} must retain discussion evidence by option`,
+      `Question ${question.id} must retain consensus-aligned analysis evidence by option`,
     );
+    for (const evidence of Object.values(question.discussion.optionAnalysisEvidence).flat()) {
+      if (evidence.selectedAnswer?.length) {
+        assert.deepEqual(
+          [...evidence.selectedAnswer].sort(),
+          [...question.answer].sort(),
+          `Question ${question.id} must not use minority-answer comments as option evidence`,
+        );
+      }
+    }
   }
 });
 

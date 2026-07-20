@@ -150,15 +150,37 @@ def truncate_comment(value: str, limit: int = 520) -> str:
     return f"{value[: limit - 3].rstrip()}..."
 
 
+def comment_mentions_option(comment: ParsedComment, option: dict) -> bool:
+    marker = re.compile(
+        rf"(?:^|\s){re.escape(option['key'])}[.):\-]\s*",
+        re.IGNORECASE,
+    )
+    phrase = re.compile(re.escape(option["text"]), re.IGNORECASE)
+    return bool(marker.search(comment.text) or phrase.search(comment.text))
+
+
+def comment_supports_answer(
+    comment: ParsedComment,
+    community_answer: list[str],
+    options: list[dict],
+) -> bool:
+    correct_set = set(community_answer)
+    if comment.selected_answer:
+        return set(comment.selected_answer) == correct_set
+    return any(
+        option["key"] in correct_set and comment_mentions_option(comment, option)
+        for option in options
+    )
+
+
 def select_discussion_comments(
     comments: list[ParsedComment],
     community_answer: list[str],
+    options: list[dict],
     limit: int = 4,
 ) -> list[ParsedComment]:
-    correct_set = set(community_answer)
-
     def supports_answer(comment: ParsedComment) -> bool:
-        return not comment.selected_answer or set(comment.selected_answer) == correct_set
+        return comment_supports_answer(comment, community_answer, options)
 
     ranked = sorted(
         (comment for comment in comments if is_substantive_comment(comment)),
@@ -184,36 +206,31 @@ def select_discussion_comments(
 def select_option_discussion_comments(
     comments: list[ParsedComment],
     option: dict,
+    community_answer: list[str],
+    options: list[dict],
     limit: int = 2,
 ) -> list[ParsedComment]:
-    """Keep the strongest discussion evidence that specifically addresses an option."""
-    option_key = option["key"]
-    option_text = option["text"]
-    option_marker = re.compile(rf"(?:^|\s){re.escape(option_key)}[.):\-]\s*", re.IGNORECASE)
-    option_phrase = re.compile(re.escape(option_text), re.IGNORECASE)
+    """Keep consensus-aligned comments that help explain or eliminate an option."""
+    correct_set = set(community_answer)
 
     candidates = []
     for comment in comments:
         if not is_substantive_comment(comment):
             continue
-        explicitly_selected = option_key in comment.selected_answer
-        explicitly_mentioned = bool(option_marker.search(comment.text) or option_phrase.search(comment.text))
-        if explicitly_selected or explicitly_mentioned:
-            candidates.append((comment, explicitly_selected, explicitly_mentioned))
+        if comment_supports_answer(comment, community_answer, options) and comment_mentions_option(comment, option):
+            candidates.append(comment)
 
     candidates.sort(
-        key=lambda item: (
-            not (item[0].highly_voted and item[1]),
-            not item[1],
-            not item[0].highly_voted,
-            not item[2],
-            -len(item[0].text),
+        key=lambda comment: (
+            not comment.highly_voted,
+            not (comment.selected_answer and set(comment.selected_answer) == correct_set),
+            -len(comment.text),
         )
     )
 
     selected: list[ParsedComment] = []
     seen_texts: set[str] = set()
-    for comment, _, _ in candidates:
+    for comment in candidates:
         normalized = comment.text.lower()
         if normalized in seen_texts:
             continue
@@ -265,12 +282,16 @@ def build_learning_data(
         for option in question["options"]
         if option["key"] in answer_set
     )
-    selected_comments = select_discussion_comments(comments, question["answer"])
+    selected_comments = select_discussion_comments(
+        comments,
+        question["answer"],
+        question["options"],
+    )
     supporting_comment = next(
         (
             comment
             for comment in selected_comments
-            if not comment.selected_answer or set(comment.selected_answer) == answer_set
+            if comment_supports_answer(comment, question["answer"], question["options"])
         ),
         selected_comments[0] if selected_comments else None,
     )
@@ -357,10 +378,15 @@ def build_learning_data(
         "summary": summary,
         "voteDistribution": votes,
         "highlights": [serialize_comment(comment) for comment in selected_comments],
-        "optionEvidence": {
+        "optionAnalysisEvidence": {
             option["key"]: [
                 serialize_comment(comment)
-                for comment in select_option_discussion_comments(comments, option)
+                for comment in select_option_discussion_comments(
+                    comments,
+                    option,
+                    question["answer"],
+                    question["options"],
+                )
             ]
             for option in question["options"]
         },
