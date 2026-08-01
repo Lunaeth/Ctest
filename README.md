@@ -5,15 +5,15 @@ A frontend-only question practice system with Chinese and English question banks
 ## Features
 
 - Switch between the Chinese and English question banks
-- Practice mode: get instant grading and automatically record incorrect answers
+- Practice mode: get instant marking and automatically record incorrect answers
 - Mock exams: view your score and review incorrect answers after submission
 - Mistake notebook: review missed questions in one place and remove questions you have mastered
 - Local learning archives: create a `question-archive.json` file and automatically keep your complete learning progress in sync
 
-## Tech Stack
+## Technology Stack
 
 - Vanilla HTML, CSS, and JavaScript
-- Python with `pypdf` for extracting question-bank data from PDFs
+- Python with `pypdf` for extracting question bank data from PDFs
 - Node.js built-in test runner and Python `unittest`
 
 ## Run Locally
@@ -35,9 +35,9 @@ npm test
 python -m unittest discover -s tests/python -p "test_*.py"
 ```
 
-## Question-Bank Data
+## Question Bank Data
 
-The project currently includes two pre-extracted question-bank data files:
+The project currently includes two pre-extracted question bank data files:
 
 - `data/questions.zh.json`
 - `data/questions.en.json`
