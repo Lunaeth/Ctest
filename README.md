@@ -1,45 +1,45 @@
 # Ctest
 
-一个纯前端的刷题系统，支持 CompTIA A+ Core 1/Core 2、Security+ SY0-701 等题库，以及练习、学习、模拟考试、错题本和本地学习存档。
+A frontend-only question practice system supporting CompTIA A+ Core 1/Core 2, Security+ SY0-701, and other question banks, along with practice, study, mock exam, mistake notebook, and local learning archive features.
 
-## 功能
+## Features
 
-- 多题库切换，各题库独立保存进度、收藏、错题和考试记录
-- 练习模式：即时判题、自动记录错题
-- 学习模式：模块筛选、逐项解释、高频知识点、收藏和题号跳转
-- Security+：按五个中英双语 SY0-701 考试领域学习；以社区 Most Voted 为判题答案，并把高赞讨论、题干限制、易混选项和同题库关联题整合为 Core 风格解析
-- 模拟考试：交卷后查看成绩和错题
-- 错题本：集中复习、移除已掌握题目
-- 本地学习存档：可创建 `question-archive.json`，之后自动同步完整学习状态
+- Switch between multiple question banks, with progress, favourites, incorrect answers, and exam records saved separately for each bank
+- Practice mode: get instant marking and automatically record incorrect answers
+- Study mode: filter by module, review step-by-step explanations and high-frequency topics, save favourites, and jump to specific question numbers
+- Security+: study the five bilingual SY0-701 exam domains; the system uses the community's Most Voted answer for marking and combines highly rated discussions, question constraints, easily confused options, and related questions from the same bank into Core-style explanations
+- Mock exams: view your score and review incorrect answers after submission
+- Mistake notebook: review missed questions in one place and remove questions you have mastered
+- Local learning archives: create a `question-archive.json` file and automatically keep your complete learning progress in sync
 
-## 技术栈
+## Technology Stack
 
-- 原生 HTML / CSS / JavaScript
-- Python + `pypdf` 用于从 PDF 提取题库数据
-- Node 内置测试运行器 + Python `unittest`
+- Vanilla HTML, CSS, and JavaScript
+- Python with `pypdf` for extracting question bank data from PDFs
+- Node.js built-in test runner and Python `unittest`
 
-## 本地启动
+## Run Locally
 
 ```bash
 npm run serve
 ```
 
-然后打开：
+Then open:
 
 ```text
 http://127.0.0.1:4173
 ```
 
-## 测试
+## Tests
 
 ```bash
 npm test
 python -m unittest discover -s tests/python -p "test_*.py"
 ```
 
-## 题库数据
+## Question Bank Data
 
-项目当前包含以下题库数据：
+The project currently includes the following question bank data files:
 
 - `data/questions.zh.json`
 - `data/questions.en.json`
@@ -47,7 +47,7 @@ python -m unittest discover -s tests/python -p "test_*.py"
 - `data/questions.security-plus.json`
 - `data/questions.aws-saa.json`
 
-重新生成 Security+ 题库：
+To regenerate the Security+ question bank:
 
 ```bash
 python scripts/extract_security_plus.py \
@@ -56,16 +56,13 @@ python scripts/extract_security_plus.py \
   --report security-plus-extraction-report.json
 ```
 
-Security+ 导入器优先采用社区投票第一名，其次采用 `Most Voted` 标记，最后才回退到 PDF 原始答案。依赖拖拽、热点图或交互式配置的 PBQ 不会伪装成普通选择题。
+The Security+ importer prioritises the community's top-voted answer, followed by the `Most Voted` label, and uses the original PDF answer only as a final fallback. Performance-based questions (PBQs) that rely on drag-and-drop, hotspot diagrams, or interactive configuration are not misrepresented as standard multiple-choice questions.
 
-原始 PDF 不包含在仓库中。
+The original PDF files are not included in the repository.
 
-## 学习记录
+## Learning Records
 
+If you create a learning archive from the application:
 
-如果你在页面里创建了学习存档文件：
-
-- 默认文件名为 `question-archive.json`
-- 该文件也不会被提交到仓库
-
-
+- The default filename is `question-archive.json`
+- The file will not be committed to the repository
