@@ -1,55 +1,52 @@
 # Ctest
 
-一个纯前端的刷题系统，支持中英文双题库、练习模式、模拟考试、错题本，以及本地学习存档。
+A frontend-only question practice system with Chinese and English question banks, practice mode, mock exams, a mistake notebook, and local learning archives.
 
-## 功能
+## Features
 
-- 中文题库 / English Question Bank 切换
-- 练习模式：即时判题、自动记录错题
-- 模拟考试：交卷后查看成绩和错题
-- 错题本：集中复习、移除已掌握题目
-- 本地学习存档：可创建 `question-archive.json`，之后自动同步完整学习状态
+- Switch between the Chinese and English question banks
+- Practice mode: get instant grading and automatically record incorrect answers
+- Mock exams: view your score and review incorrect answers after submission
+- Mistake notebook: review missed questions in one place and remove questions you have mastered
+- Local learning archives: create a `question-archive.json` file and automatically keep your complete learning progress in sync
 
-## 技术栈
+## Tech Stack
 
-- 原生 HTML / CSS / JavaScript
-- Python + `pypdf` 用于从 PDF 提取题库数据
-- Node 内置测试运行器 + Python `unittest`
+- Vanilla HTML, CSS, and JavaScript
+- Python with `pypdf` for extracting question-bank data from PDFs
+- Node.js built-in test runner and Python `unittest`
 
-## 本地启动
+## Run Locally
 
 ```bash
 npm run serve
 ```
 
-然后打开：
+Then open:
 
 ```text
 http://127.0.0.1:4173
 ```
 
-## 测试
+## Tests
 
 ```bash
 npm test
 python -m unittest discover -s tests/python -p "test_*.py"
 ```
 
-## 题库数据
+## Question-Bank Data
 
-项目当前包含两份已提取好的题库数据：
+The project currently includes two pre-extracted question-bank data files:
 
 - `data/questions.zh.json`
 - `data/questions.en.json`
 
-原始 PDF 不包含在仓库中。
+The original PDF files are not included in the repository.
 
-## 学习记录
+## Learning Records
 
+If you create a learning archive from the application:
 
-如果你在页面里创建了学习存档文件：
-
-- 默认文件名为 `question-archive.json`
-- 该文件也不会被提交到仓库
-
-
+- The default filename is `question-archive.json`
+- The file will not be committed to the repository
