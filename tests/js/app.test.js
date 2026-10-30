@@ -300,7 +300,7 @@ test('index exposes a collapsible sidebar control with fresh app cache keys', ()
   assert.match(html, /title="收起侧边栏"/);
   assert.doesNotMatch(html, /`r`n/);
   assert.match(html, /styles\.css\?v=20260720-security-plus/);
-  assert.match(html, /src\/app\.js\?v=20260720-security-plus/);
+  assert.match(html, /src\/app\.js\?v=20261030-ai-banks/);
 });
 
 test('practice options stay vertical for phone APK use', () => {
@@ -947,6 +947,32 @@ test('directly opening learn route keeps Core 2 when it is the active bank', asy
   assert.match(env.appElement.innerHTML, /learning-layout/);
   assert.match(env.appElement.innerHTML, /Core 2 English Question Bank/);
   assert.match(env.appElement.innerHTML, /legacy Linux-based operating system/);
+});
+
+test('AI study banks load their own data and switch without losing Core 2 progress', async () => {
+  const ccnp = JSON.parse(fs.readFileSync('data/questions.ccnp-dcai.json', 'utf8'));
+  const nca = JSON.parse(fs.readFileSync('data/questions.nca-aiio.json', 'utf8'));
+  const fetchImpl = createQuestionBankFetch({
+    './data/questions.ccnp-dcai.json': ccnp,
+    './data/questions.nca-aiio.json': nca,
+  });
+  const env = setupBootstrapEnvironment({ hash: '#/learn', fetchImpl });
+  const core2Progress = { 65: { selectedAnswer: ['D'], correct: true } };
+  const storage = createMutableStorage({
+    'question-app.preferences': { activeBankId: 'ccnpDcai' },
+    'question-app.progress': { core2: core2Progress },
+  });
+  const app = await loadAppModule();
+  await app.bootstrapApp({ fetch: fetchImpl, storage, window: env.windowStub, document: env.documentStub });
+  assert.match(env.appElement.innerHTML, /CCNP-DCAI · 学习模式/);
+  assert.match(env.appElement.innerHTML, /ai-review\.html/);
+  assert.ok(env.appElement.innerHTML.includes(ccnp[0].learning.keyPointHtml));
+  await env.listeners.click({ target: { closest: (selector) => selector === '[data-action]'
+    ? { dataset: { action: 'select-learning-bank', bankId: 'ncaAiio' } } : null } });
+  assert.match(env.appElement.innerHTML, /NCA-AIIO · 学习模式/);
+  assert.match(env.appElement.innerHTML, /1 \/ 116 题/);
+  assert.equal(storage.dump()['question-app.preferences'].activeBankId, 'ncaAiio');
+  assert.deepEqual(storage.dump()['question-app.progress'].core2, core2Progress);
 });
 
 test('learning bank tabs switch between Core 1 and Core 2', async () => {

@@ -1,5 +1,6 @@
 import { escapeHtml } from '../learning-annotations.js';
 import { renderQuestionAnalysis } from './question-analysis-view.js';
+import { renderQuestionMedia } from './question-media.js';
 
 function getOptionAnnotation(question, key) {
   return question.learning?.options?.find((item) => item.key === key);
@@ -113,6 +114,7 @@ function renderMistakeCard(question) {
         <strong>#${escapeHtml(String(question.id))}</strong>
       </div>
       <h3 class="mistake-card__stem">${escapeHtml(question.stem)}</h3>
+      ${renderQuestionMedia(question)}
       <p class="mistake-card__type">${question.type === 'multiple' ? 'Multiple choice' : 'Single choice'}</p>
       <div class="mistake-card__answers">
         <strong>Correct answer</strong>

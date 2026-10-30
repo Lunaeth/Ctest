@@ -46,6 +46,20 @@ The project currently includes the following question bank data files:
 - `data/questions.core2.json`
 - `data/questions.security-plus.json`
 - `data/questions.aws-saa.json`
+- `data/questions.ccnp-dcai.json` — 56 scored questions, including 4 multi-select questions
+- `data/questions.nca-aiio.json` — 116 scored questions, including 4 multi-select questions
+
+### CCNP-DCAI and NCA-AIIO PDF imports
+
+Both banks support study, practice, mock exams, favourites, and separate saved progress. Original PDF question numbers and page numbers are displayed. CCNP-DCAI has 60 source questions: its four illustrated matching questions (3, 11, 29, 36) are available in `ai-review.html`, linked from the bank's home and study pages, for self-assessment. They are excluded from automatic scoring. Question 28 retains its exhibit in study, practice, exams, and mistake review.
+
+Answers and English explanations are transcribed from the supplied PDFs, not independently verified or represented as official exam answers. Missing explanations are explicitly labelled. Source file hashes and import counts are recorded in `data/*-import-report.json`. Original PDFs are not committed.
+
+To reproduce these imports (requires Python and `PyMuPDF`):
+
+```bash
+python scripts/extract_ai_banks.py --ccnp "/path/to/CCNP DCAI.pdf" --nca "/path/to/NCA AIIO.pdf"
+```
 
 To regenerate the Security+ question bank:
 

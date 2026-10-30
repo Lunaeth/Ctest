@@ -1,4 +1,4 @@
-const BANK_IDS = ['zh', 'en', 'core2', 'securityPlus', 'awsSaa'];
+const BANK_IDS = ['zh', 'en', 'core2', 'securityPlus', 'awsSaa', 'ccnpDcai', 'ncaAiio'];
 const LEGACY_BANK_IDS = ['zh', 'en', 'core2', 'awsSaa'];
 const DEFAULT_BANK_ID = 'zh';
 

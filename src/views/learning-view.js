@@ -1,6 +1,7 @@
 ﻿import { escapeHtml } from '../learning-annotations.js';
 
 import { renderFavoriteSyncControls } from './favorite-sync-view.js';
+import { AI_REVIEW_ENTRIES, renderQuestionMedia } from './question-media.js';
 
 const CORE1_VISUAL_ENTRIES = [
   {
@@ -211,18 +212,21 @@ function renderLearningBankTabs(coreBanks, activeBankId) {
 }
 
 function getVisualEntries(activeBankId) {
+  if (activeBankId === 'ccnpDcai') return AI_REVIEW_ENTRIES;
+  if (activeBankId === 'ncaAiio') return [];
   if (activeBankId === 'securityPlus') return SECURITY_PLUS_VISUAL_ENTRIES;
   return activeBankId === 'core2' ? CORE2_VISUAL_ENTRIES : CORE1_VISUAL_ENTRIES;
 }
 
 function renderVisualEntries(activeBankId) {
   const entries = getVisualEntries(activeBankId);
+  if (!entries.length) return '';
 
   return `
     <section class="visual-entry-panel visual-entry-panel--compact" aria-label="knowledge visualizations">
       <div>
-        <strong>知识可视化</strong>
-        <p>先看流程图，再回到模块刷题。</p>
+        <strong>${activeBankId === 'ccnpDcai' ? '图示配对题' : '知识可视化'}</strong>
+        <p>${activeBankId === 'ccnpDcai' ? '保留 PDF 图示，展开答案自评复习。' : '先看流程图，再回到模块刷题。'}</p>
       </div>
       <div class="visual-entry-grid">
         ${entries.map((entry) => `
@@ -338,6 +342,7 @@ export function renderLearningView(
         ${renderVisualEntries(activeBankId)}
         ${renderLearningModules(modules, activeModuleId)}
         <h2 class="question-stem learning-stem">${stemHtml}</h2>
+        ${renderQuestionMedia(question)}
         ${renderQuestionTags(question, modules)}
         <div class="learning-keypoint">
           <strong>关键点</strong>

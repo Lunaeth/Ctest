@@ -62,10 +62,12 @@ const QUESTION_BANKS = [
     file: './data/questions.security-plus.json?v=20260720-security-plus-bilingual',
   },
   { id: 'awsSaa', label: 'AWS SAA Screenshots', file: './data/questions.aws-saa.json' },
+  { id: 'ccnpDcai', label: 'CCNP-DCAI', file: './data/questions.ccnp-dcai.json' },
+  { id: 'ncaAiio', label: 'NCA-AIIO', file: './data/questions.nca-aiio.json' },
 ];
 const QUESTION_BANK_MAP = new Map(QUESTION_BANKS.map((bank) => [bank.id, bank]));
 const DEFAULT_LEARNING_BANK_ID = 'en';
-const LEARNING_BANK_IDS = new Set(['en', 'core2', 'securityPlus']);
+const LEARNING_BANK_IDS = new Set(['en', 'core2', 'securityPlus', 'ccnpDcai', 'ncaAiio']);
 const CORE1_BANK_ID = 'en';
 const CORE2_BANK_ID = 'core2';
 const SECURITY_PLUS_BANK_ID = 'securityPlus';
@@ -172,6 +174,21 @@ function getLearningModules() {
 
   if (state?.bankId === SECURITY_PLUS_BANK_ID) {
     return buildSecurityPlusModuleStats(state.questions);
+  }
+
+  if (['ccnpDcai', 'ncaAiio'].includes(state?.bankId)) {
+    const topics = [...new Set(state.questions.map((question) => question.topic))];
+    const topicLabels = {
+      'AI Infrastructure Components and Architecture': '组件与架构',
+      'AI Infrastructure Operations and Troubleshooting': '运维与排错',
+      'AI Infrastructure Deployment and Data Management': '部署与数据管理',
+      'AI Fundamentals and Applications': 'AI 基础与应用',
+    };
+    return [
+      { id: 'all', label: '全部选择题', description: '按 PDF 原题顺序学习', count: state.questions.length },
+      ...(topics.length > 1 ? topics : []).map((topic) => ({ id: topic, label: topicLabels[topic] ?? topic, description: 'PDF 题目分组',
+        count: state.questions.filter((question) => question.topic === topic).length })),
+    ];
   }
 
   return [];

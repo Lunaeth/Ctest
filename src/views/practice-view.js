@@ -10,6 +10,7 @@ import {
 } from '../core2-study-map.js?v=20260707-core2-process-flows';
 import { renderQuestionAnalysis } from './question-analysis-view.js';
 import { renderFavoriteSyncControls } from './favorite-sync-view.js';
+import { renderQuestionMedia } from './question-media.js';
 
 const TEXT = {
   questionSuffix: '\u9898',
@@ -860,6 +861,7 @@ export function renderPracticeView(
           ${renderFavoriteButton(question, isFavorite)}
         </div>
         <h2 class="question-stem">${escapeHtml(question.stem)}</h2>
+        ${renderQuestionMedia(question)}
         ${renderPracticeAnswerPrompt(question, selectedAnswer)}
         ${renderPracticeStudyTags(question)}
         <div class="option-list">

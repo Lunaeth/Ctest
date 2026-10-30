@@ -1,5 +1,8 @@
-﻿export function renderHomeView({ stats, banks, activeBankId }) {
-  const visualEntries = activeBankId === 'securityPlus'
+import { AI_REVIEW_ENTRIES } from './question-media.js';
+
+export function renderHomeView({ stats, banks, activeBankId }) {
+  const visualEntries = activeBankId === 'ccnpDcai' ? AI_REVIEW_ENTRIES
+    : activeBankId === 'ncaAiio' ? [] : activeBankId === 'securityPlus'
     ? [
       {
         href: './security-plus-visual.html?v=20260720-security-plus-bilingual',
@@ -117,7 +120,7 @@
         <div class="stat-row"><span>最近考试</span><strong>${stats.lastExamScore}</strong></div>
       </article>
     </section>
-    <section class="panel visual-entry-panel" aria-label="knowledge visualizations">
+    ${visualEntries.length ? `<section class="panel visual-entry-panel" aria-label="knowledge visualizations">
       <div>
         <p class="eyebrow">Study Maps</p>
         <h3>知识可视</h3>
@@ -131,6 +134,6 @@
           </a>
         `).join('')}
       </div>
-    </section>
+    </section>` : ''}
   `;
 }

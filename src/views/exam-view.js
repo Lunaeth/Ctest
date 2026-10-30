@@ -1,22 +1,26 @@
+import { renderQuestionMedia } from './question-media.js';
+import { escapeHtml } from '../learning-annotations.js';
+
 export function renderExamView(question, session, selectedAnswer = [], bankLabel = '') {
   return `
     <section class="workspace-grid">
       <article class="panel question-panel">
         <div class="question-meta">
-          <span>${bankLabel}</span>
+          <span>${escapeHtml(bankLabel)}</span>
           <strong>第 ${session.currentIndex + 1} / ${session.order.length} 题</strong>
         </div>
-        <h2 class="question-stem">${question.stem}</h2>
+        <h2 class="question-stem">${escapeHtml(question.stem)}</h2>
+        ${renderQuestionMedia(question)}
         <div class="option-list">
           ${question.options.map((option) => `
             <label class="option-item">
               <input
                 type="${question.type === 'single' ? 'radio' : 'checkbox'}"
                 name="answer"
-                value="${option.key}"
+                value="${escapeHtml(option.key)}"
                 ${selectedAnswer.includes(option.key) ? 'checked' : ''}
               />
-              <span>${option.key}. ${option.text}</span>
+              <span>${escapeHtml(option.key)}. ${escapeHtml(option.text)}</span>
             </label>
           `).join('')}
         </div>
@@ -28,7 +32,7 @@ export function renderExamView(question, session, selectedAnswer = [], bankLabel
       </article>
       <aside class="panel navigator-panel exam-nav">
         <h3>考试进度</h3>
-        <p>当前题库：${bankLabel}</p>
+        <p>当前题库：${escapeHtml(bankLabel)}</p>
         <p>已作答 ${Object.keys(session.answers).length} / ${session.order.length} 题</p>
       </aside>
     </section>
