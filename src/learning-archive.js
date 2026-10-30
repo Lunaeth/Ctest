@@ -128,6 +128,7 @@ export function createArchivePayload(state, banks) {
         {
           progress: cloneJson(state.progressByBank?.[bank.id] ?? {}),
           mistakes: cloneJson(state.mistakesByBank?.[bank.id] ?? []),
+          favorites: cloneJson(state.favoritesByBank?.[bank.id] ?? []),
           examHistory: cloneJson(state.examHistoryByBank?.[bank.id] ?? []),
           currentPractice: cloneJson(state.currentPracticeByBank?.[bank.id] ?? null),
           currentExam: cloneJson(state.currentExamByBank?.[bank.id] ?? null),

@@ -4,8 +4,8 @@ import { createArchivePayload, createLearningArchiveService } from '../../src/le
 
 const banks = [
   { id: 'zh', label: '中文题库' },
-  { id: 'en', label: 'English Question Bank' },
-  { id: 'core2', label: 'core2' },
+  { id: 'en', label: 'Core 1 English Question Bank' },
+  { id: 'core2', label: 'Core 2 English Question Bank' },
 ];
 
 function createWritableHandle(name = 'question-archive.json') {
@@ -42,6 +42,11 @@ test('createArchivePayload serializes the full learning state by bank', () => {
       en: [],
       core2: [201],
     },
+    favoritesByBank: {
+      zh: [],
+      en: [101],
+      core2: [201],
+    },
     examHistoryByBank: {
       zh: [{ score: 18, total: 20 }],
       en: [{ score: 9, total: 10 }],
@@ -68,6 +73,7 @@ test('createArchivePayload serializes the full learning state by bank', () => {
   });
   assert.match(payload.updatedAt, /^\d{4}-\d{2}-\d{2}T/);
   assert.deepEqual(payload.banks.zh.mistakes, [1]);
+  assert.deepEqual(payload.banks.en.favorites, [101]);
   assert.deepEqual(payload.banks.en.progress, {
     101: { correct: true, selectedAnswer: ['A'] },
   });
@@ -80,6 +86,7 @@ test('createArchivePayload serializes the full learning state by bank', () => {
   assert.deepEqual(payload.banks.core2, {
     progress: { 201: { correct: true, selectedAnswer: ['A'] } },
     mistakes: [201],
+    favorites: [201],
     examHistory: [{ score: 1, total: 1 }],
     currentPractice: null,
     currentExam: null,
@@ -125,9 +132,9 @@ test('createLearningArchiveService binds a file and writes archive payloads', as
       autoRemoveCorrectMistakes: true,
     },
     banks: {
-      zh: { progress: {}, mistakes: [], examHistory: [], currentPractice: null, currentExam: null },
-      en: { progress: {}, mistakes: [], examHistory: [], currentPractice: null, currentExam: null },
-      core2: { progress: {}, mistakes: [], examHistory: [], currentPractice: null, currentExam: null },
+      zh: { progress: {}, mistakes: [], favorites: [], examHistory: [], currentPractice: null, currentExam: null },
+      en: { progress: {}, mistakes: [], favorites: [], examHistory: [], currentPractice: null, currentExam: null },
+      core2: { progress: {}, mistakes: [], favorites: [], examHistory: [], currentPractice: null, currentExam: null },
     },
   });
 
@@ -143,9 +150,9 @@ test('createLearningArchiveService binds a file and writes archive payloads', as
       autoRemoveCorrectMistakes: true,
     },
     banks: {
-      zh: { progress: {}, mistakes: [], examHistory: [], currentPractice: null, currentExam: null },
-      en: { progress: {}, mistakes: [], examHistory: [], currentPractice: null, currentExam: null },
-      core2: { progress: {}, mistakes: [], examHistory: [], currentPractice: null, currentExam: null },
+      zh: { progress: {}, mistakes: [], favorites: [], examHistory: [], currentPractice: null, currentExam: null },
+      en: { progress: {}, mistakes: [], favorites: [], examHistory: [], currentPractice: null, currentExam: null },
+      core2: { progress: {}, mistakes: [], favorites: [], examHistory: [], currentPractice: null, currentExam: null },
     },
   });
 });

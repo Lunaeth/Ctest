@@ -9,6 +9,7 @@ test('normalizeRoute falls back to home', () => {
 
 test('normalizeRoute returns supported screens', () => {
   assert.equal(normalizeRoute('#/practice'), 'practice');
+  assert.equal(normalizeRoute('#/learn'), 'learn');
   assert.equal(normalizeRoute('#/exam'), 'exam');
   assert.equal(normalizeRoute('#/results'), 'results');
   assert.equal(normalizeRoute('#/mistakes'), 'mistakes');
@@ -22,6 +23,9 @@ test('navigate updates the hash for home and non-home routes', () => {
 
   navigate('practice');
   assert.equal(window.location.hash, '#/practice');
+
+  navigate('learn');
+  assert.equal(window.location.hash, '#/learn');
 
   delete globalThis.window;
 });

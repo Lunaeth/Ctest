@@ -1,4 +1,5 @@
-const BANK_IDS = ['zh', 'en', 'core2', 'awsSaa'];
+const BANK_IDS = ['zh', 'en', 'core2', 'securityPlus', 'awsSaa', 'ccnpDcai', 'ncaAiio'];
+const LEGACY_BANK_IDS = ['zh', 'en', 'core2', 'awsSaa'];
 const DEFAULT_BANK_ID = 'zh';
 
 function asObject(value) {
@@ -31,14 +32,20 @@ function normalizeBankId(value) {
 function normalizeBankBuckets(value, normalizeValue) {
   if (hasBankBuckets(value)) {
     const bucket = asObject(value);
+    const configuredBankIds = [
+      ...LEGACY_BANK_IDS,
+      ...BANK_IDS.filter((bankId) => (
+        !LEGACY_BANK_IDS.includes(bankId) && Object.hasOwn(bucket, bankId)
+      )),
+    ];
     return Object.fromEntries(
-      BANK_IDS.map((bankId) => [bankId, normalizeValue(bucket[bankId])]),
+      configuredBankIds.map((bankId) => [bankId, normalizeValue(bucket[bankId])]),
     );
   }
 
   return {
     ...Object.fromEntries(
-      BANK_IDS.map((bankId) => [bankId, normalizeValue(undefined)]),
+      LEGACY_BANK_IDS.map((bankId) => [bankId, normalizeValue(undefined)]),
     ),
     [DEFAULT_BANK_ID]: normalizeValue(value),
   };
@@ -69,22 +76,29 @@ function selectActiveBuckets(questions, preferences, persisted) {
   const bankId = normalizeBankId(preferences.activeBankId);
   const progressByBank = normalizeBankBuckets(persisted.progress, asObject);
   const mistakesByBank = normalizeBankBuckets(persisted.mistakes, asArray);
+  const favoritesByBank = normalizeBankBuckets(persisted.favorites, asArray);
   const examHistoryByBank = normalizeBankBuckets(persisted.examHistory, asArray);
   const currentPracticeByBank = normalizeBankBuckets(persisted.currentPractice, asPracticeSession);
   const currentExamByBank = normalizeBankBuckets(persisted.currentExam, asExamSession);
 
   progressByBank[bankId] = normalizeProgressEntries(questions, progressByBank[bankId]);
   mistakesByBank[bankId] = normalizeMistakes(questions, mistakesByBank[bankId]);
+  favoritesByBank[bankId] = normalizeMistakes(questions, favoritesByBank[bankId]);
+  examHistoryByBank[bankId] = asArray(examHistoryByBank[bankId]);
+  currentPracticeByBank[bankId] = asPracticeSession(currentPracticeByBank[bankId]);
+  currentExamByBank[bankId] = asExamSession(currentExamByBank[bankId]);
 
   return {
     bankId,
     progressByBank,
     mistakesByBank,
+    favoritesByBank,
     examHistoryByBank,
     currentPracticeByBank,
     currentExamByBank,
     progress: progressByBank[bankId],
     mistakes: mistakesByBank[bankId],
+    favorites: favoritesByBank[bankId],
     examHistory: examHistoryByBank[bankId],
     currentPractice: currentPracticeByBank[bankId],
     currentExam: currentExamByBank[bankId],
@@ -99,11 +113,13 @@ export function setActiveBank(state, questions, bankId) {
   state.preferences.activeBankId = nextBankId;
   state.progressByBank[nextBankId] = normalizeProgressEntries(questions, state.progressByBank[nextBankId]);
   state.mistakesByBank[nextBankId] = normalizeMistakes(questions, state.mistakesByBank[nextBankId]);
+  state.favoritesByBank[nextBankId] = normalizeMistakes(questions, state.favoritesByBank[nextBankId]);
   state.examHistoryByBank[nextBankId] = asArray(state.examHistoryByBank[nextBankId]);
   state.currentPracticeByBank[nextBankId] = asPracticeSession(state.currentPracticeByBank[nextBankId]);
   state.currentExamByBank[nextBankId] = asExamSession(state.currentExamByBank[nextBankId]);
   state.progress = state.progressByBank[nextBankId];
   state.mistakes = state.mistakesByBank[nextBankId];
+  state.favorites = state.favoritesByBank[nextBankId];
   state.examHistory = state.examHistoryByBank[nextBankId];
   state.currentPractice = state.currentPracticeByBank[nextBankId];
   state.currentExam = state.currentExamByBank[nextBankId];
@@ -128,11 +144,13 @@ export function createInitialState(questions, persisted = {}) {
     bankId: activeBuckets.bankId,
     progressByBank: activeBuckets.progressByBank,
     mistakesByBank: activeBuckets.mistakesByBank,
+    favoritesByBank: activeBuckets.favoritesByBank,
     examHistoryByBank: activeBuckets.examHistoryByBank,
     currentPracticeByBank: activeBuckets.currentPracticeByBank,
     currentExamByBank: activeBuckets.currentExamByBank,
     progress: activeBuckets.progress,
     mistakes: activeBuckets.mistakes,
+    favorites: activeBuckets.favorites,
     examHistory: activeBuckets.examHistory,
     currentPractice: activeBuckets.currentPractice,
     currentExam: activeBuckets.currentExam,

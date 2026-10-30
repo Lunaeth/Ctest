@@ -1,0 +1,14 @@
+{
+  "bank": "ccnp-dcai",
+  "sourceSha256": "687ac291661f9e4424a04a501cf81765bffa749d2575468808e92af766835bd2",
+  "pages": 57,
+  "total": 60,
+  "scored": 56,
+  "reviewOnlyIds": [
+    3,
+    11,
+    29,
+    36
+  ],
+  "multiSelect": 4
+}

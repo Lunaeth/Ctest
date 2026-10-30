@@ -22,6 +22,7 @@ test('buildCore2Analysis returns outline, whyChoose, and whyNotChoose from self-
   });
 
   assert.equal(Array.isArray(analysis.outline), true);
+  assert.equal(analysis.source, 'core2');
   assert.equal(analysis.outline.length, 3);
   assert.match(analysis.outline[0], /题干情境/);
   assert.match(analysis.outline[1], /知识点/);
@@ -48,6 +49,7 @@ test('decorateCore2Questions attaches structured analysis while preserving expla
   ]);
 
   assert.match(decorated[0].explanation, /RDP/);
+  assert.equal(decorated[0].analysis.source, 'core2');
   assert.match(decorated[0].analysis.whyChoose, /VPN/);
   assert.match(decorated[0].analysis.outline[0], /题干情境/);
   assert.equal(decorated[0].analysis.whyNotChoose.length, 2);
@@ -90,8 +92,56 @@ test('applyStoredCore2Analyses prefers the last stored record for the same quest
   );
 
   assert.equal(decorated[0].explanation, '人工复核解析');
+  assert.equal(decorated[0].analysis.source, 'core2');
   assert.equal(decorated[0].analysis.whyChoose, '复核为什么选');
   assert.equal(decorated[0].analysis.outline[0], '复核提纲 1');
+});
+
+test('applyStoredCore2Analyses rebuilds stale weak stored analysis records', () => {
+  const [decorated] = applyStoredCore2Analyses(
+    [
+      {
+        id: 20,
+        stem: 'A user wants to change the default browser in Windows. Which of the following Settings sections should the user open?',
+        options: [
+          { key: 'A', text: 'Time and Language' },
+          { key: 'B', text: 'Personalization' },
+          { key: 'C', text: 'System' },
+          { key: 'D', text: 'Apps' },
+        ],
+        answer: ['D'],
+        type: 'single',
+      },
+    ],
+    [
+      {
+        id: 20,
+        explanation: '旧解析',
+        analysis: {
+          outline: ['旧提纲 1', '旧提纲 2', '旧提纲 3'],
+          whyChoose: '旧为什么选',
+          whyNotChoose: [
+            {
+              key: 'A',
+              text: 'Time and Language',
+              reason: 'Time and Language 和正确项不是同一类技术或控制点，题干要找的不是它。',
+            },
+          ],
+        },
+      },
+    ],
+  );
+
+  const combined = [
+    decorated.explanation,
+    decorated.analysis.outline.join('\n'),
+    decorated.analysis.whyChoose,
+    decorated.analysis.whyNotChoose.map((item) => item.reason).join('\n'),
+  ].join('\n');
+
+  assert.notEqual(decorated.explanation, '旧解析');
+  assert.doesNotMatch(combined, /题干要找的不是它/);
+  assert.match(combined, /可先排除|不直接处理|更偏向/);
 });
 
 test('buildCore2Analysis matches Chinese stems and explains the exact restriction in Chinese', () => {
@@ -211,5 +261,29 @@ test('core2 corpus analysis does not fall back to placeholder lead summaries or 
     assert.doesNotMatch(combined, /题干前半段已经给出了当前场景和限制条件/);
     assert.doesNotMatch(combined, /解决题干中的某一部分问题/);
     assert.doesNotMatch(combined, /最符合当前场景/);
+    assert.doesNotMatch(combined, /题干要找的不是它/);
   }
+});
+
+test('core2 applied stored analyses avoid stale weak fallback reasons', () => {
+  const corpus = JSON.parse(fs.readFileSync(new URL('../../data/questions.core2.json', import.meta.url), 'utf8'));
+  const records = [
+    ...JSON.parse(fs.readFileSync(new URL('../../data/questions.core2.analysis.json', import.meta.url), 'utf8')),
+    ...JSON.parse(fs.readFileSync(new URL('../../data/questions.core2.curated.analysis.json', import.meta.url), 'utf8')),
+  ];
+  const decorated = applyStoredCore2Analyses(corpus, records);
+  const weak = decorated.flatMap((question) => {
+    const combined = [
+      question.explanation,
+      question.analysis?.outline?.join('\n'),
+      question.analysis?.whyChoose,
+      question.analysis?.whyNotChoose?.map((item) => item.reason).join('\n'),
+    ].join('\n');
+
+    return /题干要找的不是它|最符合当前场景|最直接对应题干给出的目标、风险或症状/.test(combined)
+      ? [question.id]
+      : [];
+  });
+
+  assert.deepEqual(weak, []);
 });

@@ -1,7 +1,8 @@
-const SUPPORTED_ROUTES = new Set(['home', 'practice', 'exam', 'results', 'mistakes']);
+const SUPPORTED_ROUTES = new Set(['home', 'practice', 'learn', 'exam', 'results', 'mistakes']);
 const ROUTE_LABELS = {
   home: '首页',
   practice: '练习',
+  learn: '学习',
   exam: '考试',
   results: '结果',
   mistakes: '错题本',

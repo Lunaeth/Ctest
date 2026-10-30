@@ -1,0 +1,75 @@
+[
+  {
+    "id": 3,
+    "topic": "AI Infrastructure Deployment and Data Management",
+    "stem": "Refer to the exhibit. When a new AI backend network that supports Cisco UCS-based GPU servers with NVIDIA Connect-X network adapters is benchmarked, the traffic distribution observed has unacceptable variability across the interfaces. Drag and drop the code snippets from the bottom onto the boxes in the code to configure the switch to resolve the issue.",
+    "explanation": "hardware profile dlb dlb-interface all mode flowlet The exhibit shows materially uneven utilization across the eight interfaces, with receive utilization ranging from approximately 32.5% to 75.3%. Cisco Dynamic Load Balancing addresses this problem by considering current path utilization rather than relying exclusively on static ECMP hashing. The configuration begins with hardware profile dlb, which enters the DLB hardware-profile context. dlb- interface all enables DLB on all eligible Layer 3 physical interfaces. Cisco documents both an explicit interface list and the all keyword for this purpose. The document's supplied drag-and-drop answer then selects mode flowlet. Cisco defines flowlet load balancing as the default DLB mode, in which forwarding decisions use Dynamic Resilient Ethernet metrics to select less-loaded paths while maintaining packet ordering within a flowlet. Cisco also supports per-packet DLB, which can produce even greater path utilization but can reorder packets. When NVIDIA adaptive-routing capabilities are explicitly enabled and endpoints can handle reordering, Cisco documents per-packet DLB as an optimized alternative. That additional prerequisite is not stated in this question. Therefore, the source-derived configuration is DLB / all interfaces / flowlet . Study Guide Reference: AI Infrastructure Deployment and Data Management — Dynamic Load Balancing, ECMP optimization, AI backend fabrics, and traffic distribution.",
+    "source": {
+      "file": "CCNP DCAI.pdf",
+      "page": 4
+    },
+    "answerSource": "provided-pdf",
+    "images": [
+      "./data/ai-assets/ccnp-dcai-3-question-1.png",
+      "./data/ai-assets/ccnp-dcai-3-question-2.png"
+    ],
+    "type": "review",
+    "answerImages": [
+      "./data/ai-assets/ccnp-dcai-3-answer-3.png"
+    ]
+  },
+  {
+    "id": 11,
+    "topic": "AI Infrastructure Components and Architecture",
+    "stem": "An organization is deploying an AI/ML infrastructure with multiple network fabrics, each serving a specific purpose. The network architect must match the network fabric type with its primary function. Drag and drop the network fabric types from the left onto the corresponding descriptions on the right.",
+    "explanation": "backend network frontend network storage network management network Large AI environments normally separate traffic into purpose-built fabrics because GPU collective communication, storage I/O, application access, and infrastructure management have fundamentally different performance and availability characteristics. Cisco identifies the backend network as the east-west fabric dedicated to inter-GPU communication. It carries high-bandwidth RoCEv2/RDMA traffic associated with distributed training and must provide exceptionally low latency and lossless behavior. The frontend network provides north-south connectivity between AI nodes and the wider data center, supporting application access, inference traffic, general data movement, logging, and other in-band services. The storage network connects compute nodes to shared datasets, model checkpoints, and high-performance parallel or distributed storage systems. Cisco AI POD designs may use dedicated storage-leaf connectivity to prevent storage traffic from interfering with backend GPU collective communication. The management network serves out-of-band management interfaces for servers, switches, storage platforms, and other infrastructure components. Cisco AI reference architectures explicitly distinguish backend, frontend/storage, and management connectivity for these purposes. Maintaining these traffic domains independently improves deterministic performance, fault isolation, congestion control, security, and operational manageability. Study Guide Reference: AI Infrastructure Components and Architecture — network fabrics, bandwidth, latency, scalability, and AI infrastructure connectivity.",
+    "source": {
+      "file": "CCNP DCAI.pdf",
+      "page": 12
+    },
+    "answerSource": "provided-pdf",
+    "images": [
+      "./data/ai-assets/ccnp-dcai-11-question-1.png"
+    ],
+    "type": "review",
+    "answerImages": [
+      "./data/ai-assets/ccnp-dcai-11-answer-2.png"
+    ]
+  },
+  {
+    "id": 29,
+    "topic": "AI Infrastructure Deployment and Data Management",
+    "stem": "An engineer must configure vNIC templates for a UCS X-Series deployment. Drag and drop the policy types from the left onto the corresponding configuration settings on the right. Not all options are used.",
+    "explanation": "Ethernet Network Control Policy Ethernet Network Group Policy Ethernet QoS Policy Ethernet Adapter Policy The mappings correspond to the functional boundaries of Cisco Intersight vNIC policies. Ethernet Network Control Policy manages link-layer behavior including CDP and LLDP. Cisco's Intersight documentation explicitly identifies CDP, LLDP transmit/receive, MAC registration, and uplink-failure behavior as Network Control settings. Ethernet Network Group Policy controls VLAN membership for FI-attached servers, including the set of allowed VLANs and the optional native VLAN. Ethernet QoS Policy supplies performance-oriented vNIC characteristics such as MTU, rate limiting, traffic priority, CoS, and burst parameters. Cisco's current RoCE configuration guide lists MTU and rate-limit values directly under Ethernet QoS configuration. Finally, Ethernet Adapter Policy contains adapter-level behavior and performance parameters, including RoCE configuration used for high-performance RDMA interfaces. Ethernet Network Policy is the unused choice. Cisco documents that policy primarily for VLAN configuration on standalone servers, whereas Ethernet Network Group Policy is the relevant VLAN policy for Fabric Interconnect-attached UCS X-Series vNICs. Study Guide Reference: AI Infrastructure Deployment and Data Management — UCS vNIC templates, Ethernet policies, QoS, VLAN configuration, and RoCE.",
+    "source": {
+      "file": "CCNP DCAI.pdf",
+      "page": 28
+    },
+    "answerSource": "provided-pdf",
+    "images": [
+      "./data/ai-assets/ccnp-dcai-29-question-1.png"
+    ],
+    "type": "review",
+    "answerImages": [
+      "./data/ai-assets/ccnp-dcai-29-answer-2.png"
+    ]
+  },
+  {
+    "id": 36,
+    "topic": "AI Infrastructure Deployment and Data Management",
+    "stem": "A network engineer is designing congestion management for an AI cluster using RoCEv2 transport. Based on Cisco best practices, the engineer must understand how ECN and PFC work together to provide lossless Ethernet transport. Drag and drop the congestion management mechanisms from the left onto the corresponding descriptions on the right. Not all options are used.",
+    "explanation": "ECN (Explicit Congestion Notification) PFC (Priority Flow Control) ECN and PFC address different congestion conditions in a RoCEv2 fabric and are intended to complement rather than replace each other. ECN is the appropriate mechanism for fabric-level congestion generated by incast patterns. When several GPU or storage senders simultaneously transmit toward the same destination, switch queues begin to build. ECN-capable switches mark packets rather than immediately dropping them, allowing the receiving endpoint to generate congestion feedback so the transmitting source can reduce its sending rate. PFC provides hop-by-hop loss prevention for the designated lossless Ethernet priority. When an endpoint or downstream interface cannot accept a burst quickly enough and a queue approaches its configured threshold, PFC transmits pause frames for that specific priority. This temporarily stops upstream transmission and prevents packet loss. Cisco's RoCEv2 designs combine ECN and PFC precisely because ECN provides proactive end-to-end congestion management while PFC acts as the protective mechanism when queue buildup becomes severe or occurs faster than endpoint rate adaptation can respond. WRED can provide the queue-marking mechanism associated with ECN, but the requested logical congestion- control mechanism is ECN. AFD is not the corresponding RoCEv2 lossless mechanism for either description. Study Guide Reference: AI Infrastructure Deployment and Data Management — congestion control, RoCEv2, ECN, PFC, QoS, and lossless Ethernet.",
+    "source": {
+      "file": "CCNP DCAI.pdf",
+      "page": 35
+    },
+    "answerSource": "provided-pdf",
+    "images": [
+      "./data/ai-assets/ccnp-dcai-36-question-1.png"
+    ],
+    "type": "review",
+    "answerImages": [
+      "./data/ai-assets/ccnp-dcai-36-answer-2.png"
+    ]
+  }
+]

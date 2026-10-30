@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Network Question Map</title>
+    <link rel="stylesheet" href="./network-map.css?v=20260705-port-reference" />
+  </head>
+  <body>
+    <main class="network-map-shell">
+      <header class="network-map-header">
+        <div>
+          <p class="eyebrow">CompTIA A+ Question Bank</p>
+          <h1>Network 问题 → 答案分层地图</h1>
+          <p>
+            所有卡片都来自本地题库。先看题干症状，再对照正确答案属于哪一层：线缆、VLAN、IP、端口、DNS、无线或访问策略。
+          </p>
+        </div>
+        <a class="back-link" href="./index.html?v=20260707-core2-modules#/learn">返回学习</a>
+      </header>
+
+      <section id="network-overview" class="network-overview"></section>
+
+      <section class="network-map-controls" aria-label="filters">
+        <label>
+          <span>搜索题干 / 答案 / 关键词</span>
+          <input id="network-search" type="search" placeholder="例如 DHCP, DNS, VPN, VLAN, wireless" />
+        </label>
+        <div id="layer-tabs" class="layer-tabs"></div>
+      </section>
+
+      <section id="network-summary" class="network-summary"></section>
+      <section id="network-content" class="network-content">
+        <article class="loading-card">正在从题库生成 Network 地图...</article>
+      </section>
+    </main>
+
+    <script type="module" src="./src/network-map-page.js?v=20260707-core2-modules"></script>
+  </body>
+</html>
