@@ -1,0 +1,24 @@
+# AIIO questions 37–84: partial content review
+
+Reviewed on 2026-10-30. This batch adds 48 authored question reviews to the earlier 1–36 batch. Together with the three DCAI entries, 87 of 176 questions have authored reviews. This is not full-bank completion or a production release.
+
+Every entry contains a Chinese stem, individual option translations and English/Chinese option explanations, reasoning steps, terminology, a memory cue, a caveat, primary references and an editorial review note. The original answer and explanation remain in the generated question records.
+
+## Substantive findings
+
+- 37–48: distinguish Kubernetes scheduling and Service traffic distribution from model execution; Slurm jobs from container orchestration; DCGM GPU telemetry from whole-cluster Base Command Manager administration. NVIDIA SMI GPU utilization reports sampled kernel activity, not percentage of memory allocated or percentage of all CUDA cores busy. Out-of-band management has a separate control path but still depends on available management hardware and power.
+- 49–60: the H100 maximum is seven MIG GPU instances under the smallest supported profiles. Containers reduce dependency differences but require compatible hosts. The simplified ML/DL/GenAI nesting is limited to modern neural generative AI; non-neural generative models exist. Training/inference storage and fleet-size comparisons are workload-dependent. Tensor Cores specialize in matrix operations rather than exclusively owning all mixed-precision arithmetic. NGC catalog availability is not a universal license. CPU/GPU cache-size claims are not universal hardware comparisons.
+- 61–72: CUDA is a platform and programming model, not only a domain library. Isaac does not guarantee safe online learning in a warehouse. NCCL abstracts GPU communication details, not every application optimization. Surveillance can include intelligent video analytics; the latter is the more specific answer. The MPI/PVM pairing is historical, not evidence of current popularity. GPUDirect Storage is not the only form of DPU storage acceleration. InfiniBand is the intended training fabric answer, not a universal winner over every RoCE configuration.
+- 73–84: a billion-parameter model does not by itself require SuperPOD or prove that it is fastest. RTX can also be used at the edge, although Jetson is the explicitly embedded platform. SDN and physical fabric choices are different abstraction levels. Local ownership supports data control but does not automatically establish legal compliance; cloud can also meet residency requirements. UPS voltage regulation is real, while outage bridging is its defining function. Blanking panels belong in unused rack openings, never over active vents. RoCE/GDS direct paths still need software control. NVSwitch switches NVLink GPU traffic rather than Ethernet or wireless signals. BF16 is valid and can be part of mixed precision. Cloud elasticity is subject to quotas, supply and cost.
+
+## Question 69 source correction
+
+The imported source PDF has SHA-256 `eb1462d9094537facf1b0b20921ff0b854c7c793e1c59d5072dcad9da7042d25`. Text extraction from page 20 reproduces option A as `It uses ROMA to eliminate CPU bottlenecks.` The source explanation itself says RDMA, and the [NVIDIA GPUDirect RDMA guide](https://docs.nvidia.com/cuda/gpudirect-rdma/index.html) documents the direct GPU/PCIe-peer path and kernel-driver setup.
+
+The displayed option is corrected to `It uses RDMA to reduce CPU data-copy bottlenecks.` Its full imported wording is retained in `options[].originalText`. The compiler supports explicit English option corrections before generating analysis and views, and preserves the first original text on repeated builds. The explanation identifies both the spelling error and the overly absolute bottleneck claim. Option C's kernel involvement is explained as potentially true but not the distinguishing transfer feature.
+
+## Verification and limitations
+
+All 236 JavaScript tests pass. Reviewed-content checks cover all currently reviewed scored questions across learning, practice feedback, mistakes and exam results; unanswered practice/exams include translations without revealing option reasons or source links. A regression check confirms the corrected question 69 text appears in rendered views while its original remains in the data. Existing bank checks cover source IDs, valid answer keys, exhibits and independent progress/favourites.
+
+These checks establish data and rendering invariants, not semantic truth. Technical claims were reviewed against the sources embedded in each authored entry. Underspecified source questions retain explicit caveats in the learning content rather than presenting the exam's expected answer as a universal engineering rule. AI topic modules/maps, remaining reviews, browser QA and production account/Turnstile validation remain outstanding.

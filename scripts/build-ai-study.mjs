@@ -55,6 +55,14 @@ for (const bank of ['ccnp-dcai', 'nca-aiio']) {
         question.answer = [...entry.answer];
         question.type = entry.answer.length > 1 ? 'multiple' : 'single';
       }
+      question.options.forEach((option) => {
+        const correction = entry.options[option.key]?.en;
+        if (correction !== undefined) {
+          if (typeof correction !== 'string' || !correction.trim()) throw new Error(`Invalid option correction ${question.id}${option.key}`);
+          option.originalText ??= option.text;
+          option.text = correction;
+        }
+      });
       question.aiStudy = { ...entry, bankId: bank === 'ccnp-dcai' ? 'ccnpDcai' : 'ncaAiio', reviewedAt: '2026-10-30' };
       question.explanation = text(entry.summary);
       question.analysis = {

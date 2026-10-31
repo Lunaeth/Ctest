@@ -62,3 +62,17 @@ test('option translations are escaped as plain text',()=>{
   assert.ok(html.includes('&lt;script&gt;'));assert.ok(html.includes('&lt;img'));
   assert.doesNotMatch(html,/<script>|<img/);
 });
+
+test('AIIO GPUDirect erratum preserves the source option and renders its corrected text',()=>{
+  const questions=JSON.parse(fs.readFileSync('data/questions.nca-aiio.json','utf8'));
+  const q=questions.find(q=>q.id===69);
+  const option=q.options.find(o=>o.key==='A');
+  assert.equal(option.originalText,'It uses ROMA to eliminate CPU bottlenecks.');
+  assert.equal(option.text,'It uses RDMA to reduce CPU data-copy bottlenecks.');
+  assert.equal(q.originalAnswer.join(','),'A');
+  const session=createPracticeSession([q]);
+  for(const html of [renderLearningView(q,0,1,'AI'),renderPracticeView(q,session,null),renderExamView(q,session)]){
+    assert.ok(text(html).includes(option.text));
+    assert.ok(!text(html).includes(option.originalText));
+  }
+});
