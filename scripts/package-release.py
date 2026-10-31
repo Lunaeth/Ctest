@@ -21,6 +21,7 @@ def public_file(name):
     path = PurePosixPath(name)
     return (
         (len(path.parts) == 1 and path.suffix in {'.html', '.css'})
+        or name in {'favicon.svg', 'favicon.ico'}
         or (path.parts[0] in {'src', 'portal'} and path.suffix in {'.js', '.html', '.css'})
         or (len(path.parts) == 2 and path.parts[0] == 'data'
             and path.name.startswith('questions.') and path.suffix == '.json')
