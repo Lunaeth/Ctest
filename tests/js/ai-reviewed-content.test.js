@@ -86,14 +86,33 @@ test('DCAI terminology and scope corrections retain source wording and reach eve
   assert.match(questions.find(q=>q.id===5).stem,/Data Center Quantized Congestion Notification \(DCQCN\)/);
   assert.match(questions.find(q=>q.id===10).stem,/C225 M8 EBox/);
   assert.match(questions.find(q=>q.id===16).stem,/RoCEv2 storage-data QoS class/);
-  for(const id of [4,5,10,16]){
+  for(const id of [4,5,10,16,18,21,22,25,26,27,30,31,32,33]){
     const q=questions.find(q=>q.id===id);
     assert.ok(q.originalStem && q.originalStem!==q.stem);
-    assert.equal(q.originalType,'single');
+    assert.equal(q.originalType,id===27||id===33?'multiple':'single');
     const session=createPracticeSession([q]);
     for(const html of [renderPracticeView(q,session,null),renderExamView(q,session),renderLearningView(q,0,1,'DCAI')]){
       assert.ok(text(html).includes(q.stem));
       assert.ok(!text(html).includes(q.originalStem));
+    }
+  }
+});
+
+test('DCAI hardware and terminology errata preserve source options and use precise revised terms',()=>{
+  const questions=JSON.parse(fs.readFileSync('data/questions.ccnp-dcai.json','utf8'));
+  for(const [id,key,expected] of [
+    [21,'C',/RoCEv2/], [22,'A',/nccl-tests/], [27,'D',/GPU Temperature/],
+    [28,'C',/port 1\/11/], [33,'C',/all compute-node and PCIe-node pairs/],
+    [33,'D',/PCI Gen5/], [35,'D',/retraining/],
+  ]){
+    const q=questions.find(q=>q.id===id);
+    const option=q.options.find(o=>o.key===key);
+    assert.ok(option.originalText && option.originalText!==option.text,`${id}${key}: source preserved`);
+    assert.match(option.text,expected);
+    const session=createPracticeSession([q]);
+    for(const html of [renderPracticeView(q,session,null),renderExamView(q,session),renderLearningView(q,0,1,'DCAI')]){
+      assert.ok(text(html).includes(option.text));
+      if(!option.text.includes(option.originalText)) assert.ok(!text(html).includes(option.originalText));
     }
   }
 });
