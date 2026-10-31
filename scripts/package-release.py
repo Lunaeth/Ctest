@@ -12,7 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def git(*args):
-    return subprocess.check_output(['git', '-c', 'core.autocrlf=false', *args], cwd=ROOT)
+    # Respect checkout EOL settings for status; canonicalize only archive output.
+    options = ['-c', 'core.autocrlf=false'] if args[0] == 'archive' else []
+    return subprocess.check_output(['git', *options, *args], cwd=ROOT)
 
 
 def public_file(name):
