@@ -43,7 +43,7 @@ export async function startAccountApp(bootstrap) {
   }
   function tell(message) { status.textContent = message; }
   function exportCurrent() {
-    try { download(storage ? storage.snapshot() : snapshot(localStorage).entries, account?.user.username); }
+    try { download(storage ? storage.snapshot() : snapshot(localStorage).entries, account?.user?.username); }
     catch { tell('无法导出，请检查浏览器存储权限。'); }
   }
   window.addEventListener('beforeunload', event => {
