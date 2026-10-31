@@ -300,7 +300,7 @@ test('index exposes a collapsible sidebar control with fresh app cache keys', ()
   assert.match(html, /title="收起侧边栏"/);
   assert.doesNotMatch(html, /`r`n/);
   assert.match(html, /styles\.css\?v=20261031-sidebar-account/);
-  assert.match(html, /src\/app\.js\?v=20261031-sidebar-account/);
+  assert.match(html, /src\/app\.js\?v=20261031-pin/);
 });
 
 test('practice options stay vertical for phone APK use', () => {

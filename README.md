@@ -12,7 +12,7 @@ A question practice system supporting CompTIA A+ Core 1/Core 2, Security+ SY0-70
 - Mistake notebook: review missed questions in one place and remove questions you have mastered
 - Local learning archives: create a `question-archive.json` file and automatically keep your complete learning progress in sync
 - AWS SAA and AI study: English question stems and choices; AI explanations, memory cues, pitfalls and terminology remain bilingual. AI study includes technical references, related questions and searchable knowledge maps; eight DCAI and ten AIIO study modules
-- Accounts: username/password login, Turnstile-protected registration, isolated records, explicit guest-record import, export and conflict protection when another tab or device has newer progress
+- Accounts: username/four-digit PIN login, Turnstile-protected registration, isolated records, explicit guest-record import, export and conflict protection when another tab or device has newer progress
 
 ## Technology Stack
 
@@ -33,7 +33,7 @@ Then open:
 http://127.0.0.1:4173
 ```
 
-Static serving supports guest records. Account features require the API. For a disposable local account UI fixture, install `server/requirements.txt` in a virtual environment and run `python scripts/serve-account-preview.py`, then open `http://localhost:4180`. That fixture supplies `preview_alice` and `preview_bob` with the password documented in the fixture source; never deploy it or use its credentials/session secret in production.
+Static serving supports guest records. Account features require the API. For a disposable local account UI fixture, install `server/requirements.txt` in a virtual environment and run `python scripts/serve-account-preview.py`, then open `http://localhost:4180`. That fixture supplies `preview_alice` and `preview_bob` with the test PIN documented in the fixture source; never deploy it or use its credentials/secrets in production.
 
 ## Tests
 
@@ -88,3 +88,9 @@ If you create a learning archive from the application:
 
 - The default filename is `question-archive.json`
 - The file will not be committed to the repository
+
+## PIN login
+
+PINs contain exactly four ASCII digits, including leading zeros. Existing password accounts use **旧账号设置 PIN** to verify their original password and choose a PIN without changing their user ID or learning records. This invalidates their old sessions and password. Existing signed-in users can also open this flow from the sidebar. New registrations still require Turnstile.
+
+PINs are stored as Argon2id hashes of a keyed digest, with an independent private `CTEST_PIN_PEPPER` outside the database and Git. Keep that key with private recovery configuration; changing or losing it requires PIN resets. Login and migration share account limits of five attempts per 15-minute window and twenty per day, plus an IP limit. Limits persist across processes and return the actual retry interval.

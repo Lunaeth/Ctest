@@ -27,7 +27,8 @@ SESSION_SECONDS = 14 * 24 * 60 * 60
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY, username TEXT NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL, created_at INTEGER NOT NULL
+    password_hash TEXT NOT NULL, created_at INTEGER NOT NULL,
+    credential_type TEXT NOT NULL DEFAULT 'password'
 );
 CREATE TABLE IF NOT EXISTS sessions (
     token_hash TEXT PRIMARY KEY, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -46,8 +47,14 @@ CREATE TABLE IF NOT EXISTS rate_limits (
 
 
 class ApiError(Exception):
-    def __init__(self, status, code, message):
+    def __init__(self, status, code, message, retry_after=None):
         self.status, self.code, self.message = status, code, message
+        self.retry_after = retry_after
+
+
+def pin_material(pin, secret):
+    # Keep this independent PIN pepper outside SQLite and session-key rotation.
+    return hmac.new(secret.encode(), ("ctest-pin-v1\0" + pin).encode(), hashlib.sha256).hexdigest()
 
 
 def verify_turnstile(secret, token, remote_ip):
@@ -64,6 +71,7 @@ def create_app(config=None, *, turnstile_verifier=None):
         DATABASE=os.environ.get("CTEST_DATABASE", "/var/lib/ctest/accounts.sqlite3"),
         APP_ORIGIN=os.environ.get("CTEST_ORIGIN", "https://learn.lunaeth.com"),
         SESSION_SECRET=os.environ.get("CTEST_SESSION_SECRET", ""),
+        PIN_PEPPER=os.environ.get("CTEST_PIN_PEPPER", ""),
         TURNSTILE_SITE_KEY=os.environ.get("TURNSTILE_SITE_KEY", ""),
         TURNSTILE_SECRET_KEY=os.environ.get("TURNSTILE_SECRET_KEY", ""),
         MAX_CONTENT_LENGTH=2_000_000,
@@ -73,6 +81,8 @@ def create_app(config=None, *, turnstile_verifier=None):
         app.config.update(config)
     if len(app.config["SESSION_SECRET"]) < 32:
         raise RuntimeError("CTEST_SESSION_SECRET must contain at least 32 random characters")
+    if len(app.config["PIN_PEPPER"]) < 32:
+        raise RuntimeError("CTEST_PIN_PEPPER must contain at least 32 random characters")
     origin = app.config["APP_ORIGIN"]
     hostname = urlsplit(origin).hostname
     app.config["TRUSTED_HOSTS"] = [hostname, "127.0.0.1", "localhost"]
@@ -84,6 +94,9 @@ def create_app(config=None, *, turnstile_verifier=None):
     with closing(sqlite3.connect(db_path)) as connection, connection:
         connection.execute("PRAGMA journal_mode=WAL")
         connection.executescript(SCHEMA)
+        connection.execute("BEGIN IMMEDIATE")
+        if "credential_type" not in {row[1] for row in connection.execute("PRAGMA table_info(users)")}:
+            connection.execute("ALTER TABLE users ADD COLUMN credential_type TEXT NOT NULL DEFAULT 'password'")
         if "write_id" not in {row[1] for row in connection.execute("PRAGMA table_info(progress)")}:
             connection.execute("ALTER TABLE progress ADD COLUMN write_id TEXT NOT NULL DEFAULT ''")
 
@@ -125,7 +138,8 @@ def create_app(config=None, *, turnstile_verifier=None):
                 (bucket, now + seconds),
             ).fetchone()
         if row[0] > maximum:
-            raise ApiError(429, "rate_limited", "操作过于频繁，请稍后再试。")
+            retry_after = (now // seconds + 1) * seconds - now
+            raise ApiError(429, "rate_limited", f"尝试次数过多，请在 {(retry_after + 59) // 60} 分钟后重试。", retry_after)
 
     def body():
         if not request.is_json:
@@ -135,13 +149,35 @@ def create_app(config=None, *, turnstile_verifier=None):
             raise ApiError(400, "invalid_body", "请求格式不正确。")
         return value
 
-    def credentials(value):
-        name, password = value.get("username"), value.get("password")
+    def username(value):
+        name = value.get("username")
         if not isinstance(name, str) or not re.fullmatch(r"[A-Za-z0-9_]{3,32}", name):
             raise ApiError(400, "invalid_username", "用户名需为 3–32 位字母、数字或下划线。")
-        if not isinstance(password, str) or not 12 <= len(password) <= 128:
-            raise ApiError(400, "invalid_password", "密码长度需为 12–128 个字符。")
-        return name.lower(), password
+        return name.lower()
+
+    def read_pin(value):
+        pin = value.get("pin")
+        if not isinstance(pin, str) or not re.fullmatch(r"[0-9]{4}", pin):
+            raise ApiError(400, "invalid_pin", "PIN 必须是四位数字（0–9）。")
+        return pin
+
+    def limited_login_name(value):
+        name = username(value)
+        limit("login-name", name, 5, 900)
+        limit("login-name-day", name, 20, 86400)
+        return name
+
+    def hashed_pin(pin):
+        return hasher.hash(pin_material(pin, app.config["PIN_PEPPER"]))
+
+    def check_secret(user, secret, credential_type):
+        eligible = user is not None and user["credential_type"] == credential_type
+        try:
+            hasher.verify(user["password_hash"] if eligible else dummy_hash, secret)
+        except (VerificationError, InvalidHashError):
+            eligible = False
+        if not eligible:
+            raise ApiError(401, "invalid_credentials", "用户名或登录凭据不正确。")
 
     def session(required=True):
         token = request.cookies.get(COOKIE, "")
@@ -149,7 +185,7 @@ def create_app(config=None, *, turnstile_verifier=None):
             row = None
         else:
             row = db().execute(
-                "SELECT users.id, users.username FROM sessions JOIN users ON users.id=sessions.user_id "
+                "SELECT users.id, users.username, users.credential_type FROM sessions JOIN users ON users.id=sessions.user_id "
                 "WHERE token_hash=? AND expires_at>?", (digest(token), int(time.time())),
             ).fetchone()
         if row is None:
@@ -163,7 +199,7 @@ def create_app(config=None, *, turnstile_verifier=None):
         if request.method not in ("GET", "HEAD", "OPTIONS"):
             if request.headers.get("Origin") != origin:
                 raise ApiError(403, "origin_denied", "请求来源不受信任。")
-            if request.path not in ("/api/auth/register", "/api/auth/login"):
+            if request.path not in ("/api/auth/register", "/api/auth/login", "/api/auth/migrate-pin"):
                 _user, token = session()
                 if not hmac.compare_digest(request.headers.get("X-CSRF-Token", "").encode(), csrf(token).encode()):
                     raise ApiError(403, "csrf_denied", "会话验证失败，请刷新页面。")
@@ -172,13 +208,17 @@ def create_app(config=None, *, turnstile_verifier=None):
     def headers(response):
         response.headers["Cache-Control"] = "no-store"
         response.headers["X-Content-Type-Options"] = "nosniff"
-        if response.status_code == 429:
+        if response.status_code == 429 and "Retry-After" not in response.headers:
             response.headers["Retry-After"] = "900"
         return response
 
     @app.errorhandler(ApiError)
     def api_error(error):
-        return jsonify(error=error.code, message=error.message), error.status
+        response = jsonify(error=error.code, message=error.message)
+        response.status_code = error.status
+        if error.retry_after is not None:
+            response.headers["Retry-After"] = str(error.retry_after)
+        return response
 
     @app.errorhandler(HTTPException)
     def http_error(error):
@@ -206,7 +246,8 @@ def create_app(config=None, *, turnstile_verifier=None):
     @app.get("/api/auth/session")
     def get_session():
         user, token = session(False)
-        return jsonify(user={"id": user["id"], "username": user["username"]} if user else None,
+        return jsonify(user={"id": user["id"], "username": user["username"],
+                             "needsPinSetup": user["credential_type"] != "pin"} if user else None,
                        csrfToken=csrf(token) if user else None)
 
     def sign_in(user_id, username, status=200):
@@ -228,7 +269,7 @@ def create_app(config=None, *, turnstile_verifier=None):
         if not app.config["TURNSTILE_SITE_KEY"] or not app.config["TURNSTILE_SECRET_KEY"]:
             raise ApiError(503, "registration_unavailable", "注册暂未开放，请稍后再试。")
         value = body()
-        name, password = credentials(value)
+        name, pin = username(value), read_pin(value)
         token = value.get("turnstileToken")
         if not isinstance(token, str) or not 1 <= len(token) <= 2048:
             raise ApiError(400, "captcha_required", "请先完成人机验证。")
@@ -238,10 +279,10 @@ def create_app(config=None, *, turnstile_verifier=None):
             raise ApiError(503, "captcha_unavailable", "人机验证服务暂时不可用，请重试。") from None
         if not isinstance(result, dict) or result.get("success") is not True or result.get("hostname") != hostname or result.get("action") != "register":
             raise ApiError(400, "captcha_failed", "人机验证未通过或已过期，请重新验证。")
-        hashed = hasher.hash(password)
+        hashed = hashed_pin(pin)
         try:
             with db():
-                cursor = db().execute("INSERT INTO users(username,password_hash,created_at) VALUES (?,?,?)", (name, hashed, int(time.time())))
+                cursor = db().execute("INSERT INTO users(username,password_hash,created_at,credential_type) VALUES (?,?,?,'pin')", (name, hashed, int(time.time())))
                 user_id = cursor.lastrowid
                 db().execute("INSERT INTO progress(user_id,updated_at) VALUES (?,?)", (user_id, int(time.time())))
         except sqlite3.IntegrityError:
@@ -251,18 +292,37 @@ def create_app(config=None, *, turnstile_verifier=None):
     @app.post("/api/auth/login")
     def login():
         limit("login-ip", client_ip(), 30, 900)
-        name, password = credentials(body())
-        limit("login-name", name, 20, 900)
+        value = body()
+        name, pin = limited_login_name(value), read_pin(value)
         user = db().execute("SELECT * FROM users WHERE username=?", (name,)).fetchone()
-        try:
-            hasher.verify(user["password_hash"] if user else dummy_hash, password)
-        except (VerificationError, InvalidHashError):
-            raise ApiError(401, "invalid_credentials", "用户名或密码不正确。") from None
-        if not user:
-            raise ApiError(401, "invalid_credentials", "用户名或密码不正确。")
+        material = pin_material(pin, app.config["PIN_PEPPER"])
+        check_secret(user, material, "pin")
         if hasher.check_needs_rehash(user["password_hash"]):
             with db():
-                db().execute("UPDATE users SET password_hash=? WHERE id=?", (hasher.hash(password), user["id"]))
+                db().execute("UPDATE users SET password_hash=? WHERE id=? AND password_hash=?",
+                             (hasher.hash(material), user["id"], user["password_hash"]))
+        return sign_in(user["id"], user["username"])
+
+    @app.post("/api/auth/migrate-pin")
+    def migrate_pin():
+        limit("login-ip", client_ip(), 30, 900)
+        value = body()
+        name, pin = limited_login_name(value), read_pin(value)
+        password = value.get("password")
+        if not isinstance(password, str) or not 12 <= len(password) <= 128:
+            raise ApiError(400, "invalid_password", "请填写旧账号的原密码。")
+        user = db().execute("SELECT * FROM users WHERE username=?", (name,)).fetchone()
+        check_secret(user, password, "password")
+        hashed = hashed_pin(pin)
+        with db():
+            changed = db().execute(
+                "UPDATE users SET password_hash=?,credential_type='pin' "
+                "WHERE id=? AND credential_type='password' AND password_hash=?",
+                (hashed, user["id"], user["password_hash"]),
+            )
+            if changed.rowcount != 1:
+                raise ApiError(409, "credentials_changed", "账号凭据已更新，请使用 PIN 重新登录。")
+            db().execute("DELETE FROM sessions WHERE user_id=?", (user["id"],))
         return sign_in(user["id"], user["username"])
 
     @app.post("/api/auth/logout")

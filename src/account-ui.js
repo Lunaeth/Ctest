@@ -91,6 +91,7 @@ export async function startAccountApp(bootstrap) {
       return;
     }
     tell('已同步到账号');
+    if (account.user.needsPinSetup) button('设置四位 PIN', () => openAuth('migrate'));
     const migrationLink = document.querySelector('a[href="./portal/progress.html"]');
     migrationLink?.addEventListener('click', event => { event.preventDefault(); openImport(); });
     button('立即同步', async () => { try { await storage.flush(); } catch {} });
@@ -142,9 +143,9 @@ export async function startAccountApp(bootstrap) {
     dialog.querySelector('#import-file').onclick = () => apply(false);
   }
 
-  function openAuth() {
+  function openAuth(initialMode = 'login') {
     const dialog = document.createElement('dialog'); dialog.className = 'account-dialog';
-    dialog.innerHTML = '<div class="account-tabs"><button type="button" id="mode-login">登录</button><button type="button" id="mode-register">注册</button></div><h2 id="auth-title">登录账号</h2><p id="auth-description">在不同设备继续你的学习进度。</p><form id="account-form"><label>用户名<input name="username" autocomplete="username" pattern="[A-Za-z0-9_]{3,32}" minlength="3" maxlength="32" required placeholder="3–32 位字母、数字或下划线"></label><label>密码<input name="password" type="password" autocomplete="current-password" minlength="12" maxlength="128" required placeholder="至少 12 个字符"></label><label id="confirm-label" hidden>确认密码<input name="confirm" type="password" autocomplete="new-password" minlength="12" maxlength="128"></label><div id="account-turnstile"></div><p id="auth-message" role="status" aria-live="polite"></p><div class="dialog-actions"><button type="submit" id="auth-submit">登录</button><button type="button" id="auth-cancel">取消</button></div></form><p class="account-note">用户名不区分大小写。注册仅需用户名、密码及人机验证；请妥善保存密码。</p>';
+    dialog.innerHTML = '<div class="account-tabs"><button type="button" id="mode-login">登录</button><button type="button" id="mode-register">注册</button><button type="button" id="mode-migrate">旧账号设置 PIN</button></div><h2 id="auth-title">登录账号</h2><p id="auth-description">使用用户名和四位数字 PIN 登录。</p><form id="account-form"><label>用户名<input name="username" autocomplete="username" pattern="[A-Za-z0-9_]{3,32}" minlength="3" maxlength="32" required placeholder="3–32 位字母、数字或下划线"></label><label id="legacy-password-label" hidden>原密码<input name="legacyPassword" type="password" autocomplete="current-password" minlength="12" maxlength="128" disabled></label><label>四位数字 PIN<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{4}" autocomplete="current-password" minlength="4" maxlength="4" required placeholder="四位数字，支持 0 开头"></label><label id="confirm-label" hidden>确认 PIN<input name="confirm" type="password" inputmode="numeric" pattern="[0-9]{4}" autocomplete="new-password" minlength="4" maxlength="4" disabled></label><div id="account-turnstile"></div><p id="auth-message" role="status" aria-live="polite"></p><div class="dialog-actions"><button type="submit" id="auth-submit">登录</button><button type="button" id="auth-cancel">取消</button></div></form><p class="account-note">用户名不区分大小写。PIN 必须为四位数字，请妥善保存；连续尝试过多会暂时限制登录。</p>';
     document.body.append(dialog); dialog.showModal();
     const form = dialog.querySelector('form'), message = dialog.querySelector('#auth-message'), submit = dialog.querySelector('#auth-submit');
     let mode = 'login', token = '', widget = null, modeVersion = 0;
@@ -157,12 +158,21 @@ export async function startAccountApp(bootstrap) {
     async function changeMode(nextMode) {
       mode = nextMode; token = ''; const generation = ++modeVersion;
       if (widget !== null && window.turnstile) { window.turnstile.remove(widget); widget = null; }
-      const register = mode === 'register'; message.textContent = '';
-      dialog.querySelector('#auth-title').textContent = register ? '创建账号' : '登录账号';
-      submit.textContent = register ? '注册并登录' : '登录'; submit.disabled = register;
-      dialog.querySelector('#confirm-label').hidden = !register;
-      form.elements.confirm.required = register;
-      form.elements.password.autocomplete = register ? 'new-password' : 'current-password';
+      const register = mode === 'register', migrating = mode === 'migrate'; message.textContent = '';
+      dialog.querySelector('#auth-title').textContent = register ? '创建账号' : migrating ? '设置四位数字 PIN' : '登录账号';
+      dialog.querySelector('#auth-description').textContent = migrating
+        ? '用原密码验证后设置 PIN，已有刷题记录会保留。设置后原密码失效，其他设备需重新登录。'
+        : register ? '创建用户名和四位数字 PIN，完成人机验证后即可注册。' : '使用用户名和四位数字 PIN 登录。旧账号请先选择“旧账号设置 PIN”。';
+      submit.textContent = register ? '注册并登录' : migrating ? '保存 PIN 并登录' : '登录'; submit.disabled = register;
+      dialog.querySelector('#confirm-label').hidden = !(register || migrating);
+      form.elements.confirm.required = register || migrating;
+      form.elements.confirm.disabled = !(register || migrating);
+      dialog.querySelector('#legacy-password-label').hidden = !migrating;
+      form.elements.legacyPassword.required = migrating;
+      form.elements.legacyPassword.disabled = !migrating;
+      form.elements.pin.autocomplete = register || migrating ? 'new-password' : 'current-password';
+      form.elements.pin.value = ''; form.elements.confirm.value = ''; form.elements.legacyPassword.value = '';
+      if (migrating && account?.user?.username) form.elements.username.value = account.user.username;
       if (!register) return;
       if (!config.registrationEnabled) { message.textContent = '注册暂未开放，请稍后再试。'; return; }
       try {
@@ -178,14 +188,17 @@ export async function startAccountApp(bootstrap) {
     }
     dialog.querySelector('#mode-login').onclick = () => changeMode('login');
     dialog.querySelector('#mode-register').onclick = () => changeMode('register');
+    dialog.querySelector('#mode-migrate').onclick = () => changeMode('migrate');
     form.addEventListener('submit', async event => {
       event.preventDefault();
-      if (mode === 'register' && form.elements.password.value !== form.elements.confirm.value) { message.textContent = '两次输入的密码不一致。'; return; }
+      if (!/^[0-9]{4}$/.test(form.elements.pin.value)) { message.textContent = 'PIN 必须是四位数字（0–9）。'; return; }
+      if (mode !== 'login' && form.elements.pin.value !== form.elements.confirm.value) { message.textContent = '两次输入的 PIN 不一致。'; return; }
       if (mode === 'register' && !token) { message.textContent = '请先完成人机验证。'; return; }
       submit.disabled = true;
       try {
-        await accountRequest(`/api/auth/${mode}`, { method: 'POST', body: JSON.stringify({
-          username: form.elements.username.value, password: form.elements.password.value,
+        await accountRequest(`/api/auth/${mode === 'migrate' ? 'migrate-pin' : mode}`, { method: 'POST', body: JSON.stringify({
+          username: form.elements.username.value, pin: form.elements.pin.value,
+          ...(mode === 'migrate' ? { password: form.elements.legacyPassword.value } : {}),
           ...(mode === 'register' ? { turnstileToken: token } : {}),
         }) });
         appElement.inert = true; form.reset(); unloading = true; location.reload();
@@ -195,6 +208,7 @@ export async function startAccountApp(bootstrap) {
         else submit.disabled = false;
       }
     });
+    changeMode(initialMode);
     form.elements.username.focus();
   }
 }

@@ -30,6 +30,14 @@ if not os.path.exists(path):
         env.write('CTEST_ORIGIN=https://learn.lunaeth.com\n')
         env.write('CTEST_SESSION_SECRET=' + secrets.token_urlsafe(48) + '\n')
         env.write('TURNSTILE_SITE_KEY=\nTURNSTILE_SECRET_KEY=\n')
+with open(path) as env:
+    contents = env.read()
+peppers = [line.split('=', 1)[1] for line in contents.splitlines() if line.startswith('CTEST_PIN_PEPPER=')]
+if not peppers:
+    with open(path, 'a') as env:
+        env.write(('' if contents.endswith('\n') else '\n') + 'CTEST_PIN_PEPPER=' + secrets.token_urlsafe(48) + '\n')
+elif len(peppers) != 1 or len(peppers[0]) < 32:
+    raise SystemExit('Invalid PIN pepper configuration; preserve the existing key and repair the private environment.')
 PY
 if [[ ! -x /opt/ctest-api/venv/bin/python ]]; then
   python3 -m venv /opt/ctest-api/venv

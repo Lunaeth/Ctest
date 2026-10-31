@@ -18,7 +18,7 @@ class BackupTests(unittest.TestCase):
         self.live = sqlite3.connect(self.source)
         self.live.execute("PRAGMA journal_mode=WAL")
         self.live.executescript(SCHEMA)
-        self.live.execute("INSERT INTO users VALUES (1,'fixture-user','test-hash',1)")
+        self.live.execute("INSERT INTO users VALUES (1,'fixture-user','test-hash',1,'pin')")
         self.entries = json.dumps({"question-app.progress": '{"ncaAiio":{"85":{"correct":true}}}',
                                    "question-app.favorites": '{"ccnpDcai":[49]}',
                                    "question-app.mistakes": '{"ncaAiio":[104]}'})
@@ -37,6 +37,7 @@ class BackupTests(unittest.TestCase):
         with closing(sqlite3.connect(restored)) as db:
             self.assertEqual(db.execute("PRAGMA integrity_check").fetchone(), ("ok",))
             self.assertEqual(db.execute("SELECT username FROM users").fetchone(), ("fixture-user",))
+            self.assertEqual(db.execute("SELECT credential_type FROM users").fetchone(), ("pin",))
             self.assertEqual(db.execute("SELECT revision,entries,write_id FROM progress").fetchone(),
                              (7, self.entries, "write-identifier"))
         self.assertEqual(self.live.execute("SELECT revision FROM progress").fetchone(), (8,))

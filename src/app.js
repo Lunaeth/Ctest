@@ -1884,7 +1884,7 @@ export async function bootstrapApp({
 }
 
 if (globalThis.document?.body?.dataset?.accountEnabled === 'true') {
-  const { startAccountApp } = await import('./account-ui.js?v=20261031-sidebar-account');
+  const { startAccountApp } = await import('./account-ui.js?v=20261031-pin');
   await startAccountApp(bootstrapApp);
 } else {
   await bootstrapApp();

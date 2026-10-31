@@ -7,10 +7,16 @@ import unittest
 import uuid
 from unittest.mock import patch
 
-from server.app import COOKIE, KEYS, create_app
+from server.app import COOKIE, KEYS, create_app, pin_material
+from argon2 import PasswordHasher
+from argon2.exceptions import VerificationError
+import hashlib
+import secrets
 
 ORIGIN = "https://learn.lunaeth.com"
-PASSWORD = "Test-only long passphrase 42!"
+PIN = "0427"
+LEGACY_PASSWORD = "Test-only long passphrase 42!"
+PEPPER = "p" * 48
 
 
 class AccountTests(unittest.TestCase):
@@ -26,7 +32,7 @@ class AccountTests(unittest.TestCase):
             self.tokens.add(token)
             return self.verification
 
-        self.app = create_app({"TESTING": True, "DATABASE": self.path, "SESSION_SECRET": "s" * 48,
+        self.app = create_app({"TESTING": True, "DATABASE": self.path, "SESSION_SECRET": "s" * 48, "PIN_PEPPER": PEPPER,
                                "TURNSTILE_SITE_KEY": "test-site", "TURNSTILE_SECRET_KEY": "test-secret"},
                               turnstile_verifier=verify)
         self.client = self.app.test_client()
@@ -43,7 +49,7 @@ class AccountTests(unittest.TestCase):
 
     def register(self, username="alice", client=None):
         self.token_number += 1
-        return self.call("/api/auth/register", "POST", {"username": username, "password": PASSWORD,
+        return self.call("/api/auth/register", "POST", {"username": username, "pin": PIN,
                                                          "turnstileToken": str(self.token_number)}, client=client)
 
     def save(self, csrf, entries, revision=0, client=None):
@@ -61,9 +67,12 @@ class AccountTests(unittest.TestCase):
             hashed = db.execute("SELECT password_hash FROM users").fetchone()[0]
             token_hash = db.execute("SELECT token_hash FROM sessions").fetchone()[0]
         self.assertTrue(hashed.startswith("$argon2id$"))
-        self.assertNotIn(PASSWORD, hashed)
+        self.assertNotIn(PIN, hashed)
+        with self.assertRaises(VerificationError):
+            PasswordHasher().verify(hashed, PIN)
+        self.assertTrue(PasswordHasher().verify(hashed, pin_material(PIN, PEPPER)))
         self.assertNotIn(token_hash, cookie)
-        result = self.call("/api/auth/login", "POST", {"username": "ALICE", "password": PASSWORD})
+        result = self.call("/api/auth/login", "POST", {"username": "ALICE", "pin": PIN})
         self.assertEqual(result.status_code, 200)
 
     def test_accounts_are_isolated_and_identity_cannot_be_selected_by_client(self):
@@ -81,11 +90,11 @@ class AccountTests(unittest.TestCase):
         entries = {key: json.dumps({"ncaAiio": {"example": i}}) for i, key in enumerate(KEYS)}
         self.save(account["csrfToken"], entries)
         self.call("/api/auth/logout", "POST", {}, account["csrfToken"])
-        self.call("/api/auth/login", "POST", {"username": "alice", "password": PASSWORD})
+        self.call("/api/auth/login", "POST", {"username": "alice", "pin": PIN})
         self.assertEqual(self.call("/api/progress").json["entries"], entries)
-        restarted = create_app({"TESTING": True, "DATABASE": self.path, "SESSION_SECRET": "s" * 48})
+        restarted = create_app({"TESTING": True, "DATABASE": self.path, "SESSION_SECRET": "s" * 48, "PIN_PEPPER": PEPPER})
         client = restarted.test_client()
-        self.call("/api/auth/login", "POST", {"username": "alice", "password": PASSWORD}, client=client)
+        self.call("/api/auth/login", "POST", {"username": "alice", "pin": PIN}, client=client)
         self.assertEqual(self.call("/api/progress", client=client).json["entries"], entries)
 
     def test_stale_revision_cannot_overwrite_newer_progress(self):
@@ -140,7 +149,7 @@ class AccountTests(unittest.TestCase):
             self.assertEqual(db.execute("SELECT count(*) FROM users").fetchone()[0], 0)
 
     def test_captcha_missing_expired_replayed_and_unavailable_fail_closed(self):
-        value = {"username": "alice", "password": PASSWORD}
+        value = {"username": "alice", "pin": PIN}
         self.assertEqual(self.call("/api/auth/register", "POST", value).status_code, 400)
         value["turnstileToken"] = "single-use"
         self.assertEqual(self.call("/api/auth/register", "POST", value).status_code, 201)
@@ -151,7 +160,7 @@ class AccountTests(unittest.TestCase):
         self.assertEqual(self.register("charlie").status_code, 503)
 
     def test_captcha_network_failure_does_not_create_account(self):
-        app = create_app({"TESTING": True, "DATABASE": self.path, "SESSION_SECRET": "s" * 48,
+        app = create_app({"TESTING": True, "DATABASE": self.path, "SESSION_SECRET": "s" * 48, "PIN_PEPPER": PEPPER,
                           "TURNSTILE_SITE_KEY": "test", "TURNSTILE_SECRET_KEY": "test"},
                          turnstile_verifier=lambda *_: (_ for _ in ()).throw(TimeoutError()))
         self.assertEqual(self.register(client=app.test_client()).status_code, 503)
@@ -160,10 +169,10 @@ class AccountTests(unittest.TestCase):
         self.register()
         self.assertEqual(self.register("ALICE").status_code, 409)
         for name in ("alice", "missing"):
-            result = self.call("/api/auth/login", "POST", {"username": name, "password": "incorrect long password"})
+            result = self.call("/api/auth/login", "POST", {"username": name, "pin": "9999"})
             self.assertEqual(result.status_code, 401)
             self.assertEqual(result.json["error"], "invalid_credentials")
-        self.assertEqual(self.call("/api/auth/login", "POST", {"username": "';DROP TABLE users;", "password": PASSWORD}).status_code, 400)
+        self.assertEqual(self.call("/api/auth/login", "POST", {"username": "';DROP TABLE users;", "pin": PIN}).status_code, 400)
 
     def test_invalid_progress_is_rejected_without_modification(self):
         csrf = self.register().json["csrfToken"]
@@ -183,6 +192,87 @@ class AccountTests(unittest.TestCase):
         response = self.call("/api/auth/register", "POST", {}, client=self.app.test_client())
         self.assertEqual(response.status_code, 429)
         self.assertIn("Retry-After", response.headers)
+
+    def test_pin_requires_exactly_four_ascii_digits_and_preserves_leading_zero(self):
+        for index, invalid in enumerate(("123", "12345", "12a4", "１２３４", "١٢٣٤", 1234, None, " 1234", "123\n")):
+            response = self.call("/api/auth/register", "POST", {"username": f"user_{index}", "pin": invalid})
+            self.assertEqual(response.status_code, 400)
+            self.assertEqual(response.json["error"], "invalid_pin")
+        self.assertEqual(self.register().status_code, 201)
+        self.assertEqual(self.call("/api/auth/login", "POST", {"username": "alice", "pin": PIN}).status_code, 200)
+        self.assertEqual(self.call("/api/auth/login", "POST", {"username": "alice", "pin": 427}).status_code, 400)
+
+    def test_legacy_password_migration_keeps_records_and_revokes_old_sessions(self):
+        hashed = PasswordHasher().hash(LEGACY_PASSWORD)
+        old_token = secrets.token_urlsafe(32)
+        entries = {KEYS[0]: '{"ccnpDcai":{"2":{"correct":true}}}', KEYS[2]: '{"ncaAiio":[7]}'}
+        with closing(sqlite3.connect(self.path)) as db, db:
+            db.execute("INSERT INTO users VALUES (7,'legacy',?,1,'password')", (hashed,))
+            db.execute("INSERT INTO progress VALUES (7,8,?,1,'old-write')", (json.dumps(entries),))
+            db.execute("INSERT INTO sessions VALUES (?,7,9999999999)", (hashlib.sha256(old_token.encode()).hexdigest(),))
+        previous = self.app.test_client()
+        previous.set_cookie(COOKIE, old_token, domain="learn.lunaeth.com")
+        self.assertTrue(self.call("/api/auth/session", client=previous).json["user"]["needsPinSetup"])
+        value = {"username": "LEGACY", "password": LEGACY_PASSWORD, "pin": PIN}
+        self.assertEqual(self.call("/api/auth/migrate-pin", "POST", value, origin="https://evil.example").status_code, 403)
+        wrong = {**value, "password": "Wrong old password 42!"}
+        self.assertEqual(self.call("/api/auth/migrate-pin", "POST", wrong).status_code, 401)
+        with closing(sqlite3.connect(self.path)) as db:
+            self.assertEqual(db.execute("SELECT password_hash FROM users WHERE id=7").fetchone()[0], hashed)
+        response = self.call("/api/auth/migrate-pin", "POST", value)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json["user"]["id"], 7)
+        self.assertFalse(self.call("/api/auth/session").json["user"]["needsPinSetup"])
+        self.assertIsNone(self.call("/api/auth/session", client=previous).json["user"])
+        progress = self.call("/api/progress").json
+        self.assertEqual(progress["entries"], entries)
+        self.assertEqual(progress["revision"], 8)
+        self.assertEqual(self.call("/api/auth/migrate-pin", "POST", value).status_code, 401)
+        self.assertEqual(self.call("/api/auth/login", "POST", {"username": "legacy", "pin": PIN}).status_code, 200)
+        self.assertEqual(self.call("/api/auth/login", "POST", {"username": "legacy", "password": LEGACY_PASSWORD}).status_code, 400)
+
+    def test_new_pin_account_cannot_be_reset_through_legacy_password_migration(self):
+        self.register()
+        value = {"username": "alice", "password": LEGACY_PASSWORD, "pin": "9999"}
+        self.assertEqual(self.call("/api/auth/migrate-pin", "POST", value).status_code, 401)
+        self.assertEqual(self.call("/api/auth/login", "POST", {"username": "alice", "pin": PIN}).status_code, 200)
+
+    def test_old_database_schema_upgrade_does_not_change_credentials(self):
+        path = str(Path(self.temp.name) / "old.sqlite3")
+        hashed = PasswordHasher().hash(LEGACY_PASSWORD)
+        with closing(sqlite3.connect(path)) as db, db:
+            db.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, username TEXT UNIQUE NOT NULL, password_hash TEXT NOT NULL, created_at INTEGER NOT NULL)")
+            db.execute("INSERT INTO users VALUES (3,'existing',?,1)", (hashed,))
+        create_app({"TESTING": True, "DATABASE": path, "SESSION_SECRET": "s" * 48, "PIN_PEPPER": PEPPER})
+        with closing(sqlite3.connect(path)) as db:
+            row = db.execute("SELECT id,password_hash,credential_type FROM users").fetchone()
+        self.assertEqual(row, (3, hashed, "password"))
+
+    def test_login_and_migration_share_account_limit_across_clients(self):
+        for index in range(5):
+            path = "/api/auth/login" if index % 2 == 0 else "/api/auth/migrate-pin"
+            value = {"username": "ALICE" if index % 2 == 0 else "alice", "pin": "9999", "password": LEGACY_PASSWORD}
+            self.assertEqual(self.call(path, "POST", value, client=self.app.test_client()).status_code, 401)
+        response = self.call("/api/auth/login", "POST", {"username": "alice", "pin": PIN})
+        self.assertEqual(response.status_code, 429)
+        self.assertTrue(1 <= int(response.headers["Retry-After"]) <= 900)
+
+    def test_daily_account_limit_survives_window_changes_and_returns_actual_retry_time(self):
+        base = 86400 * 20000 + 100
+        for index in range(20):
+            with patch("server.app.time.time", return_value=base + 901 * index):
+                result = self.call("/api/auth/login", "POST", {"username": "missing", "pin": PIN})
+                self.assertEqual(result.status_code, 401)
+        with patch("server.app.time.time", return_value=base + 901 * 20):
+            result = self.call("/api/auth/login", "POST", {"username": "missing", "pin": PIN})
+        self.assertEqual(result.status_code, 429)
+        self.assertGreater(int(result.headers["Retry-After"]), 900)
+
+    def test_session_key_rotation_does_not_change_pin_material(self):
+        self.register()
+        restarted = create_app({"TESTING": True, "DATABASE": self.path, "SESSION_SECRET": "new" * 16, "PIN_PEPPER": PEPPER})
+        result = self.call("/api/auth/login", "POST", {"username": "alice", "pin": PIN}, client=restarted.test_client())
+        self.assertEqual(result.status_code, 200)
 
 
 if __name__ == "__main__":
