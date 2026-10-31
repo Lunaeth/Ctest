@@ -44,7 +44,9 @@ test('AI PDF banks preserve all source IDs, valid answers, and referenced illust
     assert.equal(gradePracticeAnswer(q, q.answer).correct, true);
     if (q.type === 'multiple') assert.equal(gradePracticeAnswer(q, q.answer.slice(0, 1)).correct, false);
   }
-  for (const bank of [ccnp, nca]) assert.equal(bank.filter((q) => q.type === 'multiple').length, 4);
+  for (const bank of [ccnp, nca]) assert.equal(bank.filter((q) => (q.originalAnswer ?? q.answer).length > 1).length, 4);
+  assert.equal(ccnp.filter((q) => q.type === 'multiple').length, 4);
+  assert.equal(nca.filter((q) => q.type === 'multiple').length, 5);
 });
 
 test('AI progress and favourites remain independent of Core 2 after switching and reload', () => {
@@ -91,6 +93,23 @@ test('reviewed DGX BMC answer replaces the PDF key in practice and exam scoring'
   assert.deepEqual(gradeExamSession(exam, [question]).wrongIds, [85]);
   exam.answers[85] = ['A'];
   assert.equal(gradeExamSession(exam, [question]).score, 1);
+});
+
+test('ambiguous AIIO operations question explicitly requests both supported benefits', () => {
+  const q = nca.find((question) => question.id === 104);
+  assert.equal(q.originalType, 'single');
+  assert.deepEqual(q.originalAnswer, ['C']);
+  assert.match(q.originalStem, /current driver/);
+  assert.match(q.stem, /Choose two/);
+  assert.equal(q.type, 'multiple');
+  assert.deepEqual(q.answer, ['C', 'D']);
+  assert.equal(gradePracticeAnswer(q, ['C']).correct, false);
+  assert.equal(gradePracticeAnswer(q, ['D', 'C']).correct, true);
+  const exam = createExamSession([q]);
+  exam.answers[104] = ['C','D'];
+  assert.equal(gradeExamSession(exam, [q]).score, 1);
+  assert.match(renderExamView(q,exam), /Choose two/);
+  assert.doesNotMatch(renderExamView(q,exam), /current driver/);
 });
 
 test('audited answer corrections regrade saved selections on startup without changing other bank records', () => {

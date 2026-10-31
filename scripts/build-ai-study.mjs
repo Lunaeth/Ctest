@@ -51,6 +51,12 @@ for (const bank of ['ccnp-dcai', 'nca-aiio']) {
       question.originalExplanation ??= question.explanation;
       question.originalAnswerSource ??= question.answerSource;
       question.answerSource = 'primary-reference-review';
+      if (entry.stemEn !== undefined) {
+        if (typeof entry.stemEn !== 'string' || !entry.stemEn.trim()) throw new Error(`Invalid stem correction ${bank} ${question.id}`);
+        question.originalStem ??= question.stem;
+        question.originalType ??= question.type;
+        question.stem = entry.stemEn;
+      }
       if (question.type !== 'review') {
         question.answer = [...entry.answer];
         question.type = entry.answer.length > 1 ? 'multiple' : 'single';
