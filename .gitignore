@@ -22,6 +22,11 @@ docs/superpowers/
 
 # Common local folders
 node_modules/
+.env
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+server/.venv/
 .DS_Store
 Thumbs.db
 desktop.ini

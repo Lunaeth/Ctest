@@ -571,7 +571,12 @@ function isFreshPendingCore2ModulePractice(pending) {
 }
 
 async function consumePendingCore2ModulePractice() {
-  const pending = storageApi.get(DEFAULT_KEYS.pendingCore2ModulePractice, null);
+  let navigationRequest = null;
+  try {
+    navigationRequest = JSON.parse(appWindow?.sessionStorage?.getItem(DEFAULT_KEYS.pendingCore2ModulePractice) ?? 'null');
+    appWindow?.sessionStorage?.removeItem(DEFAULT_KEYS.pendingCore2ModulePractice);
+  } catch { /* A map link still opens learning when storage is unavailable. */ }
+  const pending = navigationRequest ?? storageApi.get(DEFAULT_KEYS.pendingCore2ModulePractice, null);
   if (!pending) return false;
 
   storageApi.remove(DEFAULT_KEYS.pendingCore2ModulePractice);
@@ -1271,6 +1276,7 @@ function renderApp(windowObject, documentObject) {
 
   if (route === 'home') {
     app.innerHTML = renderHomeView({
+      storageMode: storageApi?.mode,
       stats: getDashboardStats(state),
       banks: QUESTION_BANKS,
       activeBankId: state.bankId,
@@ -1849,4 +1855,9 @@ export async function bootstrapApp({
   }
 }
 
-await bootstrapApp();
+if (globalThis.document?.body?.dataset?.accountEnabled === 'true') {
+  const { startAccountApp } = await import('./account-ui.js');
+  await startAccountApp(bootstrapApp);
+} else {
+  await bootstrapApp();
+}

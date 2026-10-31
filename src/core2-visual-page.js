@@ -1,4 +1,4 @@
-﻿import { escapeHtml } from './learning-annotations.js?v=20260707-core2-priority-feedback';
+import { escapeHtml } from './learning-annotations.js?v=20260707-core2-priority-feedback';
 import {
   CORE2_CONFUSION_SETS,
   CORE2_HIGH_FREQUENCY_MODULES,
@@ -433,14 +433,14 @@ function bindSymptomFilter() {
     }
 
     try {
-      window.localStorage?.setItem(PENDING_CORE2_MODULE_PRACTICE_KEY, JSON.stringify({
+      window.sessionStorage?.setItem(PENDING_CORE2_MODULE_PRACTICE_KEY, JSON.stringify({
         bankId: 'core2',
         query: input.value.trim(),
         symptomIds: currentFilterSymptomIds,
         createdAt: Date.now(),
       }));
     } catch {
-      // The link still opens learning mode if localStorage is unavailable.
+      // The link still opens learning mode if sessionStorage is unavailable.
     }
   });
   rowPracticeLinks.forEach((link) => {
@@ -452,14 +452,14 @@ function bindSymptomFilter() {
       }
 
       try {
-        window.localStorage?.setItem(PENDING_CORE2_MODULE_PRACTICE_KEY, JSON.stringify({
+        window.sessionStorage?.setItem(PENDING_CORE2_MODULE_PRACTICE_KEY, JSON.stringify({
           bankId: 'core2',
           query: link.dataset.query ?? '',
           symptomIds: [symptomId],
           createdAt: Date.now(),
         }));
       } catch {
-        // The link still opens learning mode if localStorage is unavailable.
+        // The link still opens learning mode if sessionStorage is unavailable.
       }
     });
   });
@@ -619,13 +619,13 @@ function bindModulePracticeLinks() {
   document.querySelectorAll('[data-action="start-core2-module-practice"]').forEach((link) => {
     link.addEventListener('click', () => {
       try {
-        window.localStorage?.setItem(PENDING_CORE2_MODULE_PRACTICE_KEY, JSON.stringify({
+        window.sessionStorage?.setItem(PENDING_CORE2_MODULE_PRACTICE_KEY, JSON.stringify({
           bankId: 'core2',
           moduleId: link.dataset.moduleId,
           createdAt: Date.now(),
         }));
       } catch {
-        // The link still opens learning mode if localStorage is unavailable.
+        // The link still opens learning mode if sessionStorage is unavailable.
       }
     });
   });

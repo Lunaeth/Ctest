@@ -1,0 +1,31 @@
+[Unit]
+Description=Ctest account and learning progress API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ctest
+Group=nginx
+WorkingDirectory=/opt/ctest-api/current
+EnvironmentFile=/etc/ctest/api.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+RuntimeDirectory=ctest-api
+RuntimeDirectoryMode=0750
+UMask=0007
+ExecStartPre=+/usr/bin/chcon -t httpd_var_run_t /run/ctest-api
+ExecStart=/opt/ctest-api/venv/bin/gunicorn --workers 2 --threads 2 --timeout 30 --bind unix:/run/ctest-api/api.sock --umask 007 --access-logfile - --error-logfile - server.app:create_app()
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/ctest /run/ctest-api
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+LockPersonality=true
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
