@@ -529,6 +529,29 @@ test('bootstrapApp hydrates persisted values before first render', async () => {
   assert.match(env.appElement.innerHTML, /Question 1/);
 });
 
+test('bootstrap persists an audited answer correction before further user interaction', async () => {
+  const questions = JSON.parse(fs.readFileSync('data/questions.nca-aiio.json', 'utf8'));
+  const fetchImpl = createQuestionBankFetch({'./data/questions.nca-aiio.json':questions});
+  const env = setupBootstrapEnvironment({fetchImpl});
+  const app = await loadAppModule();
+  const storage = createMutableStorage({
+    'question-app.preferences':{activeBankId:'ncaAiio'},
+    'question-app.progress':{ncaAiio:{85:{correct:true,selectedAnswer:['C']}}},
+    'question-app.mistakes':{ncaAiio:[]},
+    'question-app.favorites':{ncaAiio:[85]},
+  });
+  const state = await app.bootstrapApp({fetch:fetchImpl,storage,window:env.windowStub,document:env.documentStub,archive:createArchiveStub()});
+  assert.ok(state);
+  const saved = storage.dump();
+  assert.equal(saved['question-app.progress'].ncaAiio[85].correct,false);
+  assert.deepEqual(saved['question-app.progress'].ncaAiio[85].selectedAnswer,['C']);
+  assert.deepEqual(saved['question-app.mistakes'].ncaAiio,[85]);
+  assert.deepEqual(saved['question-app.favorites'].ncaAiio,[85]);
+  storage.events.length=0;
+  await app.bootstrapApp({fetch:fetchImpl,storage,window:env.windowStub,document:env.documentStub,archive:createArchiveStub()});
+  assert.equal(storage.events.filter(([key])=>key==='question-app.progress').length,0);
+});
+
 test('bootstrapApp loads the active question bank from preferences', async () => {
   const fetchImpl = createQuestionBankFetch({
     './data/questions.zh.json': sampleQuestions,

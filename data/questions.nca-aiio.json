@@ -16543,92 +16543,226 @@
     "id": 85,
     "topic": "AI Infrastructure and Operations",
     "stem": "How many out-of-band network management connections are in a DGX H100 system?",
-    "explanation": "A DGX H100 system includes 2 out-of-band network management connections, allowing administrators to manage and monitor the system independently of the main data network.",
+    "explanation": "选 A，一个：DGX H100 硬件规格列出一个用于带外管理的专用 1 GbE RJ45 BMC 端口。\nChoose A, one: the DGX H100 hardware specification identifies a dedicated 1 GbE RJ45 BMC port for out-of-band management.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 24
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "1"
+        "text": "1",
+        "translationZh": "一个。"
       },
       {
         "key": "B",
-        "text": "4"
+        "text": "4",
+        "translationZh": "四个。"
       },
       {
         "key": "C",
-        "text": "2"
+        "text": "2",
+        "translationZh": "两个。"
       }
     ],
     "answer": [
-      "C"
+      "A"
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 24. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "DGX H100/H200 hardware guide",
+          "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/introduction-to-dgxh100.html",
+          "supports": "Lists one 1 GbE RJ45 BMC interface separately from system management interfaces and describes BMC-only standby availability."
+        },
+        {
+          "title": "DGX H100/H200 console connections",
+          "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/connect-dgx.html",
+          "supports": "Connects remote out-of-band management through the BMC port, separately from SSH to the OS."
+        }
       ],
-      "whyChoose": "A DGX H100 system includes 2 out-of-band network management connections, allowing administrators to manage and monitor the system independently of the main data network.",
-      "whyNotChoose": []
+      "outline": [
+        "找到硬件表中明确标注 BMC／带外管理的一行。\nFind the hardware row explicitly labeled BMC/out-of-band management.",
+        "不把单独列出的操作系统／系统管理网络接口计入。\nKeep the separate OS/system management network interfaces out of that count."
+      ],
+      "whyChoose": "选 A，一个：DGX H100 硬件规格列出一个用于带外管理的专用 1 GbE RJ45 BMC 端口。\nChoose A, one: the DGX H100 hardware specification identifies a dedicated 1 GbE RJ45 BMC port for out-of-band management.",
+      "whyNotChoose": [
+        {
+          "key": "B",
+          "text": "4",
+          "reason": "错误：高速端口数量或集群网络角色数量，不代表该服务器的专用 BMC 网络连接数量。\nIncorrect: counts of high-speed ports or cluster fabric roles do not describe the number of dedicated BMC network connections on this server."
+        },
+        {
+          "key": "C",
+          "text": "2",
+          "reason": "源题答案有误：存在另一个 RJ45／系统管理接口，不等于存在第二个专用带外 BMC 端口。\nThe source key is incorrect: the presence of another RJ45/system-management interface does not make it a second dedicated out-of-band BMC port."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "A DGX H100 system includes 2 out-of-band network management connections, allowing administrators to manage and monitor the system independently of the main data network.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "How many <strong>out-of-band</strong> network management connections are in a DGX H100 system?<span class=\"ai-stem-translation\" lang=\"zh-CN\">DGX H100 系统具有多少个专用带外网络管理连接？</span>",
+      "keyPointHtml": "选 A，一个：DGX H100 硬件规格列出一个用于<strong>带外</strong>管理的专用 1 GbE RJ45 <strong>BMC</strong> 端口。<br><span lang=\"en\" class=\"ai-english\">Choose A, one: the DGX H100 hardware specification identifies a dedicated 1 GbE RJ45 <strong>BMC</strong> port for <strong>out-of-band</strong> management.</span>",
+      "speedTipHtml": "一个专用 <strong>BMC</strong> 端口；其他管理接口承担不同角色。<br><span lang=\"en\" class=\"ai-english\">One dedicated <strong>BMC</strong> port; other management interfaces have different roles.</span>",
+      "studyNotesHtml": [
+        "源题“两个”的答案与硬件指南不符。应统计专用<strong>带外</strong>网络端口，不是所有管理接口或所有控制台连接方式。<br><span lang=\"en\" class=\"ai-english\">The source answer of two conflicts with the hardware guide. Count dedicated <strong>out-of-band</strong> network ports, not all management interfaces or all ways to open a console.</span>",
+        "找到硬件表中明确标注 <strong>BMC</strong>／<strong>带外</strong>管理的一行。<br><span lang=\"en\" class=\"ai-english\">Find the hardware row explicitly labeled <strong>BMC</strong>/<strong>out-of-band</strong> management.</span>",
+        "不把单独列出的操作系统／系统管理网络接口计入。<br><span lang=\"en\" class=\"ai-english\">Keep the separate OS/system management network interfaces out of that count.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "ai-operations"
+      ],
+      "keywords": [
+        "BMC",
+        "基板管理控制器",
+        "out-of-band",
+        "带外",
+        "dedicated port",
+        "专用端口"
       ],
       "options": [
         {
           "key": "A",
-          "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "isCorrect": true,
+          "explanation": "正确：这对应 DGX H100 文档中的专用 1 GbE BMC 网络接口。\nCorrect: this counts the dedicated 1 GbE BMC network interface documented for the DGX H100.",
+          "explanationHtml": "正确：这对应 DGX H100 文档中的专用 1 GbE <strong>BMC</strong> 网络接口。<br><span lang=\"en\" class=\"ai-english\">Correct: this counts the dedicated 1 GbE <strong>BMC</strong> network interface documented for the DGX H100.</span>"
         },
         {
           "key": "B",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误：高速端口数量或集群网络角色数量，不代表该服务器的专用 BMC 网络连接数量。\nIncorrect: counts of high-speed ports or cluster fabric roles do not describe the number of dedicated BMC network connections on this server.",
+          "explanationHtml": "错误：高速端口数量或集群网络角色数量，不代表该服务器的专用 <strong>BMC</strong> 网络连接数量。<br><span lang=\"en\" class=\"ai-english\">Incorrect: counts of high-speed ports or cluster fabric roles do not describe the number of dedicated <strong>BMC</strong> network connections on this server.</span>"
         },
         {
           "key": "C",
-          "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "isCorrect": false,
+          "explanation": "源题答案有误：存在另一个 RJ45／系统管理接口，不等于存在第二个专用带外 BMC 端口。\nThe source key is incorrect: the presence of another RJ45/system-management interface does not make it a second dedicated out-of-band BMC port.",
+          "explanationHtml": "源题答案有误：存在另一个 RJ45／系统管理接口，不等于存在第二个专用<strong>带外</strong> <strong>BMC</strong> 端口。<br><span lang=\"en\" class=\"ai-english\">The source key is incorrect: the presence of another RJ45/system-management interface does not make it a second dedicated <strong>out-of-band</strong> <strong>BMC</strong> port.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "C"
+    ],
+    "originalExplanation": "A DGX H100 system includes 2 out-of-band network management connections, allowing administrators to manage and monitor the system independently of the main data network.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 85,
+      "module": "ai-operations",
+      "answer": [
+        "A"
+      ],
+      "stemZh": "DGX H100 系统具有多少个专用带外网络管理连接？",
+      "sources": [
+        {
+          "title": "DGX H100/H200 hardware guide",
+          "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/introduction-to-dgxh100.html",
+          "supports": "Lists one 1 GbE RJ45 BMC interface separately from system management interfaces and describes BMC-only standby availability."
+        },
+        {
+          "title": "DGX H100/H200 console connections",
+          "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/connect-dgx.html",
+          "supports": "Connects remote out-of-band management through the BMC port, separately from SSH to the OS."
+        }
+      ],
+      "reviewNote": "Corrected the PDF key from C (2) to A (1). The hardware specification identifies one dedicated 1 GbE BMC RJ45 interface; the separate 10 GbE/system interfaces must not be counted as a second dedicated BMC connection.",
+      "summary": {
+        "en": "Choose A, one: the DGX H100 hardware specification identifies a dedicated 1 GbE RJ45 BMC port for out-of-band management.",
+        "zh": "选 A，一个：DGX H100 硬件规格列出一个用于带外管理的专用 1 GbE RJ45 BMC 端口。"
+      },
+      "memory": {
+        "en": "One dedicated BMC port; other management interfaces have different roles.",
+        "zh": "一个专用 BMC 端口；其他管理接口承担不同角色。"
+      },
+      "pitfall": {
+        "en": "The source answer of two conflicts with the hardware guide. Count dedicated out-of-band network ports, not all management interfaces or all ways to open a console.",
+        "zh": "源题“两个”的答案与硬件指南不符。应统计专用带外网络端口，不是所有管理接口或所有控制台连接方式。"
+      },
+      "steps": [
+        {
+          "en": "Find the hardware row explicitly labeled BMC/out-of-band management.",
+          "zh": "找到硬件表中明确标注 BMC／带外管理的一行。"
+        },
+        {
+          "en": "Keep the separate OS/system management network interfaces out of that count.",
+          "zh": "不把单独列出的操作系统／系统管理网络接口计入。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "BMC",
+          "zh": "基板管理控制器"
+        },
+        {
+          "en": "out-of-band",
+          "zh": "带外"
+        },
+        {
+          "en": "dedicated port",
+          "zh": "专用端口"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "一个。",
+          "reason": {
+            "en": "Correct: this counts the dedicated 1 GbE BMC network interface documented for the DGX H100.",
+            "zh": "正确：这对应 DGX H100 文档中的专用 1 GbE BMC 网络接口。"
+          }
+        },
+        "B": {
+          "zh": "四个。",
+          "reason": {
+            "en": "Incorrect: counts of high-speed ports or cluster fabric roles do not describe the number of dedicated BMC network connections on this server.",
+            "zh": "错误：高速端口数量或集群网络角色数量，不代表该服务器的专用 BMC 网络连接数量。"
+          }
+        },
+        "C": {
+          "zh": "两个。",
+          "reason": {
+            "en": "The source key is incorrect: the presence of another RJ45/system-management interface does not make it a second dedicated out-of-band BMC port.",
+            "zh": "源题答案有误：存在另一个 RJ45／系统管理接口，不等于存在第二个专用带外 BMC 端口。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {
     "id": 86,
     "topic": "AI Infrastructure and Operations",
     "stem": "What is the maximum number of GPU instances you can partition with NVIDIA MIG (Multi-Instance GPU)?",
-    "explanation": "PDF 未提供文字解析，请结合答案与图示复习。",
+    "explanation": "选 A：在相关受支持 GPU 与最小配置规格上，最多七个；实际数量取决于 GPU 型号与所选实例大小。\nChoose A, up to seven on the relevant supported GPUs and smallest profiles. Actual counts depend on the GPU and the chosen instance sizes.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 24
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "7"
+        "text": "7",
+        "translationZh": "七个。"
       },
       {
         "key": "B",
-        "text": "3"
+        "text": "3",
+        "translationZh": "三个。"
       },
       {
         "key": "C",
-        "text": "5"
+        "text": "5",
+        "translationZh": "五个。"
       },
       {
         "key": "D",
-        "text": "9"
+        "text": "9",
+        "translationZh": "九个。"
       }
     ],
     "answer": [
@@ -16636,71 +16770,205 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 24. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "NVIDIA supported MIG profiles",
+          "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html",
+          "supports": "A100/H100 and other supported profiles permit seven small GPU instances; some GPU models and larger profiles allow fewer."
+        }
       ],
-      "whyChoose": "PDF 未提供文字解析，请结合答案与图示复习。",
-      "whyNotChoose": []
+      "outline": [
+        "统计一个物理 GPU 的分区，而不是服务器中的 GPU 数量。\nCount partitions of one physical GPU, not GPUs in a server.",
+        "用受支持的配置表确定最多可创建的数量。\nUse the supported profile table to determine the largest possible count."
+      ],
+      "whyChoose": "选 A：在相关受支持 GPU 与最小配置规格上，最多七个；实际数量取决于 GPU 型号与所选实例大小。\nChoose A, up to seven on the relevant supported GPUs and smallest profiles. Actual counts depend on the GPU and the chosen instance sizes.",
+      "whyNotChoose": [
+        {
+          "key": "B",
+          "text": "3",
+          "reason": "某些较大实例配置可能为三个，但这不是支持七实例的 GPU 使用最小规格时的最大数量。\nPossible for certain larger-instance configurations, but not the maximum count offered by the smallest profiles on a seven-instance GPU."
+        },
+        {
+          "key": "C",
+          "text": "5",
+          "reason": "部分分配或混合配置可以少于七个实例，但五个不是这里假定 GPU 的最大数量。\nA partial or mixed allocation can have fewer than seven instances, but five is not the advertised maximum for the GPUs assumed here."
+        },
+        {
+          "key": "D",
+          "text": "9",
+          "reason": "超过预期硬件文档中的七个 GPU 实例上限，不能仅通过请求更小分区获得。\nExceeds the documented seven-GPU-instance maximum for the intended hardware; it cannot be obtained merely by requesting smaller partitions."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "PDF 未提供文字解析，请结合答案与图示复习。",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "What is the maximum number of <strong>GPU instance</strong>s you can partition with NVIDIA <strong>MIG</strong> (Multi-Instance GPU)?<span class=\"ai-stem-translation\" lang=\"zh-CN\">对于支持七路划分的 NVIDIA GPU，MIG 最多可把单个物理 GPU 划分为多少个 GPU 实例？</span>",
+      "keyPointHtml": "选 A：在相关受支持 GPU 与最小配置规格上，最多七个；实际数量取决于 GPU 型号与所选实例大小。<br><span lang=\"en\" class=\"ai-english\">Choose A, up to seven on the relevant supported GPUs and smallest <strong>profile</strong>s. Actual counts depend on the GPU and the chosen instance sizes.</span>",
+      "speedTipHtml": "<strong>MIG</strong> 上限是按 GPU 型号与实例规格确定的。<br><span lang=\"en\" class=\"ai-english\"><strong>MIG</strong> maximum is a per-GPU, per-<strong>profile</strong> specification.</span>",
+      "studyNotesHtml": [
+        "不要把七个套用到所有产品：部分受支持型号的上限更小。<strong>GPU 实例</strong>与其内部计算实例划分是不同概念。<br><span lang=\"en\" class=\"ai-english\">Do not apply seven to every product: some supported models have smaller maxima. <strong>GPU instance</strong>s and their compute-instance subdivisions are different concepts.</span>",
+        "统计一个物理 GPU 的分区，而不是服务器中的 GPU 数量。<br><span lang=\"en\" class=\"ai-english\">Count partitions of one physical GPU, not GPUs in a server.</span>",
+        "用受支持的配置表确定最多可创建的数量。<br><span lang=\"en\" class=\"ai-english\">Use the supported <strong>profile</strong> table to determine the largest possible count.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "accelerated-compute"
+      ],
+      "keywords": [
+        "MIG",
+        "多实例 GPU",
+        "GPU instance",
+        "GPU 实例",
+        "profile",
+        "实例配置规格"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "对预期的受支持配置正确：H100 等 GPU 上可以同时存在七个小型 GPU 实例。\nCorrect for the intended supported profiles: seven small GPU instances can coexist on GPUs such as the H100.",
+          "explanationHtml": "对预期的受支持配置正确：H100 等 GPU 上可以同时存在七个小型 <strong>GPU 实例</strong>。<br><span lang=\"en\" class=\"ai-english\">Correct for the intended supported <strong>profile</strong>s: seven small <strong>GPU instance</strong>s can coexist on GPUs such as the H100.</span>"
         },
         {
           "key": "B",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "某些较大实例配置可能为三个，但这不是支持七实例的 GPU 使用最小规格时的最大数量。\nPossible for certain larger-instance configurations, but not the maximum count offered by the smallest profiles on a seven-instance GPU.",
+          "explanationHtml": "某些较大实例配置可能为三个，但这不是支持七实例的 GPU 使用最小规格时的最大数量。<br><span lang=\"en\" class=\"ai-english\">Possible for certain larger-instance configurations, but not the maximum count offered by the smallest <strong>profile</strong>s on a seven-instance GPU.</span>"
         },
         {
           "key": "C",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "部分分配或混合配置可以少于七个实例，但五个不是这里假定 GPU 的最大数量。\nA partial or mixed allocation can have fewer than seven instances, but five is not the advertised maximum for the GPUs assumed here.",
+          "explanationHtml": "部分分配或混合配置可以少于七个实例，但五个不是这里假定 GPU 的最大数量。<br><span lang=\"en\" class=\"ai-english\">A partial or mixed allocation can have fewer than seven instances, but five is not the advertised maximum for the GPUs assumed here.</span>"
         },
         {
           "key": "D",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "超过预期硬件文档中的七个 GPU 实例上限，不能仅通过请求更小分区获得。\nExceeds the documented seven-GPU-instance maximum for the intended hardware; it cannot be obtained merely by requesting smaller partitions.",
+          "explanationHtml": "超过预期硬件文档中的七个 <strong>GPU 实例</strong>上限，不能仅通过请求更小分区获得。<br><span lang=\"en\" class=\"ai-english\">Exceeds the documented seven-GPU-instance maximum for the intended hardware; it cannot be obtained merely by requesting smaller partitions.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "A"
+    ],
+    "originalExplanation": "PDF 未提供文字解析，请结合答案与图示复习。",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 86,
+      "module": "accelerated-compute",
+      "answer": [
+        "A"
+      ],
+      "stemZh": "对于支持七路划分的 NVIDIA GPU，MIG 最多可把单个物理 GPU 划分为多少个 GPU 实例？",
+      "sources": [
+        {
+          "title": "NVIDIA supported MIG profiles",
+          "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html",
+          "supports": "A100/H100 and other supported profiles permit seven small GPU instances; some GPU models and larger profiles allow fewer."
+        }
+      ],
+      "reviewNote": "Retained A for the intended up-to-seven capability. Added a missing explanation and made model/profile dependence explicit; seven is not the maximum on every MIG-capable GPU.",
+      "summary": {
+        "en": "Choose A, up to seven on the relevant supported GPUs and smallest profiles. Actual counts depend on the GPU and the chosen instance sizes.",
+        "zh": "选 A：在相关受支持 GPU 与最小配置规格上，最多七个；实际数量取决于 GPU 型号与所选实例大小。"
+      },
+      "memory": {
+        "en": "MIG maximum is a per-GPU, per-profile specification.",
+        "zh": "MIG 上限是按 GPU 型号与实例规格确定的。"
+      },
+      "pitfall": {
+        "en": "Do not apply seven to every product: some supported models have smaller maxima. GPU instances and their compute-instance subdivisions are different concepts.",
+        "zh": "不要把七个套用到所有产品：部分受支持型号的上限更小。GPU 实例与其内部计算实例划分是不同概念。"
+      },
+      "steps": [
+        {
+          "en": "Count partitions of one physical GPU, not GPUs in a server.",
+          "zh": "统计一个物理 GPU 的分区，而不是服务器中的 GPU 数量。"
+        },
+        {
+          "en": "Use the supported profile table to determine the largest possible count.",
+          "zh": "用受支持的配置表确定最多可创建的数量。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "MIG",
+          "zh": "多实例 GPU"
+        },
+        {
+          "en": "GPU instance",
+          "zh": "GPU 实例"
+        },
+        {
+          "en": "profile",
+          "zh": "实例配置规格"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "七个。",
+          "reason": {
+            "en": "Correct for the intended supported profiles: seven small GPU instances can coexist on GPUs such as the H100.",
+            "zh": "对预期的受支持配置正确：H100 等 GPU 上可以同时存在七个小型 GPU 实例。"
+          }
+        },
+        "B": {
+          "zh": "三个。",
+          "reason": {
+            "en": "Possible for certain larger-instance configurations, but not the maximum count offered by the smallest profiles on a seven-instance GPU.",
+            "zh": "某些较大实例配置可能为三个，但这不是支持七实例的 GPU 使用最小规格时的最大数量。"
+          }
+        },
+        "C": {
+          "zh": "五个。",
+          "reason": {
+            "en": "A partial or mixed allocation can have fewer than seven instances, but five is not the advertised maximum for the GPUs assumed here.",
+            "zh": "部分分配或混合配置可以少于七个实例，但五个不是这里假定 GPU 的最大数量。"
+          }
+        },
+        "D": {
+          "zh": "九个。",
+          "reason": {
+            "en": "Exceeds the documented seven-GPU-instance maximum for the intended hardware; it cannot be obtained merely by requesting smaller partitions.",
+            "zh": "超过预期硬件文档中的七个 GPU 实例上限，不能仅通过请求更小分区获得。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {
     "id": 87,
     "topic": "AI Infrastructure and Operations",
     "stem": "What is the primary function of a Baseboard Management Controller (BMC) on a system in an AI environment?",
-    "explanation": "A Baseboard Management Controller (BMC) provides out-of-band remote management, allowing administrators to monitor, manage, and troubleshoot servers even when the system is powered off or unresponsive.",
+    "explanation": "选 B：只要待机电源与管理连接可用，BMC 就可独立于主机操作系统提供带外监控、控制台与电源控制。\nChoose B: a BMC provides out-of-band monitoring, console and power control independently of the host OS, while standby power and management connectivity remain available.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 25
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "It serves as the main data storage controller, managing all hard drives and SSDs within the server."
+        "text": "It serves as the main data storage controller, managing all hard drives and SSDs within the server.",
+        "translationZh": "作为主存储控制器，管理服务器全部硬盘与 SSD。"
       },
       {
         "key": "B",
-        "text": "It allows for out-of-band remote management of the device, even when the system is powered off."
+        "text": "It allows for out-of-band remote management of the device, even when the system is powered off.",
+        "translationZh": "提供带外远程管理，即使主机已关闭也可使用。"
       },
       {
         "key": "C",
-        "text": "It functions as a hardware-based firewall, protecting the server from external threats."
+        "text": "It functions as a hardware-based firewall, protecting the server from external threats.",
+        "translationZh": "充当硬件防火墙，保护服务器免受外部威胁。"
       },
       {
         "key": "D",
-        "text": "It acts as a primary in-band network interface, controlling all inbound and outbound network traffic."
+        "text": "It acts as a primary in-band network interface, controlling all inbound and outbound network traffic.",
+        "translationZh": "作为主要带内网卡，控制所有进出网络流量。"
       }
     ],
     "answer": [
@@ -16708,71 +16976,215 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 25. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "DGX H100/H200 hardware guide",
+          "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/introduction-to-dgxh100.html",
+          "supports": "Lists one 1 GbE RJ45 BMC interface separately from system management interfaces and describes BMC-only standby availability."
+        },
+        {
+          "title": "DGX BMC operations",
+          "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/bmc.html",
+          "supports": "BMC monitors sensors, provides a remote console and controls system power."
+        }
       ],
-      "whyChoose": "A Baseboard Management Controller (BMC) provides out-of-band remote management, allowing administrators to monitor, manage, and troubleshoot servers even when the system is powered off or unresponsive.",
-      "whyNotChoose": []
+      "outline": [
+        "识别独立于主机操作系统的管理能力。\nIdentify management independent of the host operating system.",
+        "理解远程访问时，保留电源与网络前提。\nRetain power and network prerequisites when interpreting remote access."
+      ],
+      "whyChoose": "选 B：只要待机电源与管理连接可用，BMC 就可独立于主机操作系统提供带外监控、控制台与电源控制。\nChoose B: a BMC provides out-of-band monitoring, console and power control independently of the host OS, while standby power and management connectivity remain available.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "It serves as the main data storage controller, managing all hard drives and SSDs within the server.",
+          "reason": "角色不符：BMC 可以报告驱动器健康状态，但正常存储 I/O 由存储控制器与主机软件处理。\nIncorrect role: the BMC may report drive health, but storage controllers and host software handle normal storage I/O."
+        },
+        {
+          "key": "C",
+          "text": "It functions as a hardware-based firewall, protecting the server from external threats.",
+          "reason": "不是主要角色：管理接口的访问控制，不会使 BMC 成为全部服务器业务流量的防火墙。\nNot its primary role: management-interface access controls do not make the BMC a firewall for all server workload traffic."
+        },
+        {
+          "key": "D",
+          "text": "It acts as a primary in-band network interface, controlling all inbound and outbound network traffic.",
+          "reason": "错误：专用管理路径与主机常规业务接口分离，不承载每个应用数据包。\nIncorrect: the dedicated management path is separate from the host’s ordinary workload interfaces and does not carry every application packet."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "A Baseboard Management Controller (BMC) provides out-of-band remote management, allowing administrators to monitor, manage, and troubleshoot servers even when the system is powered off or unresponsive.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "What is the primary function of a Baseboard Management Controller (<strong>BMC</strong>) on a system in an AI environment?<span class=\"ai-stem-translation\" lang=\"zh-CN\">AI 环境中，系统的基板管理控制器（BMC）的主要功能是什么？</span>",
+      "keyPointHtml": "选 B：只要<strong>待机电源</strong>与管理连接可用，<strong>BMC</strong> 就可独立于主机操作系统提供带外监控、控制台与电源控制。<br><span lang=\"en\" class=\"ai-english\">Choose B: a <strong>BMC</strong> provides out-of-band monitoring, console and power control independently of the host OS, while <strong>standby power</strong> and management connectivity remain available.</span>",
+      "speedTipHtml": "主机操作系统不可用时，<strong>BMC</strong> 仍可能可访问。<br><span lang=\"en\" class=\"ai-english\">Host OS unavailable can still leave the <strong>BMC</strong> reachable.</span>",
+      "studyNotesHtml": [
+        "这里关机指主机关闭，不是 <strong>BMC</strong> 完全没电。拔掉所有电源或丢失管理网络，都会使这条远程路径不可用。<br><span lang=\"en\" class=\"ai-english\">Powered off means the host is off, not that the <strong>BMC</strong> has no electricity. Unplugging all power or losing its management network removes that remote path.</span>",
+        "识别独立于主机操作系统的管理能力。<br><span lang=\"en\" class=\"ai-english\">Identify management independent of the host operating system.</span>",
+        "理解远程访问时，保留电源与网络前提。<br><span lang=\"en\" class=\"ai-english\">Retain power and network prerequisites when interpreting remote access.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "ai-operations"
+      ],
+      "keywords": [
+        "BMC",
+        "基板管理控制器",
+        "standby power",
+        "待机电源",
+        "remote console",
+        "远程控制台"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "角色不符：BMC 可以报告驱动器健康状态，但正常存储 I/O 由存储控制器与主机软件处理。\nIncorrect role: the BMC may report drive health, but storage controllers and host software handle normal storage I/O.",
+          "explanationHtml": "角色不符：<strong>BMC</strong> 可以报告驱动器健康状态，但正常存储 I/O 由存储控制器与主机软件处理。<br><span lang=\"en\" class=\"ai-english\">Incorrect role: the <strong>BMC</strong> may report drive health, but storage controllers and host software handle normal storage I/O.</span>"
         },
         {
           "key": "B",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "在满足前提时正确：BMC 有电时，即使主机操作系统不可用或主机已关闭，也可提供控制台与电源控制。\nCorrect with prerequisites: a powered BMC can provide console and power controls even when the host OS is unavailable or the host is shut down.",
+          "explanationHtml": "在满足前提时正确：<strong>BMC</strong> 有电时，即使主机操作系统不可用或主机已关闭，也可提供控制台与电源控制。<br><span lang=\"en\" class=\"ai-english\">Correct with prerequisites: a powered <strong>BMC</strong> can provide console and power controls even when the host OS is unavailable or the host is shut down.</span>"
         },
         {
           "key": "C",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "不是主要角色：管理接口的访问控制，不会使 BMC 成为全部服务器业务流量的防火墙。\nNot its primary role: management-interface access controls do not make the BMC a firewall for all server workload traffic.",
+          "explanationHtml": "不是主要角色：管理接口的访问控制，不会使 <strong>BMC</strong> 成为全部服务器业务流量的防火墙。<br><span lang=\"en\" class=\"ai-english\">Not its primary role: management-interface access controls do not make the <strong>BMC</strong> a firewall for all server workload traffic.</span>"
         },
         {
           "key": "D",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误：专用管理路径与主机常规业务接口分离，不承载每个应用数据包。\nIncorrect: the dedicated management path is separate from the host’s ordinary workload interfaces and does not carry every application packet.",
+          "explanationHtml": "错误：专用管理路径与主机常规业务接口分离，不承载每个应用数据包。<br><span lang=\"en\" class=\"ai-english\">Incorrect: the dedicated management path is separate from the host’s ordinary workload interfaces and does not carry every application packet.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "B"
+    ],
+    "originalExplanation": "A Baseboard Management Controller (BMC) provides out-of-band remote management, allowing administrators to monitor, manage, and troubleshoot servers even when the system is powered off or unresponsive.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 87,
+      "module": "ai-operations",
+      "answer": [
+        "B"
+      ],
+      "stemZh": "AI 环境中，系统的基板管理控制器（BMC）的主要功能是什么？",
+      "sources": [
+        {
+          "title": "DGX H100/H200 hardware guide",
+          "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/introduction-to-dgxh100.html",
+          "supports": "Lists one 1 GbE RJ45 BMC interface separately from system management interfaces and describes BMC-only standby availability."
+        },
+        {
+          "title": "DGX BMC operations",
+          "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/bmc.html",
+          "supports": "BMC monitors sensors, provides a remote console and controls system power."
+        }
+      ],
+      "reviewNote": "Retained B with standby-power and management-network prerequisites. Host-off does not mean all AC power removed. BMC monitoring storage or firewall settings does not make it a primary storage controller or firewall.",
+      "summary": {
+        "en": "Choose B: a BMC provides out-of-band monitoring, console and power control independently of the host OS, while standby power and management connectivity remain available.",
+        "zh": "选 B：只要待机电源与管理连接可用，BMC 就可独立于主机操作系统提供带外监控、控制台与电源控制。"
+      },
+      "memory": {
+        "en": "Host OS unavailable can still leave the BMC reachable.",
+        "zh": "主机操作系统不可用时，BMC 仍可能可访问。"
+      },
+      "pitfall": {
+        "en": "Powered off means the host is off, not that the BMC has no electricity. Unplugging all power or losing its management network removes that remote path.",
+        "zh": "这里关机指主机关闭，不是 BMC 完全没电。拔掉所有电源或丢失管理网络，都会使这条远程路径不可用。"
+      },
+      "steps": [
+        {
+          "en": "Identify management independent of the host operating system.",
+          "zh": "识别独立于主机操作系统的管理能力。"
+        },
+        {
+          "en": "Retain power and network prerequisites when interpreting remote access.",
+          "zh": "理解远程访问时，保留电源与网络前提。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "BMC",
+          "zh": "基板管理控制器"
+        },
+        {
+          "en": "standby power",
+          "zh": "待机电源"
+        },
+        {
+          "en": "remote console",
+          "zh": "远程控制台"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "作为主存储控制器，管理服务器全部硬盘与 SSD。",
+          "reason": {
+            "en": "Incorrect role: the BMC may report drive health, but storage controllers and host software handle normal storage I/O.",
+            "zh": "角色不符：BMC 可以报告驱动器健康状态，但正常存储 I/O 由存储控制器与主机软件处理。"
+          }
+        },
+        "B": {
+          "zh": "提供带外远程管理，即使主机已关闭也可使用。",
+          "reason": {
+            "en": "Correct with prerequisites: a powered BMC can provide console and power controls even when the host OS is unavailable or the host is shut down.",
+            "zh": "在满足前提时正确：BMC 有电时，即使主机操作系统不可用或主机已关闭，也可提供控制台与电源控制。"
+          }
+        },
+        "C": {
+          "zh": "充当硬件防火墙，保护服务器免受外部威胁。",
+          "reason": {
+            "en": "Not its primary role: management-interface access controls do not make the BMC a firewall for all server workload traffic.",
+            "zh": "不是主要角色：管理接口的访问控制，不会使 BMC 成为全部服务器业务流量的防火墙。"
+          }
+        },
+        "D": {
+          "zh": "作为主要带内网卡，控制所有进出网络流量。",
+          "reason": {
+            "en": "Incorrect: the dedicated management path is separate from the host’s ordinary workload interfaces and does not carry every application packet.",
+            "zh": "错误：专用管理路径与主机常规业务接口分离，不承载每个应用数据包。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {
     "id": 88,
     "topic": "AI Infrastructure and Operations",
     "stem": "What is the benefit of Kubernetes in application deployments in an AI environment?",
-    "explanation": "Kubernetes improves scaling and reliability of applications in AI environments by automating container replication, load balancing, and resource management, enabling efficient deployment of AI workloads across clusters.",
+    "explanation": "选 D：Kubernetes 管理应用副本与服务端点，帮助部署和扩展容器化 AI 服务。\nChoose D: Kubernetes manages application replicas and service endpoints, helping deploy and scale containerized AI services.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 25
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "It simplifies deployment through automation of AI algorithms for machine learning models."
+        "text": "It simplifies deployment through automation of AI algorithms for machine learning models.",
+        "translationZh": "通过自动化机器学习模型的 AI 算法来简化部署。"
       },
       {
         "key": "B",
-        "text": "It improves scaling through enhancement of the computational power of GPUs used in AI workloads."
+        "text": "It improves scaling through enhancement of the computational power of GPUs used in AI workloads.",
+        "translationZh": "通过增强 AI 工作负载使用的 GPU 算力来改善扩展能力。"
       },
       {
         "key": "C",
-        "text": "It simplifies deployment and directly improves the accuracy of AI models by optimizing their hyperparameters."
+        "text": "It simplifies deployment and directly improves the accuracy of AI models by optimizing their hyperparameters.",
+        "translationZh": "简化部署，并通过优化超参数直接提高模型准确率。"
       },
       {
         "key": "D",
-        "text": "It improves scaling of applications by allowing for automated replication and load balancing of containers."
+        "text": "It improves scaling of applications by allowing for automated replication and load balancing of containers.",
+        "translationZh": "通过自动维护容器应用副本与负载均衡来改善应用扩展能力。"
       }
     ],
     "answer": [
@@ -16780,71 +17192,225 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 25. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "Kubernetes overview",
+          "url": "https://kubernetes.io/docs/concepts/overview/",
+          "supports": "Kubernetes manages containerized workloads and services, with scheduling and scaling capabilities."
+        },
+        {
+          "title": "Kubernetes Deployments",
+          "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+          "supports": "A Deployment manages desired replicas and rollout of Pods."
+        },
+        {
+          "title": "Kubernetes Services",
+          "url": "https://kubernetes.io/docs/concepts/services-networking/service/",
+          "supports": "Services expose endpoints and support traffic distribution; actual load-balancer implementation depends on the environment."
+        }
       ],
-      "whyChoose": "Kubernetes improves scaling and reliability of applications in AI environments by automating container replication, load balancing, and resource management, enabling efficient deployment of AI workloads across clusters.",
-      "whyNotChoose": []
+      "outline": [
+        "识别工作负载管理，而非模型数学运算。\nIdentify workload management rather than model mathematics.",
+        "把副本对应到控制器，把流量分配对应到 Service。\nConnect replicas to controllers and traffic distribution to Services."
+      ],
+      "whyChoose": "选 D：Kubernetes 管理应用副本与服务端点，帮助部署和扩展容器化 AI 服务。\nChoose D: Kubernetes manages application replicas and service endpoints, helping deploy and scale containerized AI services.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "It simplifies deployment through automation of AI algorithms for machine learning models.",
+          "reason": "机制不符：Kubernetes 运行应用容器，但本身不创造或自动实现其中的机器学习算法。\nIncorrect mechanism: Kubernetes runs application containers but does not itself invent or automate their machine-learning algorithms."
+        },
+        {
+          "key": "B",
+          "text": "It improves scaling through enhancement of the computational power of GPUs used in AI workloads.",
+          "reason": "物理能力表述不符：调度更多可用资源，与提高单个 GPU 的硬件处理能力不同。\nIncorrect physical claim: scheduling more available resources is different from increasing a GPU’s hardware processing capability."
+        },
+        {
+          "key": "C",
+          "text": "It simplifies deployment and directly improves the accuracy of AI models by optimizing their hyperparameters.",
+          "reason": "直接作用表述不符：调参作业可以运行在 Kubernetes 上，但编排平台本身不优化超参数，也不保证准确率。\nIncorrect direct effect: tuning jobs can run on Kubernetes, but the orchestration platform does not itself optimize hyperparameters or guarantee accuracy."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "Kubernetes improves scaling and reliability of applications in AI environments by automating container replication, load balancing, and resource management, enabling efficient deployment of AI workloads across clusters.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "What is the benefit of Kubernetes in application deployments in an AI environment?<span class=\"ai-stem-translation\" lang=\"zh-CN\">在 AI 环境中部署应用时，Kubernetes 的一项优势是什么？</span>",
+      "keyPointHtml": "选 D：Kubernetes 管理应用<strong>副本</strong>与服务端点，帮助部署和扩展容器化 AI 服务。<br><span lang=\"en\" class=\"ai-english\">Choose D: Kubernetes manages application <strong>replica</strong>s and <strong>service</strong> endpoints, helping deploy and scale containerized AI <strong>service</strong>s.</span>",
+      "speedTipHtml": "<strong>副本</strong>与服务路由，不是模型学习。<br><span lang=\"en\" class=\"ai-english\"><strong>Replica</strong>s and <strong>service</strong> routing, not model learning.</span>",
+      "studyNotesHtml": [
+        "Deployment 维持配置的<strong>副本</strong>数；按需求自动扩缩容与外部负载均衡，还需额外配置和可用容量。<br><span lang=\"en\" class=\"ai-english\">A Deployment maintains a configured <strong>replica</strong> count; demand-based autoscaling and external load balancing need additional configuration and available capacity.</span>",
+        "识别工作负载管理，而非模型数学运算。<br><span lang=\"en\" class=\"ai-english\">Identify workload management rather than model mathematics.</span>",
+        "把<strong>副本</strong>对应到控制器，把流量分配对应到 <strong>Service</strong>。<br><span lang=\"en\" class=\"ai-english\">Connect <strong>replica</strong>s to controllers and traffic distribution to <strong>Service</strong>s.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "ai-operations"
+      ],
+      "keywords": [
+        "replica",
+        "副本",
+        "Pod",
+        "Pod 工作负载单元",
+        "Service",
+        "服务端点抽象"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "机制不符：Kubernetes 运行应用容器，但本身不创造或自动实现其中的机器学习算法。\nIncorrect mechanism: Kubernetes runs application containers but does not itself invent or automate their machine-learning algorithms.",
+          "explanationHtml": "机制不符：Kubernetes 运行应用容器，但本身不创造或自动实现其中的机器学习算法。<br><span lang=\"en\" class=\"ai-english\">Incorrect mechanism: Kubernetes runs application containers but does not itself invent or automate their machine-learning algorithms.</span>"
         },
         {
           "key": "B",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "物理能力表述不符：调度更多可用资源，与提高单个 GPU 的硬件处理能力不同。\nIncorrect physical claim: scheduling more available resources is different from increasing a GPU’s hardware processing capability.",
+          "explanationHtml": "物理能力表述不符：调度更多可用资源，与提高单个 GPU 的硬件处理能力不同。<br><span lang=\"en\" class=\"ai-english\">Incorrect physical claim: scheduling more available resources is different from increasing a GPU’s hardware processing capability.</span>"
         },
         {
           "key": "C",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "直接作用表述不符：调参作业可以运行在 Kubernetes 上，但编排平台本身不优化超参数，也不保证准确率。\nIncorrect direct effect: tuning jobs can run on Kubernetes, but the orchestration platform does not itself optimize hyperparameters or guarantee accuracy.",
+          "explanationHtml": "直接作用表述不符：调参作业可以运行在 Kubernetes 上，但编排平台本身不优化超参数，也不保证准确率。<br><span lang=\"en\" class=\"ai-english\">Incorrect direct effect: tuning jobs can run on Kubernetes, but the orchestration platform does not itself optimize hyperparameters or guarantee accuracy.</span>"
         },
         {
           "key": "D",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "最佳答案：控制器维护 Pod 副本，Service 支持流量分配，具体受资源可用性与配置约束。\nBest answer: controllers maintain Pod replicas and Services support traffic distribution, subject to resource availability and configuration.",
+          "explanationHtml": "最佳答案：控制器维护 <strong>Pod</strong> <strong>副本</strong>，<strong>Service</strong> 支持流量分配，具体受资源可用性与配置约束。<br><span lang=\"en\" class=\"ai-english\">Best answer: controllers maintain <strong>Pod</strong> <strong>replica</strong>s and <strong>Service</strong>s support traffic distribution, subject to resource availability and configuration.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "D"
+    ],
+    "originalExplanation": "Kubernetes improves scaling and reliability of applications in AI environments by automating container replication, load balancing, and resource management, enabling efficient deployment of AI workloads across clusters.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 88,
+      "module": "ai-operations",
+      "answer": [
+        "D"
+      ],
+      "stemZh": "在 AI 环境中部署应用时，Kubernetes 的一项优势是什么？",
+      "sources": [
+        {
+          "title": "Kubernetes overview",
+          "url": "https://kubernetes.io/docs/concepts/overview/",
+          "supports": "Kubernetes manages containerized workloads and services, with scheduling and scaling capabilities."
+        },
+        {
+          "title": "Kubernetes Deployments",
+          "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+          "supports": "A Deployment manages desired replicas and rollout of Pods."
+        },
+        {
+          "title": "Kubernetes Services",
+          "url": "https://kubernetes.io/docs/concepts/services-networking/service/",
+          "supports": "Services expose endpoints and support traffic distribution; actual load-balancer implementation depends on the environment."
+        }
+      ],
+      "reviewNote": "Retained D. Replicas are Pods managed by controllers; Services support traffic distribution. Automatic scale decisions require suitable controllers and metrics, and do not increase physical GPU power.",
+      "summary": {
+        "en": "Choose D: Kubernetes manages application replicas and service endpoints, helping deploy and scale containerized AI services.",
+        "zh": "选 D：Kubernetes 管理应用副本与服务端点，帮助部署和扩展容器化 AI 服务。"
+      },
+      "memory": {
+        "en": "Replicas and service routing, not model learning.",
+        "zh": "副本与服务路由，不是模型学习。"
+      },
+      "pitfall": {
+        "en": "A Deployment maintains a configured replica count; demand-based autoscaling and external load balancing need additional configuration and available capacity.",
+        "zh": "Deployment 维持配置的副本数；按需求自动扩缩容与外部负载均衡，还需额外配置和可用容量。"
+      },
+      "steps": [
+        {
+          "en": "Identify workload management rather than model mathematics.",
+          "zh": "识别工作负载管理，而非模型数学运算。"
+        },
+        {
+          "en": "Connect replicas to controllers and traffic distribution to Services.",
+          "zh": "把副本对应到控制器，把流量分配对应到 Service。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "replica",
+          "zh": "副本"
+        },
+        {
+          "en": "Pod",
+          "zh": "Pod 工作负载单元"
+        },
+        {
+          "en": "Service",
+          "zh": "服务端点抽象"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "通过自动化机器学习模型的 AI 算法来简化部署。",
+          "reason": {
+            "en": "Incorrect mechanism: Kubernetes runs application containers but does not itself invent or automate their machine-learning algorithms.",
+            "zh": "机制不符：Kubernetes 运行应用容器，但本身不创造或自动实现其中的机器学习算法。"
+          }
+        },
+        "B": {
+          "zh": "通过增强 AI 工作负载使用的 GPU 算力来改善扩展能力。",
+          "reason": {
+            "en": "Incorrect physical claim: scheduling more available resources is different from increasing a GPU’s hardware processing capability.",
+            "zh": "物理能力表述不符：调度更多可用资源，与提高单个 GPU 的硬件处理能力不同。"
+          }
+        },
+        "C": {
+          "zh": "简化部署，并通过优化超参数直接提高模型准确率。",
+          "reason": {
+            "en": "Incorrect direct effect: tuning jobs can run on Kubernetes, but the orchestration platform does not itself optimize hyperparameters or guarantee accuracy.",
+            "zh": "直接作用表述不符：调参作业可以运行在 Kubernetes 上，但编排平台本身不优化超参数，也不保证准确率。"
+          }
+        },
+        "D": {
+          "zh": "通过自动维护容器应用副本与负载均衡来改善应用扩展能力。",
+          "reason": {
+            "en": "Best answer: controllers maintain Pod replicas and Services support traffic distribution, subject to resource availability and configuration.",
+            "zh": "最佳答案：控制器维护 Pod 副本，Service 支持流量分配，具体受资源可用性与配置约束。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {
     "id": 89,
     "topic": "AI Infrastructure and Operations",
     "stem": "What is a significant benefit of using Slurm in high-performance computing (HPC) environments?",
-    "explanation": "Slurm is a job scheduling system that efficiently allocates computational resources, manages job queues, and optimizes workload distribution in high-performance computing environments.",
+    "explanation": "选 D：Slurm 对作业排队，并依据请求、可用资源与调度策略分配集群资源。\nChoose D: Slurm queues jobs and allocates cluster resources according to requests, availability and scheduling policy.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 25
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "Slurm provides an orchestration tool to compile drivers and libraries in an HPC environment."
+        "text": "Slurm provides an orchestration tool to compile drivers and libraries in an HPC environment.",
+        "translationZh": "提供编译 HPC 驱动与库的编排工具。"
       },
       {
         "key": "B",
-        "text": "Slurm automatically writes and optimizes code for HPC applications to ensure the best performance."
+        "text": "Slurm automatically writes and optimizes code for HPC applications to ensure the best performance.",
+        "translationZh": "自动编写和优化 HPC 应用代码，以确保最佳性能。"
       },
       {
         "key": "C",
-        "text": "Slurm increases the clock speed of CPUs in HPC clusters to improve computational performance."
+        "text": "Slurm increases the clock speed of CPUs in HPC clusters to improve computational performance.",
+        "translationZh": "提高 HPC 集群中 CPU 的时钟频率以改善计算性能。"
       },
       {
         "key": "D",
-        "text": "Slurm provides a robust job scheduling system that optimizes the allocation of computational resources."
+        "text": "Slurm provides a robust job scheduling system that optimizes the allocation of computational resources.",
+        "translationZh": "提供完善的作业调度系统，改进计算资源分配。"
       }
     ],
     "answer": [
@@ -16852,67 +17418,200 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 25. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "Slurm overview",
+          "url": "https://slurm.schedmd.com/overview.html",
+          "supports": "Slurm allocates resources, starts and monitors jobs, and arbitrates queued work."
+        }
       ],
-      "whyChoose": "Slurm is a job scheduling system that efficiently allocates computational resources, manages job queues, and optimizes workload distribution in high-performance computing environments.",
-      "whyNotChoose": []
+      "outline": [
+        "寻找作业队列、放置与资源分配。\nLook for job queues, placement and resource allocation.",
+        "排除无关的代码生成与硬件时钟提升承诺。\nReject unrelated code-generation and hardware-clock promises."
+      ],
+      "whyChoose": "选 D：Slurm 对作业排队，并依据请求、可用资源与调度策略分配集群资源。\nChoose D: Slurm queues jobs and allocates cluster resources according to requests, availability and scheduling policy.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "Slurm provides an orchestration tool to compile drivers and libraries in an HPC environment.",
+          "reason": "不是定义性优势：编译任务可以作为作业提交，但 Slurm 的核心角色是调度与分配资源，而非充当编译工具链。\nNot its defining benefit: a compilation task can be submitted as a job, but Slurm’s central role is scheduling and allocating resources, not acting as the compiler toolchain."
+        },
+        {
+          "key": "B",
+          "text": "Slurm automatically writes and optimizes code for HPC applications to ensure the best performance.",
+          "reason": "错误：Slurm 执行提交的作业，不负责生成其中算法，也不保证应用层优化。\nIncorrect: Slurm executes submitted jobs rather than generating their algorithms or guaranteeing application-level optimization."
+        },
+        {
+          "key": "C",
+          "text": "Slurm increases the clock speed of CPUs in HPC clusters to improve computational performance.",
+          "reason": "不是主要调度收益：分配 CPU 时间与提高处理器时钟上限不同；可选电源管理集成也不改变这一角色。\nNot the principal scheduling benefit: allocating CPU time is distinct from increasing processor clock limits. Optional power-management integration does not change that role."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "Slurm is a job scheduling system that efficiently allocates computational resources, manages job queues, and optimizes workload distribution in high-performance computing environments.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "What is a significant benefit of using <strong>Slurm</strong> in high-performance computing (HPC) environments?<span class=\"ai-stem-translation\" lang=\"zh-CN\">在高性能计算（HPC）环境中使用 Slurm 的一项重要优势是什么？</span>",
+      "keyPointHtml": "选 D：<strong>Slurm</strong> 对作业排队，并依据请求、可用资源与调度策略分配集群资源。<br><span lang=\"en\" class=\"ai-english\">Choose D: <strong>Slurm</strong> queues jobs and allocates cluster resources according to requests, availability and scheduling policy.</span>",
+      "speedTipHtml": "<strong>Slurm</strong> 把作业调度到资源上。<br><span lang=\"en\" class=\"ai-english\"><strong>Slurm</strong> schedules jobs onto resources.</span>",
+      "studyNotesHtml": [
+        "调度器不能消除所有瓶颈，也不能自动让低效算法变快；资源请求与策略仍需配置。<br><span lang=\"en\" class=\"ai-english\">A scheduler cannot remove every bottleneck or make an inefficient application algorithm fast. Resource requests and policy still require configuration.</span>",
+        "寻找<strong>作业队列</strong>、放置与<strong>资源分配</strong>。<br><span lang=\"en\" class=\"ai-english\">Look for <strong>job queue</strong>s, placement and <strong>resource allocation</strong>.</span>",
+        "排除无关的代码生成与硬件时钟提升承诺。<br><span lang=\"en\" class=\"ai-english\">Reject unrelated code-generation and hardware-clock promises.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "ai-operations"
+      ],
+      "keywords": [
+        "Slurm",
+        "Slurm 作业调度系统",
+        "job queue",
+        "作业队列",
+        "resource allocation",
+        "资源分配"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "不是定义性优势：编译任务可以作为作业提交，但 Slurm 的核心角色是调度与分配资源，而非充当编译工具链。\nNot its defining benefit: a compilation task can be submitted as a job, but Slurm’s central role is scheduling and allocating resources, not acting as the compiler toolchain.",
+          "explanationHtml": "不是定义性优势：编译任务可以作为作业提交，但 <strong>Slurm</strong> 的核心角色是调度与分配资源，而非充当编译工具链。<br><span lang=\"en\" class=\"ai-english\">Not its defining benefit: a compilation task can be submitted as a job, but <strong>Slurm</strong>’s central role is scheduling and allocating resources, not acting as the compiler toolchain.</span>"
         },
         {
           "key": "B",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误：Slurm 执行提交的作业，不负责生成其中算法，也不保证应用层优化。\nIncorrect: Slurm executes submitted jobs rather than generating their algorithms or guaranteeing application-level optimization.",
+          "explanationHtml": "错误：<strong>Slurm</strong> 执行提交的作业，不负责生成其中算法，也不保证应用层优化。<br><span lang=\"en\" class=\"ai-english\">Incorrect: <strong>Slurm</strong> executes submitted jobs rather than generating their algorithms or guaranteeing application-level optimization.</span>"
         },
         {
           "key": "C",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "不是主要调度收益：分配 CPU 时间与提高处理器时钟上限不同；可选电源管理集成也不改变这一角色。\nNot the principal scheduling benefit: allocating CPU time is distinct from increasing processor clock limits. Optional power-management integration does not change that role.",
+          "explanationHtml": "不是主要调度收益：分配 CPU 时间与提高处理器时钟上限不同；可选电源管理集成也不改变这一角色。<br><span lang=\"en\" class=\"ai-english\">Not the principal scheduling benefit: allocating CPU time is distinct from increasing processor clock limits. Optional power-management integration does not change that role.</span>"
         },
         {
           "key": "D",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "正确：Slurm 管理资源访问与作业放置，协调集群中竞争资源的工作负载。\nCorrect: Slurm manages resource access and job placement, coordinating competing workloads across the cluster.",
+          "explanationHtml": "正确：<strong>Slurm</strong> 管理资源访问与作业放置，协调集群中竞争资源的工作负载。<br><span lang=\"en\" class=\"ai-english\">Correct: <strong>Slurm</strong> manages resource access and job placement, coordinating competing workloads across the cluster.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "D"
+    ],
+    "originalExplanation": "Slurm is a job scheduling system that efficiently allocates computational resources, manages job queues, and optimizes workload distribution in high-performance computing environments.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 89,
+      "module": "ai-operations",
+      "answer": [
+        "D"
+      ],
+      "stemZh": "在高性能计算（HPC）环境中使用 Slurm 的一项重要优势是什么？",
+      "sources": [
+        {
+          "title": "Slurm overview",
+          "url": "https://slurm.schedmd.com/overview.html",
+          "supports": "Slurm allocates resources, starts and monitors jobs, and arbitrates queued work."
+        }
+      ],
+      "reviewNote": "Retained D. Optimization means policy-based resource allocation and scheduling, not guaranteed globally optimal execution or automatic application code tuning.",
+      "summary": {
+        "en": "Choose D: Slurm queues jobs and allocates cluster resources according to requests, availability and scheduling policy.",
+        "zh": "选 D：Slurm 对作业排队，并依据请求、可用资源与调度策略分配集群资源。"
+      },
+      "memory": {
+        "en": "Slurm schedules jobs onto resources.",
+        "zh": "Slurm 把作业调度到资源上。"
+      },
+      "pitfall": {
+        "en": "A scheduler cannot remove every bottleneck or make an inefficient application algorithm fast. Resource requests and policy still require configuration.",
+        "zh": "调度器不能消除所有瓶颈，也不能自动让低效算法变快；资源请求与策略仍需配置。"
+      },
+      "steps": [
+        {
+          "en": "Look for job queues, placement and resource allocation.",
+          "zh": "寻找作业队列、放置与资源分配。"
+        },
+        {
+          "en": "Reject unrelated code-generation and hardware-clock promises.",
+          "zh": "排除无关的代码生成与硬件时钟提升承诺。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "Slurm",
+          "zh": "Slurm 作业调度系统"
+        },
+        {
+          "en": "job queue",
+          "zh": "作业队列"
+        },
+        {
+          "en": "resource allocation",
+          "zh": "资源分配"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "提供编译 HPC 驱动与库的编排工具。",
+          "reason": {
+            "en": "Not its defining benefit: a compilation task can be submitted as a job, but Slurm’s central role is scheduling and allocating resources, not acting as the compiler toolchain.",
+            "zh": "不是定义性优势：编译任务可以作为作业提交，但 Slurm 的核心角色是调度与分配资源，而非充当编译工具链。"
+          }
+        },
+        "B": {
+          "zh": "自动编写和优化 HPC 应用代码，以确保最佳性能。",
+          "reason": {
+            "en": "Incorrect: Slurm executes submitted jobs rather than generating their algorithms or guaranteeing application-level optimization.",
+            "zh": "错误：Slurm 执行提交的作业，不负责生成其中算法，也不保证应用层优化。"
+          }
+        },
+        "C": {
+          "zh": "提高 HPC 集群中 CPU 的时钟频率以改善计算性能。",
+          "reason": {
+            "en": "Not the principal scheduling benefit: allocating CPU time is distinct from increasing processor clock limits. Optional power-management integration does not change that role.",
+            "zh": "不是主要调度收益：分配 CPU 时间与提高处理器时钟上限不同；可选电源管理集成也不改变这一角色。"
+          }
+        },
+        "D": {
+          "zh": "提供完善的作业调度系统，改进计算资源分配。",
+          "reason": {
+            "en": "Correct: Slurm manages resource access and job placement, coordinating competing workloads across the cluster.",
+            "zh": "正确：Slurm 管理资源访问与作业放置，协调集群中竞争资源的工作负载。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {
     "id": 90,
     "topic": "AI Infrastructure and Operations",
     "stem": "Which platform allows for the simple deployment of scalable AI models in production?",
-    "explanation": "NVIDIA Triton Inference Server enables the deployment of scalable AI models in production, supporting multiple frameworks, concurrent model execution, and high-performance inference across CPUs and GPUs.",
+    "explanation": "选 C：NVIDIA Triton Inference Server 为生产推理提供服务 API、模型后端与请求调度。\nChoose C: NVIDIA Triton Inference Server supplies serving APIs, model backends and request scheduling for production inference.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 25
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "TensorFlow"
+        "text": "TensorFlow",
+        "translationZh": "TensorFlow 机器学习框架。"
       },
       {
         "key": "B",
-        "text": "TensorRT"
+        "text": "TensorRT",
+        "translationZh": "TensorRT 推理优化工具。"
       },
       {
         "key": "C",
-        "text": "Triton"
+        "text": "Triton",
+        "translationZh": "Triton 推理服务器。"
       }
     ],
     "answer": [
@@ -16920,66 +17619,207 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 25. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "NVIDIA Triton Inference Server",
+          "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/index.html",
+          "supports": "Provides model serving, backends, scheduling, batching and APIs for production inference."
+        },
+        {
+          "title": "TensorFlow Serving",
+          "url": "https://www.tensorflow.org/tfx/guide/serving",
+          "supports": "TensorFlow has a distinct production-serving system; the TensorFlow option is broader."
+        },
+        {
+          "title": "NVIDIA TensorRT",
+          "url": "https://docs.nvidia.com/deeplearning/tensorrt/latest/index.html",
+          "supports": "TensorRT optimizes and executes inference engines and can be used as a serving backend."
+        }
       ],
-      "whyChoose": "NVIDIA Triton Inference Server enables the deployment of scalable AI models in production, supporting multiple frameworks, concurrent model execution, and high-performance inference across CPUs and GPUs.",
-      "whyNotChoose": []
+      "outline": [
+        "识别服务层，而非模型框架或执行引擎优化器。\nIdentify the serving layer rather than a model framework or engine optimizer.",
+        "把请求 API 与模型调度对应到推理服务器。\nAssociate request APIs and model scheduling with an inference server."
+      ],
+      "whyChoose": "选 C：NVIDIA Triton Inference Server 为生产推理提供服务 API、模型后端与请求调度。\nChoose C: NVIDIA Triton Inference Server supplies serving APIs, model backends and request scheduling for production inference.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "TensorFlow",
+          "reason": "不够具体：TensorFlow 支持模型开发与执行，其生态也有 TensorFlow Serving；本题所指的 NVIDIA 专用服务产品是 Triton。\nLess specific: TensorFlow supports model development and execution, and its ecosystem has TensorFlow Serving. The dedicated NVIDIA serving product intended here is Triton."
+        },
+        {
+          "key": "B",
+          "text": "TensorRT",
+          "reason": "层次不同：TensorRT 优化并运行推理引擎，但自身不代表这里描述的完整多模型服务层。\nDifferent layer: TensorRT optimizes and runs inference engines, but does not by itself represent the complete multi-model serving layer described here."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "NVIDIA Triton Inference Server enables the deployment of scalable AI models in production, supporting multiple frameworks, concurrent model execution, and high-performance inference across CPUs and GPUs.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "Which platform allows for the simple deployment of scalable AI models in production?<span class=\"ai-stem-translation\" lang=\"zh-CN\">以下哪项是专门用于在生产中部署可扩展模型推理服务的平台？</span>",
+      "keyPointHtml": "选 C：NVIDIA <strong>Triton Inference Server</strong> 为生产推理提供服务 API、模型后端与请求调度。<br><span lang=\"en\" class=\"ai-english\">Choose C: NVIDIA <strong>Triton Inference Server</strong> supplies serving APIs, model <strong>backend</strong>s and request scheduling for production inference.</span>",
+      "speedTipHtml": "TensorRT 优化推理；Triton 提供模型服务。<br><span lang=\"en\" class=\"ai-english\">TensorRT optimizes inference; Triton serves models.</span>",
+      "studyNotesHtml": [
+        "服务平台仍需部署、容量与监控配置。这里 Triton 指 NVIDIA 推理服务器，不是 GPU 内核编程语言。<br><span lang=\"en\" class=\"ai-english\">A serving platform still needs deployment, capacity and monitoring configuration. Triton here means NVIDIA’s inference server, not the GPU kernel programming language.</span>",
+        "识别服务层，而非模型框架或执行引擎优化器。<br><span lang=\"en\" class=\"ai-english\">Identify the serving layer rather than a model framework or engine optimizer.</span>",
+        "把请求 API 与模型调度对应到推理服务器。<br><span lang=\"en\" class=\"ai-english\">Associate request APIs and model scheduling with an inference server.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "ai-deployment"
+      ],
+      "keywords": [
+        "Triton Inference Server",
+        "Triton 推理服务器",
+        "backend",
+        "模型执行后端",
+        "batching",
+        "请求批处理"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "不够具体：TensorFlow 支持模型开发与执行，其生态也有 TensorFlow Serving；本题所指的 NVIDIA 专用服务产品是 Triton。\nLess specific: TensorFlow supports model development and execution, and its ecosystem has TensorFlow Serving. The dedicated NVIDIA serving product intended here is Triton.",
+          "explanationHtml": "不够具体：TensorFlow 支持模型开发与执行，其生态也有 TensorFlow Serving；本题所指的 NVIDIA 专用服务产品是 Triton。<br><span lang=\"en\" class=\"ai-english\">Less specific: TensorFlow supports model development and execution, and its ecosystem has TensorFlow Serving. The dedicated NVIDIA serving product intended here is Triton.</span>"
         },
         {
           "key": "B",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "层次不同：TensorRT 优化并运行推理引擎，但自身不代表这里描述的完整多模型服务层。\nDifferent layer: TensorRT optimizes and runs inference engines, but does not by itself represent the complete multi-model serving layer described here.",
+          "explanationHtml": "层次不同：TensorRT 优化并运行推理引擎，但自身不代表这里描述的完整多模型服务层。<br><span lang=\"en\" class=\"ai-english\">Different layer: TensorRT optimizes and runs inference engines, but does not by itself represent the complete multi-model serving layer described here.</span>"
         },
         {
           "key": "C",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "正确：它通过服务接口暴露模型，并管理执行，包括受支持的后端与请求批处理。\nCorrect: it exposes models through serving interfaces and manages execution, including supported backends and request batching.",
+          "explanationHtml": "正确：它通过服务接口暴露模型，并管理执行，包括受支持的后端与<strong>请求批处理</strong>。<br><span lang=\"en\" class=\"ai-english\">Correct: it exposes models through serving interfaces and manages execution, including supported <strong>backend</strong>s and request <strong>batching</strong>.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "C"
+    ],
+    "originalExplanation": "NVIDIA Triton Inference Server enables the deployment of scalable AI models in production, supporting multiple frameworks, concurrent model execution, and high-performance inference across CPUs and GPUs.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 90,
+      "module": "ai-deployment",
+      "answer": [
+        "C"
+      ],
+      "stemZh": "以下哪项是专门用于在生产中部署可扩展模型推理服务的平台？",
+      "sources": [
+        {
+          "title": "NVIDIA Triton Inference Server",
+          "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/index.html",
+          "supports": "Provides model serving, backends, scheduling, batching and APIs for production inference."
+        },
+        {
+          "title": "TensorFlow Serving",
+          "url": "https://www.tensorflow.org/tfx/guide/serving",
+          "supports": "TensorFlow has a distinct production-serving system; the TensorFlow option is broader."
+        },
+        {
+          "title": "NVIDIA TensorRT",
+          "url": "https://docs.nvidia.com/deeplearning/tensorrt/latest/index.html",
+          "supports": "TensorRT optimizes and executes inference engines and can be used as a serving backend."
+        }
+      ],
+      "reviewNote": "Retained C as NVIDIA Triton Inference Server, not the unrelated Triton kernel language. TensorFlow Serving also exists; the distinction is product role, not impossibility of production TensorFlow inference.",
+      "summary": {
+        "en": "Choose C: NVIDIA Triton Inference Server supplies serving APIs, model backends and request scheduling for production inference.",
+        "zh": "选 C：NVIDIA Triton Inference Server 为生产推理提供服务 API、模型后端与请求调度。"
+      },
+      "memory": {
+        "en": "TensorRT optimizes inference; Triton serves models.",
+        "zh": "TensorRT 优化推理；Triton 提供模型服务。"
+      },
+      "pitfall": {
+        "en": "A serving platform still needs deployment, capacity and monitoring configuration. Triton here means NVIDIA’s inference server, not the GPU kernel programming language.",
+        "zh": "服务平台仍需部署、容量与监控配置。这里 Triton 指 NVIDIA 推理服务器，不是 GPU 内核编程语言。"
+      },
+      "steps": [
+        {
+          "en": "Identify the serving layer rather than a model framework or engine optimizer.",
+          "zh": "识别服务层，而非模型框架或执行引擎优化器。"
+        },
+        {
+          "en": "Associate request APIs and model scheduling with an inference server.",
+          "zh": "把请求 API 与模型调度对应到推理服务器。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "Triton Inference Server",
+          "zh": "Triton 推理服务器"
+        },
+        {
+          "en": "backend",
+          "zh": "模型执行后端"
+        },
+        {
+          "en": "batching",
+          "zh": "请求批处理"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "TensorFlow 机器学习框架。",
+          "reason": {
+            "en": "Less specific: TensorFlow supports model development and execution, and its ecosystem has TensorFlow Serving. The dedicated NVIDIA serving product intended here is Triton.",
+            "zh": "不够具体：TensorFlow 支持模型开发与执行，其生态也有 TensorFlow Serving；本题所指的 NVIDIA 专用服务产品是 Triton。"
+          }
+        },
+        "B": {
+          "zh": "TensorRT 推理优化工具。",
+          "reason": {
+            "en": "Different layer: TensorRT optimizes and runs inference engines, but does not by itself represent the complete multi-model serving layer described here.",
+            "zh": "层次不同：TensorRT 优化并运行推理引擎，但自身不代表这里描述的完整多模型服务层。"
+          }
+        },
+        "C": {
+          "zh": "Triton 推理服务器。",
+          "reason": {
+            "en": "Correct: it exposes models through serving interfaces and manages execution, including supported backends and request batching.",
+            "zh": "正确：它通过服务接口暴露模型，并管理执行，包括受支持的后端与请求批处理。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {
     "id": 91,
     "topic": "AI Infrastructure and Operations",
     "stem": "What is a common tool used for container orchestration in AI clusters?",
-    "explanation": "Kubernetes is widely used for container orchestration in AI clusters because it automates the deployment, scaling, and management of containerized workloads across distributed compute resources, which is essential for running and coordinating AI training and inference jobs at scale.",
+    "explanation": "选 C：Kubernetes 跨节点编排容器化工作负载，管理放置、期望状态与服务生命周期。\nChoose C: Kubernetes orchestrates containerized workloads across nodes, managing placement, desired state and service lifecycle.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 26
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "Slurm"
+        "text": "Slurm",
+        "translationZh": "Slurm 作业调度系统。"
       },
       {
         "key": "B",
-        "text": "Apptainer"
+        "text": "Apptainer",
+        "translationZh": "Apptainer 容器工具。"
       },
       {
         "key": "C",
-        "text": "Kubernetes"
+        "text": "Kubernetes",
+        "translationZh": "Kubernetes 容器编排平台。"
       },
       {
         "key": "D",
-        "text": "MLOps"
+        "text": "MLOps",
+        "translationZh": "MLOps，机器学习运维实践。"
       }
     ],
     "answer": [
@@ -16987,71 +17827,225 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 26. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "Kubernetes overview",
+          "url": "https://kubernetes.io/docs/concepts/overview/",
+          "supports": "Kubernetes manages containerized workloads and services, with scheduling and scaling capabilities."
+        },
+        {
+          "title": "Slurm overview",
+          "url": "https://slurm.schedmd.com/overview.html",
+          "supports": "Slurm allocates resources, starts and monitors jobs, and arbitrates queued work."
+        },
+        {
+          "title": "Apptainer introduction",
+          "url": "https://apptainer.org/docs/user/latest/introduction.html",
+          "supports": "Apptainer builds and runs containers, commonly used with HPC schedulers."
+        }
       ],
-      "whyChoose": "Kubernetes is widely used for container orchestration in AI clusters because it automates the deployment, scaling, and management of containerized workloads across distributed compute resources, which is essential for running and coordinating AI training and inference jobs at scale.",
-      "whyNotChoose": []
+      "outline": [
+        "识别对容器化应用状态的集群级管理。\nIdentify cluster-wide management of containerized application state.",
+        "区分编排、执行与更广义的运维实践。\nSeparate orchestration from execution and broader operational practices."
+      ],
+      "whyChoose": "选 C：Kubernetes 跨节点编排容器化工作负载，管理放置、期望状态与服务生命周期。\nChoose C: Kubernetes orchestrates containerized workloads across nodes, managing placement, desired state and service lifecycle.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "Slurm",
+          "reason": "主要是作业与资源调度器。它能运行容器化作业，但题目所指的通用容器编排答案是 Kubernetes。\nPrimarily a job/resource scheduler. It can run containerized jobs, but Kubernetes is the intended general container orchestration answer."
+        },
+        {
+          "key": "B",
+          "text": "Apptainer",
+          "reason": "主要构建与执行容器；集群级作业调度和服务编排属于其他职责。\nPrimarily builds and executes containers; cluster-level job scheduling and service orchestration are separate responsibilities."
+        },
+        {
+          "key": "D",
+          "text": "MLOps",
+          "reason": "不是某个具体编排工具：MLOps 包含部署与监控实践，可以使用 Kubernetes 或其他工具。\nNot one specific orchestration tool: MLOps includes deployment and monitoring practices that may use Kubernetes or other tools."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "Kubernetes is widely used for container orchestration in AI clusters because it automates the deployment, scaling, and management of containerized workloads across distributed compute resources, which is essential for running and coordinating AI training and inference jobs at scale.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "What is a common tool used for <strong>container orchestration</strong> in AI clusters?<span class=\"ai-stem-translation\" lang=\"zh-CN\">AI 集群中常用的容器编排工具是什么？</span>",
+      "keyPointHtml": "选 C：Kubernetes 跨节点编排容器化工作负载，管理放置、期望状态与服务生命周期。<br><span lang=\"en\" class=\"ai-english\">Choose C: Kubernetes orchestrates containerized workloads across nodes, managing placement, desired state and service lifecycle.</span>",
+      "speedTipHtml": "Kubernetes 编排；<strong>Apptainer</strong> 运行容器；Slurm 调度作业。<br><span lang=\"en\" class=\"ai-english\">Kubernetes orchestrates; <strong>Apptainer</strong> runs containers; Slurm schedules jobs.</span>",
+      "studyNotesHtml": [
+        "这些工具可以组合使用。调度器启动容器，不意味着所有容器运行时与调度器都可互换为编排平台。<br><span lang=\"en\" class=\"ai-english\">These tools can be combined. A scheduler launching a container does not make all container runtimes and schedulers interchangeable orchestrators.</span>",
+        "识别对容器化应用状态的集群级管理。<br><span lang=\"en\" class=\"ai-english\">Identify cluster-wide management of containerized application state.</span>",
+        "区分编排、执行与更广义的运维实践。<br><span lang=\"en\" class=\"ai-english\">Separate orchestration from execution and broader operational practices.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "ai-operations"
+      ],
+      "keywords": [
+        "container orchestration",
+        "容器编排",
+        "Apptainer",
+        "Apptainer 容器运行工具",
+        "MLOps",
+        "机器学习运维实践"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "主要是作业与资源调度器。它能运行容器化作业，但题目所指的通用容器编排答案是 Kubernetes。\nPrimarily a job/resource scheduler. It can run containerized jobs, but Kubernetes is the intended general container orchestration answer.",
+          "explanationHtml": "主要是作业与资源调度器。它能运行容器化作业，但题目所指的通用<strong>容器编排</strong>答案是 Kubernetes。<br><span lang=\"en\" class=\"ai-english\">Primarily a job/resource scheduler. It can run containerized jobs, but Kubernetes is the intended general <strong>container orchestration</strong> answer.</span>"
         },
         {
           "key": "B",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "主要构建与执行容器；集群级作业调度和服务编排属于其他职责。\nPrimarily builds and executes containers; cluster-level job scheduling and service orchestration are separate responsibilities.",
+          "explanationHtml": "主要构建与执行容器；集群级作业调度和服务编排属于其他职责。<br><span lang=\"en\" class=\"ai-english\">Primarily builds and executes containers; cluster-level job scheduling and service orchestration are separate responsibilities.</span>"
         },
         {
           "key": "C",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "正确：它协调跨集群的容器工作负载，并通过控制器与服务维护应用状态。\nCorrect: it coordinates container workloads across a cluster and maintains application state through controllers and services.",
+          "explanationHtml": "正确：它协调跨集群的容器工作负载，并通过控制器与服务维护应用状态。<br><span lang=\"en\" class=\"ai-english\">Correct: it coordinates container workloads across a cluster and maintains application state through controllers and services.</span>"
         },
         {
           "key": "D",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "不是某个具体编排工具：MLOps 包含部署与监控实践，可以使用 Kubernetes 或其他工具。\nNot one specific orchestration tool: MLOps includes deployment and monitoring practices that may use Kubernetes or other tools.",
+          "explanationHtml": "不是某个具体编排工具：<strong>MLOps</strong> 包含部署与监控实践，可以使用 Kubernetes 或其他工具。<br><span lang=\"en\" class=\"ai-english\">Not one specific orchestration tool: <strong>MLOps</strong> includes deployment and monitoring practices that may use Kubernetes or other tools.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "C"
+    ],
+    "originalExplanation": "Kubernetes is widely used for container orchestration in AI clusters because it automates the deployment, scaling, and management of containerized workloads across distributed compute resources, which is essential for running and coordinating AI training and inference jobs at scale.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 91,
+      "module": "ai-operations",
+      "answer": [
+        "C"
+      ],
+      "stemZh": "AI 集群中常用的容器编排工具是什么？",
+      "sources": [
+        {
+          "title": "Kubernetes overview",
+          "url": "https://kubernetes.io/docs/concepts/overview/",
+          "supports": "Kubernetes manages containerized workloads and services, with scheduling and scaling capabilities."
+        },
+        {
+          "title": "Slurm overview",
+          "url": "https://slurm.schedmd.com/overview.html",
+          "supports": "Slurm allocates resources, starts and monitors jobs, and arbitrates queued work."
+        },
+        {
+          "title": "Apptainer introduction",
+          "url": "https://apptainer.org/docs/user/latest/introduction.html",
+          "supports": "Apptainer builds and runs containers, commonly used with HPC schedulers."
+        }
+      ],
+      "reviewNote": "Retained C. Slurm can launch containerized jobs and Apptainer runs containers, but neither should be confused with Kubernetes-style container service orchestration. MLOps names practices rather than one tool.",
+      "summary": {
+        "en": "Choose C: Kubernetes orchestrates containerized workloads across nodes, managing placement, desired state and service lifecycle.",
+        "zh": "选 C：Kubernetes 跨节点编排容器化工作负载，管理放置、期望状态与服务生命周期。"
+      },
+      "memory": {
+        "en": "Kubernetes orchestrates; Apptainer runs containers; Slurm schedules jobs.",
+        "zh": "Kubernetes 编排；Apptainer 运行容器；Slurm 调度作业。"
+      },
+      "pitfall": {
+        "en": "These tools can be combined. A scheduler launching a container does not make all container runtimes and schedulers interchangeable orchestrators.",
+        "zh": "这些工具可以组合使用。调度器启动容器，不意味着所有容器运行时与调度器都可互换为编排平台。"
+      },
+      "steps": [
+        {
+          "en": "Identify cluster-wide management of containerized application state.",
+          "zh": "识别对容器化应用状态的集群级管理。"
+        },
+        {
+          "en": "Separate orchestration from execution and broader operational practices.",
+          "zh": "区分编排、执行与更广义的运维实践。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "container orchestration",
+          "zh": "容器编排"
+        },
+        {
+          "en": "Apptainer",
+          "zh": "Apptainer 容器运行工具"
+        },
+        {
+          "en": "MLOps",
+          "zh": "机器学习运维实践"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "Slurm 作业调度系统。",
+          "reason": {
+            "en": "Primarily a job/resource scheduler. It can run containerized jobs, but Kubernetes is the intended general container orchestration answer.",
+            "zh": "主要是作业与资源调度器。它能运行容器化作业，但题目所指的通用容器编排答案是 Kubernetes。"
+          }
+        },
+        "B": {
+          "zh": "Apptainer 容器工具。",
+          "reason": {
+            "en": "Primarily builds and executes containers; cluster-level job scheduling and service orchestration are separate responsibilities.",
+            "zh": "主要构建与执行容器；集群级作业调度和服务编排属于其他职责。"
+          }
+        },
+        "C": {
+          "zh": "Kubernetes 容器编排平台。",
+          "reason": {
+            "en": "Correct: it coordinates container workloads across a cluster and maintains application state through controllers and services.",
+            "zh": "正确：它协调跨集群的容器工作负载，并通过控制器与服务维护应用状态。"
+          }
+        },
+        "D": {
+          "zh": "MLOps，机器学习运维实践。",
+          "reason": {
+            "en": "Not one specific orchestration tool: MLOps includes deployment and monitoring practices that may use Kubernetes or other tools.",
+            "zh": "不是某个具体编排工具：MLOps 包含部署与监控实践，可以使用 Kubernetes 或其他工具。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {
     "id": 92,
     "topic": "AI Infrastructure and Operations",
     "stem": "What distinguishes GPU architecture from CPU architecture?",
-    "explanation": "GPU architecture is designed with thousands of smaller, lightweight cores that can execute many operations in parallel, making GPUs highly efficient for data-parallel workloads such as matrix computations and tensor operations commonly used in AI and machine learning.",
+    "explanation": "选 A：GPU 把大量硬件用于并行算术运算，CPU 通常更重视灵活控制与单个线程的快速执行。\nChoose A: GPUs devote substantial hardware to many parallel arithmetic operations, while CPUs generally emphasize flexible control and fast individual threads.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 26
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "GPUs have thousands of smaller cores for parallel tasks."
+        "text": "GPUs have thousands of smaller cores for parallel tasks.",
+        "translationZh": "GPU 通常有大量较简单的运算核心，用于并行任务。"
       },
       {
         "key": "B",
-        "text": "CPUs have more cores than GPUs."
+        "text": "CPUs have more cores than GPUs.",
+        "translationZh": "CPU 的核心数比 GPU 更多。"
       },
       {
         "key": "C",
-        "text": "CPUs lack memory bandwidth."
+        "text": "CPUs lack memory bandwidth.",
+        "translationZh": "CPU 没有内存带宽。"
       },
       {
         "key": "D",
-        "text": "GPUs prioritize single-threaded performance."
+        "text": "GPUs prioritize single-threaded performance.",
+        "translationZh": "GPU 优先考虑单线程性能。"
       }
     ],
     "answer": [
@@ -17059,71 +18053,205 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 26. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "CUDA Programming Guide: architectural priorities",
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/introduction.html",
+          "supports": "Contrasts GPU throughput-oriented parallel execution with CPU emphasis on fast individual threads and control."
+        }
       ],
-      "whyChoose": "GPU architecture is designed with thousands of smaller, lightweight cores that can execute many operations in parallel, making GPUs highly efficient for data-parallel workloads such as matrix computations and tensor operations commonly used in AI and machine learning.",
-      "whyNotChoose": []
+      "outline": [
+        "比较设计重点，不把不同的核心数量当作同一单位。\nCompare design priorities instead of treating unlike core counts as equal units.",
+        "排除 CPU 没有带宽或 GPU 主要优化单一线程的说法。\nReject claims that CPUs have no bandwidth or GPUs primarily optimize a lone thread."
+      ],
+      "whyChoose": "选 A：GPU 把大量硬件用于并行算术运算，CPU 通常更重视灵活控制与单个线程的快速执行。\nChoose A: GPUs devote substantial hardware to many parallel arithmetic operations, while CPUs generally emphasize flexible control and fast individual threads.",
+      "whyNotChoose": [
+        {
+          "key": "B",
+          "text": "CPUs have more cores than GPUs.",
+          "reason": "不是典型比较，也不是有意义的通用规律：被称作核心的部件不同，GPU 通常提供更多算术单元。\nNot the typical comparison and not a meaningful universal rule: the components called cores differ, and GPUs generally expose many more arithmetic lanes."
+        },
+        {
+          "key": "C",
+          "text": "CPUs lack memory bandwidth.",
+          "reason": "错误：CPU 通过内存控制器与缓存传输数据，具有有限且可测量的带宽；这是 CPU 运行必需的能力。\nFalse: CPUs transfer data through memory controllers and caches with finite, measurable bandwidth; that capability is essential to CPU operation."
+        },
+        {
+          "key": "D",
+          "text": "GPUs prioritize single-threaded performance.",
+          "reason": "颠倒了典型重点：GPU 围绕并行吞吐与延迟隐藏组织，而不是主要缩短一个独立线程的执行时间。\nReverses the typical emphasis: GPUs are organized for parallel throughput and latency hiding rather than primarily minimizing the time of one independent thread."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "GPU architecture is designed with thousands of smaller, lightweight cores that can execute many operations in parallel, making GPUs highly efficient for data-parallel workloads such as matrix computations and tensor operations commonly used in AI and machine learning.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "What distinguishes GPU architecture from CPU architecture?<span class=\"ai-stem-translation\" lang=\"zh-CN\">GPU 架构与 CPU 架构的一项典型区别是什么？</span>",
+      "keyPointHtml": "选 A：GPU 把大量硬件用于<strong>并行算术运算</strong>，CPU 通常更重视灵活控制与单个线程的快速执行。<br><span lang=\"en\" class=\"ai-english\">Choose A: GPUs devote substantial hardware to many <strong>parallel arithmetic</strong> operations, while CPUs generally emphasize flexible control and fast individual threads.</span>",
+      "speedTipHtml": "GPU：总体<strong>吞吐量</strong>；CPU：较强的单线程执行。<br><span lang=\"en\" class=\"ai-english\">GPU: aggregate <strong>throughput</strong>. CPU: strong individual-thread execution.</span>",
+      "studyNotesHtml": [
+        "CUDA 核心数量不能与 CPU 核心逐个等同。数千描述许多 GPU，不是 GPU 定义要求的最小值。<br><span lang=\"en\" class=\"ai-english\">A CUDA-core count cannot be compared one-for-one with CPU cores. Thousands describes many GPUs, not a minimum required by the GPU definition.</span>",
+        "比较设计重点，不把不同的核心数量当作同一单位。<br><span lang=\"en\" class=\"ai-english\">Compare design priorities instead of treating unlike core counts as equal units.</span>",
+        "排除 CPU 没有带宽或 GPU 主要优化单一线程的说法。<br><span lang=\"en\" class=\"ai-english\">Reject claims that CPUs have no bandwidth or GPUs primarily optimize a lone thread.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "accelerated-compute"
+      ],
+      "keywords": [
+        "throughput",
+        "吞吐量",
+        "parallel arithmetic",
+        "并行算术运算",
+        "single-thread latency",
+        "单线程延迟"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "作为设计概括是最佳答案：大量 GPU 算术单元处理并行工作，但核心数不能直接与 CPU 核心比较。\nBest answer as a design summary: many GPU arithmetic lanes process parallel work, although their core counts are not directly comparable to CPU cores.",
+          "explanationHtml": "作为设计概括是最佳答案：大量 GPU 算术单元处理并行工作，但核心数不能直接与 CPU 核心比较。<br><span lang=\"en\" class=\"ai-english\">Best answer as a design summary: many GPU arithmetic lanes process parallel work, although their core counts are not directly comparable to CPU cores.</span>"
         },
         {
           "key": "B",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "不是典型比较，也不是有意义的通用规律：被称作核心的部件不同，GPU 通常提供更多算术单元。\nNot the typical comparison and not a meaningful universal rule: the components called cores differ, and GPUs generally expose many more arithmetic lanes.",
+          "explanationHtml": "不是典型比较，也不是有意义的通用规律：被称作核心的部件不同，GPU 通常提供更多算术单元。<br><span lang=\"en\" class=\"ai-english\">Not the typical comparison and not a meaningful universal rule: the components called cores differ, and GPUs generally expose many more arithmetic lanes.</span>"
         },
         {
           "key": "C",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误：CPU 通过内存控制器与缓存传输数据，具有有限且可测量的带宽；这是 CPU 运行必需的能力。\nFalse: CPUs transfer data through memory controllers and caches with finite, measurable bandwidth; that capability is essential to CPU operation.",
+          "explanationHtml": "错误：CPU 通过内存控制器与缓存传输数据，具有有限且可测量的带宽；这是 CPU 运行必需的能力。<br><span lang=\"en\" class=\"ai-english\">False: CPUs transfer data through memory controllers and caches with finite, measurable bandwidth; that capability is essential to CPU operation.</span>"
         },
         {
           "key": "D",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "颠倒了典型重点：GPU 围绕并行吞吐与延迟隐藏组织，而不是主要缩短一个独立线程的执行时间。\nReverses the typical emphasis: GPUs are organized for parallel throughput and latency hiding rather than primarily minimizing the time of one independent thread.",
+          "explanationHtml": "颠倒了典型重点：GPU 围绕并行吞吐与延迟隐藏组织，而不是主要缩短一个独立线程的执行时间。<br><span lang=\"en\" class=\"ai-english\">Reverses the typical emphasis: GPUs are organized for parallel <strong>throughput</strong> and latency hiding rather than primarily minimizing the time of one independent thread.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "A"
+    ],
+    "originalExplanation": "GPU architecture is designed with thousands of smaller, lightweight cores that can execute many operations in parallel, making GPUs highly efficient for data-parallel workloads such as matrix computations and tensor operations commonly used in AI and machine learning.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 92,
+      "module": "accelerated-compute",
+      "answer": [
+        "A"
+      ],
+      "stemZh": "GPU 架构与 CPU 架构的一项典型区别是什么？",
+      "sources": [
+        {
+          "title": "CUDA Programming Guide: architectural priorities",
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/introduction.html",
+          "supports": "Contrasts GPU throughput-oriented parallel execution with CPU emphasis on fast individual threads and control."
+        }
+      ],
+      "reviewNote": "Retained A as a typical modern GPU description, not a universal count. GPU arithmetic lanes called cores are not equivalent to independent CPU cores; CPUs do have memory bandwidth and parallelism.",
+      "summary": {
+        "en": "Choose A: GPUs devote substantial hardware to many parallel arithmetic operations, while CPUs generally emphasize flexible control and fast individual threads.",
+        "zh": "选 A：GPU 把大量硬件用于并行算术运算，CPU 通常更重视灵活控制与单个线程的快速执行。"
+      },
+      "memory": {
+        "en": "GPU: aggregate throughput. CPU: strong individual-thread execution.",
+        "zh": "GPU：总体吞吐量；CPU：较强的单线程执行。"
+      },
+      "pitfall": {
+        "en": "A CUDA-core count cannot be compared one-for-one with CPU cores. Thousands describes many GPUs, not a minimum required by the GPU definition.",
+        "zh": "CUDA 核心数量不能与 CPU 核心逐个等同。数千描述许多 GPU，不是 GPU 定义要求的最小值。"
+      },
+      "steps": [
+        {
+          "en": "Compare design priorities instead of treating unlike core counts as equal units.",
+          "zh": "比较设计重点，不把不同的核心数量当作同一单位。"
+        },
+        {
+          "en": "Reject claims that CPUs have no bandwidth or GPUs primarily optimize a lone thread.",
+          "zh": "排除 CPU 没有带宽或 GPU 主要优化单一线程的说法。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "throughput",
+          "zh": "吞吐量"
+        },
+        {
+          "en": "parallel arithmetic",
+          "zh": "并行算术运算"
+        },
+        {
+          "en": "single-thread latency",
+          "zh": "单线程延迟"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "GPU 通常有大量较简单的运算核心，用于并行任务。",
+          "reason": {
+            "en": "Best answer as a design summary: many GPU arithmetic lanes process parallel work, although their core counts are not directly comparable to CPU cores.",
+            "zh": "作为设计概括是最佳答案：大量 GPU 算术单元处理并行工作，但核心数不能直接与 CPU 核心比较。"
+          }
+        },
+        "B": {
+          "zh": "CPU 的核心数比 GPU 更多。",
+          "reason": {
+            "en": "Not the typical comparison and not a meaningful universal rule: the components called cores differ, and GPUs generally expose many more arithmetic lanes.",
+            "zh": "不是典型比较，也不是有意义的通用规律：被称作核心的部件不同，GPU 通常提供更多算术单元。"
+          }
+        },
+        "C": {
+          "zh": "CPU 没有内存带宽。",
+          "reason": {
+            "en": "False: CPUs transfer data through memory controllers and caches with finite, measurable bandwidth; that capability is essential to CPU operation.",
+            "zh": "错误：CPU 通过内存控制器与缓存传输数据，具有有限且可测量的带宽；这是 CPU 运行必需的能力。"
+          }
+        },
+        "D": {
+          "zh": "GPU 优先考虑单线程性能。",
+          "reason": {
+            "en": "Reverses the typical emphasis: GPUs are organized for parallel throughput and latency hiding rather than primarily minimizing the time of one independent thread.",
+            "zh": "颠倒了典型重点：GPU 围绕并行吞吐与延迟隐藏组织，而不是主要缩短一个独立线程的执行时间。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {
     "id": 93,
     "topic": "AI Infrastructure and Operations",
     "stem": "Which networking protocol is critical for low-latency GPU communication in AI clusters?",
-    "explanation": "RoCE enables low-latency, high-throughput communication between GPUs by allowing remote direct memory access over Ethernet, which is critical for efficient data exchange during distributed AI training and tightly coupled GPU workloads.",
+    "explanation": "选 D：RoCE 在以太网上提供 RDMA，在硬件与软件支持时减少主机中转传输工作。\nChoose D: RoCE supplies RDMA over Ethernet, reducing host-mediated transfer work when the hardware and software support it.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 26
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "TCP/IP"
+        "text": "TCP/IP",
+        "translationZh": "TCP/IP 协议族。"
       },
       {
         "key": "B",
-        "text": "HTTP/3"
+        "text": "HTTP/3",
+        "translationZh": "HTTP/3 网页应用协议。"
       },
       {
         "key": "C",
-        "text": "DNS"
+        "text": "DNS",
+        "translationZh": "DNS 域名系统。"
       },
       {
         "key": "D",
-        "text": "RoCE"
+        "text": "RoCE",
+        "translationZh": "RoCE，融合以太网上的 RDMA。"
       }
     ],
     "answer": [
@@ -17131,71 +18259,215 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 26. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "NVIDIA Dynamo RDMA fabrics",
+          "url": "https://docs.dynamo.nvidia.com/dynamo/kubernetes/installation/rdma-setup/overview",
+          "supports": "Distinguishes InfiniBand and Ethernet RoCE fabrics and their RDMA requirements."
+        },
+        {
+          "title": "GPUDirect RDMA guide",
+          "url": "https://docs.nvidia.com/cuda/gpudirect-rdma/index.html",
+          "supports": "Supported peer devices can access GPU memory through a configured direct path."
+        }
       ],
-      "whyChoose": "RoCE enables low-latency, high-throughput communication between GPUs by allowing remote direct memory access over Ethernet, which is critical for efficient data exchange during distributed AI training and tightly coupled GPU workloads.",
-      "whyNotChoose": []
+      "outline": [
+        "识别专门提供以太网 RDMA 的协议。\nIdentify the protocol specifically providing Ethernet RDMA.",
+        "区分传输加速、网页协议与名称解析。\nDistinguish transfer acceleration from web protocols and name resolution."
+      ],
+      "whyChoose": "选 D：RoCE 在以太网上提供 RDMA，在硬件与软件支持时减少主机中转传输工作。\nChoose D: RoCE supplies RDMA over Ethernet, reducing host-mediated transfer work when the hardware and software support it.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "TCP/IP",
+          "reason": "可以用于集群通信，但普通套接字传输本身不提供这里所指的 RoCE 式 RDMA 卸载。\nUsable for cluster communication, but ordinary socket transport does not by itself supply the RoCE-style RDMA offload intended here."
+        },
+        {
+          "key": "B",
+          "text": "HTTP/3",
+          "reason": "层次与用途不符：HTTP/3 在 QUIC 上承载应用请求，不定义对 GPU 或主机内存的远程直接访问。\nWrong layer and purpose: HTTP/3 carries application requests over QUIC, rather than defining remote direct access to GPU or host memory."
+        },
+        {
+          "key": "C",
+          "text": "DNS",
+          "reason": "功能不符：DNS 解析名称与相关记录，不负责在 GPU 内存之间传送训练张量。\nIncorrect function: DNS resolves names and related records; it does not move training tensors between GPU memories."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "RoCE enables low-latency, high-throughput communication between GPUs by allowing remote direct memory access over Ethernet, which is critical for efficient data exchange during distributed AI training and tightly coupled GPU workloads.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "Which networking protocol is critical for low-latency GPU communication in AI clusters?<span class=\"ai-stem-translation\" lang=\"zh-CN\">以下哪项协议适用于 AI 集群中基于以太网的低延迟 RDMA 通信？</span>",
+      "keyPointHtml": "选 D：<strong>RoCE</strong> 在以太网上提供 RDMA，在硬件与软件支持时减少主机中转传输工作。<br><span lang=\"en\" class=\"ai-english\">Choose D: <strong>RoCE</strong> supplies RDMA over Ethernet, reducing host-mediated transfer work when the hardware and software support it.</span>",
+      "speedTipHtml": "以太网 RDMA → <strong>RoCE</strong>；直接 GPU 内存访问还需兼容集成。<br><span lang=\"en\" class=\"ai-english\">Ethernet RDMA → <strong>RoCE</strong>; direct GPU memory also needs compatible integration.</span>",
+      "studyNotesHtml": [
+        "把它称为每个集群都必需的技术过于宽泛。<strong>RoCE</strong> 很有价值，但并非唯一传输方式，单独使用它也不保证 GPU 直接传输。<br><span lang=\"en\" class=\"ai-english\">Critical is too broad for every cluster. <strong>RoCE</strong> can be valuable, but it is not the only <strong>transport</strong>, and using it alone does not guarantee GPU-direct transfers.</span>",
+        "识别专门提供以太网 RDMA 的协议。<br><span lang=\"en\" class=\"ai-english\">Identify the protocol specifically providing Ethernet RDMA.</span>",
+        "区分传输加速、网页协议与名称解析。<br><span lang=\"en\" class=\"ai-english\">Distinguish transfer acceleration from web protocols and name resolution.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "ai-networking"
+      ],
+      "keywords": [
+        "RoCE",
+        "以太网上的 RDMA",
+        "GPUDirect RDMA",
+        "GPU 直接 RDMA 技术",
+        "transport",
+        "传输机制"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "可以用于集群通信，但普通套接字传输本身不提供这里所指的 RoCE 式 RDMA 卸载。\nUsable for cluster communication, but ordinary socket transport does not by itself supply the RoCE-style RDMA offload intended here.",
+          "explanationHtml": "可以用于集群通信，但普通套接字传输本身不提供这里所指的 <strong>RoCE</strong> 式 RDMA 卸载。<br><span lang=\"en\" class=\"ai-english\">Usable for cluster communication, but ordinary socket <strong>transport</strong> does not by itself supply the <strong>RoCE</strong>-style RDMA offload intended here.</span>"
         },
         {
           "key": "B",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "层次与用途不符：HTTP/3 在 QUIC 上承载应用请求，不定义对 GPU 或主机内存的远程直接访问。\nWrong layer and purpose: HTTP/3 carries application requests over QUIC, rather than defining remote direct access to GPU or host memory.",
+          "explanationHtml": "层次与用途不符：HTTP/3 在 QUIC 上承载应用请求，不定义对 GPU 或主机内存的远程直接访问。<br><span lang=\"en\" class=\"ai-english\">Wrong layer and purpose: HTTP/3 carries application requests over QUIC, rather than defining remote direct access to GPU or host memory.</span>"
         },
         {
           "key": "C",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "功能不符：DNS 解析名称与相关记录，不负责在 GPU 内存之间传送训练张量。\nIncorrect function: DNS resolves names and related records; it does not move training tensors between GPU memories.",
+          "explanationHtml": "功能不符：DNS 解析名称与相关记录，不负责在 GPU 内存之间传送训练张量。<br><span lang=\"en\" class=\"ai-english\">Incorrect function: DNS resolves names and related records; it does not move training tensors between GPU memories.</span>"
         },
         {
           "key": "D",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "在这些选项中正确：它在以太网上提供 RDMA 语义，收益取决于适配器、网络配置与应用支持。\nCorrect among these choices: it provides RDMA semantics over Ethernet, with benefits dependent on adapters, fabric configuration and application support.",
+          "explanationHtml": "在这些选项中正确：它在以太网上提供 RDMA 语义，收益取决于适配器、网络配置与应用支持。<br><span lang=\"en\" class=\"ai-english\">Correct among these choices: it provides RDMA semantics over Ethernet, with benefits dependent on adapters, fabric configuration and application support.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "D"
+    ],
+    "originalExplanation": "RoCE enables low-latency, high-throughput communication between GPUs by allowing remote direct memory access over Ethernet, which is critical for efficient data exchange during distributed AI training and tightly coupled GPU workloads.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 93,
+      "module": "ai-networking",
+      "answer": [
+        "D"
+      ],
+      "stemZh": "以下哪项协议适用于 AI 集群中基于以太网的低延迟 RDMA 通信？",
+      "sources": [
+        {
+          "title": "NVIDIA Dynamo RDMA fabrics",
+          "url": "https://docs.dynamo.nvidia.com/dynamo/kubernetes/installation/rdma-setup/overview",
+          "supports": "Distinguishes InfiniBand and Ethernet RoCE fabrics and their RDMA requirements."
+        },
+        {
+          "title": "GPUDirect RDMA guide",
+          "url": "https://docs.nvidia.com/cuda/gpudirect-rdma/index.html",
+          "supports": "Supported peer devices can access GPU memory through a configured direct path."
+        }
+      ],
+      "reviewNote": "Retained D in the Ethernet RDMA context. RoCE is not mandatory in every AI cluster; InfiniBand and socket paths exist. Direct GPU memory access additionally needs GPUDirect support and configuration.",
+      "summary": {
+        "en": "Choose D: RoCE supplies RDMA over Ethernet, reducing host-mediated transfer work when the hardware and software support it.",
+        "zh": "选 D：RoCE 在以太网上提供 RDMA，在硬件与软件支持时减少主机中转传输工作。"
+      },
+      "memory": {
+        "en": "Ethernet RDMA → RoCE; direct GPU memory also needs compatible integration.",
+        "zh": "以太网 RDMA → RoCE；直接 GPU 内存访问还需兼容集成。"
+      },
+      "pitfall": {
+        "en": "Critical is too broad for every cluster. RoCE can be valuable, but it is not the only transport, and using it alone does not guarantee GPU-direct transfers.",
+        "zh": "把它称为每个集群都必需的技术过于宽泛。RoCE 很有价值，但并非唯一传输方式，单独使用它也不保证 GPU 直接传输。"
+      },
+      "steps": [
+        {
+          "en": "Identify the protocol specifically providing Ethernet RDMA.",
+          "zh": "识别专门提供以太网 RDMA 的协议。"
+        },
+        {
+          "en": "Distinguish transfer acceleration from web protocols and name resolution.",
+          "zh": "区分传输加速、网页协议与名称解析。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "RoCE",
+          "zh": "以太网上的 RDMA"
+        },
+        {
+          "en": "GPUDirect RDMA",
+          "zh": "GPU 直接 RDMA 技术"
+        },
+        {
+          "en": "transport",
+          "zh": "传输机制"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "TCP/IP 协议族。",
+          "reason": {
+            "en": "Usable for cluster communication, but ordinary socket transport does not by itself supply the RoCE-style RDMA offload intended here.",
+            "zh": "可以用于集群通信，但普通套接字传输本身不提供这里所指的 RoCE 式 RDMA 卸载。"
+          }
+        },
+        "B": {
+          "zh": "HTTP/3 网页应用协议。",
+          "reason": {
+            "en": "Wrong layer and purpose: HTTP/3 carries application requests over QUIC, rather than defining remote direct access to GPU or host memory.",
+            "zh": "层次与用途不符：HTTP/3 在 QUIC 上承载应用请求，不定义对 GPU 或主机内存的远程直接访问。"
+          }
+        },
+        "C": {
+          "zh": "DNS 域名系统。",
+          "reason": {
+            "en": "Incorrect function: DNS resolves names and related records; it does not move training tensors between GPU memories.",
+            "zh": "功能不符：DNS 解析名称与相关记录，不负责在 GPU 内存之间传送训练张量。"
+          }
+        },
+        "D": {
+          "zh": "RoCE，融合以太网上的 RDMA。",
+          "reason": {
+            "en": "Correct among these choices: it provides RDMA semantics over Ethernet, with benefits dependent on adapters, fabric configuration and application support.",
+            "zh": "在这些选项中正确：它在以太网上提供 RDMA 语义，收益取决于适配器、网络配置与应用支持。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {
     "id": 94,
     "topic": "AI Infrastructure and Operations",
     "stem": "What is a key architectural difference between AI training and inference?",
-    "explanation": "AI training involves iterative optimization of model parameters using large datasets, which demands high compute throughput, while inference focuses on executing a trained model to produce predictions, where minimizing response time and ensuring low latency are the primary architectural concerns.",
+    "explanation": "选 C：训练反复优化参数，交互式推理则通常要求已训练模型及时响应。\nChoose C: training repeatedly optimizes parameters, while interactive inference commonly targets timely responses from an already trained model.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 27
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "Inference workloads cannot utilize GPU acceleration; training requires GPU acceleration for efficiency."
+        "text": "Inference workloads cannot utilize GPU acceleration; training requires GPU acceleration for efficiency.",
+        "translationZh": "推理不能使用 GPU 加速，而训练需要 GPU 加速才能高效运行。"
       },
       {
         "key": "B",
-        "text": "Training uses dedicated DPU resources for optimization; inference uses CPU resources for predictions."
+        "text": "Training uses dedicated DPU resources for optimization; inference uses CPU resources for predictions.",
+        "translationZh": "训练使用专用 DPU 优化资源，推理使用 CPU 生成预测。"
       },
       {
         "key": "C",
-        "text": "Training requires high compute power for parameter optimization; inference prioritizes low latency."
+        "text": "Training requires high compute power for parameter optimization; inference prioritizes low latency.",
+        "translationZh": "训练需要较强算力优化参数；推理通常注重低延迟。"
       },
       {
         "key": "D",
-        "text": "Inference requires deployment on multiple GPUs; training requires fewer GPUs for operation."
+        "text": "Inference requires deployment on multiple GPUs; training requires fewer GPUs for operation.",
+        "translationZh": "推理必须部署到多个 GPU，而训练需要更少 GPU。"
       }
     ],
     "answer": [
@@ -17203,71 +18475,215 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 27. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "NVIDIA: training and inference",
+          "url": "https://blogs.nvidia.com/blog/difference-deep-learning-training-inference-ai/",
+          "supports": "Training learns model parameters; inference applies the learned model to new inputs."
+        },
+        {
+          "title": "Triton Inference Server",
+          "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/index.html",
+          "supports": "Inference includes real-time, batched and streaming query types on CPUs and GPUs."
+        }
       ],
-      "whyChoose": "AI training involves iterative optimization of model parameters using large datasets, which demands high compute throughput, while inference focuses on executing a trained model to produce predictions, where minimizing response time and ensuring low latency are the primary architectural concerns.",
-      "whyNotChoose": []
+      "outline": [
+        "区分更新参数与使用已训练函数。\nSeparate parameter updates from applying the trained function.",
+        "在交互式服务语境中理解延迟重点。\nInterpret the latency emphasis in an interactive-serving context."
+      ],
+      "whyChoose": "选 C：训练反复优化参数，交互式推理则通常要求已训练模型及时响应。\nChoose C: training repeatedly optimizes parameters, while interactive inference commonly targets timely responses from an already trained model.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "Inference workloads cannot utilize GPU acceleration; training requires GPU acceleration for efficiency.",
+          "reason": "错误排除：推理可以运行在 GPU 上，合适时训练也可以在 CPU 上运行；二者不是由互斥硬件类型定义的。\nFalse exclusion: inference can run on GPUs, and training can also run on CPUs when suitable. The phases are not defined by exclusive hardware types."
+        },
+        {
+          "key": "B",
+          "text": "Training uses dedicated DPU resources for optimization; inference uses CPU resources for predictions.",
+          "reason": "划分错误：DPU 主要卸载基础设施服务，模型参数优化不是其定义性角色，推理也不限于 CPU。\nIncorrect division: DPUs mainly offload infrastructure services; model parameter optimization is not their defining role, and inference is not CPU-only."
+        },
+        {
+          "key": "D",
+          "text": "Inference requires deployment on multiple GPUs; training requires fewer GPUs for operation.",
+          "reason": "不是一般要求：两个阶段都可能使用一个或多个设备，取决于模型内存、并行方式与工作负载规模。\nNot a general requirement: both phases may use one or many devices, depending on model memory, parallelism and workload scale."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "AI training involves iterative optimization of model parameters using large datasets, which demands high compute throughput, while inference focuses on executing a trained model to produce predictions, where minimizing response time and ensuring low latency are the primary architectural concerns.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "What is a key architectural difference between AI training and inference?<span class=\"ai-stem-translation\" lang=\"zh-CN\">AI 训练与推理之间，哪项最符合常见的架构重点区别？</span>",
+      "keyPointHtml": "选 C：训练反复优化参数，<strong>交互式推理</strong>则通常要求已训练模型及时响应。<br><span lang=\"en\" class=\"ai-english\">Choose C: training repeatedly optimizes parameters, while <strong>interactive inference</strong> commonly targets timely responses from an already trained model.</span>",
+      "speedTipHtml": "训练学习参数；推理在服务目标下使用参数。<br><span lang=\"en\" class=\"ai-english\">Training learns parameters; inference uses them under service targets.</span>",
+      "studyNotesHtml": [
+        "低延迟对<strong>交互式推理</strong>尤其重要，但不是每种批处理服务都优先于吞吐量；硬件数量取决于模型与需求。<br><span lang=\"en\" class=\"ai-english\">Low latency is especially important for <strong>interactive inference</strong>, not a universal priority over throughput in every batch service. Hardware counts depend on the model and demand.</span>",
+        "区分更新参数与使用已训练函数。<br><span lang=\"en\" class=\"ai-english\">Separate parameter updates from applying the trained function.</span>",
+        "在交互式服务语境中理解延迟重点。<br><span lang=\"en\" class=\"ai-english\">Interpret the latency emphasis in an interactive-serving context.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "ai-lifecycle"
+      ],
+      "keywords": [
+        "parameter optimization",
+        "参数优化",
+        "interactive inference",
+        "交互式推理",
+        "batch inference",
+        "批量推理"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误排除：推理可以运行在 GPU 上，合适时训练也可以在 CPU 上运行；二者不是由互斥硬件类型定义的。\nFalse exclusion: inference can run on GPUs, and training can also run on CPUs when suitable. The phases are not defined by exclusive hardware types.",
+          "explanationHtml": "错误排除：推理可以运行在 GPU 上，合适时训练也可以在 CPU 上运行；二者不是由互斥硬件类型定义的。<br><span lang=\"en\" class=\"ai-english\">False exclusion: inference can run on GPUs, and training can also run on CPUs when suitable. The phases are not defined by exclusive hardware types.</span>"
         },
         {
           "key": "B",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "划分错误：DPU 主要卸载基础设施服务，模型参数优化不是其定义性角色，推理也不限于 CPU。\nIncorrect division: DPUs mainly offload infrastructure services; model parameter optimization is not their defining role, and inference is not CPU-only.",
+          "explanationHtml": "划分错误：DPU 主要卸载基础设施服务，模型<strong>参数优化</strong>不是其定义性角色，推理也不限于 CPU。<br><span lang=\"en\" class=\"ai-english\">Incorrect division: DPUs mainly offload infrastructure services; model <strong>parameter optimization</strong> is not their defining role, and inference is not CPU-only.</span>"
         },
         {
           "key": "C",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "典型场景的最佳答案：训练进行反复学习计算，交互式推理服务需满足响应时间目标；批量服务还重视吞吐量。\nBest typical answer: training performs repeated learning computations, whereas an interactive inference service must meet response-time targets. Batch serving adds throughput goals.",
+          "explanationHtml": "典型场景的最佳答案：训练进行反复学习计算，<strong>交互式推理</strong>服务需满足响应时间目标；批量服务还重视吞吐量。<br><span lang=\"en\" class=\"ai-english\">Best typical answer: training performs repeated learning computations, whereas an <strong>interactive inference</strong> service must meet response-time targets. Batch serving adds throughput goals.</span>"
         },
         {
           "key": "D",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "不是一般要求：两个阶段都可能使用一个或多个设备，取决于模型内存、并行方式与工作负载规模。\nNot a general requirement: both phases may use one or many devices, depending on model memory, parallelism and workload scale.",
+          "explanationHtml": "不是一般要求：两个阶段都可能使用一个或多个设备，取决于模型内存、并行方式与工作负载规模。<br><span lang=\"en\" class=\"ai-english\">Not a general requirement: both phases may use one or many devices, depending on model memory, parallelism and workload scale.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "C"
+    ],
+    "originalExplanation": "AI training involves iterative optimization of model parameters using large datasets, which demands high compute throughput, while inference focuses on executing a trained model to produce predictions, where minimizing response time and ensuring low latency are the primary architectural concerns.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 94,
+      "module": "ai-lifecycle",
+      "answer": [
+        "C"
+      ],
+      "stemZh": "AI 训练与推理之间，哪项最符合常见的架构重点区别？",
+      "sources": [
+        {
+          "title": "NVIDIA: training and inference",
+          "url": "https://blogs.nvidia.com/blog/difference-deep-learning-training-inference-ai/",
+          "supports": "Training learns model parameters; inference applies the learned model to new inputs."
+        },
+        {
+          "title": "Triton Inference Server",
+          "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/index.html",
+          "supports": "Inference includes real-time, batched and streaming query types on CPUs and GPUs."
+        }
+      ],
+      "reviewNote": "Retained C for training versus interactive inference. Batch inference also emphasizes throughput; training does not universally require GPUs, and inference may use either CPUs or GPUs.",
+      "summary": {
+        "en": "Choose C: training repeatedly optimizes parameters, while interactive inference commonly targets timely responses from an already trained model.",
+        "zh": "选 C：训练反复优化参数，交互式推理则通常要求已训练模型及时响应。"
+      },
+      "memory": {
+        "en": "Training learns parameters; inference uses them under service targets.",
+        "zh": "训练学习参数；推理在服务目标下使用参数。"
+      },
+      "pitfall": {
+        "en": "Low latency is especially important for interactive inference, not a universal priority over throughput in every batch service. Hardware counts depend on the model and demand.",
+        "zh": "低延迟对交互式推理尤其重要，但不是每种批处理服务都优先于吞吐量；硬件数量取决于模型与需求。"
+      },
+      "steps": [
+        {
+          "en": "Separate parameter updates from applying the trained function.",
+          "zh": "区分更新参数与使用已训练函数。"
+        },
+        {
+          "en": "Interpret the latency emphasis in an interactive-serving context.",
+          "zh": "在交互式服务语境中理解延迟重点。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "parameter optimization",
+          "zh": "参数优化"
+        },
+        {
+          "en": "interactive inference",
+          "zh": "交互式推理"
+        },
+        {
+          "en": "batch inference",
+          "zh": "批量推理"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "推理不能使用 GPU 加速，而训练需要 GPU 加速才能高效运行。",
+          "reason": {
+            "en": "False exclusion: inference can run on GPUs, and training can also run on CPUs when suitable. The phases are not defined by exclusive hardware types.",
+            "zh": "错误排除：推理可以运行在 GPU 上，合适时训练也可以在 CPU 上运行；二者不是由互斥硬件类型定义的。"
+          }
+        },
+        "B": {
+          "zh": "训练使用专用 DPU 优化资源，推理使用 CPU 生成预测。",
+          "reason": {
+            "en": "Incorrect division: DPUs mainly offload infrastructure services; model parameter optimization is not their defining role, and inference is not CPU-only.",
+            "zh": "划分错误：DPU 主要卸载基础设施服务，模型参数优化不是其定义性角色，推理也不限于 CPU。"
+          }
+        },
+        "C": {
+          "zh": "训练需要较强算力优化参数；推理通常注重低延迟。",
+          "reason": {
+            "en": "Best typical answer: training performs repeated learning computations, whereas an interactive inference service must meet response-time targets. Batch serving adds throughput goals.",
+            "zh": "典型场景的最佳答案：训练进行反复学习计算，交互式推理服务需满足响应时间目标；批量服务还重视吞吐量。"
+          }
+        },
+        "D": {
+          "zh": "推理必须部署到多个 GPU，而训练需要更少 GPU。",
+          "reason": {
+            "en": "Not a general requirement: both phases may use one or many devices, depending on model memory, parallelism and workload scale.",
+            "zh": "不是一般要求：两个阶段都可能使用一个或多个设备，取决于模型内存、并行方式与工作负载规模。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {
     "id": 95,
     "topic": "AI Infrastructure and Operations",
     "stem": "In the context of data center use cases, what is the primary purpose of NVIDIA AI Factories?",
-    "explanation": "NVIDIA AI Factories are designed to integrate data ingestion, processing, and large-scale AI modeltraining into a unified architecture, enabling organizations to efficiently build, train, and deploy AI models by tightly coupling accelerated compute, networking, and software stacks provided by NVIDIA.",
+    "explanation": "C 最接近：AI Factory 集成覆盖 AI 生命周期的基础设施与流程，包括数据准备、训练和生产推理。\nC is the closest answer: an AI Factory integrates infrastructure and workflows across the AI lifecycle, including data preparation, training and production inference.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 27
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "To enhance traditional data storage solutions with advanced AI capabilities."
+        "text": "To enhance traditional data storage solutions with advanced AI capabilities.",
+        "translationZh": "为传统数据存储方案增加高级 AI 功能。"
       },
       {
         "key": "B",
-        "text": "To serve as a backup solution for critical data in real time environments."
+        "text": "To serve as a backup solution for critical data in real time environments.",
+        "translationZh": "在实时环境中充当关键数据的备份方案。"
       },
       {
         "key": "C",
-        "text": "To optimize machine learning workflows by integrating data processing and AI model training."
+        "text": "To optimize machine learning workflows by integrating data processing and AI model training.",
+        "translationZh": "通过集成数据处理与 AI 模型训练来优化机器学习工作流。"
       },
       {
         "key": "D",
-        "text": "To provide high-performance computing for large-scale simulations."
+        "text": "To provide high-performance computing for large-scale simulations.",
+        "translationZh": "为大型仿真提供高性能计算。"
       }
     ],
     "answer": [
@@ -17275,71 +18691,205 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 27. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "NVIDIA: AI Factory definition",
+          "url": "https://www.nvidia.com/en-us/glossary/ai-factory/",
+          "supports": "Defines integrated infrastructure spanning data ingestion, training, fine-tuning and high-volume inference, rather than a storage or backup-only product."
+        }
       ],
-      "whyChoose": "NVIDIA AI Factories are designed to integrate data ingestion, processing, and large-scale AI modeltraining into a unified architecture, enabling organizations to efficiently build, train, and deploy AI models by tightly coupling accelerated compute, networking, and software stacks provided by NVIDIA.",
-      "whyNotChoose": []
+      "outline": [
+        "选择描述围绕 AI 工作负载进行集成的选项。\nChoose the option describing integration around AI workloads.",
+        "学习概念时，把不完整表述补充到部署与推理。\nExtend the partial wording to include deployment and inference when learning the concept."
+      ],
+      "whyChoose": "C 最接近：AI Factory 集成覆盖 AI 生命周期的基础设施与流程，包括数据准备、训练和生产推理。\nC is the closest answer: an AI Factory integrates infrastructure and workflows across the AI lifecycle, including data preparation, training and production inference.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "To enhance traditional data storage solutions with advanced AI capabilities.",
+          "reason": "范围太窄：存储只是一个组件，AI Factory 集成计算、网络、软件与生命周期运营，以产生 AI 输出。\nToo narrow: storage is one component, while an AI Factory integrates compute, networking, software and lifecycle operations to produce AI outputs."
+        },
+        {
+          "key": "B",
+          "text": "To serve as a backup solution for critical data in real time environments.",
+          "reason": "主要目标不符：备份保护数据，而 AI Factory 的目的是运行集成的 AI 生产流程。\nIncorrect primary objective: backup protects data, whereas the AI Factory’s purpose is running integrated AI production workflows."
+        },
+        {
+          "key": "D",
+          "text": "To provide high-performance computing for large-scale simulations.",
+          "reason": "可能是支持的工作负载，但不是围绕完整 AI 生命周期组织基础设施的区分性目标。\nA possible supported workload, but not the distinguishing purpose of an infrastructure organized around the full AI lifecycle."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "NVIDIA AI Factories are designed to integrate data ingestion, processing, and large-scale AI modeltraining into a unified architecture, enabling organizations to efficiently build, train, and deploy AI models by tightly coupling accelerated compute, networking, and software stacks provided by NVIDIA.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "In the context of data center use cases, what is the primary purpose of NVIDIA AI Factories?<span class=\"ai-stem-translation\" lang=\"zh-CN\">在数据中心应用场景中，NVIDIA AI Factory 的主要目标最接近哪一项？</span>",
+      "keyPointHtml": "C 最接近：<strong>AI Factory</strong> 集成覆盖 <strong>AI 生命周期</strong>的基础设施与流程，包括数据准备、训练和生产<strong>推理</strong>。<br><span lang=\"en\" class=\"ai-english\">C is the closest answer: an <strong>AI Factory</strong> integrates infrastructure and workflows across the <strong>AI lifecycle</strong>, including data preparation, training and production <strong>inference</strong>.</span>",
+      "speedTipHtml": "<strong>AI Factory</strong>：覆盖生命周期的系统，不只是训练集群。<br><span lang=\"en\" class=\"ai-english\"><strong>AI Factory</strong>: a lifecycle-wide system, not only a training cluster.</span>",
+      "studyNotesHtml": [
+        "不要从概念中遗漏<strong>推理</strong>。该选项只列出了部分流程，不是 <strong>AI Factory</strong> 的完整定义。<br><span lang=\"en\" class=\"ai-english\">Do not omit <strong>inference</strong> from the concept. The option lists part of the workflow rather than a complete definition of an <strong>AI Factory</strong>.</span>",
+        "选择描述围绕 AI 工作负载进行集成的选项。<br><span lang=\"en\" class=\"ai-english\">Choose the option describing integration around AI workloads.</span>",
+        "学习概念时，把不完整表述补充到部署与<strong>推理</strong>。<br><span lang=\"en\" class=\"ai-english\">Extend the partial wording to include deployment and <strong>inference</strong> when learning the concept.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "ai-platform"
+      ],
+      "keywords": [
+        "AI Factory",
+        "AI 工厂",
+        "AI lifecycle",
+        "AI 生命周期",
+        "inference",
+        "推理"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "范围太窄：存储只是一个组件，AI Factory 集成计算、网络、软件与生命周期运营，以产生 AI 输出。\nToo narrow: storage is one component, while an AI Factory integrates compute, networking, software and lifecycle operations to produce AI outputs.",
+          "explanationHtml": "范围太窄：存储只是一个组件，<strong>AI Factory</strong> 集成计算、网络、软件与生命周期运营，以产生 AI 输出。<br><span lang=\"en\" class=\"ai-english\">Too narrow: storage is one component, while an <strong>AI Factory</strong> integrates compute, networking, software and lifecycle operations to produce AI outputs.</span>"
         },
         {
           "key": "B",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "主要目标不符：备份保护数据，而 AI Factory 的目的是运行集成的 AI 生产流程。\nIncorrect primary objective: backup protects data, whereas the AI Factory’s purpose is running integrated AI production workflows.",
+          "explanationHtml": "主要目标不符：备份保护数据，而 <strong>AI Factory</strong> 的目的是运行集成的 AI 生产流程。<br><span lang=\"en\" class=\"ai-english\">Incorrect primary objective: backup protects data, whereas the <strong>AI Factory</strong>’s purpose is running integrated AI production workflows.</span>"
         },
         {
           "key": "C",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "最接近的可选答案，因为它描述工作流集成；但若没有微调、部署与大规模推理，定义仍不完整。\nClosest available answer because it describes workflow integration, but incomplete without fine-tuning, deployment and high-volume inference.",
+          "explanationHtml": "最接近的可选答案，因为它描述工作流集成；但若没有微调、部署与大规模<strong>推理</strong>，定义仍不完整。<br><span lang=\"en\" class=\"ai-english\">Closest available answer because it describes workflow integration, but incomplete without fine-tuning, deployment and high-volume <strong>inference</strong>.</span>"
         },
         {
           "key": "D",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "可能是支持的工作负载，但不是围绕完整 AI 生命周期组织基础设施的区分性目标。\nA possible supported workload, but not the distinguishing purpose of an infrastructure organized around the full AI lifecycle.",
+          "explanationHtml": "可能是支持的工作负载，但不是围绕完整 <strong>AI 生命周期</strong>组织基础设施的区分性目标。<br><span lang=\"en\" class=\"ai-english\">A possible supported workload, but not the distinguishing purpose of an infrastructure organized around the full <strong>AI lifecycle</strong>.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "C"
+    ],
+    "originalExplanation": "NVIDIA AI Factories are designed to integrate data ingestion, processing, and large-scale AI modeltraining into a unified architecture, enabling organizations to efficiently build, train, and deploy AI models by tightly coupling accelerated compute, networking, and software stacks provided by NVIDIA.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 95,
+      "module": "ai-platform",
+      "answer": [
+        "C"
+      ],
+      "stemZh": "在数据中心应用场景中，NVIDIA AI Factory 的主要目标最接近哪一项？",
+      "sources": [
+        {
+          "title": "NVIDIA: AI Factory definition",
+          "url": "https://www.nvidia.com/en-us/glossary/ai-factory/",
+          "supports": "Defines integrated infrastructure spanning data ingestion, training, fine-tuning and high-volume inference, rather than a storage or backup-only product."
+        }
+      ],
+      "reviewNote": "Retained C as the closest option, but it is incomplete: the AI Factory concept includes inference and the broader lifecycle, not just preprocessing and training.",
+      "summary": {
+        "en": "C is the closest answer: an AI Factory integrates infrastructure and workflows across the AI lifecycle, including data preparation, training and production inference.",
+        "zh": "C 最接近：AI Factory 集成覆盖 AI 生命周期的基础设施与流程，包括数据准备、训练和生产推理。"
+      },
+      "memory": {
+        "en": "AI Factory: a lifecycle-wide system, not only a training cluster.",
+        "zh": "AI Factory：覆盖生命周期的系统，不只是训练集群。"
+      },
+      "pitfall": {
+        "en": "Do not omit inference from the concept. The option lists part of the workflow rather than a complete definition of an AI Factory.",
+        "zh": "不要从概念中遗漏推理。该选项只列出了部分流程，不是 AI Factory 的完整定义。"
+      },
+      "steps": [
+        {
+          "en": "Choose the option describing integration around AI workloads.",
+          "zh": "选择描述围绕 AI 工作负载进行集成的选项。"
+        },
+        {
+          "en": "Extend the partial wording to include deployment and inference when learning the concept.",
+          "zh": "学习概念时，把不完整表述补充到部署与推理。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "AI Factory",
+          "zh": "AI 工厂"
+        },
+        {
+          "en": "AI lifecycle",
+          "zh": "AI 生命周期"
+        },
+        {
+          "en": "inference",
+          "zh": "推理"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "为传统数据存储方案增加高级 AI 功能。",
+          "reason": {
+            "en": "Too narrow: storage is one component, while an AI Factory integrates compute, networking, software and lifecycle operations to produce AI outputs.",
+            "zh": "范围太窄：存储只是一个组件，AI Factory 集成计算、网络、软件与生命周期运营，以产生 AI 输出。"
+          }
+        },
+        "B": {
+          "zh": "在实时环境中充当关键数据的备份方案。",
+          "reason": {
+            "en": "Incorrect primary objective: backup protects data, whereas the AI Factory’s purpose is running integrated AI production workflows.",
+            "zh": "主要目标不符：备份保护数据，而 AI Factory 的目的是运行集成的 AI 生产流程。"
+          }
+        },
+        "C": {
+          "zh": "通过集成数据处理与 AI 模型训练来优化机器学习工作流。",
+          "reason": {
+            "en": "Closest available answer because it describes workflow integration, but incomplete without fine-tuning, deployment and high-volume inference.",
+            "zh": "最接近的可选答案，因为它描述工作流集成；但若没有微调、部署与大规模推理，定义仍不完整。"
+          }
+        },
+        "D": {
+          "zh": "为大型仿真提供高性能计算。",
+          "reason": {
+            "en": "A possible supported workload, but not the distinguishing purpose of an infrastructure organized around the full AI lifecycle.",
+            "zh": "可能是支持的工作负载，但不是围绕完整 AI 生命周期组织基础设施的区分性目标。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {
     "id": 96,
     "topic": "AI Infrastructure and Operations",
     "stem": "Which factor is most important when selecting a network fabric for distributed deep learning training across multiple GPUs and nodes?",
-    "explanation": "Distributed deep learning training requires frequent synchronization of model parameters across GPUs and nodes, making high bandwidth and low latency essential to minimize communication overhead and ensure efficient scaling of training workloads.",
+    "explanation": "选 B：足够带宽与较低延迟，可减少张量传输和分布式训练进程协调所耗时间。\nChoose B: sufficient bandwidth and low latency reduce the time spent moving tensors and coordinating distributed training workers.",
     "source": {
       "file": "NCA AIIO.pdf",
       "page": 27
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "Built-in web filtering"
+        "text": "Built-in web filtering",
+        "translationZh": "内置网页过滤。"
       },
       {
         "key": "B",
-        "text": "High bandwidth and low latency"
+        "text": "High bandwidth and low latency",
+        "translationZh": "高带宽与低延迟。"
       },
       {
         "key": "C",
-        "text": "Wireless connectivity"
+        "text": "Wireless connectivity",
+        "translationZh": "无线连接。"
       },
       {
         "key": "D",
-        "text": "Support for IPv6"
+        "text": "Support for IPv6",
+        "translationZh": "支持 IPv6。"
       }
     ],
     "answer": [
@@ -17347,42 +18897,182 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "nca-aiio",
-      "outline": [
-        "PDF source: NCA AIIO.pdf, page 27. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "NCCL overview",
+          "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/overview.html",
+          "supports": "Collective communication and synchronization affect multi-GPU and multi-node training performance."
+        },
+        {
+          "title": "NVIDIA Dynamo RDMA fabrics",
+          "url": "https://docs.dynamo.nvidia.com/dynamo/kubernetes/installation/rdma-setup/overview",
+          "supports": "Distinguishes InfiniBand and Ethernet RoCE fabrics and their RDMA requirements."
+        }
       ],
-      "whyChoose": "Distributed deep learning training requires frequent synchronization of model parameters across GPUs and nodes, making high bandwidth and low latency essential to minimize communication overhead and ensure efficient scaling of training workloads.",
-      "whyNotChoose": []
+      "outline": [
+        "识别并行训练进程之间反复发生的通信。\nIdentify repeated communication among parallel training workers.",
+        "选择直接减少传输与协调时间的性能特性。\nChoose performance properties that directly reduce transfer and coordination time."
+      ],
+      "whyChoose": "选 B：足够带宽与较低延迟，可减少张量传输和分布式训练进程协调所耗时间。\nChoose B: sufficient bandwidth and low latency reduce the time spent moving tensors and coordinating distributed training workers.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "Built-in web filtering",
+          "reason": "这是面向另一类流量用途的安全功能，不能解决张量通信的带宽与同步延迟问题。\nA security feature for a different traffic purpose; it does not address the bandwidth and synchronization delays of tensor communication."
+        },
+        {
+          "key": "C",
+          "text": "Wireless connectivity",
+          "reason": "不是关键要求：分布式训练网络通常需要可预测的高容量连接；仅有无线接入并不提供这种性能保证。\nNot the key requirement: distributed training fabrics generally need predictable high-capacity connections; wireless access alone offers no such performance guarantee."
+        },
+        {
+          "key": "D",
+          "text": "Support for IPv6",
+          "reason": "可能对地址规划与集成重要，但支持 IPv6 本身不意味着高吞吐或低通信延迟。\nMay matter for addressing and integration, but IPv6 support alone does not imply high throughput or low communication latency."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "Distributed deep learning training requires frequent synchronization of model parameters across GPUs and nodes, making high bandwidth and low latency essential to minimize communication overhead and ensure efficient scaling of training workloads.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "Which factor is most important when selecting a network fabric for distributed deep learning training across multiple GPUs and nodes?<span class=\"ai-stem-translation\" lang=\"zh-CN\">为跨多个 GPU 与节点的分布式深度学习训练选择网络时，以下哪项性能因素最重要？</span>",
+      "keyPointHtml": "选 B：足够<strong>带宽</strong>与较低<strong>延迟</strong>，可减少张量传输和分布式训练进程协调所耗时间。<br><span lang=\"en\" class=\"ai-english\">Choose B: sufficient <strong>bandwidth</strong> and low <strong>latency</strong> reduce the time spent moving tensors and coordinating distributed training workers.</span>",
+      "speedTipHtml": "大批量传输需要<strong>带宽</strong>；频繁交换对<strong>延迟</strong>敏感。<br><span lang=\"en\" class=\"ai-english\">Large transfers need <strong>bandwidth</strong>; frequent exchanges are sensitive to <strong>latency</strong>.</span>",
+      "studyNotesHtml": [
+        "峰值链路速率不等于有效训练<strong>带宽</strong>。拓扑、竞争与通信重叠，影响关键路径上实际出现多少网络耗时。<br><span lang=\"en\" class=\"ai-english\">Peak link rate is not effective training <strong>bandwidth</strong>. Topology, contention and communication overlap affect how much network time appears on the critical path.</span>",
+        "识别并行训练进程之间反复发生的通信。<br><span lang=\"en\" class=\"ai-english\">Identify repeated communication among parallel training workers.</span>",
+        "选择直接减少传输与协调时间的性能特性。<br><span lang=\"en\" class=\"ai-english\">Choose performance properties that directly reduce transfer and coordination time.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure and Operations"
+        "ai-networking"
+      ],
+      "keywords": [
+        "bandwidth",
+        "带宽",
+        "latency",
+        "延迟",
+        "synchronization",
+        "同步"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "这是面向另一类流量用途的安全功能，不能解决张量通信的带宽与同步延迟问题。\nA security feature for a different traffic purpose; it does not address the bandwidth and synchronization delays of tensor communication.",
+          "explanationHtml": "这是面向另一类流量用途的安全功能，不能解决张量通信的<strong>带宽</strong>与<strong>同步</strong><strong>延迟</strong>问题。<br><span lang=\"en\" class=\"ai-english\">A security feature for a different traffic purpose; it does not address the <strong>bandwidth</strong> and <strong>synchronization</strong> delays of tensor communication.</span>"
         },
         {
           "key": "B",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "正确：它们直接支持工作进程间快速交换，帮助减少 GPU 等待通信的时间。\nCorrect: these directly support fast exchanges between workers and help keep GPUs from waiting on communication.",
+          "explanationHtml": "正确：它们直接支持工作进程间快速交换，帮助减少 GPU 等待通信的时间。<br><span lang=\"en\" class=\"ai-english\">Correct: these directly support fast exchanges between workers and help keep GPUs from waiting on communication.</span>"
         },
         {
           "key": "C",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "不是关键要求：分布式训练网络通常需要可预测的高容量连接；仅有无线接入并不提供这种性能保证。\nNot the key requirement: distributed training fabrics generally need predictable high-capacity connections; wireless access alone offers no such performance guarantee.",
+          "explanationHtml": "不是关键要求：分布式训练网络通常需要可预测的高容量连接；仅有无线接入并不提供这种性能保证。<br><span lang=\"en\" class=\"ai-english\">Not the key requirement: distributed training fabrics generally need predictable high-capacity connections; wireless access alone offers no such performance guarantee.</span>"
         },
         {
           "key": "D",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "可能对地址规划与集成重要，但支持 IPv6 本身不意味着高吞吐或低通信延迟。\nMay matter for addressing and integration, but IPv6 support alone does not imply high throughput or low communication latency.",
+          "explanationHtml": "可能对地址规划与集成重要，但支持 IPv6 本身不意味着高吞吐或低通信<strong>延迟</strong>。<br><span lang=\"en\" class=\"ai-english\">May matter for addressing and integration, but IPv6 support alone does not imply high throughput or low communication <strong>latency</strong>.</span>"
         }
       ]
+    },
+    "originalAnswer": [
+      "B"
+    ],
+    "originalExplanation": "Distributed deep learning training requires frequent synchronization of model parameters across GPUs and nodes, making high bandwidth and low latency essential to minimize communication overhead and ensure efficient scaling of training workloads.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 96,
+      "module": "ai-networking",
+      "answer": [
+        "B"
+      ],
+      "stemZh": "为跨多个 GPU 与节点的分布式深度学习训练选择网络时，以下哪项性能因素最重要？",
+      "sources": [
+        {
+          "title": "NCCL overview",
+          "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/overview.html",
+          "supports": "Collective communication and synchronization affect multi-GPU and multi-node training performance."
+        },
+        {
+          "title": "NVIDIA Dynamo RDMA fabrics",
+          "url": "https://docs.dynamo.nvidia.com/dynamo/kubernetes/installation/rdma-setup/overview",
+          "supports": "Distinguishes InfiniBand and Ethernet RoCE fabrics and their RDMA requirements."
+        }
+      ],
+      "reviewNote": "Retained B as the primary listed performance criterion. Real fabric selection also considers topology, congestion, availability, compatibility and cost; not every distributed algorithm synchronizes full parameters each step.",
+      "summary": {
+        "en": "Choose B: sufficient bandwidth and low latency reduce the time spent moving tensors and coordinating distributed training workers.",
+        "zh": "选 B：足够带宽与较低延迟，可减少张量传输和分布式训练进程协调所耗时间。"
+      },
+      "memory": {
+        "en": "Large transfers need bandwidth; frequent exchanges are sensitive to latency.",
+        "zh": "大批量传输需要带宽；频繁交换对延迟敏感。"
+      },
+      "pitfall": {
+        "en": "Peak link rate is not effective training bandwidth. Topology, contention and communication overlap affect how much network time appears on the critical path.",
+        "zh": "峰值链路速率不等于有效训练带宽。拓扑、竞争与通信重叠，影响关键路径上实际出现多少网络耗时。"
+      },
+      "steps": [
+        {
+          "en": "Identify repeated communication among parallel training workers.",
+          "zh": "识别并行训练进程之间反复发生的通信。"
+        },
+        {
+          "en": "Choose performance properties that directly reduce transfer and coordination time.",
+          "zh": "选择直接减少传输与协调时间的性能特性。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "bandwidth",
+          "zh": "带宽"
+        },
+        {
+          "en": "latency",
+          "zh": "延迟"
+        },
+        {
+          "en": "synchronization",
+          "zh": "同步"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "内置网页过滤。",
+          "reason": {
+            "en": "A security feature for a different traffic purpose; it does not address the bandwidth and synchronization delays of tensor communication.",
+            "zh": "这是面向另一类流量用途的安全功能，不能解决张量通信的带宽与同步延迟问题。"
+          }
+        },
+        "B": {
+          "zh": "高带宽与低延迟。",
+          "reason": {
+            "en": "Correct: these directly support fast exchanges between workers and help keep GPUs from waiting on communication.",
+            "zh": "正确：它们直接支持工作进程间快速交换，帮助减少 GPU 等待通信的时间。"
+          }
+        },
+        "C": {
+          "zh": "无线连接。",
+          "reason": {
+            "en": "Not the key requirement: distributed training fabrics generally need predictable high-capacity connections; wireless access alone offers no such performance guarantee.",
+            "zh": "不是关键要求：分布式训练网络通常需要可预测的高容量连接；仅有无线接入并不提供这种性能保证。"
+          }
+        },
+        "D": {
+          "zh": "支持 IPv6。",
+          "reason": {
+            "en": "May matter for addressing and integration, but IPv6 support alone does not imply high throughput or low communication latency.",
+            "zh": "可能对地址规划与集成重要，但支持 IPv6 本身不意味着高吞吐或低通信延迟。"
+          }
+        }
+      },
+      "bankId": "ncaAiio",
+      "reviewedAt": "2026-10-30"
     }
   },
   {

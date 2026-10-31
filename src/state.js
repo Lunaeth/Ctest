@@ -1,3 +1,5 @@
+import { gradePracticeAnswer } from './practice.js';
+
 const BANK_IDS = ['zh', 'en', 'core2', 'securityPlus', 'awsSaa', 'ccnpDcai', 'ncaAiio'];
 const LEGACY_BANK_IDS = ['zh', 'en', 'core2', 'awsSaa'];
 const DEFAULT_BANK_ID = 'zh';
@@ -72,6 +74,32 @@ function normalizeMistakes(questions, value) {
   });
 }
 
+function reconcileReviewedAnswers(questions, progress, mistakes, preferences) {
+  let updatedMistakes = [...mistakes];
+  for (const question of questions) {
+    if (!question.aiStudy || !Array.isArray(question.originalAnswer) || question.type === 'review') continue;
+    if ([...question.originalAnswer].sort().join(',') === [...question.answer].sort().join(',')) continue;
+    const entry = progress[question.id];
+    if (!entry || !Array.isArray(entry.selectedAnswer) || !entry.selectedAnswer.length) continue;
+    const { correct } = gradePracticeAnswer(question, entry.selectedAnswer);
+    if (entry.correct === correct) continue;
+    progress[question.id] = {
+      ...entry,
+      correct,
+      answerReview: {
+        previousCorrect: entry.correct,
+        answer: [...question.answer],
+        reviewedAt: question.aiStudy.reviewedAt,
+      },
+    };
+    if (!correct && !updatedMistakes.includes(question.id)) updatedMistakes.unshift(question.id);
+    if (correct && preferences.autoRemoveCorrectMistakes !== false) {
+      updatedMistakes = updatedMistakes.filter((id) => id !== question.id);
+    }
+  }
+  return updatedMistakes;
+}
+
 function selectActiveBuckets(questions, preferences, persisted) {
   const bankId = normalizeBankId(preferences.activeBankId);
   const progressByBank = normalizeBankBuckets(persisted.progress, asObject);
@@ -83,6 +111,7 @@ function selectActiveBuckets(questions, preferences, persisted) {
 
   progressByBank[bankId] = normalizeProgressEntries(questions, progressByBank[bankId]);
   mistakesByBank[bankId] = normalizeMistakes(questions, mistakesByBank[bankId]);
+  mistakesByBank[bankId] = reconcileReviewedAnswers(questions, progressByBank[bankId], mistakesByBank[bankId], preferences);
   favoritesByBank[bankId] = normalizeMistakes(questions, favoritesByBank[bankId]);
   examHistoryByBank[bankId] = asArray(examHistoryByBank[bankId]);
   currentPracticeByBank[bankId] = asPracticeSession(currentPracticeByBank[bankId]);
@@ -113,6 +142,7 @@ export function setActiveBank(state, questions, bankId) {
   state.preferences.activeBankId = nextBankId;
   state.progressByBank[nextBankId] = normalizeProgressEntries(questions, state.progressByBank[nextBankId]);
   state.mistakesByBank[nextBankId] = normalizeMistakes(questions, state.mistakesByBank[nextBankId]);
+  state.mistakesByBank[nextBankId] = reconcileReviewedAnswers(questions, state.progressByBank[nextBankId], state.mistakesByBank[nextBankId], state.preferences);
   state.favoritesByBank[nextBankId] = normalizeMistakes(questions, state.favoritesByBank[nextBankId]);
   state.examHistoryByBank[nextBankId] = asArray(state.examHistoryByBank[nextBankId]);
   state.currentPracticeByBank[nextBankId] = asPracticeSession(state.currentPracticeByBank[nextBankId]);

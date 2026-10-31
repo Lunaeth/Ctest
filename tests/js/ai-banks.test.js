@@ -80,6 +80,58 @@ test('AI exams score only supported questions and handle smaller banks', () => {
   }
 });
 
+test('reviewed DGX BMC answer replaces the PDF key in practice and exam scoring', () => {
+  const question = nca.find((q) => q.id === 85);
+  assert.deepEqual(question.originalAnswer, ['C']);
+  assert.deepEqual(question.answer, ['A']);
+  assert.equal(gradePracticeAnswer(question, ['A']).correct, true);
+  assert.equal(gradePracticeAnswer(question, ['C']).correct, false);
+  const exam = createExamSession([question]);
+  exam.answers[85] = ['C'];
+  assert.deepEqual(gradeExamSession(exam, [question]).wrongIds, [85]);
+  exam.answers[85] = ['A'];
+  assert.equal(gradeExamSession(exam, [question]).score, 1);
+});
+
+test('audited answer corrections regrade saved selections on startup without changing other bank records', () => {
+  const persisted = {
+    preferences: { activeBankId: 'ncaAiio' },
+    progress: { ncaAiio: {85:{correct:true,selectedAnswer:['C']}}, core2:{85:{correct:true,selectedAnswer:['C']}} },
+    mistakes: { ncaAiio: [], core2:[12] },
+    favorites: { ncaAiio:[85] },
+  };
+  const snapshot = structuredClone(persisted);
+  const state = createInitialState(nca, persisted);
+  assert.equal(state.progress[85].correct, false);
+  assert.deepEqual(state.progress[85].selectedAnswer, ['C']);
+  assert.deepEqual(state.progress[85].answerReview.answer, ['A']);
+  assert.equal(state.progress[85].answerReview.previousCorrect, true);
+  assert.deepEqual(state.mistakes, [85]);
+  assert.deepEqual(state.favorites, [85]);
+  assert.deepEqual(state.progressByBank.core2, persisted.progress.core2);
+  assert.deepEqual(state.mistakesByBank.core2, [12]);
+  assert.deepEqual(persisted, snapshot);
+  // Once regraded, a later manual removal is not undone by every reload.
+  const reloaded = createInitialState(nca, {
+    ...persisted, progress: state.progressByBank, mistakes: {ncaAiio:[]},
+  });
+  assert.deepEqual(reloaded.mistakes, []);
+});
+
+test('answer corrections on bank switch honor the preference for retaining previously wrong answers', () => {
+  for (const retain of [false, true]) {
+    const state = createInitialState(ccnp, {
+      preferences:{activeBankId:'ccnpDcai',autoRemoveCorrectMistakes:!retain},
+      progress:{ncaAiio:{85:{correct:false,selectedAnswer:['A']}}},
+      mistakes:{ncaAiio:[85]},
+    });
+    setActiveBank(state,nca,'ncaAiio');
+    assert.equal(state.progress[85].correct,true);
+    assert.deepEqual(state.progress[85].selectedAnswer,['A']);
+    assert.deepEqual(state.mistakes,retain?[85]:[]);
+  }
+});
+
 test('CCNP exhibits appear in every question view and PBQ answers stay in disclosures', () => {
   const q = ccnp.find((q) => q.id === 28);
   assert.equal(q.images.length, 1);

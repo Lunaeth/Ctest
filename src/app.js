@@ -1825,6 +1825,9 @@ export async function bootstrapApp({
     storageApi = storage;
     archiveService = archive;
     state = createInitialState(questions, persisted);
+    const reviewedAnswersChanged = Object.entries(state.progress).some(([id, entry]) => (
+      entry?.answerReview && entry.correct !== persisted.progress?.[state.bankId]?.[id]?.correct
+    ));
     state.archiveStatus = archiveService?.initialize
       ? await archiveService.initialize()
       : {
@@ -1838,6 +1841,7 @@ export async function bootstrapApp({
     hydrateActiveSessions();
     ensureEventBindings(windowObject, documentObject);
     initializeSidebarState(windowObject, documentObject);
+    if (reviewedAnswersChanged) persistState();
     if (normalizeRoute(windowObject.location.hash) === 'learn' && !LEARNING_BANK_IDS.has(state.bankId)) {
       await activateQuestionBank(DEFAULT_LEARNING_BANK_ID);
     }
