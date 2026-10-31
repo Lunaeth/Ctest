@@ -1,6 +1,6 @@
 # Ctest
 
-A frontend-only question practice system supporting CompTIA A+ Core 1/Core 2, Security+ SY0-701, and other question banks, along with practice, study, mock exam, mistake notebook, and local learning archive features.
+A question practice system supporting CompTIA A+ Core 1/Core 2, Security+ SY0-701, CCNP-DCAI and NCA-AIIO. The static frontend supports guest study; the optional Flask account service synchronizes each user's progress, mistakes, favourites and exam records.
 
 ## Features
 
@@ -11,10 +11,13 @@ A frontend-only question practice system supporting CompTIA A+ Core 1/Core 2, Se
 - Mock exams: view your score and review incorrect answers after submission
 - Mistake notebook: review missed questions in one place and remove questions you have mastered
 - Local learning archives: create a `question-archive.json` file and automatically keep your complete learning progress in sync
+- AI study: bilingual questions and individual option explanations, memory cues, pitfalls, technical references, related questions and searchable knowledge maps; eight DCAI and ten AIIO study modules
+- Accounts: username/password login, Turnstile-protected registration, isolated records, explicit guest-record import, export and conflict protection when another tab or device has newer progress
 
 ## Technology Stack
 
 - Vanilla HTML, CSS, and JavaScript
+- Python Flask, SQLite, Argon2id and Gunicorn for the optional account service
 - Python with `pypdf` for extracting question bank data from PDFs
 - Node.js built-in test runner and Python `unittest`
 
@@ -29,6 +32,8 @@ Then open:
 ```text
 http://127.0.0.1:4173
 ```
+
+Static serving supports guest records. Account features require the API. For a disposable local account UI fixture, install `server/requirements.txt` in a virtual environment and run `python scripts/serve-account-preview.py`, then open `http://localhost:4180`. That fixture supplies `preview_alice` and `preview_bob` with the password documented in the fixture source; never deploy it or use its credentials/session secret in production.
 
 ## Tests
 
@@ -47,19 +52,22 @@ The project currently includes the following question bank data files:
 - `data/questions.security-plus.json`
 - `data/questions.aws-saa.json`
 - `data/questions.ccnp-dcai.json` — 56 scored questions, including 4 multi-select questions
-- `data/questions.nca-aiio.json` — 116 scored questions, including 4 multi-select questions
+- `data/questions.nca-aiio.json` — 116 scored questions, including 5 multi-select questions
 
 ### CCNP-DCAI and NCA-AIIO PDF imports
 
 Both banks support study, practice, mock exams, favourites, and separate saved progress. Original PDF question numbers and page numbers are displayed. CCNP-DCAI has 60 source questions: its four illustrated matching questions (3, 11, 29, 36) are available in `ai-review.html`, linked from the bank's home and study pages, for self-assessment. They are excluded from automatic scoring. Question 28 retains its exhibit in study, practice, exams, and mistake review.
 
-Answers and English explanations are transcribed from the supplied PDFs, not independently verified or represented as official exam answers. Missing explanations are explicitly labelled. Source file hashes and import counts are recorded in `data/*-import-report.json`. Original PDFs are not committed.
+All 176 AI source items have individually authored bilingual study content and review notes based on technical references. The reviewed layer corrects several source answers and clarifies ambiguous assumptions; original changed values are retained in the data. This is educational review, not an official exam answer key. Version-dependent claims specify their source context. DCAI question 60 is explicitly a capacity-planning exercise, not a verified claim about firmware standby behavior. See `docs/ai-audit/` for batch evidence, corrections and acceptance status. Source file hashes and import counts are recorded in `data/*-import-report.json`. Original PDFs are not committed.
 
 To reproduce these imports (requires Python and `PyMuPDF`):
 
 ```bash
 python scripts/extract_ai_banks.py --ccnp "/path/to/CCNP DCAI.pdf" --nca "/path/to/NCA AIIO.pdf"
+node scripts/build-ai-study.mjs --require-complete
 ```
+
+Always apply the reviewed study layer after a fresh import. The strict build requires all 176 entries; generated coverage is a completeness check, not proof of semantic correctness.
 
 To regenerate the Security+ question bank:
 
@@ -80,3 +88,4 @@ If you create a learning archive from the application:
 
 - The default filename is `question-archive.json`
 - The file will not be committed to the repository
+

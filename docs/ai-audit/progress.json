@@ -192,14 +192,22 @@
       "Final semantic review of both banks and desktop/mobile browser QA, including modules, maps, illustrated review, exam feedback and account flows"
     ],
     "latestBatch": "DCAI 37–60 authored; all 176 AI questions now have bilingual study content. Corrected Q49 B→A using the dated Hyperfabric table and Q57 B→C for Cisco Mode OS+SCU. Scoped ambiguous claims and corrected units; Q60 explicitly models capacity rather than unverified firmware behavior. See dcai-037-060-review.md. Full build is idempotent; 250 JS tests pass. Feature parity, semantic/browser acceptance and production accounts remain pending.",
-    "featureImplementation": "Eight DCAI and ten AIIO modules; bilingual searchable knowledge maps for all 176 items; validated exact-question/module deep links; related questions; question-specific AI feedback and review links. 264 JS tests pass. Browser acceptance pending; see ai-feature-parity.md."
+    "featureImplementation": "Eight DCAI and ten AIIO modules; bilingual searchable knowledge maps for all 176 items; validated exact-question/module deep links; related questions; question-specific AI feedback and review links. 264 JS tests pass. Browser acceptance pending; see ai-feature-parity.md.",
+    "browserEvidence": [
+      "Direct Edge ChatGPT desktop: DCAI map shows 60 questions, module filters and expandable bilingual reasoning; exact question 2 opens in Power & cooling.",
+      "DCAI module practice starts without answers; deliberate wrong selection reveals individual bilingual option feedback.",
+      "390x844 viewport: practice and AIIO study/map layouts without horizontal overflow; AIIO map has 116 questions; search 104 opens corrected Choose two question with C,D explanations.",
+      "AIIO local mock exam: no explanations before submission; submitted wrong answer shows bilingual per-option feedback and map links."
+    ]
   },
   "accounts": {
     "localImplementation": "Flask/SQLite API, Argon2id passwords, host-only sessions, CSRF/origin checks, backend Turnstile verification, isolated records, optimistic concurrency, idempotent retry, guest migration and exports",
     "tests": {
       "api": 16,
       "allJavaScript": 264,
-      "existingPythonParsers": 20
+      "existingPythonParsers": 20,
+      "backup": 3,
+      "centosConfined": 19
     },
     "browserEvidence": [
       "Alice DCAI attempted=1, mistakes=1, favourite persisted after refresh",
@@ -209,13 +217,12 @@
       "Reviewed DCAI Q1 bilingual options visible in learning"
     ],
     "pending": [
-      "Create production Turnstile widget restricted to learn.lunaeth.com",
-      "Provision private service environment and database",
-      "Validate Gunicorn 26.2.0 systemd sandbox and SELinux Unix socket on CentOS",
       "Verify actual registration CAPTCHA success/failure and login/import/mobile flows",
-      "Private database backup and restore test",
       "Deploy final tested source and verify live persistence/isolation"
-    ]
+    ],
+    "stagedBackendCommit": "e230b8256b04bda6a244ba0dbace5a97fa7902c6",
+    "serverEvidence": "Private systemd API running in confined ctest_api_t; actual Nginx socket and TLS Siteverify connectivity passed; daily private backup enabled and actual restore compared. See account-server-staging.md.",
+    "turnstile": "Ctest Registration widget created; only learn.lunaeth.com; Managed; no pre-clearance. Real keys installed in root-only server environment; registrationEnabled=true on private API. Real successful registration still pending."
   },
   "releaseGate": "No complete claim or production release until every content and account requirement is verified. Keep ca portal as exactly one website button pointing to learn."
 }
