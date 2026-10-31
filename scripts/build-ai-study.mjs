@@ -37,7 +37,19 @@ for (const bank of ['ccnp-dcai', 'nca-aiio']) {
       for (const ref of entry.sources) {
         if (!ref.title || !ref.supports || !/^https:\/\//.test(ref.url)) throw new Error(`Invalid source ${question.id}`);
       }
-      const keys = new Set(question.options.map((option) => option.key));
+      if (question.type === 'review') {
+        const candidates = Object.entries(entry.options ?? {});
+        if (!candidates.length || !entry.matches?.length) throw new Error(`Missing review choices/matches ${question.id}`);
+        for (const [key, detail] of candidates) {
+          pair(detail, `${question.id}${key} label`);
+          pair(detail.reason, `${question.id}${key} reason`);
+        }
+        for (const match of entry.matches) {
+          pair(match.prompt, `${question.id} match prompt`);
+          if (!entry.options[match.answerKey]) throw new Error(`Unknown matched choice ${question.id}`);
+        }
+      }
+      const keys = new Set((question.options ?? []).map((option) => option.key));
       if (question.type !== 'review') {
         if (!entry.answer?.length || entry.answer.some((key) => !keys.has(key))) throw new Error(`Invalid answer ${question.id}`);
         if (Object.keys(entry.options).length !== keys.size) throw new Error(`Incomplete options ${question.id}`);
@@ -47,7 +59,7 @@ for (const bank of ['ccnp-dcai', 'nca-aiio']) {
           pair(detail.reason, `${question.id}${option.key}`);
         });
       }
-      question.originalAnswer ??= [...question.answer];
+      if (question.type !== 'review') question.originalAnswer ??= [...question.answer];
       question.originalExplanation ??= question.explanation;
       question.originalAnswerSource ??= question.answerSource;
       question.answerSource = 'primary-reference-review';
@@ -56,6 +68,12 @@ for (const bank of ['ccnp-dcai', 'nca-aiio']) {
         question.originalStem ??= question.stem;
         question.originalType ??= question.type;
         question.stem = entry.stemEn;
+      }
+      if (question.type === 'review') {
+        question.aiStudy = { ...entry, bankId: bank === 'ccnp-dcai' ? 'ccnpDcai' : 'ncaAiio', reviewedAt: '2026-10-30' };
+        question.explanation = text(entry.summary);
+        reviewed.push(question.id);
+        continue;
       }
       if (question.type !== 'review') {
         question.answer = [...entry.answer];

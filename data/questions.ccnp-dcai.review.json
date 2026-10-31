@@ -2,13 +2,13 @@
   {
     "id": 3,
     "topic": "AI Infrastructure Deployment and Data Management",
-    "stem": "Refer to the exhibit. When a new AI backend network that supports Cisco UCS-based GPU servers with NVIDIA Connect-X network adapters is benchmarked, the traffic distribution observed has unacceptable variability across the interfaces. Drag and drop the code snippets from the bottom onto the boxes in the code to configure the switch to resolve the issue.",
-    "explanation": "hardware profile dlb dlb-interface all mode flowlet The exhibit shows materially uneven utilization across the eight interfaces, with receive utilization ranging from approximately 32.5% to 75.3%. Cisco Dynamic Load Balancing addresses this problem by considering current path utilization rather than relying exclusively on static ECMP hashing. The configuration begins with hardware profile dlb, which enters the DLB hardware-profile context. dlb- interface all enables DLB on all eligible Layer 3 physical interfaces. Cisco documents both an explicit interface list and the all keyword for this purpose. The document's supplied drag-and-drop answer then selects mode flowlet. Cisco defines flowlet load balancing as the default DLB mode, in which forwarding decisions use Dynamic Resilient Ethernet metrics to select less-loaded paths while maintaining packet ordering within a flowlet. Cisco also supports per-packet DLB, which can produce even greater path utilization but can reorder packets. When NVIDIA adaptive-routing capabilities are explicitly enabled and endpoints can handle reordering, Cisco documents per-packet DLB as an optimized alternative. That additional prerequisite is not stated in this question. Therefore, the source-derived configuration is DLB / all interfaces / flowlet . Study Guide Reference: AI Infrastructure Deployment and Data Management — Dynamic Load Balancing, ECMP optimization, AI backend fabrics, and traffic distribution.",
+    "stem": "Refer to the exhibit. A Cisco UCS GPU cluster shows uneven utilization across its backend network interfaces. Complete the supported NX-OS DLB configuration for all eligible interfaces. Assume that endpoint support for per-packet reordering has not been established.",
+    "explanation": "依次填入 dlb、all、flowlet。DLB 利用动态负载信息选择路径；flowlet 模式在流片边界之前将该段突发流量保持在选定路径上。\nFill the blanks with dlb, all and flowlet. DLB selects paths using dynamic load information; flowlet mode keeps a burst on one selected path until the flowlet boundary.",
     "source": {
       "file": "CCNP DCAI.pdf",
       "page": 4
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [
       "./data/ai-assets/ccnp-dcai-3-question-1.png",
       "./data/ai-assets/ccnp-dcai-3-question-2.png"
@@ -16,60 +16,562 @@
     "type": "review",
     "answerImages": [
       "./data/ai-assets/ccnp-dcai-3-answer-3.png"
-    ]
+    ],
+    "originalExplanation": "hardware profile dlb dlb-interface all mode flowlet The exhibit shows materially uneven utilization across the eight interfaces, with receive utilization ranging from approximately 32.5% to 75.3%. Cisco Dynamic Load Balancing addresses this problem by considering current path utilization rather than relying exclusively on static ECMP hashing. The configuration begins with hardware profile dlb, which enters the DLB hardware-profile context. dlb- interface all enables DLB on all eligible Layer 3 physical interfaces. Cisco documents both an explicit interface list and the all keyword for this purpose. The document's supplied drag-and-drop answer then selects mode flowlet. Cisco defines flowlet load balancing as the default DLB mode, in which forwarding decisions use Dynamic Resilient Ethernet metrics to select less-loaded paths while maintaining packet ordering within a flowlet. Cisco also supports per-packet DLB, which can produce even greater path utilization but can reorder packets. When NVIDIA adaptive-routing capabilities are explicitly enabled and endpoints can handle reordering, Cisco documents per-packet DLB as an optimized alternative. That additional prerequisite is not stated in this question. Therefore, the source-derived configuration is DLB / all interfaces / flowlet . Study Guide Reference: AI Infrastructure Deployment and Data Management — Dynamic Load Balancing, ECMP optimization, AI backend fabrics, and traffic distribution.",
+    "originalAnswerSource": "provided-pdf",
+    "originalStem": "Refer to the exhibit. When a new AI backend network that supports Cisco UCS-based GPU servers with NVIDIA Connect-X network adapters is benchmarked, the traffic distribution observed has unacceptable variability across the interfaces. Drag and drop the code snippets from the bottom onto the boxes in the code to configure the switch to resolve the issue.",
+    "originalType": "review",
+    "aiStudy": {
+      "id": 3,
+      "module": "ai-networking",
+      "stemEn": "Refer to the exhibit. A Cisco UCS GPU cluster shows uneven utilization across its backend network interfaces. Complete the supported NX-OS DLB configuration for all eligible interfaces. Assume that endpoint support for per-packet reordering has not been established.",
+      "stemZh": "参照图示：Cisco UCS GPU 集群的后端网络接口利用率不均。请补全适用于所有合格接口的 NX-OS 动态负载均衡 DLB 配置；假设尚未确认端点支持逐包乱序处理。",
+      "sources": [
+        {
+          "title": "Cisco NX-OS 10.5(x): dynamic load balancing",
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/unicast-routing-configuration/cisco-nexus-9000-series-nx-os-unicast-routing-configuration-guide/m-configure-dynamic-load-balancing.html",
+          "supports": "Documents hardware profile dlb, dlb-interface all, default flowlet mode and the endpoint reordering prerequisite for per-packet mode."
+        }
+      ],
+      "reviewNote": "Verified both source exhibits and the answer image. Retained dlb/all/flowlet. Clarified the unstated reordering assumption: merely naming ConnectX does not establish that per-packet mode is suitable. Syntax and supported interfaces depend on switch hardware/release; this is a snippet, not a complete deployment recipe.",
+      "summary": {
+        "en": "Fill the blanks with dlb, all and flowlet. DLB selects paths using dynamic load information; flowlet mode keeps a burst on one selected path until the flowlet boundary.",
+        "zh": "依次填入 dlb、all、flowlet。DLB 利用动态负载信息选择路径；flowlet 模式在流片边界之前将该段突发流量保持在选定路径上。"
+      },
+      "memory": {
+        "en": "Feature → interface scope → balancing mode: dlb → all → flowlet.",
+        "zh": "功能→接口范围→均衡模式：dlb→all→flowlet。"
+      },
+      "pitfall": {
+        "en": "Per-packet balancing can reorder packets and needs appropriate endpoint support. Flowlet aging must also suit path-delay differences; no mode guarantees perfectly equal utilization.",
+        "zh": "逐包均衡可能造成乱序，需要相应端点支持。流片老化时间也应适配路径时延差异；任何模式都不保证利用率绝对相等。"
+      },
+      "steps": [
+        {
+          "en": "Identify the dynamic load-balancing hardware profile.",
+          "zh": "识别动态负载均衡硬件配置上下文。"
+        },
+        {
+          "en": "Include all eligible paths rather than one named interface.",
+          "zh": "涵盖所有合格路径，而不是只选一个接口。"
+        },
+        {
+          "en": "Use flowlet mode under the stated reordering assumption and validate platform prerequisites before deploying.",
+          "zh": "在题述乱序能力假设下使用 flowlet，并在部署前核查平台前提条件。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "DLB",
+          "zh": "动态负载均衡"
+        },
+        {
+          "en": "flowlet",
+          "zh": "流片"
+        },
+        {
+          "en": "packet reordering",
+          "zh": "报文乱序"
+        }
+      ],
+      "matches": [
+        {
+          "prompt": {
+            "en": "hardware profile ____",
+            "zh": "第一行：hardware profile 后的功能名"
+          },
+          "answerKey": "A"
+        },
+        {
+          "prompt": {
+            "en": "dlb-interface ____",
+            "zh": "第二行：dlb-interface 后的接口范围"
+          },
+          "answerKey": "B"
+        },
+        {
+          "prompt": {
+            "en": "mode ____",
+            "zh": "第三行：mode 后的均衡模式"
+          },
+          "answerKey": "C"
+        }
+      ],
+      "options": {
+        "A": {
+          "en": "dlb",
+          "zh": "dlb（动态负载均衡）",
+          "reason": {
+            "en": "Use in the first blank: hardware profile dlb enters the DLB configuration context. It is a feature name, not an interface or balancing mode.",
+            "zh": "用于第一空：hardware profile dlb 进入 DLB 配置上下文。它是功能名，不是接口或均衡模式。"
+          }
+        },
+        "B": {
+          "en": "all",
+          "zh": "all（全部合格接口）",
+          "reason": {
+            "en": "Use in the second blank: all enables the supported eligible interface scope rather than restricting DLB to Ethernet1/7.",
+            "zh": "用于第二空：all 选择受支持的全部合格接口范围，而不是将 DLB 限制到 Ethernet1/7。"
+          }
+        },
+        "C": {
+          "en": "flowlet",
+          "zh": "flowlet（按流片均衡）",
+          "reason": {
+            "en": "Use in the third blank: this mode makes a new path choice at a flowlet boundary, avoiding deliberate per-packet spraying within that burst.",
+            "zh": "用于第三空：该模式在流片边界重新选路，避免在同一突发段内主动逐包分散到多条路径。"
+          }
+        },
+        "D": {
+          "en": "ecmp",
+          "zh": "ecmp（等价多路径）",
+          "reason": {
+            "en": "Unused: ECMP describes equal-cost paths and is not the missing DLB profile or flowlet-mode keyword. Static hashing alone can leave large flows unevenly distributed.",
+            "zh": "未使用：ECMP 描述等价路径，不是这里缺失的 DLB 功能名或 flowlet 模式关键字。仅靠静态哈希可能使大流分布不均。"
+          }
+        },
+        "E": {
+          "en": "per-packet",
+          "zh": "per-packet（逐包均衡）",
+          "reason": {
+            "en": "Unused under this assumption: it selects paths per packet and can reorder traffic. It is a valid alternative when the platform and endpoints are explicitly configured to support it.",
+            "zh": "在本题假设下不使用：它按报文选路，可能造成乱序。当平台和端点已明确配置为支持时，它是有效替代方案。"
+          }
+        },
+        "F": {
+          "en": "ethernet1/7",
+          "zh": "ethernet1/7（单个以太网接口）",
+          "reason": {
+            "en": "Unused: naming just this interface does not meet the requested all-eligible-interface scope. A single interface is not a substitute for the balancing mode.",
+            "zh": "未使用：仅指定此接口不能满足全部合格接口的范围要求，单个接口也不能替代均衡模式。"
+          }
+        }
+      },
+      "bankId": "ccnpDcai",
+      "reviewedAt": "2026-10-30"
+    }
   },
   {
     "id": 11,
     "topic": "AI Infrastructure Components and Architecture",
     "stem": "An organization is deploying an AI/ML infrastructure with multiple network fabrics, each serving a specific purpose. The network architect must match the network fabric type with its primary function. Drag and drop the network fabric types from the left onto the corresponding descriptions on the right.",
-    "explanation": "backend network frontend network storage network management network Large AI environments normally separate traffic into purpose-built fabrics because GPU collective communication, storage I/O, application access, and infrastructure management have fundamentally different performance and availability characteristics. Cisco identifies the backend network as the east-west fabric dedicated to inter-GPU communication. It carries high-bandwidth RoCEv2/RDMA traffic associated with distributed training and must provide exceptionally low latency and lossless behavior. The frontend network provides north-south connectivity between AI nodes and the wider data center, supporting application access, inference traffic, general data movement, logging, and other in-band services. The storage network connects compute nodes to shared datasets, model checkpoints, and high-performance parallel or distributed storage systems. Cisco AI POD designs may use dedicated storage-leaf connectivity to prevent storage traffic from interfering with backend GPU collective communication. The management network serves out-of-band management interfaces for servers, switches, storage platforms, and other infrastructure components. Cisco AI reference architectures explicitly distinguish backend, frontend/storage, and management connectivity for these purposes. Maintaining these traffic domains independently improves deterministic performance, fault isolation, congestion control, security, and operational manageability. Study Guide Reference: AI Infrastructure Components and Architecture — network fabrics, bandwidth, latency, scalability, and AI infrastructure connectivity.",
+    "explanation": "从上到下依次为：后端、前端、存储、管理网络。根据通信目的与端点判断，不要仅凭 network 一词配对。\nFrom top to bottom: backend, frontend, storage, management. Classify by the communication purpose and endpoints, not merely by the word network.",
     "source": {
       "file": "CCNP DCAI.pdf",
       "page": 12
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [
       "./data/ai-assets/ccnp-dcai-11-question-1.png"
     ],
     "type": "review",
     "answerImages": [
       "./data/ai-assets/ccnp-dcai-11-answer-2.png"
-    ]
+    ],
+    "originalExplanation": "backend network frontend network storage network management network Large AI environments normally separate traffic into purpose-built fabrics because GPU collective communication, storage I/O, application access, and infrastructure management have fundamentally different performance and availability characteristics. Cisco identifies the backend network as the east-west fabric dedicated to inter-GPU communication. It carries high-bandwidth RoCEv2/RDMA traffic associated with distributed training and must provide exceptionally low latency and lossless behavior. The frontend network provides north-south connectivity between AI nodes and the wider data center, supporting application access, inference traffic, general data movement, logging, and other in-band services. The storage network connects compute nodes to shared datasets, model checkpoints, and high-performance parallel or distributed storage systems. Cisco AI POD designs may use dedicated storage-leaf connectivity to prevent storage traffic from interfering with backend GPU collective communication. The management network serves out-of-band management interfaces for servers, switches, storage platforms, and other infrastructure components. Cisco AI reference architectures explicitly distinguish backend, frontend/storage, and management connectivity for these purposes. Maintaining these traffic domains independently improves deterministic performance, fault isolation, congestion control, security, and operational manageability. Study Guide Reference: AI Infrastructure Components and Architecture — network fabrics, bandwidth, latency, scalability, and AI infrastructure connectivity.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 11,
+      "module": "ai-networking",
+      "stemZh": "组织部署 AI/ML 基础设施，各类网络承担不同职责。请把网络类型与图中从上到下的主要功能配对。",
+      "sources": [
+        {
+          "title": "Cisco Nexus 9000 AI-cluster network design",
+          "url": "https://www.cisco.com/c/en/us/products/collateral/switches/nexus-9000-series-switches/nexus-9000-series-switches-ai-clusters-wp.html",
+          "supports": "Distinguishes inter-GPU backend, frontend, shared-storage and OOB management roles; its reference design converges frontend and storage physically."
+        }
+      ],
+      "reviewNote": "Verified question and answer images. Top-to-bottom mapping is backend/frontend/storage/management. Logical separation does not require four physically separate fabrics; Cisco also documents converged frontend/storage.",
+      "summary": {
+        "en": "From top to bottom: backend, frontend, storage, management. Classify by the communication purpose and endpoints, not merely by the word network.",
+        "zh": "从上到下依次为：后端、前端、存储、管理网络。根据通信目的与端点判断，不要仅凭 network 一词配对。"
+      },
+      "memory": {
+        "en": "GPU↔GPU: backend; users↔nodes: frontend; nodes↔data: storage; OOB ports: management.",
+        "zh": "GPU 互联走后端；用户访问节点走前端；节点读写数据走存储；带外端口走管理。"
+      },
+      "pitfall": {
+        "en": "Frontend in-band administration and dedicated out-of-band management are different. These are logical roles; frontend and storage can share a suitably engineered fabric.",
+        "zh": "前端的带内管理不同于专用带外管理。这些是逻辑职责，前端与存储可共用经过合理设计的物理网络。"
+      },
+      "steps": [
+        {
+          "en": "Identify the traffic endpoints in each description.",
+          "zh": "识别每项描述中的通信端点。"
+        },
+        {
+          "en": "Separate training collectives from dataset/checkpoint I/O.",
+          "zh": "区分训练集合通信与数据集、检查点读写。"
+        },
+        {
+          "en": "Distinguish ordinary service access from out-of-band device control.",
+          "zh": "区分普通服务访问与带外设备控制。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "backend network",
+          "zh": "后端网络"
+        },
+        {
+          "en": "frontend network",
+          "zh": "前端网络"
+        },
+        {
+          "en": "out-of-band",
+          "zh": "带外"
+        }
+      ],
+      "matches": [
+        {
+          "prompt": {
+            "en": "Dedicated GPU ports for GPU-to-GPU distributed-training communication.",
+            "zh": "连接专用 GPU 端口，承载分布式训练中的 GPU 间通信。"
+          },
+          "answerKey": "D"
+        },
+        {
+          "prompt": {
+            "en": "Connect GPU nodes to the wider data center for inference, logging, in-band management and outside access.",
+            "zh": "将 GPU 节点连接到更广的数据中心网络，支持推理、日志、带内管理及集群外访问。"
+          },
+          "answerKey": "B"
+        },
+        {
+          "prompt": {
+            "en": "Connect GPU nodes to shared datasets and checkpoints through parallel file-system access.",
+            "zh": "连接 GPU 节点与共享存储，通过并行文件系统访问数据集和检查点。"
+          },
+          "answerKey": "A"
+        },
+        {
+          "prompt": {
+            "en": "Provide out-of-band access to GPU nodes, network switches and storage equipment.",
+            "zh": "为 GPU 节点、网络交换机和存储设备提供带外访问。"
+          },
+          "answerKey": "C"
+        }
+      ],
+      "options": {
+        "A": {
+          "en": "storage network",
+          "zh": "存储网络",
+          "reason": {
+            "en": "Matches shared datasets and checkpoints: its primary role is data I/O between compute nodes and shared storage, rather than GPU collectives.",
+            "zh": "匹配共享数据集与检查点：主要职责是计算节点与共享存储之间的数据读写，而非 GPU 集合通信。"
+          }
+        },
+        "B": {
+          "en": "frontend network",
+          "zh": "前端网络",
+          "reason": {
+            "en": "Matches wider data-center access, inference and in-band services. It connects users and applications to the cluster rather than serving only dedicated OOB ports.",
+            "zh": "匹配更广的数据中心访问、推理及带内服务。它将用户和应用连接到集群，而非仅服务专用带外端口。"
+          }
+        },
+        "C": {
+          "en": "management network",
+          "zh": "管理网络",
+          "reason": {
+            "en": "Matches out-of-band device access, such as server BMCs and switch management ports. This remains distinct from administering a host through its production network.",
+            "zh": "匹配带外设备访问，例如服务器 BMC 与交换机管理端口；这不同于通过生产网络管理主机。"
+          }
+        },
+        "D": {
+          "en": "backend network",
+          "zh": "后端网络",
+          "reason": {
+            "en": "Matches inter-GPU communication for distributed training. Collective synchronization traffic has different demands from user access or storage reads.",
+            "zh": "匹配分布式训练中的 GPU 间通信。集合通信的同步流量与用户访问或存储读取有不同需求。"
+          }
+        }
+      },
+      "bankId": "ccnpDcai",
+      "reviewedAt": "2026-10-30"
+    }
   },
   {
     "id": 29,
     "topic": "AI Infrastructure Deployment and Data Management",
     "stem": "An engineer must configure vNIC templates for a UCS X-Series deployment. Drag and drop the policy types from the left onto the corresponding configuration settings on the right. Not all options are used.",
-    "explanation": "Ethernet Network Control Policy Ethernet Network Group Policy Ethernet QoS Policy Ethernet Adapter Policy The mappings correspond to the functional boundaries of Cisco Intersight vNIC policies. Ethernet Network Control Policy manages link-layer behavior including CDP and LLDP. Cisco's Intersight documentation explicitly identifies CDP, LLDP transmit/receive, MAC registration, and uplink-failure behavior as Network Control settings. Ethernet Network Group Policy controls VLAN membership for FI-attached servers, including the set of allowed VLANs and the optional native VLAN. Ethernet QoS Policy supplies performance-oriented vNIC characteristics such as MTU, rate limiting, traffic priority, CoS, and burst parameters. Cisco's current RoCE configuration guide lists MTU and rate-limit values directly under Ethernet QoS configuration. Finally, Ethernet Adapter Policy contains adapter-level behavior and performance parameters, including RoCE configuration used for high-performance RDMA interfaces. Ethernet Network Policy is the unused choice. Cisco documents that policy primarily for VLAN configuration on standalone servers, whereas Ethernet Network Group Policy is the relevant VLAN policy for Fabric Interconnect-attached UCS X-Series vNICs. Study Guide Reference: AI Infrastructure Deployment and Data Management — UCS vNIC templates, Ethernet policies, QoS, VLAN configuration, and RoCE.",
+    "explanation": "从上到下：Network Control、Network Group、Ethernet QoS、Ethernet Adapter。本题 FI 连接的 X-Series 配对不使用 Ethernet Network Policy。\nTop to bottom: Network Control, Network Group, Ethernet QoS, Ethernet Adapter. Ethernet Network Policy is unused for this FI-attached X-Series mapping.",
     "source": {
       "file": "CCNP DCAI.pdf",
       "page": 28
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [
       "./data/ai-assets/ccnp-dcai-29-question-1.png"
     ],
     "type": "review",
     "answerImages": [
       "./data/ai-assets/ccnp-dcai-29-answer-2.png"
-    ]
+    ],
+    "originalExplanation": "Ethernet Network Control Policy Ethernet Network Group Policy Ethernet QoS Policy Ethernet Adapter Policy The mappings correspond to the functional boundaries of Cisco Intersight vNIC policies. Ethernet Network Control Policy manages link-layer behavior including CDP and LLDP. Cisco's Intersight documentation explicitly identifies CDP, LLDP transmit/receive, MAC registration, and uplink-failure behavior as Network Control settings. Ethernet Network Group Policy controls VLAN membership for FI-attached servers, including the set of allowed VLANs and the optional native VLAN. Ethernet QoS Policy supplies performance-oriented vNIC characteristics such as MTU, rate limiting, traffic priority, CoS, and burst parameters. Cisco's current RoCE configuration guide lists MTU and rate-limit values directly under Ethernet QoS configuration. Finally, Ethernet Adapter Policy contains adapter-level behavior and performance parameters, including RoCE configuration used for high-performance RDMA interfaces. Ethernet Network Policy is the unused choice. Cisco documents that policy primarily for VLAN configuration on standalone servers, whereas Ethernet Network Group Policy is the relevant VLAN policy for Fabric Interconnect-attached UCS X-Series vNICs. Study Guide Reference: AI Infrastructure Deployment and Data Management — UCS vNIC templates, Ethernet policies, QoS, VLAN configuration, and RoCE.",
+    "originalAnswerSource": "provided-pdf",
+    "aiStudy": {
+      "id": 29,
+      "module": "ai-deployment",
+      "stemZh": "工程师为 UCS X-Series 部署配置 vNIC 模板。请把策略类型与图中从上到下的设置配对；有一个候选项不使用。",
+      "sources": [
+        {
+          "title": "Cisco Intersight policies overview",
+          "url": "https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/intersight/intersight-policies-so.html",
+          "supports": "Server policies distinguish vNIC discovery control, allowed/native VLAN groups, QoS and host adapter offloads."
+        },
+        {
+          "title": "Cisco Intersight VIC RoCE configuration",
+          "url": "https://www.cisco.com/c/en/us/td/docs/unified_computing/Intersight/IMM-VIC-Config-Guide/imm-vic-configuration-guide/m-configuring-rdma-over-converged-ethernet--roce--v2-.html",
+          "supports": "Ethernet QoS includes MTU and rate limit; Ethernet Adapter policy configures RoCE."
+        }
+      ],
+      "reviewNote": "Verified all five source candidates and four matches in the answer image. Distinguish server vNIC policies from same-named domain/appliance-port policies. VXLAN and RoCE being settings in one policy family does not mean every adapter supports enabling them together.",
+      "summary": {
+        "en": "Top to bottom: Network Control, Network Group, Ethernet QoS, Ethernet Adapter. Ethernet Network Policy is unused for this FI-attached X-Series mapping.",
+        "zh": "从上到下：Network Control、Network Group、Ethernet QoS、Ethernet Adapter。本题 FI 连接的 X-Series 配对不使用 Ethernet Network Policy。"
+      },
+      "memory": {
+        "en": "Discovery: Control. VLAN list: Group. MTU/rate: QoS. Offloads/RDMA: Adapter.",
+        "zh": "发现协议找 Control；VLAN 列表找 Group；MTU/速率找 QoS；卸载/RDMA 找 Adapter。"
+      },
+      "pitfall": {
+        "en": "Similar names do not imply interchangeable policy scopes. Also verify model and firmware limitations: locating VXLAN and RoCE settings does not authorize every combination on the same vNIC.",
+        "zh": "名称相近不代表策略范围可以互换；还须核对型号与固件限制，找到 VXLAN 与 RoCE 设置并不代表同一 vNIC 支持任意组合。"
+      },
+      "steps": [
+        {
+          "en": "Use the FI-attached server-vNIC context in the stem.",
+          "zh": "以题干中的 FI 连接服务器 vNIC 为上下文。"
+        },
+        {
+          "en": "Map each setting to discovery, VLAN membership, QoS or adapter behavior.",
+          "zh": "把各项设置分别归入发现、VLAN 成员、QoS 或适配器行为。"
+        },
+        {
+          "en": "Leave the standalone Ethernet Network choice unused.",
+          "zh": "不使用面向独立服务器的 Ethernet Network 候选项。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "vNIC",
+          "zh": "虚拟网络接口"
+        },
+        {
+          "en": "native VLAN",
+          "zh": "本征 VLAN"
+        },
+        {
+          "en": "adapter offload",
+          "zh": "适配器卸载"
+        }
+      ],
+      "matches": [
+        {
+          "prompt": {
+            "en": "CDP and LLDP settings",
+            "zh": "CDP 与 LLDP 设置"
+          },
+          "answerKey": "B"
+        },
+        {
+          "prompt": {
+            "en": "Allowed and native VLAN settings",
+            "zh": "允许的 VLAN 与本征 VLAN 设置"
+          },
+          "answerKey": "A"
+        },
+        {
+          "prompt": {
+            "en": "MTU and rate-limiting settings",
+            "zh": "MTU 与速率限制设置"
+          },
+          "answerKey": "C"
+        },
+        {
+          "prompt": {
+            "en": "VXLAN and RoCE settings",
+            "zh": "VXLAN 与 RoCE 设置"
+          },
+          "answerKey": "D"
+        }
+      ],
+      "options": {
+        "A": {
+          "en": "Ethernet Network Group Policy",
+          "zh": "以太网网络组策略",
+          "reason": {
+            "en": "Matches allowed and native VLANs on the FI-attached vNIC. VLAN membership is distinct from discovery protocol controls or adapter acceleration.",
+            "zh": "匹配 FI 连接 vNIC 的允许 VLAN 与本征 VLAN。VLAN 成员关系不同于发现协议控制或适配器加速。"
+          }
+        },
+        "B": {
+          "en": "Ethernet Network Control Policy",
+          "zh": "以太网网络控制策略",
+          "reason": {
+            "en": "Matches CDP/LLDP settings that determine discovery behavior. It does not define the full allowed-VLAN list for the vNIC.",
+            "zh": "匹配决定发现行为的 CDP/LLDP 设置；它不定义 vNIC 完整的允许 VLAN 列表。"
+          }
+        },
+        "C": {
+          "en": "Ethernet QoS Policy",
+          "zh": "以太网服务质量策略",
+          "reason": {
+            "en": "Matches MTU and rate limits. These control packet-size and traffic-service properties, whereas RoCE adapter resources belong to adapter configuration.",
+            "zh": "匹配 MTU 与速率限制。这些控制报文大小及流量服务属性，而 RoCE 适配器资源属于适配器配置。"
+          }
+        },
+        "D": {
+          "en": "Ethernet Adapter Policy",
+          "zh": "以太网适配器策略",
+          "reason": {
+            "en": "Matches host-adapter features such as VXLAN offload and RoCE parameters. Feature compatibility must be checked separately from this policy-type mapping.",
+            "zh": "匹配 VXLAN 卸载、RoCE 参数等主机适配器功能。功能兼容性须另行核查，不能从策略类型配对直接推出。"
+          }
+        },
+        "E": {
+          "en": "Ethernet Network Policy",
+          "zh": "以太网网络策略",
+          "reason": {
+            "en": "Unused: this is the standalone-server network/VLAN policy context. For the specified FI-attached vNIC, allowed/native VLAN membership uses Ethernet Network Group.",
+            "zh": "未使用：它对应独立服务器的网络/VLAN 策略上下文。本题 FI 连接 vNIC 的允许 VLAN 与本征 VLAN 使用 Ethernet Network Group。"
+          }
+        }
+      },
+      "bankId": "ccnpDcai",
+      "reviewedAt": "2026-10-30"
+    }
   },
   {
     "id": 36,
     "topic": "AI Infrastructure Deployment and Data Management",
-    "stem": "A network engineer is designing congestion management for an AI cluster using RoCEv2 transport. Based on Cisco best practices, the engineer must understand how ECN and PFC work together to provide lossless Ethernet transport. Drag and drop the congestion management mechanisms from the left onto the corresponding descriptions on the right. Not all options are used.",
-    "explanation": "ECN (Explicit Congestion Notification) PFC (Priority Flow Control) ECN and PFC address different congestion conditions in a RoCEv2 fabric and are intended to complement rather than replace each other. ECN is the appropriate mechanism for fabric-level congestion generated by incast patterns. When several GPU or storage senders simultaneously transmit toward the same destination, switch queues begin to build. ECN-capable switches mark packets rather than immediately dropping them, allowing the receiving endpoint to generate congestion feedback so the transmitting source can reduce its sending rate. PFC provides hop-by-hop loss prevention for the designated lossless Ethernet priority. When an endpoint or downstream interface cannot accept a burst quickly enough and a queue approaches its configured threshold, PFC transmits pause frames for that specific priority. This temporarily stops upstream transmission and prevents packet loss. Cisco's RoCEv2 designs combine ECN and PFC precisely because ECN provides proactive end-to-end congestion management while PFC acts as the protective mechanism when queue buildup becomes severe or occurs faster than endpoint rate adaptation can respond. WRED can provide the queue-marking mechanism associated with ECN, but the requested logical congestion- control mechanism is ECN. AFD is not the corresponding RoCEv2 lossless mechanism for either description. Study Guide Reference: AI Infrastructure Deployment and Data Management — congestion control, RoCEv2, ECN, PFC, QoS, and lossless Ethernet.",
+    "stem": "Match each RoCEv2 congestion scenario to the requested signaling role: end-to-end sender-rate feedback or immediate hop-by-hop pause protection. Use the clarified text prompts below the original exhibit; the mechanisms can operate together.",
+    "explanation": "所需的端到端拥塞反馈使用 ECN；所需的即时按优先级暂停使用 PFC。二者互补，incast 与突发流量本身并不能唯一决定采用哪一种。\nUse ECN for the requested end-to-end congestion feedback and PFC for the requested immediate per-priority pause. These complement each other; incast and bursty traffic do not uniquely identify one mechanism.",
     "source": {
       "file": "CCNP DCAI.pdf",
       "page": 35
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [
       "./data/ai-assets/ccnp-dcai-36-question-1.png"
     ],
     "type": "review",
     "answerImages": [
       "./data/ai-assets/ccnp-dcai-36-answer-2.png"
-    ]
+    ],
+    "originalExplanation": "ECN (Explicit Congestion Notification) PFC (Priority Flow Control) ECN and PFC address different congestion conditions in a RoCEv2 fabric and are intended to complement rather than replace each other. ECN is the appropriate mechanism for fabric-level congestion generated by incast patterns. When several GPU or storage senders simultaneously transmit toward the same destination, switch queues begin to build. ECN-capable switches mark packets rather than immediately dropping them, allowing the receiving endpoint to generate congestion feedback so the transmitting source can reduce its sending rate. PFC provides hop-by-hop loss prevention for the designated lossless Ethernet priority. When an endpoint or downstream interface cannot accept a burst quickly enough and a queue approaches its configured threshold, PFC transmits pause frames for that specific priority. This temporarily stops upstream transmission and prevents packet loss. Cisco's RoCEv2 designs combine ECN and PFC precisely because ECN provides proactive end-to-end congestion management while PFC acts as the protective mechanism when queue buildup becomes severe or occurs faster than endpoint rate adaptation can respond. WRED can provide the queue-marking mechanism associated with ECN, but the requested logical congestion- control mechanism is ECN. AFD is not the corresponding RoCEv2 lossless mechanism for either description. Study Guide Reference: AI Infrastructure Deployment and Data Management — congestion control, RoCEv2, ECN, PFC, QoS, and lossless Ethernet.",
+    "originalAnswerSource": "provided-pdf",
+    "originalStem": "A network engineer is designing congestion management for an AI cluster using RoCEv2 transport. Based on Cisco best practices, the engineer must understand how ECN and PFC work together to provide lossless Ethernet transport. Drag and drop the congestion management mechanisms from the left onto the corresponding descriptions on the right. Not all options are used.",
+    "originalType": "review",
+    "aiStudy": {
+      "id": 36,
+      "module": "ai-networking",
+      "stemEn": "Match each RoCEv2 congestion scenario to the requested signaling role: end-to-end sender-rate feedback or immediate hop-by-hop pause protection. Use the clarified text prompts below the original exhibit; the mechanisms can operate together.",
+      "stemZh": "请按所需信号作用，将 RoCEv2 拥塞场景配对到端到端发送速率反馈或即时逐跳暂停保护机制。以原图下方补充限定的文字描述为准；两种机制可以共同工作。",
+      "sources": [
+        {
+          "title": "Cisco AI/ML networking blueprint: ECN, PFC and AFD",
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/whitepapers/cisco-data-center-networking-blueprint-for-ai-ml-applications.html",
+          "supports": "ECN uses receiver CNP feedback; PFC protects queues hop by hop. WRED and AFD can implement ECN marking, including AFD selective marking of high-bandwidth flows."
+        }
+      ],
+      "reviewNote": "Verified source question/answer images; retained ECN then PFC. Original incast-versus-burst descriptions were not exclusive: both mechanisms may apply. Clarified the requested signal role in textual prompts. Corrected the original explanation implying AFD is unsuitable for lossless RoCE: AFD can mark ECN instead of dropping.",
+      "summary": {
+        "en": "Use ECN for the requested end-to-end congestion feedback and PFC for the requested immediate per-priority pause. These complement each other; incast and bursty traffic do not uniquely identify one mechanism.",
+        "zh": "所需的端到端拥塞反馈使用 ECN；所需的即时按优先级暂停使用 PFC。二者互补，incast 与突发流量本身并不能唯一决定采用哪一种。"
+      },
+      "memory": {
+        "en": "ECN asks the source to slow; PFC asks a link partner to pause.",
+        "zh": "ECN 促使源端降速；PFC 要求链路对端暂停。"
+      },
+      "pitfall": {
+        "en": "WRED and AFD can implement ECN marking. They are not inherently incompatible with lossless RoCE. PFC can also occur inside the fabric, not only at an endpoint.",
+        "zh": "WRED 与 AFD 都可以执行 ECN 标记，并非天然不适用于无损 RoCE。PFC 也可能发生在网络内部，不只发生在端点。"
+      },
+      "steps": [
+        {
+          "en": "Identify whether the requested action is rate feedback or link pause.",
+          "zh": "识别要求的是速率反馈还是链路暂停。"
+        },
+        {
+          "en": "Match end-to-end feedback to ECN and hop-by-hop pause to PFC.",
+          "zh": "将端到端反馈匹配到 ECN，将逐跳暂停匹配到 PFC。"
+        },
+        {
+          "en": "Treat WRED/AFD as marking or queue-management implementations rather than the requested signal types.",
+          "zh": "将 WRED/AFD 视为标记或队列管理实现，而非本题要求的信号类型。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "incast",
+          "zh": "多对一汇聚流量"
+        },
+        {
+          "en": "ECN",
+          "zh": "显式拥塞通知"
+        },
+        {
+          "en": "PFC",
+          "zh": "优先级流量控制"
+        },
+        {
+          "en": "AFD",
+          "zh": "近似公平丢弃算法"
+        }
+      ],
+      "matches": [
+        {
+          "prompt": {
+            "en": "Incast with fabric congestion: request end-to-end feedback so senders reduce their rates.",
+            "zh": "incast 造成网络拥塞：需要端到端反馈，使发送端降低速率。"
+          },
+          "answerKey": "A"
+        },
+        {
+          "prompt": {
+            "en": "Bursty sender with endpoint congestion: request immediate hop-by-hop pause of the affected priority.",
+            "zh": "突发发送导致端点拥塞：需要即时逐跳暂停受影响的优先级。"
+          },
+          "answerKey": "C"
+        }
+      ],
+      "options": {
+        "A": {
+          "en": "ECN (Explicit Congestion Notification)",
+          "zh": "ECN（显式拥塞通知）",
+          "reason": {
+            "en": "Matches the first signaling role: switches mark congestion, the RoCE receiver returns CNP feedback and the sender adjusts its rate. It can be useful beyond incast too.",
+            "zh": "匹配第一种信号作用：交换机标记拥塞，RoCE 接收端返回 CNP 反馈，发送端调整速率。它也可用于 incast 以外的拥塞。"
+          }
+        },
+        "B": {
+          "en": "WRED (Weighted Random Early Detection)",
+          "zh": "WRED（加权随机早期检测）",
+          "reason": {
+            "en": "Unused as the signal label: WRED is a queue-management algorithm that can mark ECN-capable traffic. It may implement the first mechanism rather than compete with it.",
+            "zh": "不作为信号名称选用：WRED 是可标记 ECN 流量的队列管理算法，它可用于实现第一种机制，而非与之互斥。"
+          }
+        },
+        "C": {
+          "en": "PFC (Priority Flow Control)",
+          "zh": "PFC（优先级流量控制）",
+          "reason": {
+            "en": "Matches the second role: pause frames stop transmission of a priority on a link while buffers recover. PFC may also protect congested switch queues during incast.",
+            "zh": "匹配第二种作用：暂停帧让链路上的某个优先级暂时停止发送，等待缓存恢复。PFC 也可在 incast 时保护拥塞的交换机队列。"
+          }
+        },
+        "D": {
+          "en": "AFD (Approximate Fair Dropping)",
+          "zh": "AFD（近似公平丢弃算法）",
+          "reason": {
+            "en": "Unused as a requested signal type: AFD manages congestion with flow awareness and can selectively ECN-mark large flows. Its name does not mean it must drop all marked RoCE traffic.",
+            "zh": "不作为要求的信号类型选用：AFD 感知流量并管理拥塞，可选择性地对大流进行 ECN 标记。名称带有丢弃不代表它必须丢弃所有被标记的 RoCE 流量。"
+          }
+        }
+      },
+      "bankId": "ccnpDcai",
+      "reviewedAt": "2026-10-30"
+    }
   }
 ]

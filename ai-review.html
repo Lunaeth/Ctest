@@ -11,13 +11,20 @@
     img { max-width:100%; height:auto; background:white; }
     summary { cursor:pointer; padding:14px 0; font-weight:bold; }
     .explanation { white-space:pre-wrap; line-height:1.7; }
+    article { line-height:1.7; overflow-wrap:anywhere; }
+    .review-choices, .review-prompts, .review-matches { padding-left:24px; }
+    .review-choices li, .review-prompts li, .review-matches li { margin:12px 0; }
+    .review-option { border-top:1px solid var(--border, #cbd5e1); padding:12px 0; }
+    .review-option h4 { margin:0; }
+    .review-choice-status { font-size:.8em; font-weight:normal; }
+    .review-answer { border-left:3px solid #0d9488; padding-left:12px; }
   </style>
 </head>
 <body>
   <main>
     <a href="./index.html#/learn">← 返回学习系统</a>
     <h1>CCNP-DCAI 图示配对题</h1>
-    <p>PDF 原题 3、11、29、36。先根据图示作答，再展开答案自评；这 4 题不计入选择题考试分数。答案与解析来自你提供的 PDF，未独立核验。</p>
+    <p>PDF 原题 3、11、29、36。先根据图示及双语文字作答，再展开答案自评；这 4 题不计入选择题考试分数。候选项均附中英文解析与技术参考资料；原图中含糊的条件已在文字题目与解析中澄清。</p>
     <div id="review-questions" aria-live="polite">正在加载题目…</div>
   </main>
   <script type="module" src="./src/ai-review.js"></script>

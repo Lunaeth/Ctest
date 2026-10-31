@@ -76,3 +76,24 @@ test('AIIO GPUDirect erratum preserves the source option and renders its correct
     assert.ok(!text(html).includes(option.originalText));
   }
 });
+
+test('DCAI terminology and scope corrections retain source wording and reach every question view',()=>{
+  const questions=JSON.parse(fs.readFileSync('data/questions.ccnp-dcai.json','utf8'));
+  const ipv4=questions.find(q=>q.id===4);
+  assert.match(ipv4.stem,/IPv4/);
+  assert.match(ipv4.options.find(o=>o.key==='D').originalText,/InfiniBand sequence numbering/);
+  assert.doesNotMatch(ipv4.options.find(o=>o.key==='D').text,/break.*sequence/);
+  assert.match(questions.find(q=>q.id===5).stem,/Data Center Quantized Congestion Notification \(DCQCN\)/);
+  assert.match(questions.find(q=>q.id===10).stem,/C225 M8 EBox/);
+  assert.match(questions.find(q=>q.id===16).stem,/RoCEv2 storage-data QoS class/);
+  for(const id of [4,5,10,16]){
+    const q=questions.find(q=>q.id===id);
+    assert.ok(q.originalStem && q.originalStem!==q.stem);
+    assert.equal(q.originalType,'single');
+    const session=createPracticeSession([q]);
+    for(const html of [renderPracticeView(q,session,null),renderExamView(q,session),renderLearningView(q,0,1,'DCAI')]){
+      assert.ok(text(html).includes(q.stem));
+      assert.ok(!text(html).includes(q.originalStem));
+    }
+  }
+});
