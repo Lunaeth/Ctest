@@ -1,0 +1,53 @@
+policy_module(ctest_api, 1.0.0)
+
+type ctest_api_t;
+type ctest_api_exec_t;
+init_daemon_domain(ctest_api_t, ctest_api_exec_t)
+
+type ctest_api_data_t;
+files_type(ctest_api_data_t)
+
+gen_require(`
+    type httpd_t, httpd_var_run_t, init_t;
+    role system_r;
+')
+role system_r types ctest_api_t;
+allow init_t ctest_api_t:process transition;
+type_transition init_t ctest_api_exec_t:process ctest_api_t;
+allow init_t ctest_api_t:process2 nnp_transition;
+allow ctest_api_t self:process { fork signal_perms getsched setsched setrlimit };
+allow ctest_api_t self:fifo_file rw_fifo_file_perms;
+allow ctest_api_t self:unix_stream_socket create_stream_socket_perms;
+allow ctest_api_t self:tcp_socket create_stream_socket_perms;
+allow ctest_api_t self:udp_socket create_socket_perms;
+
+# SQLite records/WAL and the service's socket/worker heartbeat directory.
+files_search_var_lib(ctest_api_t)
+files_search_pids(ctest_api_t)
+allow ctest_api_t ctest_api_data_t:dir manage_dir_perms;
+allow ctest_api_t ctest_api_data_t:file { manage_file_perms map };
+allow ctest_api_t httpd_var_run_t:dir rw_dir_perms;
+allow ctest_api_t httpd_var_run_t:file manage_file_perms;
+allow ctest_api_t httpd_var_run_t:sock_file manage_sock_file_perms;
+allow httpd_t ctest_api_t:unix_stream_socket connectto;
+
+# Interpreter, installed libraries, locale, trust store, DNS and HTTPS Siteverify.
+corecmd_exec_shell(ctest_api_t)
+corecmd_exec_bin(ctest_api_t)
+libs_use_ld_so(ctest_api_t)
+libs_use_shared_libs(ctest_api_t)
+files_read_usr_files(ctest_api_t)
+files_read_etc_files(ctest_api_t)
+miscfiles_read_localization(ctest_api_t)
+miscfiles_read_generic_certs(ctest_api_t)
+auth_use_nsswitch(ctest_api_t)
+sysnet_dns_name_resolve(ctest_api_t)
+dev_read_urand(ctest_api_t)
+kernel_read_system_state(ctest_api_t)
+kernel_read_kernel_sysctls(ctest_api_t)
+init_use_fds(ctest_api_t)
+logging_send_syslog_msg(ctest_api_t)
+corenet_tcp_sendrecv_generic_if(ctest_api_t)
+corenet_tcp_sendrecv_generic_node(ctest_api_t)
+corenet_tcp_sendrecv_http_port(ctest_api_t)
+corenet_tcp_connect_http_port(ctest_api_t)

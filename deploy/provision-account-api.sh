@@ -34,7 +34,7 @@ PY
 if [[ ! -x /opt/ctest-api/venv/bin/python ]]; then
   python3 -m venv /opt/ctest-api/venv
 fi
-/opt/ctest-api/venv/bin/python -m pip install --disable-pip-version-check -r "$target/server/requirements.txt"
+/opt/ctest-api/venv/bin/python -m pip install --disable-pip-version-check -r "$target/server/requirements.txt" -c "$target/server/constraints-centos.txt"
 cd "$target"
 PYTHONDONTWRITEBYTECODE=1 /opt/ctest-api/venv/bin/python -m unittest discover -s tests/python -p test_accounts.py
 PYTHONDONTWRITEBYTECODE=1 /opt/ctest-api/venv/bin/python -m unittest discover -s tests/python -p test_backup.py
@@ -43,6 +43,13 @@ mv -Tf /opt/ctest-api/current.next /opt/ctest-api/current
 install -m 644 deploy/ctest-api.service /etc/systemd/system/ctest-api.service
 install -m 644 deploy/ctest-backup.service /etc/systemd/system/ctest-backup.service
 install -m 644 deploy/ctest-backup.timer /etc/systemd/system/ctest-backup.timer
+install -d -m 755 /opt/ctest-api/selinux
+install -m 644 deploy/ctest_api.te /opt/ctest-api/selinux/ctest_api.te
+make -C /opt/ctest-api/selinux -f /usr/share/selinux/devel/Makefile ctest_api.pp
+semodule -i /opt/ctest-api/selinux/ctest_api.pp
+install -m 755 deploy/start-api.sh /opt/ctest-api/start-api
+semanage fcontext -a -t ctest_api_exec_t '/opt/ctest-api/start-api' 2>/dev/null || semanage fcontext -m -t ctest_api_exec_t '/opt/ctest-api/start-api'
+semanage fcontext -a -t ctest_api_data_t '/var/lib/ctest(/.*)?' 2>/dev/null || semanage fcontext -m -t ctest_api_data_t '/var/lib/ctest(/.*)?'
 restorecon -RF /opt/ctest-api /var/lib/ctest /var/backups/ctest /etc/ctest
 systemctl daemon-reload
 systemctl enable ctest-api.service

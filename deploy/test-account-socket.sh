@@ -7,6 +7,10 @@ probe_conf=$(mktemp /etc/nginx/conf.d/ctest-socket-probe.XXXXXX.conf)
 cleanup() {
   rm -f -- "$probe_conf"
   nginx -t && systemctl reload nginx
+  for attempt in {1..10}; do
+    [[ ! -S "$probe_dir/http.sock" ]] && break
+    sleep 1
+  done
   rm -f -- "$probe_dir/http.sock"
   rmdir -- "$probe_dir"
 }
