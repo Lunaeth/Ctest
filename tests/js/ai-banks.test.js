@@ -127,32 +127,43 @@ test('DCAI 96-GPU template correction changes practice and exam grading while re
   assert.equal(gradeExamSession(exam, [q]).score, 1);
 });
 
-test('DCAI corrected template regrades saved choices on load and bank switch without crossing bank boundaries', () => {
+test('DCAI corrected keys regrade saved choices on load and bank switch without crossing bank boundaries', () => {
+ for (const [id,oldKey,newKey] of [[26,'A','B'],[49,'B','A'],[57,'B','C']]) {
+  const q = ccnp.find(question=>question.id===id);
+  assert.deepEqual(q.originalAnswer,[oldKey]);
+  assert.deepEqual(q.answer,[newKey]);
+  const exam = createExamSession([q]);
+  for(const choice of [oldKey,newKey]) {
+    assert.equal(gradePracticeAnswer(q,[choice]).correct,choice===newKey);
+    exam.answers[id]=[choice];
+    assert.equal(gradeExamSession(exam,[q]).score,choice===newKey?1:0);
+  }
   for (const viaSwitch of [false, true]) {
-    for (const choice of ['A', 'B']) {
-      const previouslyCorrect = choice === 'A';
-      const otherBank = {26:{correct:previouslyCorrect,selectedAnswer:[choice]}};
+    for (const choice of [oldKey,newKey]) {
+      const previouslyCorrect = choice === oldKey;
+      const otherBank = {[id]:{correct:previouslyCorrect,selectedAnswer:[choice]}};
       const persisted = {
         preferences:{activeBankId:viaSwitch?'ncaAiio':'ccnpDcai',autoRemoveCorrectMistakes:true},
         progress:{ccnpDcai:structuredClone(otherBank),core2:structuredClone(otherBank)},
-        mistakes:{ccnpDcai:previouslyCorrect?[]:[26],core2:[26]},
-        favorites:{ccnpDcai:[26],core2:[26]},
+        mistakes:{ccnpDcai:previouslyCorrect?[]:[id],core2:[id]},
+        favorites:{ccnpDcai:[id],core2:[id]},
       };
       const before = structuredClone(persisted);
       const state = createInitialState(viaSwitch?nca:ccnp, persisted);
       if (viaSwitch) setActiveBank(state, ccnp, 'ccnpDcai');
-      assert.equal(state.progress[26].correct, choice === 'B');
-      assert.deepEqual(state.progress[26].selectedAnswer, [choice]);
-      assert.equal(state.progress[26].answerReview.previousCorrect, previouslyCorrect);
-      assert.deepEqual(state.progress[26].answerReview.answer, ['B']);
-      assert.deepEqual(state.mistakes, choice==='A'?[26]:[]);
-      assert.deepEqual(state.favorites, [26]);
+      assert.equal(state.progress[id].correct, choice === newKey);
+      assert.deepEqual(state.progress[id].selectedAnswer, [choice]);
+      assert.equal(state.progress[id].answerReview.previousCorrect, previouslyCorrect);
+      assert.deepEqual(state.progress[id].answerReview.answer, [newKey]);
+      assert.deepEqual(state.mistakes, choice===oldKey?[id]:[]);
+      assert.deepEqual(state.favorites, [id]);
       assert.deepEqual(state.progressByBank.core2, otherBank);
-      assert.deepEqual(state.mistakesByBank.core2, [26]);
-      assert.deepEqual(state.favoritesByBank.core2, [26]);
+      assert.deepEqual(state.mistakesByBank.core2, [id]);
+      assert.deepEqual(state.favoritesByBank.core2, [id]);
       assert.deepEqual(persisted, before);
     }
   }
+ }
 });
 
 test('audited answer corrections regrade saved selections on startup without changing other bank records', () => {

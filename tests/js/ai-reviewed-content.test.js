@@ -11,8 +11,9 @@ import { renderOptionText } from '../../src/views/question-media.js';
 const banks=['ccnp-dcai','nca-aiio'].flatMap(bank=>JSON.parse(fs.readFileSync(`data/questions.${bank}.json`,'utf8')));
 const reviewed=banks.filter(q=>q.aiStudy);
 const text=html=>html.replace(/<[^>]*>/g,'').replaceAll('&amp;','&').replaceAll('&#39;',"'").replaceAll('&quot;','"').replaceAll('&lt;','<').replaceAll('&gt;','>');
-test('every currently reviewed question has individual bilingual options and technical references (partial audit)',()=>{
-  assert.ok(reviewed.length>=3);
+test('all 172 scored AI questions have individual bilingual options and technical references',()=>{
+  assert.equal(banks.length,172);
+  assert.equal(reviewed.length,banks.length);
   for(const q of reviewed){
     assert.ok(q.originalExplanation && q.originalAnswer && q.originalAnswerSource);
     assert.ok(q.aiStudy.sources.every(ref=>ref.title&&ref.supports&&new URL(ref.url).protocol==='https:'));
@@ -63,6 +64,25 @@ test('option translations are escaped as plain text',()=>{
   assert.doesNotMatch(html,/<script>|<img/);
 });
 
+test('DCAI sizing explanations expose their units and assumptions rather than unverified operational guarantees',()=>{
+  const questions=JSON.parse(fs.readFileSync('data/questions.ccnp-dcai.json','utf8'));
+  const storage=questions.find(q=>q.id===52);
+  assert.match(storage.stem,/1 gigabit \(Gb\) per hour/);
+  assert.match(storage.aiStudy.summary.en,/420 GB/);
+  assert.equal(10*14*24/8,420);
+  const power=questions.find(q=>q.id===60);
+  assert.match(power.originalStem,/Power Save/i);
+  assert.match(power.stem,/capacity-only/);
+  assert.match(power.stem,/Exclude standby PSUs from this reserve/);
+  assert.match(power.aiStudy.pitfall.en,/does not predict the real firmware standby policy/);
+  assert.equal(6-(Math.ceil(4500/3000)+2),2);
+  for(const q of [storage,power]) {
+    const session=createPracticeSession([q]);
+    assert.ok(text(renderExamView(q,session)).includes(q.stem));
+    assert.ok(text(renderLearningView(q,0,1,'DCAI')).includes(q.aiStudy.pitfall.en));
+  }
+});
+
 test('AIIO GPUDirect erratum preserves the source option and renders its corrected text',()=>{
   const questions=JSON.parse(fs.readFileSync('data/questions.nca-aiio.json','utf8'));
   const q=questions.find(q=>q.id===69);
@@ -86,10 +106,10 @@ test('DCAI terminology and scope corrections retain source wording and reach eve
   assert.match(questions.find(q=>q.id===5).stem,/Data Center Quantized Congestion Notification \(DCQCN\)/);
   assert.match(questions.find(q=>q.id===10).stem,/C225 M8 EBox/);
   assert.match(questions.find(q=>q.id===16).stem,/RoCEv2 storage-data QoS class/);
-  for(const id of [4,5,10,16,18,21,22,25,26,27,30,31,32,33]){
+  for(const id of [4,5,10,16,18,21,22,25,26,27,30,31,32,33,38,41,42,43,44,45,46,47,49,50,51,52,53,54,56,60]){
     const q=questions.find(q=>q.id===id);
     assert.ok(q.originalStem && q.originalStem!==q.stem);
-    assert.equal(q.originalType,id===27||id===33?'multiple':'single');
+    assert.equal(q.originalType,[27,33,43,51].includes(id)?'multiple':'single');
     const session=createPracticeSession([q]);
     for(const html of [renderPracticeView(q,session,null),renderExamView(q,session),renderLearningView(q,0,1,'DCAI')]){
       assert.ok(text(html).includes(q.stem));
@@ -104,6 +124,8 @@ test('DCAI hardware and terminology errata preserve source options and use preci
     [21,'C',/RoCEv2/], [22,'A',/nccl-tests/], [27,'D',/GPU Temperature/],
     [28,'C',/port 1\/11/], [33,'C',/all compute-node and PCIe-node pairs/],
     [33,'D',/PCI Gen5/], [35,'D',/retraining/],
+    [42,'B',/X-Series Direct/], [45,'B',/SGACL/],
+    [50,'D',/each FI/], [51,'D',/framebuffer memory/],
   ]){
     const q=questions.find(q=>q.id===id);
     const option=q.options.find(o=>o.key===key);
