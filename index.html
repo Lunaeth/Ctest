@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>刷题系统</title>
-    <link rel="stylesheet" href="./styles.css?v=20261031-ai-accounts" />
+    <link rel="stylesheet" href="./styles.css?v=20261030-nav-buttons" />
     <link rel="stylesheet" href="./account.css?v=20261031-ai-accounts" />
   </head>
   <body data-account-enabled="true">
@@ -24,8 +24,15 @@
         <div class="brand">
           <h1>刷题系统</h1>
           <p>桌面练习</p>
-          <p><a href="https://ca.lunaeth.com/">← 站点导航</a> · <a href="./portal/progress.html">迁移旧记录</a></p>
         </div>
+        <nav class="sidebar-shortcuts" aria-label="站点与记录">
+          <a href="https://ca.lunaeth.com/" title="站点导航">
+            <span aria-hidden="true">←</span><span class="sidebar-shortcut-label">站点导航</span>
+          </a>
+          <a href="./portal/progress.html" title="迁移旧记录">
+            <span aria-hidden="true">⇄</span><span class="sidebar-shortcut-label">迁移旧记录</span>
+          </a>
+        </nav>
         <nav class="nav-links">
           <button data-route="home">首页</button>
           <button data-route="practice">练习</button>

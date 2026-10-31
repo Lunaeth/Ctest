@@ -114,6 +114,52 @@ body {
   margin-top: 32px;
 }
 
+.sidebar-shortcuts {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.sidebar-shortcuts a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel-alt);
+  color: var(--accent);
+  font-size: 14px;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.sidebar-shortcuts a:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.sidebar-shortcuts a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.app-shell.is-sidebar-collapsed .sidebar-shortcuts a {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.app-shell.is-sidebar-collapsed .sidebar-shortcut-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
 .nav-links button {
   border: 0;
   border-radius: 14px;
