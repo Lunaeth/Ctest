@@ -1,0 +1,3 @@
+# Linux deployment artifacts must remain LF even when archived on Windows.
+deploy/* text eol=lf
+server/* text eol=lf
