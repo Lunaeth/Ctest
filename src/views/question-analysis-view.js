@@ -41,6 +41,12 @@ function renderWhyNotChoose(analysis) {
   `;
 }
 
+export function renderSources(analysis) {
+  const sources = (analysis?.sources ?? []).filter(item => /^https:\/\//.test(item.url));
+  if (!sources.length) return '';
+  return `<section class="ai-sources"><strong>技术参考 / Technical references</strong><p>用于核对技术事实，不是官方考试答案。</p><ul>${sources.map(item => `<li><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)}</a></li>`).join('')}</ul></section>`;
+}
+
 export function renderQuestionAnalysis(analysis) {
   if (!analysis) return '';
 
@@ -49,6 +55,7 @@ export function renderQuestionAnalysis(analysis) {
       ${renderWhyChoose(analysis)}
       ${renderWhyNotChoose(analysis)}
       ${renderOutline(analysis)}
+      ${renderSources(analysis)}
     </section>
   `;
 }

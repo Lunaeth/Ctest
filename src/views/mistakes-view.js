@@ -1,6 +1,6 @@
 import { escapeHtml } from '../learning-annotations.js';
 import { renderQuestionAnalysis } from './question-analysis-view.js';
-import { renderQuestionMedia } from './question-media.js';
+import { renderQuestionMedia, renderOptionText } from './question-media.js';
 
 function getOptionAnnotation(question, key) {
   return question.learning?.options?.find((item) => item.key === key);
@@ -94,7 +94,7 @@ function renderMistakeOptionList(question) {
           <article class="mistake-option ${isCorrect ? 'is-correct' : 'is-wrong'}">
             <div class="mistake-option__choice">
               <strong>${escapeHtml(option.key)}.</strong>
-              <span>${escapeHtml(option.text)}</span>
+              <span>${renderOptionText(option)}</span>
               ${isCorrect ? '<em>正确答案</em>' : ''}
             </div>
             <p class="mistake-option__explanation">${explanationHtml}</p>

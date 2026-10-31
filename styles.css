@@ -1903,3 +1903,6 @@ body {
     margin-top: 0;
   }
 }
+
+/* Bilingual AI annotations keep English source and Chinese translations visible. */
+.ai-stem-translation,.ai-option-translation{display:block;font-weight:400;font-size:.92em;line-height:1.7;margin-top:.55em;color:#475569}.ai-english{display:inline-block;margin-top:.35em;font-size:.94em}.ai-sources{margin-top:20px;padding:15px;border:1px solid #cbd5e1;border-radius:10px;font-size:12px;line-height:1.7}.ai-sources a{color:#1d4ed8;text-decoration:underline}.ai-sources p{margin:6px 0}.question-analysis p,.question-analysis li{white-space:pre-line}

@@ -1,4 +1,4 @@
-import { renderQuestionMedia } from './question-media.js';
+import { renderQuestionMedia, renderOptionText } from './question-media.js';
 import { escapeHtml } from '../learning-annotations.js';
 
 export function renderExamView(question, session, selectedAnswer = [], bankLabel = '') {
@@ -20,7 +20,7 @@ export function renderExamView(question, session, selectedAnswer = [], bankLabel
                 value="${escapeHtml(option.key)}"
                 ${selectedAnswer.includes(option.key) ? 'checked' : ''}
               />
-              <span>${escapeHtml(option.key)}. ${escapeHtml(option.text)}</span>
+              <span>${escapeHtml(option.key)}. ${renderOptionText(option)}</span>
             </label>
           `).join('')}
         </div>

@@ -1,7 +1,8 @@
 ﻿import { escapeHtml } from '../learning-annotations.js';
 
 import { renderFavoriteSyncControls } from './favorite-sync-view.js';
-import { AI_REVIEW_ENTRIES, renderQuestionMedia } from './question-media.js';
+import { AI_REVIEW_ENTRIES, renderQuestionMedia, renderOptionText } from './question-media.js';
+import { renderSources } from './question-analysis-view.js';
 
 const CORE1_VISUAL_ENTRIES = [
   {
@@ -101,7 +102,7 @@ function renderOption(question, option) {
     <article class="learning-option ${isCorrect ? 'is-correct' : 'is-wrong'}">
       <div class="learning-option__choice">
         <strong>${escapeHtml(option.key)}.</strong>
-        <span>${escapeHtml(option.text)}</span>
+        <span>${renderOptionText(option)}</span>
       </div>
       <p class="learning-explanation ${isCorrect ? 'is-correct' : 'is-wrong'}">
         ${explanationHtml}
@@ -342,7 +343,7 @@ export function renderLearningView(
         ${renderVisualEntries(activeBankId)}
         ${renderLearningModules(modules, activeModuleId)}
         <h2 class="question-stem learning-stem">${stemHtml}</h2>
-        ${renderQuestionMedia(question)}
+        ${renderQuestionMedia(question, { includeTranslation: !question.learning?.stemHtml })}
         ${renderQuestionTags(question, modules)}
         <div class="learning-keypoint">
           <strong>关键点</strong>
@@ -354,6 +355,7 @@ export function renderLearningView(
         <div class="learning-option-list">
           ${question.options.map((option) => renderOption(question, option)).join('')}
         </div>
+        ${renderSources(question.analysis)}
         <div class="toolbar">
           <button class="secondary-btn" data-action="learning-prev" ${currentIndex === 0 ? 'disabled' : ''}>上一题</button>
           <button class="secondary-btn" data-action="learning-next" ${currentIndex === total - 1 ? 'disabled' : ''}>下一题</button>

@@ -1,0 +1,32 @@
+{
+  "objective": "Audit every DCAI and AIIO question, match A+ learning depth and functionality, add username/password accounts with isolated progress/mistakes/favourites and Cloudflare registration verification, then publish the tested complete update to GitHub and the existing CentOS server.",
+  "sourceCommit": "d31f1b1819b23e7049a391df429d44aec2387fb3",
+  "scope": {
+    "ccnpDcaiScored": 56,
+    "ccnpDcaiIllustrated": 4,
+    "ncaAiioScored": 116
+  },
+  "requirements": [
+    "Question-specific Chinese and English explanation for every option, including each incorrect distractor",
+    "Faithful Chinese translations of stems and options alongside the original English",
+    "Answer verification against primary technical evidence; preserve original answers and document corrections or wording caveats",
+    "Question clues, reasoning steps, key facts, bilingual terminology, memory cues, and confusion warnings",
+    "Topic modules, module-filtered learning and practice, knowledge maps, search and related-question review links for both banks",
+    "Correct explanations in learning, practice feedback, mistake review and exam results, without showing answers before submission",
+    "Retain multi-select grading, question images, illustrated matching review, favourites, favourite sync, per-bank progress, jump controls and session restoration",
+    "Meaningful content completeness, answer-consistency, reference-integrity and cross-view tests covering every question",
+    "Browser QA of both banks including module practice, multi-select, mistake review, exam results, maps and responsive layout",
+    "Push exact tested source to GitHub; deploy the same release; verify HTTPS and Cloudflare protection remain functional",
+    "Username/password registration and login with server-enforced Cloudflare Turnstile validation",
+    "Per-account server persistence for progress, mistakes, favourites and active learning/exam sessions; prevent cross-account data access and stale-device overwrites",
+    "Keep guest records separate; provide explicit backup/import migration; test login/logout, persistence, isolation, failed CAPTCHA and production deployment"
+  ],
+  "initialFindings": [
+    "172 scored questions have generic PDF-selected/not-selected option explanations, not actual individual bilingual reasons",
+    "AIIO has only one source topic and therefore no useful topic filters",
+    "CCNP has a matching-question page but no A+-style knowledge map; AIIO has no knowledge-map entry",
+    "Existing PDF-derived explanations include claims and answer corrections that need independent verification",
+    "Core 2-specific review helpers can produce generic or unrelated advice for AI questions unless AI-specific guides are added"
+  ],
+  "publicationGate": "Do not deploy partial annotations as though all questions were verified. coverage.json must have zero pending IDs, followed by semantic review and full validation."
+}

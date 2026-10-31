@@ -10,7 +10,7 @@ import {
 } from '../core2-study-map.js?v=20260707-core2-process-flows';
 import { renderQuestionAnalysis } from './question-analysis-view.js';
 import { renderFavoriteSyncControls } from './favorite-sync-view.js';
-import { renderQuestionMedia } from './question-media.js';
+import { renderQuestionMedia, renderOptionText } from './question-media.js';
 
 const TEXT = {
   questionSuffix: '\u9898',
@@ -232,7 +232,7 @@ function renderOptionExplanation(question, option, isCorrect) {
   return isCorrect ? TEXT.correctFallback : TEXT.wrongFallback;
 }
 
-function renderPracticeOptionExplanations(question, selectedAnswer = []) {
+export function renderPracticeOptionExplanations(question, selectedAnswer = []) {
   const answerKeys = new Set(question.answer ?? []);
   const selectedKeys = new Set(selectedAnswer ?? []);
 
@@ -254,7 +254,7 @@ function renderPracticeOptionExplanations(question, selectedAnswer = []) {
           <article class="${classNames}">
             <div class="practice-option__choice">
               <strong>${escapeHtml(option.key)}.</strong>
-              <span>${escapeHtml(option.text)}</span>
+              <span>${renderOptionText(option)}</span>
               ${isCorrect ? `<em>${TEXT.correctAnswer}</em>` : ''}
               ${isSelected ? `<em class="is-selected-badge">${TEXT.selectedAnswer}</em>` : ''}
             </div>
@@ -873,7 +873,7 @@ export function renderPracticeView(
                 value="${escapeHtml(option.key)}"
                 ${selectedAnswer.includes(option.key) ? 'checked' : ''}
               />
-              <span>${escapeHtml(option.key)}. ${escapeHtml(option.text)}</span>
+              <span>${escapeHtml(option.key)}. ${renderOptionText(option)}</span>
             </label>
           `).join('')}
         </div>

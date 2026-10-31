@@ -24,7 +24,8 @@ test('AI PDF banks preserve all source IDs, valid answers, and referenced illust
   for (const q of [...ccnp, ...nca, ...review]) {
     assert.ok(q.stem.trim().length, `${q.id}: missing stem`);
     assert.ok(q.source.page > 0);
-    assert.equal(q.answerSource, 'provided-pdf');
+    assert.equal(q.answerSource, q.aiStudy ? 'primary-reference-review' : 'provided-pdf');
+    if(q.aiStudy) assert.equal(q.originalAnswerSource, 'provided-pdf');
     assert.ok(q.explanation.length);
     assert.doesNotMatch(q.stem, /Answer:|Explanation|QUESTION\s+\d|Question #:/);
     assert.doesNotMatch(JSON.stringify(q), /\ufffd|54043FF|店铺|Cisco - 300-640/);

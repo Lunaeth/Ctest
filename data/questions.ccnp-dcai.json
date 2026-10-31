@@ -3,29 +3,33 @@
     "id": 1,
     "topic": "AI Infrastructure Components and Architecture",
     "stem": "What is a purpose of Cisco AI PODs?",
-    "explanation": "Cisco AI PODs provide a prevalidated, integrated full-stack infrastructure platform for enterprise artificial intelligence. Cisco describes AI PODs as combining Cisco UCS compute, Cisco Nexus networking, accelerated GPUs, enterprise storage, management, orchestration, and supporting software into an architecture designed for the complete AI workload lifecycle. The supported workload spectrum explicitly includes model training, fine-tuning, and high-throughput inference. Option D therefore captures both the architectural scope and workload intent. The principal value of AI POD is that organizations do not need to independently design and validate every server, accelerator, network, storage, and software dependency. Cisco supplies validated designs and modular scale-unit architectures that accelerate deployment while retaining enterprise operational characteristics. Option A is too restrictive because AI POD is not merely cloud-native lifecycle software and its hardware scope extends far beyond compute. Option B incorrectly makes inferencing the primary focus; Cisco AI POD supports the complete AI lifecycle and can be purpose-built for training, inference, or mixed workloads. Option C understates the architecture by describing it merely as modular hardware components. Cisco explicitly characterizes AI POD as an integrated full-stack solution. Study Guide Reference: AI Infrastructure Components and Architecture — Cisco AI infrastructure solutions, compute, networking, storage, GPU acceleration, and scalable architectures.",
+    "explanation": "选 D：AI POD 是面向多种 AI 工作负载阶段的集成基础设施，不只是计算服务器，也不是仅用于推理的设备。\nChoose D: an AI POD is an integrated infrastructure stack for multiple AI workload stages, not just compute hardware or an inference appliance.",
     "source": {
       "file": "CCNP DCAI.pdf",
       "page": 2
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "to enable AI lifecycle management through cloud-native software with hardware support limited to compute servers"
+        "text": "to enable AI lifecycle management through cloud-native software with hardware support limited to compute servers",
+        "translationZh": "通过云原生软件实现 AI 生命周期管理，但硬件支持仅限于计算服务器。"
       },
       {
         "key": "B",
-        "text": "to offer a flexible AI infrastructure focused on inferencing workloads with optional training capabilities"
+        "text": "to offer a flexible AI infrastructure focused on inferencing workloads with optional training capabilities",
+        "translationZh": "提供以推理工作负载为重点、训练能力为可选项的灵活 AI 基础设施。"
       },
       {
         "key": "C",
-        "text": "to deliver modular AI hardware components that can be integrated with third-party software platforms"
+        "text": "to deliver modular AI hardware components that can be integrated with third-party software platforms",
+        "translationZh": "提供可与第三方软件平台集成的模块化 AI 硬件组件。"
       },
       {
         "key": "D",
-        "text": "to provide a turnkey, full-stack infrastructure for AI training, fine-tuning, and inferencing"
+        "text": "to provide a turnkey, full-stack infrastructure for AI training, fine-tuning, and inferencing",
+        "translationZh": "为 AI 训练、微调和推理提供集成式的完整基础设施方案。"
       }
     ],
     "answer": [
@@ -33,43 +37,185 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "ccnp-dcai",
-      "outline": [
-        "PDF source: CCNP DCAI.pdf, page 2. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "Cisco AI PODs: architecture and use cases",
+          "url": "https://www.cisco.com/site/us/en/solutions/artificial-intelligence/infrastructure/ai-pods.html",
+          "supports": "The platform combines compute, networking, storage and software, and supports training, model refinement and inference."
+        }
       ],
-      "whyChoose": "Cisco AI PODs provide a prevalidated, integrated full-stack infrastructure platform for enterprise artificial intelligence. Cisco describes AI PODs as combining Cisco UCS compute, Cisco Nexus networking, accelerated GPUs, enterprise storage, management, orchestration, and supporting software into an architecture designed for the complete AI workload lifecycle. The supported workload spectrum explicitly includes model training, fine-tuning, and high-throughput inference. Option D therefore captures both the architectural scope and workload intent. The principal value of AI POD is that organizations do not need to independently design and validate every server, accelerator, network, storage, and software dependency. Cisco supplies validated designs and modular scale-unit architectures that accelerate deployment while retaining enterprise operational characteristics. Option A is too restrictive because AI POD is not merely cloud-native lifecycle software and its hardware scope extends far beyond compute. Option B incorrectly makes inferencing the primary focus; Cisco AI POD supports the complete AI lifecycle and can be purpose-built for training, inference, or mixed workloads. Option C understates the architecture by describing it merely as modular hardware components. Cisco explicitly characterizes AI POD as an integrated full-stack solution. Study Guide Reference: AI Infrastructure Components and Architecture — Cisco AI infrastructure solutions, compute, networking, storage, GPU acceleration, and scalable architectures.",
-      "whyNotChoose": []
+      "outline": [
+        "先看范围：题目问整个平台的用途，不是某个组件的功能。\nIdentify the scope: the question asks about the platform, not a single component.",
+        "同时寻找两个要点：集成基础设施，以及对训练、微调、推理的支持。\nLook for both integrated infrastructure and support for training, fine-tuning and inference.",
+        "排除缩小硬件范围、或遗漏集成软件栈的答案。\nEliminate answers that narrow the hardware scope or omit the integrated software stack."
+      ],
+      "whyChoose": "选 D：AI POD 是面向多种 AI 工作负载阶段的集成基础设施，不只是计算服务器，也不是仅用于推理的设备。\nChoose D: an AI POD is an integrated infrastructure stack for multiple AI workload stages, not just compute hardware or an inference appliance.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "to enable AI lifecycle management through cloud-native software with hardware support limited to compute servers",
+          "reason": "错误：仅限计算服务器这一条件排除了网络和数据平台。生命周期软件可以是方案的一部分，但不能代表整个 AI POD。\nIncorrect: the compute-only restriction excludes networking and data platforms. Lifecycle software can be part of the solution, but it does not define the whole AI POD."
+        },
+        {
+          "key": "B",
+          "text": "to offer a flexible AI infrastructure focused on inferencing workloads with optional training capabilities",
+          "reason": "作为总体描述不正确：它把推理作为定义性工作负载，把训练放在次要位置。该平台系列覆盖更广的 AI 生命周期。\nIncorrect as the general description: this makes inference the defining workload and treats training as secondary. The platform family supports a broader AI lifecycle."
+        },
+        {
+          "key": "C",
+          "text": "to deliver modular AI hardware components that can be integrated with third-party software platforms",
+          "reason": "描述不完整：模块化组件和合作伙伴软件确实相关，但关键价值在于把它们经过验证地集成为可部署的基础设施。\nIncomplete: modular components and partner software are relevant, but the value proposition is their validated integration into a working infrastructure stack."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "Cisco AI PODs provide a prevalidated, integrated full-stack infrastructure platform for enterprise artificial intelligence. Cisco describes AI PODs as combining Cisco UCS compute, Cisco Nexus networking, accelerated GPUs, enterprise storage, management, orchestration, and supporting software into an architecture designed for the complete AI workload lifecycle. The supported workload spectrum explicitly includes model training, fine-tuning, and high-throughput inference. Option D therefore captures both the architectural scope and workload intent. The principal value of AI POD is that organizations do not need to independently design and validate every server, accelerator, network, storage, and software dependency. Cisco supplies validated designs and modular scale-unit architectures that accelerate deployment while retaining enterprise operational characteristics. Option A is too restrictive because AI POD is not merely cloud-native lifecycle software and its hardware scope extends far beyond compute. Option B incorrectly makes inferencing the primary focus; Cisco AI POD supports the complete AI lifecycle and can be purpose-built for training, inference, or mixed workloads. Option C understates the architecture by describing it merely as modular hardware components. Cisco explicitly characterizes AI POD as an integrated full-stack solution. Study Guide Reference: AI Infrastructure Components and Architecture — Cisco AI infrastructure solutions, compute, networking, storage, GPU acceleration, and scalable architectures.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "What is a purpose of Cisco AI PODs?<span class=\"ai-stem-translation\" lang=\"zh-CN\">Cisco AI PODs 的一项主要用途是什么？</span>",
+      "keyPointHtml": "选 D：AI POD 是面向多种 AI 工作负载阶段的集成基础设施，不只是计算服务器，也不是仅用于<strong>推理</strong>的设备。<br><span lang=\"en\" class=\"ai-english\">Choose D: an AI POD is an integrated infrastructure stack for multiple AI workload stages, not just compute hardware or an <strong>inference</strong> appliance.</span>",
+      "speedTipHtml": "AI POD＝经过验证的<strong>完整技术栈</strong>＋AI 工作负载生命周期。<br><span lang=\"en\" class=\"ai-english\">AI POD = a validated stack + the AI workload lifecycle.</span>",
+      "studyNotesHtml": [
+        "模块化不等于只提供硬件。某个部署可以专门用于<strong>推理</strong>，但不能据此把整个产品系列的用途限制为<strong>推理</strong>。<br><span lang=\"en\" class=\"ai-english\">Modular does not mean hardware-only. A particular deployment may target <strong>inference</strong>, but that does not limit the purpose of the entire product family.</span>",
+        "先看范围：题目问整个平台的用途，不是某个组件的功能。<br><span lang=\"en\" class=\"ai-english\">Identify the scope: the question asks about the platform, not a single component.</span>",
+        "同时寻找两个要点：集成基础设施，以及对<strong>训练</strong>、<strong>微调</strong>、<strong>推理</strong>的支持。<br><span lang=\"en\" class=\"ai-english\">Look for both integrated infrastructure and support for <strong>training</strong>, <strong>fine-tuning</strong> and <strong>inference</strong>.</span>",
+        "排除缩小硬件范围、或遗漏集成软件栈的答案。<br><span lang=\"en\" class=\"ai-english\">Eliminate answers that narrow the hardware scope or omit the integrated software stack.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure Components and Architecture"
+        "ai-platform"
+      ],
+      "keywords": [
+        "full stack",
+        "完整技术栈",
+        "training",
+        "训练",
+        "fine-tuning",
+        "微调",
+        "inference",
+        "推理"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误：仅限计算服务器这一条件排除了网络和数据平台。生命周期软件可以是方案的一部分，但不能代表整个 AI POD。\nIncorrect: the compute-only restriction excludes networking and data platforms. Lifecycle software can be part of the solution, but it does not define the whole AI POD.",
+          "explanationHtml": "错误：仅限计算服务器这一条件排除了网络和数据平台。生命周期软件可以是方案的一部分，但不能代表整个 AI POD。<br><span lang=\"en\" class=\"ai-english\">Incorrect: the compute-only restriction excludes networking and data platforms. Lifecycle software can be part of the solution, but it does not define the whole AI POD.</span>"
         },
         {
           "key": "B",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "作为总体描述不正确：它把推理作为定义性工作负载，把训练放在次要位置。该平台系列覆盖更广的 AI 生命周期。\nIncorrect as the general description: this makes inference the defining workload and treats training as secondary. The platform family supports a broader AI lifecycle.",
+          "explanationHtml": "作为总体描述不正确：它把<strong>推理</strong>作为定义性工作负载，把<strong>训练</strong>放在次要位置。该平台系列覆盖更广的 AI 生命周期。<br><span lang=\"en\" class=\"ai-english\">Incorrect as the general description: this makes <strong>inference</strong> the defining workload and treats <strong>training</strong> as secondary. The platform family supports a broader AI lifecycle.</span>"
         },
         {
           "key": "C",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "描述不完整：模块化组件和合作伙伴软件确实相关，但关键价值在于把它们经过验证地集成为可部署的基础设施。\nIncomplete: modular components and partner software are relevant, but the value proposition is their validated integration into a working infrastructure stack.",
+          "explanationHtml": "描述不完整：模块化组件和合作伙伴软件确实相关，但关键价值在于把它们经过验证地集成为可部署的基础设施。<br><span lang=\"en\" class=\"ai-english\">Incomplete: modular components and partner software are relevant, but the value proposition is their validated integration into a working infrastructure stack.</span>"
         },
         {
           "key": "D",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "正确：同时覆盖集成技术栈和工作负载范围，是四个选项中最完整的描述；这不意味着部署完全不需要配置。\nCorrect: this covers both the integrated stack and its workload breadth. It is the best match among the four options, without implying zero deployment work.",
+          "explanationHtml": "正确：同时覆盖集成技术栈和工作负载范围，是四个选项中最完整的描述；这不意味着部署完全不需要配置。<br><span lang=\"en\" class=\"ai-english\">Correct: this covers both the integrated stack and its workload breadth. It is the best match among the four options, without implying zero deployment work.</span>"
         }
       ]
-    }
+    },
+    "originalAnswer": [
+      "D"
+    ],
+    "originalExplanation": "Cisco AI PODs provide a prevalidated, integrated full-stack infrastructure platform for enterprise artificial intelligence. Cisco describes AI PODs as combining Cisco UCS compute, Cisco Nexus networking, accelerated GPUs, enterprise storage, management, orchestration, and supporting software into an architecture designed for the complete AI workload lifecycle. The supported workload spectrum explicitly includes model training, fine-tuning, and high-throughput inference. Option D therefore captures both the architectural scope and workload intent. The principal value of AI POD is that organizations do not need to independently design and validate every server, accelerator, network, storage, and software dependency. Cisco supplies validated designs and modular scale-unit architectures that accelerate deployment while retaining enterprise operational characteristics. Option A is too restrictive because AI POD is not merely cloud-native lifecycle software and its hardware scope extends far beyond compute. Option B incorrectly makes inferencing the primary focus; Cisco AI POD supports the complete AI lifecycle and can be purpose-built for training, inference, or mixed workloads. Option C understates the architecture by describing it merely as modular hardware components. Cisco explicitly characterizes AI POD as an integrated full-stack solution. Study Guide Reference: AI Infrastructure Components and Architecture — Cisco AI infrastructure solutions, compute, networking, storage, GPU acceleration, and scalable architectures.",
+    "aiStudy": {
+      "id": 1,
+      "module": "ai-platform",
+      "answer": [
+        "D"
+      ],
+      "stemZh": "Cisco AI PODs 的一项主要用途是什么？",
+      "sources": [
+        {
+          "title": "Cisco AI PODs: architecture and use cases",
+          "url": "https://www.cisco.com/site/us/en/solutions/artificial-intelligence/infrastructure/ai-pods.html",
+          "supports": "The platform combines compute, networking, storage and software, and supports training, model refinement and inference."
+        }
+      ],
+      "reviewNote": "Retained D. The vendor describes a prevalidated, modular full stack. Turnkey should mean an integrated deployment architecture, not a guarantee that every model runs without configuration.",
+      "summary": {
+        "en": "Choose D: an AI POD is an integrated infrastructure stack for multiple AI workload stages, not just compute hardware or an inference appliance.",
+        "zh": "选 D：AI POD 是面向多种 AI 工作负载阶段的集成基础设施，不只是计算服务器，也不是仅用于推理的设备。"
+      },
+      "memory": {
+        "en": "AI POD = a validated stack + the AI workload lifecycle.",
+        "zh": "AI POD＝经过验证的完整技术栈＋AI 工作负载生命周期。"
+      },
+      "pitfall": {
+        "en": "Modular does not mean hardware-only. A particular deployment may target inference, but that does not limit the purpose of the entire product family.",
+        "zh": "模块化不等于只提供硬件。某个部署可以专门用于推理，但不能据此把整个产品系列的用途限制为推理。"
+      },
+      "steps": [
+        {
+          "en": "Identify the scope: the question asks about the platform, not a single component.",
+          "zh": "先看范围：题目问整个平台的用途，不是某个组件的功能。"
+        },
+        {
+          "en": "Look for both integrated infrastructure and support for training, fine-tuning and inference.",
+          "zh": "同时寻找两个要点：集成基础设施，以及对训练、微调、推理的支持。"
+        },
+        {
+          "en": "Eliminate answers that narrow the hardware scope or omit the integrated software stack.",
+          "zh": "排除缩小硬件范围、或遗漏集成软件栈的答案。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "full stack",
+          "zh": "完整技术栈"
+        },
+        {
+          "en": "training",
+          "zh": "训练"
+        },
+        {
+          "en": "fine-tuning",
+          "zh": "微调"
+        },
+        {
+          "en": "inference",
+          "zh": "推理"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "通过云原生软件实现 AI 生命周期管理，但硬件支持仅限于计算服务器。",
+          "reason": {
+            "en": "Incorrect: the compute-only restriction excludes networking and data platforms. Lifecycle software can be part of the solution, but it does not define the whole AI POD.",
+            "zh": "错误：仅限计算服务器这一条件排除了网络和数据平台。生命周期软件可以是方案的一部分，但不能代表整个 AI POD。"
+          }
+        },
+        "B": {
+          "zh": "提供以推理工作负载为重点、训练能力为可选项的灵活 AI 基础设施。",
+          "reason": {
+            "en": "Incorrect as the general description: this makes inference the defining workload and treats training as secondary. The platform family supports a broader AI lifecycle.",
+            "zh": "作为总体描述不正确：它把推理作为定义性工作负载，把训练放在次要位置。该平台系列覆盖更广的 AI 生命周期。"
+          }
+        },
+        "C": {
+          "zh": "提供可与第三方软件平台集成的模块化 AI 硬件组件。",
+          "reason": {
+            "en": "Incomplete: modular components and partner software are relevant, but the value proposition is their validated integration into a working infrastructure stack.",
+            "zh": "描述不完整：模块化组件和合作伙伴软件确实相关，但关键价值在于把它们经过验证地集成为可部署的基础设施。"
+          }
+        },
+        "D": {
+          "zh": "为 AI 训练、微调和推理提供集成式的完整基础设施方案。",
+          "reason": {
+            "en": "Correct: this covers both the integrated stack and its workload breadth. It is the best match among the four options, without implying zero deployment work.",
+            "zh": "正确：同时覆盖集成技术栈和工作负载范围，是四个选项中最完整的描述；这不意味着部署完全不需要配置。"
+          }
+        }
+      },
+      "bankId": "ccnpDcai",
+      "reviewedAt": "2026-10-30"
+    },
+    "originalAnswerSource": "provided-pdf"
   },
   {
     "id": 2,
@@ -363,29 +509,33 @@
     "id": 7,
     "topic": "AI Infrastructure Operations and Troubleshooting",
     "stem": "A customer deploys a UCS 885a server in a data center with two power grids. Three of the 3000W power supplies in the server connect to each grid. Due to an external event, one of the grids will be shut down for maintenance. How does the server respond to this event?",
-    "explanation": "The Cisco UCS C885A M8 contains six 3000-W 54-V AC power supplies and normally supports an N+2 power configuration . In the scenario, three PSUs are connected to each independent power grid. Losing one complete grid therefore leaves only three operational 54-V PSUs. Cisco's installation and service documentation specifies the resulting behavior precisely: when only three 54- V AC PSUs remain available, the server continues operating but enters a reduced-performance condition in which power to each GPU is capped at 60 percent . Cisco further states that four or more 54-V power supplies allow operation at full performance. Consequently, the system does not immediately shut down, eliminating option A. A graceful operating-system shutdown is also not automatically initiated, eliminating D. Option C is incorrect because three active supplies are insufficient for full-performance operation on this platform. This behavior allows the server to remain available during a significant power-domain failure while keeping its consumption within the capacity of the remaining PSUs. The operational tradeoff is reduced accelerator performance until adequate power redundancy is restored. Study Guide Reference: AI Infrastructure Operations and Troubleshooting — UCS C885A M8 power redundancy, degraded operation, GPU power management, and availability.",
+    "explanation": "选 B：失去连接三个电源的供电支路后，还剩三个 GPU 电源，服务器继续运行，但 GPU 功率限制为 60%。\nChoose B: losing one three-PSU feed leaves three GPU PSUs, so the server remains running with GPU power capped at 60%.",
     "source": {
       "file": "CCNP DCAI.pdf",
       "page": 8
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "The server immediately shuts down and stops all operations."
+        "text": "The server immediately shuts down and stops all operations.",
+        "translationZh": "服务器立即关机并停止所有操作。"
       },
       {
         "key": "B",
-        "text": "The server operates with reduced performance and caps power to GPUs at 60%."
+        "text": "The server operates with reduced performance and caps power to GPUs at 60%.",
+        "translationZh": "服务器以较低性能运行，并把 GPU 功率限制为 60%。"
       },
       {
         "key": "C",
-        "text": "The server continues to operate at full performance using redundant power supplies, but the PSU status LED glows solid amber."
+        "text": "The server continues to operate at full performance using redundant power supplies, but the PSU status LED glows solid amber.",
+        "translationZh": "服务器利用冗余电源继续保持完整性能，但 PSU 状态灯常亮琥珀色。"
       },
       {
         "key": "D",
-        "text": "The server initiates a graceful shut down of the operating system."
+        "text": "The server initiates a graceful shut down of the operating system.",
+        "translationZh": "服务器启动操作系统的正常关机流程。"
       }
     ],
     "answer": [
@@ -393,43 +543,179 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "ccnp-dcai",
-      "outline": [
-        "PDF source: CCNP DCAI.pdf, page 8. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "Cisco UCS C885A M8 installation guide: redundant PSU operation",
+          "url": "https://www.cisco.com/c/en/us/td/docs/unified_computing/ucs/c/hw/c885A/install/b_c885a-m8-server-hig/m_overview.html",
+          "supports": "The 3000 W units are 54 V PSUs. Three available units imply a 60% GPU power cap; four or more support full performance. Full grid redundancy is not supported."
+        }
       ],
-      "whyChoose": "The Cisco UCS C885A M8 contains six 3000-W 54-V AC power supplies and normally supports an N+2 power configuration . In the scenario, three PSUs are connected to each independent power grid. Losing one complete grid therefore leaves only three operational 54-V PSUs. Cisco's installation and service documentation specifies the resulting behavior precisely: when only three 54- V AC PSUs remain available, the server continues operating but enters a reduced-performance condition in which power to each GPU is capped at 60 percent . Cisco further states that four or more 54-V power supplies allow operation at full performance. Consequently, the system does not immediately shut down, eliminating option A. A graceful operating-system shutdown is also not automatically initiated, eliminating D. Option C is incorrect because three active supplies are insufficient for full-performance operation on this platform. This behavior allows the server to remain available during a significant power-domain failure while keeping its consumption within the capacity of the remaining PSUs. The operational tradeoff is reduced accelerator performance until adequate power redundancy is restored. Study Guide Reference: AI Infrastructure Operations and Troubleshooting — UCS C885A M8 power redundancy, degraded operation, GPU power management, and availability.",
-      "whyNotChoose": []
+      "outline": [
+        "先数仍可供电的 GPU 电源：六个减去三个，剩三个。\nCount surviving GPU supplies: six minus three leaves three.",
+        "再应用该型号的降功率运行规则。\nApply the model-specific reduced-power behavior.",
+        "排除关机以及保持完整性能的说法。\nReject shutdown and full-performance claims."
+      ],
+      "whyChoose": "选 B：失去连接三个电源的供电支路后，还剩三个 GPU 电源，服务器继续运行，但 GPU 功率限制为 60%。\nChoose B: losing one three-PSU feed leaves three GPU PSUs, so the server remains running with GPU power capped at 60%.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "The server immediately shuts down and stops all operations.",
+          "reason": "错误：剩余电源能够支持降功率运行，此场景并非立即关机。\nIncorrect: the surviving supplies support reduced-power operation; immediate shutdown is not the stated response."
+        },
+        {
+          "key": "C",
+          "text": "The server continues to operate at full performance using redundant power supplies, but the PSU status LED glows solid amber.",
+          "reason": "错误：完整性能这一核心前提已经不成立，附加的指示灯描述不能使该选项正确。\nIncorrect: the full-performance claim fails before the LED detail matters."
+        },
+        {
+          "key": "D",
+          "text": "The server initiates a graceful shut down of the operating system.",
+          "reason": "错误：此事件对应功率限制，而不是发起操作系统关机流程。\nIncorrect: this event calls for power limiting, not an operating-system shutdown."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "The Cisco UCS C885A M8 contains six 3000-W 54-V AC power supplies and normally supports an N+2 power configuration . In the scenario, three PSUs are connected to each independent power grid. Losing one complete grid therefore leaves only three operational 54-V PSUs. Cisco&#x27;s installation and service documentation specifies the resulting behavior precisely: when only three 54- V AC PSUs remain available, the server continues operating but enters a reduced-performance condition in which power to each GPU is capped at 60 percent . Cisco further states that four or more 54-V power supplies allow operation at full performance. Consequently, the system does not immediately shut down, eliminating option A. A graceful operating-system shutdown is also not automatically initiated, eliminating D. Option C is incorrect because three active supplies are insufficient for full-performance operation on this platform. This behavior allows the server to remain available during a significant power-domain failure while keeping its consumption within the capacity of the remaining PSUs. The operational tradeoff is reduced accelerator performance until adequate power redundancy is restored. Study Guide Reference: AI Infrastructure Operations and Troubleshooting — UCS C885A M8 power redundancy, degraded operation, GPU power management, and availability.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "A customer deploys a UCS 885a server in a data center with two power grids. Three of the 3000W power supplies in the server connect to each grid. Due to an external event, one of the grids will be shut down for maintenance. How does the server respond to this event?<span class=\"ai-stem-translation\" lang=\"zh-CN\">客户在具有两路供电的数据中心部署一台 UCS C885A 服务器。六个 3000 W 电源中，每路供电连接三个。其中一路因维护断电时，服务器会如何响应？</span>",
+      "keyPointHtml": "选 B：失去连接三个电源的供电支路后，还剩三个 GPU 电源，服务器继续运行，但 GPU <strong>功率限制</strong>为 60%。<br><span lang=\"en\" class=\"ai-english\">Choose B: losing one three-<strong>PSU</strong> feed leaves three GPU <strong>PSU</strong>s, so the server remains running with GPU power capped at 60%.</span>",
+      "speedTipHtml": "三个 GPU 电源：限功率运行；四个及以上：完整性能。<br><span lang=\"en\" class=\"ai-english\">Three GPU <strong>PSU</strong>s: capped operation. Four or more: full performance.</span>",
+      "studyNotesHtml": [
+        "60% 功率上限不等于吞吐量必定是原来的 60%。<strong>电源模块</strong>冗余与完整的<strong>供电支路冗余</strong>不是同一概念。<br><span lang=\"en\" class=\"ai-english\">A 60% power cap is not a promise of exactly 60% throughput. <strong>PSU</strong> redundancy and full <strong>grid redundancy</strong> are different.</span>",
+        "先数仍可供电的 GPU 电源：六个减去三个，剩三个。<br><span lang=\"en\" class=\"ai-english\">Count surviving GPU supplies: six minus three leaves three.</span>",
+        "再应用该型号的降功率运行规则。<br><span lang=\"en\" class=\"ai-english\">Apply the model-specific reduced-power behavior.</span>",
+        "排除关机以及保持完整性能的说法。<br><span lang=\"en\" class=\"ai-english\">Reject shutdown and full-performance claims.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure Operations and Troubleshooting"
+        "power-cooling"
+      ],
+      "keywords": [
+        "PSU",
+        "电源模块",
+        "power capping",
+        "功率限制",
+        "grid redundancy",
+        "供电支路冗余"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误：剩余电源能够支持降功率运行，此场景并非立即关机。\nIncorrect: the surviving supplies support reduced-power operation; immediate shutdown is not the stated response.",
+          "explanationHtml": "错误：剩余电源能够支持降功率运行，此场景并非立即关机。<br><span lang=\"en\" class=\"ai-english\">Incorrect: the surviving supplies support reduced-power operation; immediate shutdown is not the stated response.</span>"
         },
         {
           "key": "B",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "正确：剩余三个 GPU 电源，对应该型号文档规定的限功率状态。\nCorrect: three surviving GPU supplies trigger the documented power cap.",
+          "explanationHtml": "正确：剩余三个 GPU 电源，对应该型号文档规定的限功率状态。<br><span lang=\"en\" class=\"ai-english\">Correct: three surviving GPU supplies trigger the documented power cap.</span>"
         },
         {
           "key": "C",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误：完整性能这一核心前提已经不成立，附加的指示灯描述不能使该选项正确。\nIncorrect: the full-performance claim fails before the LED detail matters.",
+          "explanationHtml": "错误：完整性能这一核心前提已经不成立，附加的指示灯描述不能使该选项正确。<br><span lang=\"en\" class=\"ai-english\">Incorrect: the full-performance claim fails before the LED detail matters.</span>"
         },
         {
           "key": "D",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误：此事件对应功率限制，而不是发起操作系统关机流程。\nIncorrect: this event calls for power limiting, not an operating-system shutdown.",
+          "explanationHtml": "错误：此事件对应<strong>功率限制</strong>，而不是发起操作系统关机流程。<br><span lang=\"en\" class=\"ai-english\">Incorrect: this event calls for power limiting, not an operating-system shutdown.</span>"
         }
       ]
-    }
+    },
+    "originalAnswer": [
+      "B"
+    ],
+    "originalExplanation": "The Cisco UCS C885A M8 contains six 3000-W 54-V AC power supplies and normally supports an N+2 power configuration . In the scenario, three PSUs are connected to each independent power grid. Losing one complete grid therefore leaves only three operational 54-V PSUs. Cisco's installation and service documentation specifies the resulting behavior precisely: when only three 54- V AC PSUs remain available, the server continues operating but enters a reduced-performance condition in which power to each GPU is capped at 60 percent . Cisco further states that four or more 54-V power supplies allow operation at full performance. Consequently, the system does not immediately shut down, eliminating option A. A graceful operating-system shutdown is also not automatically initiated, eliminating D. Option C is incorrect because three active supplies are insufficient for full-performance operation on this platform. This behavior allows the server to remain available during a significant power-domain failure while keeping its consumption within the capacity of the remaining PSUs. The operational tradeoff is reduced accelerator performance until adequate power redundancy is restored. Study Guide Reference: AI Infrastructure Operations and Troubleshooting — UCS C885A M8 power redundancy, degraded operation, GPU power management, and availability.",
+    "aiStudy": {
+      "id": 7,
+      "module": "power-cooling",
+      "answer": [
+        "B"
+      ],
+      "stemZh": "客户在具有两路供电的数据中心部署一台 UCS C885A 服务器。六个 3000 W 电源中，每路供电连接三个。其中一路因维护断电时，服务器会如何响应？",
+      "sources": [
+        {
+          "title": "Cisco UCS C885A M8 installation guide: redundant PSU operation",
+          "url": "https://www.cisco.com/c/en/us/td/docs/unified_computing/ucs/c/hw/c885A/install/b_c885a-m8-server-hig/m_overview.html",
+          "supports": "The 3000 W units are 54 V PSUs. Three available units imply a 60% GPU power cap; four or more support full performance. Full grid redundancy is not supported."
+        }
+      ],
+      "reviewNote": "Retained B. Interpret the abbreviated UCS 885a name as C885A M8 and the six 3000 W supplies as the 54 V GPU supplies, not the separate 12 V CPU supplies. The answer assumes the remaining supply path and CPU tray stay powered.",
+      "summary": {
+        "en": "Choose B: losing one three-PSU feed leaves three GPU PSUs, so the server remains running with GPU power capped at 60%.",
+        "zh": "选 B：失去连接三个电源的供电支路后，还剩三个 GPU 电源，服务器继续运行，但 GPU 功率限制为 60%。"
+      },
+      "memory": {
+        "en": "Three GPU PSUs: capped operation. Four or more: full performance.",
+        "zh": "三个 GPU 电源：限功率运行；四个及以上：完整性能。"
+      },
+      "pitfall": {
+        "en": "A 60% power cap is not a promise of exactly 60% throughput. PSU redundancy and full grid redundancy are different.",
+        "zh": "60% 功率上限不等于吞吐量必定是原来的 60%。电源模块冗余与完整的供电支路冗余不是同一概念。"
+      },
+      "steps": [
+        {
+          "en": "Count surviving GPU supplies: six minus three leaves three.",
+          "zh": "先数仍可供电的 GPU 电源：六个减去三个，剩三个。"
+        },
+        {
+          "en": "Apply the model-specific reduced-power behavior.",
+          "zh": "再应用该型号的降功率运行规则。"
+        },
+        {
+          "en": "Reject shutdown and full-performance claims.",
+          "zh": "排除关机以及保持完整性能的说法。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "PSU",
+          "zh": "电源模块"
+        },
+        {
+          "en": "power capping",
+          "zh": "功率限制"
+        },
+        {
+          "en": "grid redundancy",
+          "zh": "供电支路冗余"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "服务器立即关机并停止所有操作。",
+          "reason": {
+            "en": "Incorrect: the surviving supplies support reduced-power operation; immediate shutdown is not the stated response.",
+            "zh": "错误：剩余电源能够支持降功率运行，此场景并非立即关机。"
+          }
+        },
+        "B": {
+          "zh": "服务器以较低性能运行，并把 GPU 功率限制为 60%。",
+          "reason": {
+            "en": "Correct: three surviving GPU supplies trigger the documented power cap.",
+            "zh": "正确：剩余三个 GPU 电源，对应该型号文档规定的限功率状态。"
+          }
+        },
+        "C": {
+          "zh": "服务器利用冗余电源继续保持完整性能，但 PSU 状态灯常亮琥珀色。",
+          "reason": {
+            "en": "Incorrect: the full-performance claim fails before the LED detail matters.",
+            "zh": "错误：完整性能这一核心前提已经不成立，附加的指示灯描述不能使该选项正确。"
+          }
+        },
+        "D": {
+          "zh": "服务器启动操作系统的正常关机流程。",
+          "reason": {
+            "en": "Incorrect: this event calls for power limiting, not an operating-system shutdown.",
+            "zh": "错误：此事件对应功率限制，而不是发起操作系统关机流程。"
+          }
+        }
+      },
+      "bankId": "ccnpDcai",
+      "reviewedAt": "2026-10-30"
+    },
+    "originalAnswerSource": "provided-pdf"
   },
   {
     "id": 8,
@@ -795,29 +1081,33 @@
     "id": 14,
     "topic": "AI Infrastructure Operations and Troubleshooting",
     "stem": "Server administrators receive reports of power utilization being near capacity across multiple UCS X-Series servers in the data center after a hardware upgrade. The chassis operates with six power supply units in redundant power mode. How can the administrator use additional power without impacting redundancy?",
-    "explanation": "Extended Power Capacity is specifically designed to increase usable power in a Cisco UCS X-Series chassis while the chassis remains configured in a redundant power mode. Cisco states that enabling Extended Power Capacity permits the chassis to borrow power capacity from the supplies reserved for redundancy, thereby increasing the total power that can be allocated to workloads. Cisco provides a six-PSU example in Grid redundancy mode. Without Extended Power Capacity, the workload is capped at 8,400 W. Enabling the feature increases the available workload capacity to approximately 9,660 W—an increase of 15 percent—while retaining the configured redundant power mode. Power capping in option A would restrict consumption rather than make additional power available. Adding more PSUs is impossible when the chassis already contains its supported complement of six supplies. Disabling Extended Power Capacity would reduce rather than increase the available power envelope. This feature is particularly useful after installing additional accelerator, PCIe, memory, or compute resources that raise chassis power demand. It should nevertheless be applied within the data center's electrical and thermal design limits. Study Guide Reference: AI Infrastructure Operations and Troubleshooting — UCS X-Series chassis power policy, redundancy, Extended Power Capacity, and capacity management.",
+    "explanation": "选 B：Extended Power Capacity 在保留受支持的冗余模式时提高功率预算，但并不保证供电支路故障后性能完全不变。\nChoose B: Extended Power Capacity increases the power budget while keeping a supported redundant mode. It does not guarantee unchanged performance after a supply-grid failure.",
     "source": {
       "file": "CCNP DCAI.pdf",
       "page": 15
     },
-    "answerSource": "provided-pdf",
+    "answerSource": "primary-reference-review",
     "images": [],
     "options": [
       {
         "key": "A",
-        "text": "Implement a power capping policy."
+        "text": "Implement a power capping policy.",
+        "translationZh": "实施功率封顶策略。"
       },
       {
         "key": "B",
-        "text": "Enable extended power capacity."
+        "text": "Enable extended power capacity.",
+        "translationZh": "启用扩展功率容量。"
       },
       {
         "key": "C",
-        "text": "Add more power supplies."
+        "text": "Add more power supplies.",
+        "translationZh": "增加更多电源模块。"
       },
       {
         "key": "D",
-        "text": "Disable extended power capacity."
+        "text": "Disable extended power capacity.",
+        "translationZh": "禁用扩展功率容量。"
       }
     ],
     "answer": [
@@ -825,43 +1115,179 @@
     ],
     "type": "single",
     "analysis": {
-      "source": "ccnp-dcai",
-      "outline": [
-        "PDF source: CCNP DCAI.pdf, page 15. Answers are supplied by the PDF, not independently verified."
+      "source": "ai-reviewed",
+      "sources": [
+        {
+          "title": "Configure Power Policy on UCS X9508 Chassis",
+          "url": "https://www.cisco.com/c/en/us/support/docs/servers-unified-computing/unified-computing-system/223066-configure-power-policy-on-ucs-x9508.html",
+          "supports": "Extended Power Capacity adds 15% allocation in redundant modes. The documented six-PSU grid example increases 8400 W to 9660 W; an extended-range workload may throttle after a grid loss."
+        }
       ],
-      "whyChoose": "Extended Power Capacity is specifically designed to increase usable power in a Cisco UCS X-Series chassis while the chassis remains configured in a redundant power mode. Cisco states that enabling Extended Power Capacity permits the chassis to borrow power capacity from the supplies reserved for redundancy, thereby increasing the total power that can be allocated to workloads. Cisco provides a six-PSU example in Grid redundancy mode. Without Extended Power Capacity, the workload is capped at 8,400 W. Enabling the feature increases the available workload capacity to approximately 9,660 W—an increase of 15 percent—while retaining the configured redundant power mode. Power capping in option A would restrict consumption rather than make additional power available. Adding more PSUs is impossible when the chassis already contains its supported complement of six supplies. Disabling Extended Power Capacity would reduce rather than increase the available power envelope. This feature is particularly useful after installing additional accelerator, PCIe, memory, or compute resources that raise chassis power demand. It should nevertheless be applied within the data center's electrical and thermal design limits. Study Guide Reference: AI Infrastructure Operations and Troubleshooting — UCS X-Series chassis power policy, redundancy, Extended Power Capacity, and capacity management.",
-      "whyNotChoose": []
+      "outline": [
+        "机箱已经有六个电源，继续增加电源不是可用的解决办法。\nThe chassis already has six supplies, so adding more is not the available remedy.",
+        "启用在冗余模式下提高可分配功率的功能，而不是用功率封顶来降低需求。\nEnable the feature that raises allocation in a redundant mode, rather than lowering demand with a cap.",
+        "另外检查故障工况余量：文档示例中预算提高 15%，从 8400 W 增至 9660 W。\nCheck failure-mode headroom separately: the documented budget rises 15%, from 8400 W to 9660 W in the example."
+      ],
+      "whyChoose": "选 B：Extended Power Capacity 在保留受支持的冗余模式时提高功率预算，但并不保证供电支路故障后性能完全不变。\nChoose B: Extended Power Capacity increases the power budget while keeping a supported redundant mode. It does not guarantee unchanged performance after a supply-grid failure.",
+      "whyNotChoose": [
+        {
+          "key": "A",
+          "text": "Implement a power capping policy.",
+          "reason": "错误：功率封顶限制功耗，可帮助系统不超出现有预算，但不能增加可用功率容量。\nIncorrect: a cap limits consumption. It can help stay within an existing budget but does not create additional usable capacity."
+        },
+        {
+          "key": "C",
+          "text": "Add more power supplies.",
+          "reason": "错误：本题对应的 X9508 机箱已经安装六个电源，达到其支持的电源数量上限。\nIncorrect: the six installed supplies already occupy the supported PSU capacity of the X9508 chassis described here."
+        },
+        {
+          "key": "D",
+          "text": "Disable extended power capacity.",
+          "reason": "错误：禁用该功能会移除额外的功率额度，与题目要求的增加可用功率相反。\nIncorrect: disabling the feature removes the extra allocation, which is the opposite of the requested change."
+        }
+      ]
     },
     "learning": {
-      "keyPointHtml": "Extended Power Capacity is specifically designed to increase usable power in a Cisco UCS X-Series chassis while the chassis remains configured in a redundant power mode. Cisco states that enabling Extended Power Capacity permits the chassis to borrow power capacity from the supplies reserved for redundancy, thereby increasing the total power that can be allocated to workloads. Cisco provides a six-PSU example in Grid redundancy mode. Without Extended Power Capacity, the workload is capped at 8,400 W. Enabling the feature increases the available workload capacity to approximately 9,660 W—an increase of 15 percent—while retaining the configured redundant power mode. Power capping in option A would restrict consumption rather than make additional power available. Adding more PSUs is impossible when the chassis already contains its supported complement of six supplies. Disabling Extended Power Capacity would reduce rather than increase the available power envelope. This feature is particularly useful after installing additional accelerator, PCIe, memory, or compute resources that raise chassis power demand. It should nevertheless be applied within the data center&#x27;s electrical and thermal design limits. Study Guide Reference: AI Infrastructure Operations and Troubleshooting — UCS X-Series chassis power policy, redundancy, Extended Power Capacity, and capacity management.",
-      "speedTipHtml": "按提供的 PDF 答案判分；解析为原文，未独立核验。",
-      "studyNotesHtml": [],
+      "stemHtml": "Server administrators receive reports of power utilization being near capacity across multiple UCS X-Series servers in the data center after a hardware upgrade. The chassis operates with six power supply units in redundant power mode. How can the administrator use additional power without impacting redundancy?<span class=\"ai-stem-translation\" lang=\"zh-CN\">硬件升级后，多台 UCS X-Series 服务器的功率使用接近上限。机箱安装六个电源并采用冗余模式。管理员如何在保持该冗余模式的情况下提高可分配功率？</span>",
+      "keyPointHtml": "选 B：<strong>Extended Power Capacity</strong> 在保留受支持的冗余模式时提高<strong>功率预算</strong>，但并不保证供电支路故障后性能完全不变。<br><span lang=\"en\" class=\"ai-english\">Choose B: <strong>Extended Power Capacity</strong> increases the <strong>power budget</strong> while keeping a supported redundant mode. It does not guarantee unchanged performance after a supply-grid failure.</span>",
+      "speedTipHtml": "扩展容量增加预算；功率封顶限制预算。<br><span lang=\"en\" class=\"ai-english\">Extended capacity adds budget; capping restricts it.</span>",
+      "studyNotesHtml": [
+        "保留冗余配置不等于故障切换后仍保持满性能。在扩展功率区间的高负载下，失去一路供电可能触发 <strong>E-brake</strong> 限速。<br><span lang=\"en\" class=\"ai-english\">Redundant configuration is not the same as full-performance failover. At high extended-range load, losing a grid can trigger <strong>E-brake</strong> throttling.</span>",
+        "机箱已经有六个电源，继续增加电源不是可用的解决办法。<br><span lang=\"en\" class=\"ai-english\">The chassis already has six supplies, so adding more is not the available remedy.</span>",
+        "启用在冗余模式下提高可分配功率的功能，而不是用功率封顶来降低需求。<br><span lang=\"en\" class=\"ai-english\">Enable the feature that raises allocation in a redundant mode, rather than lowering demand with a cap.</span>",
+        "另外检查故障工况余量：文档示例中预算提高 15%，从 8400 W 增至 9660 W。<br><span lang=\"en\" class=\"ai-english\">Check failure-mode headroom separately: the documented budget rises 15%, from 8400 W to 9660 W in the example.</span>"
+      ],
       "studyTags": [
-        "AI Infrastructure Operations and Troubleshooting"
+        "power-cooling"
+      ],
+      "keywords": [
+        "Extended Power Capacity",
+        "扩展功率容量",
+        "power budget",
+        "功率预算",
+        "E-brake",
+        "紧急功率限制机制"
       ],
       "options": [
         {
           "key": "A",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误：功率封顶限制功耗，可帮助系统不超出现有预算，但不能增加可用功率容量。\nIncorrect: a cap limits consumption. It can help stay within an existing budget but does not create additional usable capacity.",
+          "explanationHtml": "错误：功率封顶限制功耗，可帮助系统不超出现有预算，但不能增加可用功率容量。<br><span lang=\"en\" class=\"ai-english\">Incorrect: a cap limits consumption. It can help stay within an existing budget but does not create additional usable capacity.</span>"
         },
         {
           "key": "B",
           "isCorrect": true,
-          "explanation": "PDF 标注的正确选项。 具体理由见上方原文解析。"
+          "explanation": "正确：这是在冗余模式下提高分配额度的策略功能；但仍须注意，供电支路故障可能降低可用性能。\nCorrect: this is the policy feature that raises allocation in redundant modes. Retain the caveat that a grid failure can still reduce available performance.",
+          "explanationHtml": "正确：这是在冗余模式下提高分配额度的策略功能；但仍须注意，供电支路故障可能降低可用性能。<br><span lang=\"en\" class=\"ai-english\">Correct: this is the policy feature that raises allocation in redundant modes. Retain the caveat that a grid failure can still reduce available performance.</span>"
         },
         {
           "key": "C",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误：本题对应的 X9508 机箱已经安装六个电源，达到其支持的电源数量上限。\nIncorrect: the six installed supplies already occupy the supported PSU capacity of the X9508 chassis described here.",
+          "explanationHtml": "错误：本题对应的 X9508 机箱已经安装六个电源，达到其支持的电源数量上限。<br><span lang=\"en\" class=\"ai-english\">Incorrect: the six installed supplies already occupy the supported PSU capacity of the X9508 chassis described here.</span>"
         },
         {
           "key": "D",
           "isCorrect": false,
-          "explanation": "PDF 未将此项列为答案。 具体理由见上方原文解析。"
+          "explanation": "错误：禁用该功能会移除额外的功率额度，与题目要求的增加可用功率相反。\nIncorrect: disabling the feature removes the extra allocation, which is the opposite of the requested change.",
+          "explanationHtml": "错误：禁用该功能会移除额外的功率额度，与题目要求的增加可用功率相反。<br><span lang=\"en\" class=\"ai-english\">Incorrect: disabling the feature removes the extra allocation, which is the opposite of the requested change.</span>"
         }
       ]
-    }
+    },
+    "originalAnswer": [
+      "B"
+    ],
+    "originalExplanation": "Extended Power Capacity is specifically designed to increase usable power in a Cisco UCS X-Series chassis while the chassis remains configured in a redundant power mode. Cisco states that enabling Extended Power Capacity permits the chassis to borrow power capacity from the supplies reserved for redundancy, thereby increasing the total power that can be allocated to workloads. Cisco provides a six-PSU example in Grid redundancy mode. Without Extended Power Capacity, the workload is capped at 8,400 W. Enabling the feature increases the available workload capacity to approximately 9,660 W—an increase of 15 percent—while retaining the configured redundant power mode. Power capping in option A would restrict consumption rather than make additional power available. Adding more PSUs is impossible when the chassis already contains its supported complement of six supplies. Disabling Extended Power Capacity would reduce rather than increase the available power envelope. This feature is particularly useful after installing additional accelerator, PCIe, memory, or compute resources that raise chassis power demand. It should nevertheless be applied within the data center's electrical and thermal design limits. Study Guide Reference: AI Infrastructure Operations and Troubleshooting — UCS X-Series chassis power policy, redundancy, Extended Power Capacity, and capacity management.",
+    "aiStudy": {
+      "id": 14,
+      "module": "power-cooling",
+      "answer": [
+        "B"
+      ],
+      "stemZh": "硬件升级后，多台 UCS X-Series 服务器的功率使用接近上限。机箱安装六个电源并采用冗余模式。管理员如何在保持该冗余模式的情况下提高可分配功率？",
+      "sources": [
+        {
+          "title": "Configure Power Policy on UCS X9508 Chassis",
+          "url": "https://www.cisco.com/c/en/us/support/docs/servers-unified-computing/unified-computing-system/223066-configure-power-policy-on-ucs-x9508.html",
+          "supports": "Extended Power Capacity adds 15% allocation in redundant modes. The documented six-PSU grid example increases 8400 W to 9660 W; an extended-range workload may throttle after a grid loss."
+        }
+      ],
+      "reviewNote": "Retained B, but qualified the source wording “without impacting redundancy”. The configured redundancy mode is retained; uninterrupted full performance after losing a grid is not guaranteed. The Chinese wording makes this distinction explicit.",
+      "summary": {
+        "en": "Choose B: Extended Power Capacity increases the power budget while keeping a supported redundant mode. It does not guarantee unchanged performance after a supply-grid failure.",
+        "zh": "选 B：Extended Power Capacity 在保留受支持的冗余模式时提高功率预算，但并不保证供电支路故障后性能完全不变。"
+      },
+      "memory": {
+        "en": "Extended capacity adds budget; capping restricts it.",
+        "zh": "扩展容量增加预算；功率封顶限制预算。"
+      },
+      "pitfall": {
+        "en": "Redundant configuration is not the same as full-performance failover. At high extended-range load, losing a grid can trigger E-brake throttling.",
+        "zh": "保留冗余配置不等于故障切换后仍保持满性能。在扩展功率区间的高负载下，失去一路供电可能触发 E-brake 限速。"
+      },
+      "steps": [
+        {
+          "en": "The chassis already has six supplies, so adding more is not the available remedy.",
+          "zh": "机箱已经有六个电源，继续增加电源不是可用的解决办法。"
+        },
+        {
+          "en": "Enable the feature that raises allocation in a redundant mode, rather than lowering demand with a cap.",
+          "zh": "启用在冗余模式下提高可分配功率的功能，而不是用功率封顶来降低需求。"
+        },
+        {
+          "en": "Check failure-mode headroom separately: the documented budget rises 15%, from 8400 W to 9660 W in the example.",
+          "zh": "另外检查故障工况余量：文档示例中预算提高 15%，从 8400 W 增至 9660 W。"
+        }
+      ],
+      "terms": [
+        {
+          "en": "Extended Power Capacity",
+          "zh": "扩展功率容量"
+        },
+        {
+          "en": "power budget",
+          "zh": "功率预算"
+        },
+        {
+          "en": "E-brake",
+          "zh": "紧急功率限制机制"
+        }
+      ],
+      "options": {
+        "A": {
+          "zh": "实施功率封顶策略。",
+          "reason": {
+            "en": "Incorrect: a cap limits consumption. It can help stay within an existing budget but does not create additional usable capacity.",
+            "zh": "错误：功率封顶限制功耗，可帮助系统不超出现有预算，但不能增加可用功率容量。"
+          }
+        },
+        "B": {
+          "zh": "启用扩展功率容量。",
+          "reason": {
+            "en": "Correct: this is the policy feature that raises allocation in redundant modes. Retain the caveat that a grid failure can still reduce available performance.",
+            "zh": "正确：这是在冗余模式下提高分配额度的策略功能；但仍须注意，供电支路故障可能降低可用性能。"
+          }
+        },
+        "C": {
+          "zh": "增加更多电源模块。",
+          "reason": {
+            "en": "Incorrect: the six installed supplies already occupy the supported PSU capacity of the X9508 chassis described here.",
+            "zh": "错误：本题对应的 X9508 机箱已经安装六个电源，达到其支持的电源数量上限。"
+          }
+        },
+        "D": {
+          "zh": "禁用扩展功率容量。",
+          "reason": {
+            "en": "Incorrect: disabling the feature removes the extra allocation, which is the opposite of the requested change.",
+            "zh": "错误：禁用该功能会移除额外的功率额度，与题目要求的增加可用功率相反。"
+          }
+        }
+      },
+      "bankId": "ccnpDcai",
+      "reviewedAt": "2026-10-30"
+    },
+    "originalAnswerSource": "provided-pdf"
   },
   {
     "id": 15,
