@@ -1,4 +1,4 @@
-import { escapeHtml } from './learning-annotations.js?v=20261030-english-questions';
+import { escapeHtml } from './learning-annotations.js?v=20261031-sidebar-account';
 import {
   CORE2_CONFUSION_SETS,
   CORE2_HIGH_FREQUENCY_MODULES,
@@ -11,7 +11,7 @@ import {
   getCore2SymptomGroup,
   getCore2SymptomId,
   isCore2HighYieldPattern,
-} from './core2-study-map.js?v=20261030-english-questions';
+} from './core2-study-map.js?v=20261031-sidebar-account';
 
 const APP_LEARN_URL = './index.html?v=20260707-core2-process-flows#/learn';
 const PENDING_CORE2_MODULE_PRACTICE_KEY = 'question-app.pending-core2-module-practice';

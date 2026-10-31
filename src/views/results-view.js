@@ -1,8 +1,8 @@
-import { renderQuestionAnalysis } from './question-analysis-view.js?v=20261030-english-questions';
-import { renderPracticeOptionExplanations } from './practice-view.js?v=20261030-english-questions';
-import { renderQuestionMedia } from './question-media.js?v=20261030-english-questions';
-import { escapeHtml } from '../learning-annotations.js?v=20261030-english-questions';
-import { renderAiStudyLinks } from './ai-study-links.js?v=20261030-english-questions';
+import { renderQuestionAnalysis } from './question-analysis-view.js?v=20261031-sidebar-account';
+import { renderPracticeOptionExplanations } from './practice-view.js?v=20261031-sidebar-account';
+import { renderQuestionMedia } from './question-media.js?v=20261031-sidebar-account';
+import { escapeHtml } from '../learning-annotations.js?v=20261031-sidebar-account';
+import { renderAiStudyLinks } from './ai-study-links.js?v=20261031-sidebar-account';
 
 export function renderResultsView(result, questionMap, bankLabel = '') {
   const accuracy = result.total ? Math.round((result.score / result.total) * 100) : 0;

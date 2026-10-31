@@ -1,10 +1,10 @@
-import { escapeHtml } from './learning-annotations.js?v=20261030-english-questions';
+import { escapeHtml } from './learning-annotations.js?v=20261031-sidebar-account';
 import {
   PRINTER_OVERVIEW,
   PRINT_PIPELINE,
   PRINTER_TYPES,
   PRINTER_SYMPTOM_MAP,
-} from './printer-study-map.js?v=20261030-english-questions';
+} from './printer-study-map.js?v=20261031-sidebar-account';
 
 function getElement(id) {
   return document.getElementById(id);

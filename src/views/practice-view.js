@@ -1,4 +1,4 @@
-﻿import { escapeHtml } from '../learning-annotations.js?v=20261030-english-questions';
+﻿import { escapeHtml } from '../learning-annotations.js?v=20261031-sidebar-account';
 import {
   CORE2_CONFUSION_SETS,
   CORE2_HIGH_FREQUENCY_MODULES,
@@ -7,12 +7,12 @@ import {
   getCore2SymptomGroup,
   getCore2SymptomId,
   isCore2HighYieldPattern,
-} from '../core2-study-map.js?v=20261030-english-questions';
-import { renderQuestionAnalysis } from './question-analysis-view.js?v=20261030-english-questions';
-import { renderFavoriteSyncControls } from './favorite-sync-view.js?v=20261030-english-questions';
-import { renderQuestionMedia, renderOptionText } from './question-media.js?v=20261030-english-questions';
-import { getAiPracticeGuide,getAiDecision } from '../ai-study.js?v=20261030-english-questions';
-import { renderAiStudyLinks } from './ai-study-links.js?v=20261030-english-questions';
+} from '../core2-study-map.js?v=20261031-sidebar-account';
+import { renderQuestionAnalysis } from './question-analysis-view.js?v=20261031-sidebar-account';
+import { renderFavoriteSyncControls } from './favorite-sync-view.js?v=20261031-sidebar-account';
+import { renderQuestionMedia, renderOptionText } from './question-media.js?v=20261031-sidebar-account';
+import { getAiPracticeGuide,getAiDecision } from '../ai-study.js?v=20261031-sidebar-account';
+import { renderAiStudyLinks } from './ai-study-links.js?v=20261031-sidebar-account';
 
 const TEXT = {
   questionSuffix: '\u9898',
@@ -152,7 +152,7 @@ function renderFavoriteButton(question, isFavorite) {
 
 function renderPracticeStudyTags(question) {
   const aiGuide=getAiPracticeGuide(question);
-  if(aiGuide)return `<div class="practice-study-strip" data-section="practice-study-tags"><span>${escapeHtml(aiGuide.label)}</span></div>`;
+  if(aiGuide)return `<div class="practice-study-strip" data-section="practice-study-tags"><span>${escapeHtml(aiGuide.shortLabel)}</span></div>`;
   const tags = (question.learning?.studyTags ?? [])
     .map((tag) => ({ tag, label: CORE2_STUDY_TAG_LABELS[tag] }))
     .filter(({ label }) => Boolean(label));

@@ -1,4 +1,4 @@
-import { getCore2Explanation } from './core2-explanations.js?v=20261030-english-questions';
+import { getCore2Explanation } from './core2-explanations.js?v=20261031-sidebar-account';
 
 const DEFAULT_LEAD_SUMMARY = '题干前半段已经给出了当前场景和限制条件';
 const DEFAULT_OPTION_ROLE = '表示另一类不同的技术、工具或控制方向';

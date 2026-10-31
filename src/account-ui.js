@@ -1,6 +1,6 @@
-import { accountRequest, createAccountStorage } from './account-sync.js?v=20261030-english-questions';
-import { createStorageApi } from './storage.js?v=20261030-english-questions';
-import { snapshot, validate } from '../portal/progress-data.js?v=20261030-english-questions';
+import { accountRequest, createAccountStorage } from './account-sync.js?v=20261031-sidebar-account';
+import { createStorageApi } from './storage.js?v=20261031-sidebar-account';
+import { snapshot, validate } from '../portal/progress-data.js?v=20261031-sidebar-account';
 
 const archiveDisabled = {
   async initialize() { return { supported: false, bound: false, syncState: 'unsupported', message: '账号记录自动同步到服务器；可使用账号栏导出备份。' }; },
@@ -29,11 +29,14 @@ function download(entries, username = 'guest') {
 }
 
 export async function startAccountApp(bootstrap) {
-  const main = document.querySelector('.content-area');
+  const sidebar = document.querySelector('#app-sidebar');
   const bar = document.createElement('section');
   bar.className = 'account-bar'; bar.setAttribute('aria-label', '账号与同步');
-  bar.innerHTML = '<div><strong id="account-name">正在连接账号服务…</strong><span id="account-status" role="status" aria-live="polite"></span></div><div id="account-actions" class="account-actions"></div>';
-  main.prepend(bar);
+  bar.innerHTML = '<button type="button" class="account-sidebar-toggle" aria-label="展开账号与同步" aria-controls="app-sidebar">账号</button><div class="account-summary"><strong id="account-name">正在连接账号服务…</strong><span id="account-status" role="status" aria-live="polite"></span></div><div id="account-actions" class="account-actions"></div>';
+  sidebar.append(bar);
+  bar.querySelector('.account-sidebar-toggle').addEventListener('click', () => {
+    document.querySelector('[data-action="toggle-sidebar"]').click();
+  });
   const name = bar.querySelector('#account-name'), status = bar.querySelector('#account-status'), actions = bar.querySelector('#account-actions');
   const appElement = document.querySelector('#app');
   let storage, account, config, unloading = false, reloadAfterSync = false;
@@ -54,7 +57,7 @@ export async function startAccountApp(bootstrap) {
   } catch {
     name.textContent = '暂时无法连接账号服务';
     tell('账号记录尚未加载。可以重试，或明确选择本浏览器的访客记录。');
-    appElement.textContent = '请在上方选择重试或本地模式。';
+    appElement.textContent = '请在侧边栏账号区域选择重试或本地模式。';
     button('重试连接', () => location.reload());
     button('继续本地模式', async () => {
       actions.replaceChildren(); name.textContent = '访客 · 本地模式'; tell('当前记录只保存在本浏览器中。');

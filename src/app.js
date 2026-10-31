@@ -1,70 +1,70 @@
-import { getRouteLabel, navigate, normalizeRoute } from './router.js?v=20261030-english-questions';
-import { createStorageApi, DEFAULT_KEYS } from './storage.js?v=20261030-english-questions';
-import { createInitialState, DEFAULT_BANK_ID, getDashboardStats, setActiveBank } from './state.js?v=20261030-english-questions';
+import { getRouteLabel, navigate, normalizeRoute } from './router.js?v=20261031-sidebar-account';
+import { createStorageApi, DEFAULT_KEYS } from './storage.js?v=20261031-sidebar-account';
+import { createInitialState, DEFAULT_BANK_ID, getDashboardStats, setActiveBank } from './state.js?v=20261031-sidebar-account';
 import {
   createPracticeSession,
   gradePracticeAnswer,
   restorePracticeSession,
   snapshotPracticeSession,
-} from './practice.js?v=20261030-english-questions';
+} from './practice.js?v=20261031-sidebar-account';
 import {
   DEFAULT_EXAM_SIZE,
   createExamSession,
   gradeExamSession,
   restoreExamSession,
   snapshotExamSession,
-} from './exam.js?v=20261030-english-questions';
-import { createArchivePayload, createLearningArchiveService } from './learning-archive.js?v=20261030-english-questions';
-import { applyStoredCore2Analyses, decorateCore2Questions } from './core2-analysis.js?v=20261030-english-questions';
+} from './exam.js?v=20261031-sidebar-account';
+import { createArchivePayload, createLearningArchiveService } from './learning-archive.js?v=20261031-sidebar-account';
+import { applyStoredCore2Analyses, decorateCore2Questions } from './core2-analysis.js?v=20261031-sidebar-account';
 import {
   CORE2_SYMPTOM_MAP,
   getCore2SymptomGroup,
   getCore2SymptomId,
-} from './core2-study-map.js?v=20261030-english-questions';
-import { applyLearningAnnotations } from './learning-annotations.js?v=20261030-english-questions';
-import { decorateSecurityPlusQuestions } from './security-plus-analysis.js?v=20261030-english-questions';
+} from './core2-study-map.js?v=20261031-sidebar-account';
+import { applyLearningAnnotations } from './learning-annotations.js?v=20261031-sidebar-account';
+import { decorateSecurityPlusQuestions } from './security-plus-analysis.js?v=20261031-sidebar-account';
 import {
   buildFavoriteSyncText,
   mergeFavoriteIds,
   parseFavoriteSyncText,
-} from './favorite-sync.js?v=20261030-english-questions';
-import { sanitizeQuestionBankData } from './question-bank-sanitizer.js?v=20261030-english-questions';
+} from './favorite-sync.js?v=20261031-sidebar-account';
+import { sanitizeQuestionBankData } from './question-bank-sanitizer.js?v=20261031-sidebar-account';
 import {
   buildCore1ModuleStats,
   buildCore2ModuleStats,
   buildSecurityPlusModuleStats,
-} from './study-modules.js?v=20261030-english-questions';
-import { renderHomeView } from './views/home-view.js?v=20261030-english-questions';
-import { renderExamView } from './views/exam-view.js?v=20261030-english-questions';
-import { renderLearningView } from './views/learning-view.js?v=20261030-english-questions';
-import { renderMistakesView } from './views/mistakes-view.js?v=20261030-english-questions';
+} from './study-modules.js?v=20261031-sidebar-account';
+import { renderHomeView } from './views/home-view.js?v=20261031-sidebar-account';
+import { renderExamView } from './views/exam-view.js?v=20261031-sidebar-account';
+import { renderLearningView } from './views/learning-view.js?v=20261031-sidebar-account';
+import { renderMistakesView } from './views/mistakes-view.js?v=20261031-sidebar-account';
 import {
   normalizePracticeFontScale,
   renderPracticeView,
-} from './views/practice-view.js?v=20261030-english-questions';
-import { renderResultsView } from './views/results-view.js?v=20261030-english-questions';
-import { buildAiModuleStats,readAiStudyRequest,resolveAiStudyRequest,aiMapUrl } from './ai-study.js?v=20261030-english-questions';
+} from './views/practice-view.js?v=20261031-sidebar-account';
+import { renderResultsView } from './views/results-view.js?v=20261031-sidebar-account';
+import { buildAiModuleStats,readAiStudyRequest,resolveAiStudyRequest,aiMapUrl } from './ai-study.js?v=20261031-sidebar-account';
 
 const QUESTION_BANKS = [
-  { id: 'zh', label: '中文题库', file: './data/questions.zh.json?v=20261030-english-questions' },
-  { id: 'en', label: 'Core 1 English Question Bank', file: './data/questions.en.json?v=20261030-english-questions' },
+  { id: 'zh', label: '中文题库', file: './data/questions.zh.json?v=20261031-sidebar-account' },
+  { id: 'en', label: 'Core 1 English Question Bank', file: './data/questions.en.json?v=20261031-sidebar-account' },
   {
     id: 'core2',
     label: 'Core 2 English Question Bank',
-    file: './data/questions.core2.json?v=20261030-english-questions',
+    file: './data/questions.core2.json?v=20261031-sidebar-account',
     analysisFiles: [
-      './data/questions.core2.analysis.json?v=20261030-english-questions',
-      './data/questions.core2.curated.analysis.json?v=20261030-english-questions',
+      './data/questions.core2.analysis.json?v=20261031-sidebar-account',
+      './data/questions.core2.curated.analysis.json?v=20261031-sidebar-account',
     ],
   },
   {
     id: 'securityPlus',
     label: 'Security+ SY0-701',
-    file: './data/questions.security-plus.json?v=20261030-english-questions',
+    file: './data/questions.security-plus.json?v=20261031-sidebar-account',
   },
-  { id: 'awsSaa', label: 'AWS SAA Screenshots', file: './data/questions.aws-saa.json?v=20261030-english-questions' },
-  { id: 'ccnpDcai', label: 'CCNP-DCAI', file: './data/questions.ccnp-dcai.json?v=20261030-english-questions' },
-  { id: 'ncaAiio', label: 'NCA-AIIO', file: './data/questions.nca-aiio.json?v=20261030-english-questions' },
+  { id: 'awsSaa', label: 'AWS SAA Screenshots', file: './data/questions.aws-saa.json?v=20261031-sidebar-account' },
+  { id: 'ccnpDcai', label: 'CCNP-DCAI', file: './data/questions.ccnp-dcai.json?v=20261031-sidebar-account' },
+  { id: 'ncaAiio', label: 'NCA-AIIO', file: './data/questions.nca-aiio.json?v=20261031-sidebar-account' },
 ];
 const QUESTION_BANK_MAP = new Map(QUESTION_BANKS.map((bank) => [bank.id, bank]));
 const DEFAULT_LEARNING_BANK_ID = 'en';
@@ -1884,7 +1884,7 @@ export async function bootstrapApp({
 }
 
 if (globalThis.document?.body?.dataset?.accountEnabled === 'true') {
-  const { startAccountApp } = await import('./account-ui.js?v=20261030-english-questions');
+  const { startAccountApp } = await import('./account-ui.js?v=20261031-sidebar-account');
   await startAccountApp(bootstrapApp);
 } else {
   await bootstrapApp();

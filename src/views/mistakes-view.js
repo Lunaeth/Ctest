@@ -1,7 +1,7 @@
-import { escapeHtml } from '../learning-annotations.js?v=20261030-english-questions';
-import { renderQuestionAnalysis } from './question-analysis-view.js?v=20261030-english-questions';
-import { renderQuestionMedia, renderOptionText } from './question-media.js?v=20261030-english-questions';
-import { renderAiStudyLinks } from './ai-study-links.js?v=20261030-english-questions';
+import { escapeHtml } from '../learning-annotations.js?v=20261031-sidebar-account';
+import { renderQuestionAnalysis } from './question-analysis-view.js?v=20261031-sidebar-account';
+import { renderQuestionMedia, renderOptionText } from './question-media.js?v=20261031-sidebar-account';
+import { renderAiStudyLinks } from './ai-study-links.js?v=20261031-sidebar-account';
 
 function getOptionAnnotation(question, key) {
   return question.learning?.options?.find((item) => item.key === key);

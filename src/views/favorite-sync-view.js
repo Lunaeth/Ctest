@@ -1,4 +1,4 @@
-import { escapeHtml } from '../learning-annotations.js?v=20261030-english-questions';
+import { escapeHtml } from '../learning-annotations.js?v=20261031-sidebar-account';
 
 export function renderFavoriteSyncControls({
   favoriteCount = 0,

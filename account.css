@@ -1,1 +1,31 @@
 .account-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 18px;margin-bottom:20px;border:1px solid #cbd5e1;border-radius:12px;background:#f8fafc;color:#172033}.account-bar strong{display:block;font-size:14px}.account-bar [role=status]{display:block;font-size:12px;line-height:1.6;margin-top:4px;color:#475569}.account-bar[data-sync=error],.account-bar[data-sync=blocked]{border-color:#c66b20;background:#fff7ed}.account-actions,.dialog-actions,.account-tabs{display:flex;gap:8px;flex-wrap:wrap}.account-bar button,.account-dialog button{font:inherit;font-size:12px;cursor:pointer;background:#fff;border:1px solid #b7c4d3;border-radius:7px;padding:8px 11px;color:#172033}.account-dialog{width:min(520px,calc(100vw - 32px));max-height:90vh;overflow:auto;padding:28px;border:1px solid #cbd5e1;border-radius:16px;background:#fff;color:#172033;box-shadow:0 24px 80px #0003}.account-dialog::backdrop{background:#0f172a99}.account-dialog h2{margin:22px 0 12px;font-size:23px}.account-dialog p{font-size:13px;line-height:1.8;color:#475569}.account-dialog label{display:block;font-size:13px;margin:18px 0}.account-dialog input:not([type=checkbox]){display:block;width:100%;margin-top:8px;padding:11px;border:1px solid #b7c4d3;border-radius:7px;font:inherit;box-sizing:border-box}.account-dialog [hidden]{display:none}.account-dialog .account-consent{display:flex;align-items:flex-start;gap:8px;line-height:1.7}.account-dialog [role=status]{color:#9a3412}.account-dialog button[type=submit]{background:#1d4ed8;color:white;border-color:#1d4ed8}.account-dialog button:disabled{opacity:.55;cursor:not-allowed}.account-dialog a{color:#1d4ed8;text-decoration:underline}.account-dialog .account-note{font-size:11px;margin-top:22px}.account-dialog #account-turnstile{margin-top:18px;min-height:0}.account-dialog :focus-visible,.account-bar :focus-visible{outline:3px solid #60a5fa;outline-offset:3px}@media(max-width:700px){.account-bar{align-items:flex-start;flex-direction:column}.account-dialog{padding:20px}.account-actions button{min-height:36px}}
+
+/* Account controls belong to the sidebar, below the main navigation. */
+.sidebar .account-bar {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  margin: 24px 0 0;
+  padding: 14px;
+}
+.account-summary { min-width: 0; overflow-wrap: anywhere; }
+.sidebar .account-actions { display: grid; grid-template-columns: minmax(0, 1fr); }
+.sidebar .account-actions button { min-height: 38px; white-space: normal; overflow-wrap: anywhere; }
+.account-bar .account-sidebar-toggle { display: none; }
+.app-shell.is-sidebar-collapsed .account-bar { padding: 0; border: 0; background: transparent; }
+.app-shell.is-sidebar-collapsed .account-summary,
+.app-shell.is-sidebar-collapsed .account-actions { display: none; }
+.app-shell.is-sidebar-collapsed .account-sidebar-toggle {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 0;
+  border-radius: 12px;
+  color: var(--accent);
+  background: var(--panel-alt);
+}
+@media (max-width: 960px) {
+  .app-shell.is-sidebar-collapsed .account-bar { grid-column: 1 / -1; margin-top: 0; }
+}

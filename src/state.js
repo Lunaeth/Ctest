@@ -1,4 +1,4 @@
-import { gradePracticeAnswer } from './practice.js?v=20261030-english-questions';
+import { gradePracticeAnswer } from './practice.js?v=20261031-sidebar-account';
 
 const BANK_IDS = ['zh', 'en', 'core2', 'securityPlus', 'awsSaa', 'ccnpDcai', 'ncaAiio'];
 const LEGACY_BANK_IDS = ['zh', 'en', 'core2', 'awsSaa'];

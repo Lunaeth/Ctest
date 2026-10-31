@@ -1,5 +1,5 @@
-import { renderQuestionMedia, renderOptionText } from './question-media.js?v=20261030-english-questions';
-import { escapeHtml } from '../learning-annotations.js?v=20261030-english-questions';
+import { renderQuestionMedia, renderOptionText } from './question-media.js?v=20261031-sidebar-account';
+import { escapeHtml } from '../learning-annotations.js?v=20261031-sidebar-account';
 
 export function renderExamView(question, session, selectedAnswer = [], bankLabel = '') {
   return `

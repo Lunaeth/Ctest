@@ -2,7 +2,7 @@
   getCore1StudyTags,
   getCore2StudyTags,
   getSecurityPlusStudyTags,
-} from './study-modules.js?v=20261030-english-questions';
+} from './study-modules.js?v=20261031-sidebar-account';
 
 const TERM_RULES = [
   {

@@ -19,8 +19,13 @@ test('a logged-out guest can export the complete whitelisted learning archive', 
       return nodes.get(selector);
     },
   });
+  const sidebarChildren = [];
+  const sidebar = { append(node) { sidebarChildren.push(node); } };
+  let sidebarExpanded = false;
   const document = {
-    querySelector: () => makeElement(),
+    querySelector: selector => selector === '#app-sidebar' ? sidebar
+      : selector === '[data-action="toggle-sidebar"]' ? { click() { sidebarExpanded = true; } }
+      : makeElement(),
     createElement(tag) {
       if (tag === 'a') {
         const link = { click() { downloads.push(this); } };
@@ -41,6 +46,10 @@ test('a logged-out guest can export the complete whitelisted learning archive', 
   t.mock.method(URL, 'createObjectURL', blob => { artifact = blob; return 'blob:guest-archive'; });
   t.mock.method(globalThis, 'setTimeout', () => 0);
   await startAccountApp(async () => {});
+  assert.equal(sidebarChildren.length, 1);
+  assert.equal(sidebarChildren[0].className, 'account-bar');
+  nodes.get('.account-sidebar-toggle').click();
+  assert.equal(sidebarExpanded, true, 'Collapsed account shortcut opens the sidebar');
   actions.find(button => button.textContent === '导出本地记录').click();
   assert.equal(downloads.length, 1);
   assert.match(downloads[0].download, /^study-guest-.*\.json$/);

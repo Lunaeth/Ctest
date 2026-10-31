@@ -1,27 +1,27 @@
-﻿import { applyStoredCore2Analyses } from './core2-analysis.js?v=20261030-english-questions';
-import { applyLearningAnnotations, escapeHtml } from './learning-annotations.js?v=20261030-english-questions';
-import { sanitizeQuestionBankData } from './question-bank-sanitizer.js?v=20261030-english-questions';
+﻿import { applyStoredCore2Analyses } from './core2-analysis.js?v=20261031-sidebar-account';
+import { applyLearningAnnotations, escapeHtml } from './learning-annotations.js?v=20261031-sidebar-account';
+import { sanitizeQuestionBankData } from './question-bank-sanitizer.js?v=20261031-sidebar-account';
 import {
   NETWORK_OVERVIEW,
   NETWORK_PORT_MEMORY_RULES,
   NETWORK_PORT_REFERENCE,
   NETWORK_LAYERS,
   buildNetworkQuestionRows,
-} from './network-question-map.js?v=20261030-english-questions';
+} from './network-question-map.js?v=20261031-sidebar-account';
 
 const BANKS = [
   {
     id: 'en',
     label: 'Core 1',
-    file: './data/questions.en.json?v=20261030-english-questions',
+    file: './data/questions.en.json?v=20261031-sidebar-account',
   },
   {
     id: 'core2',
     label: 'Core 2',
-    file: './data/questions.core2.json?v=20261030-english-questions',
+    file: './data/questions.core2.json?v=20261031-sidebar-account',
     analysisFiles: [
-      './data/questions.core2.analysis.json?v=20261030-english-questions',
-      './data/questions.core2.curated.analysis.json?v=20261030-english-questions',
+      './data/questions.core2.analysis.json?v=20261031-sidebar-account',
+      './data/questions.core2.curated.analysis.json?v=20261031-sidebar-account',
     ],
   },
 ];

@@ -1,4 +1,4 @@
-import { DEFAULT_KEYS } from './storage.js?v=20261030-english-questions';
+import { DEFAULT_KEYS } from './storage.js?v=20261031-sidebar-account';
 
 const allowed = new Set(Object.values(DEFAULT_KEYS));
 

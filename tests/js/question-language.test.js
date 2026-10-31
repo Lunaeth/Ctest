@@ -9,6 +9,7 @@ import { renderMistakesView } from '../../src/views/mistakes-view.js';
 import { renderOptionText, renderQuestionMedia } from '../../src/views/question-media.js';
 import { renderAiMapQuestions } from '../../src/ai-study-map.js';
 import { renderReviewQuestions } from '../../src/ai-review.js';
+import { getAiStudyModules } from '../../src/ai-study.js';
 
 const read = name => JSON.parse(fs.readFileSync(`data/questions.${name}.json`, 'utf8'));
 const plain = html => html.replace(/<[^>]*>/g, '').replaceAll('&amp;', '&').replaceAll('&#39;', "'").replaceAll('&quot;', '"').replaceAll('&lt;', '<').replaceAll('&gt;', '>');
@@ -26,11 +27,17 @@ for (const [bank, count] of [['aws-saa',143], ['ccnp-dcai',56], ['nca-aiio',116]
         assert.equal(plain(renderOptionText(o)), o.text);
       }
       const session = createPracticeSession([q]);
-      const views = [renderLearningView(q,0,1,bank), renderPracticeView(q,session,null),
+      const views = [renderLearningView(q,0,1,bank,{modules:getAiStudyModules(q.aiStudy?.bankId)}), renderPracticeView(q,session,null),
         renderExamView(q,session), renderMistakesView([q],bank)];
       for (const html of views) {
         assert.ok(plain(html).includes(q.stem));
         assert.doesNotMatch(html, /question-translation|option-translation/);
+        if (q.aiStudy) {
+          assert.doesNotMatch(html, /PDF 原题|question-source/);
+          for (const tag of html.matchAll(/<div class="(?:practice-study-strip|learning-tags)"[^>]*>([\s\S]*?)<\/div>/g)) {
+            assert.doesNotMatch(plain(tag[1]), han, `${bank} ${q.id}: topic subtitle`);
+          }
+        }
         for (const o of q.options) assert.ok(plain(html).includes(o.text));
         for (const stem of html.matchAll(/<(?:h2|h3) class="(?:question-stem[^"]*|mistake-card__stem)">([\s\S]*?)<\/(?:h2|h3)>/g)) {
           assert.doesNotMatch(plain(stem[1]), han);
@@ -50,6 +57,7 @@ test('all AI map headings, illustrated stems, matching prompts and candidates ar
     for (const q of questions.filter(q => q.type === 'review')) {
       assert.doesNotMatch(q.stem, han);
       const html = renderReviewQuestions([q]);
+      assert.doesNotMatch(html, /PDF 原题|question-source/);
       const prompt = plain(html.split('<details>')[0]);
       for (const o of Object.values(q.aiStudy.options)) {
         assert.doesNotMatch(o.en, han); assert.ok(prompt.includes(o.en));

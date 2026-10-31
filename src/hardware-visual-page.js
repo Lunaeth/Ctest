@@ -1,11 +1,11 @@
-import { escapeHtml } from './learning-annotations.js?v=20261030-english-questions';
+import { escapeHtml } from './learning-annotations.js?v=20261031-sidebar-account';
 import {
   HARDWARE_OVERVIEW,
   BOOT_FLOW,
   HARDWARE_PROCESS_FLOWS,
   HARDWARE_SECTIONS,
   HARDWARE_SYMPTOM_MAP,
-} from './hardware-study-map.js?v=20261030-english-questions';
+} from './hardware-study-map.js?v=20261031-sidebar-account';
 
 function getElement(id) {
   return document.getElementById(id);

@@ -11,12 +11,12 @@ const MODULES = [
   ['ai-deployment', 'Deployment｜部署', 'Compatibility, provisioning, installation｜兼容性、资源配置与安装'],
   ['ai-operations', 'Operations & troubleshooting｜运维排错', 'Metrics, evidence, corrective actions｜指标、证据与修复措施'],
   ['power-cooling', 'Power & cooling｜供电散热', 'Power budgets, redundancy, thermal limits｜功率预算、冗余与热限制'],
-].map(([id,label,description])=>({id,label,shortLabel:label,description}));
+].map(([id,label,description])=>({id,label,shortLabel:label.split('｜')[0],description}));
 
 export const AI_BANKS = Object.freeze({
-  ccnpDcai: {label:'CCNP-DCAI',file:'./data/questions.ccnp-dcai.json?v=20261030-english-questions',reviewFile:'./data/questions.ccnp-dcai.review.json?v=20261030-english-questions',
+  ccnpDcai: {label:'CCNP-DCAI',file:'./data/questions.ccnp-dcai.json?v=20261031-sidebar-account',reviewFile:'./data/questions.ccnp-dcai.review.json?v=20261031-sidebar-account',
     modules:['ai-foundations','ai-compute','ai-networking','ai-storage','ai-platform','ai-deployment','ai-operations','power-cooling']},
-  ncaAiio: {label:'NCA-AIIO',file:'./data/questions.nca-aiio.json?v=20261030-english-questions',
+  ncaAiio: {label:'NCA-AIIO',file:'./data/questions.nca-aiio.json?v=20261031-sidebar-account',
     modules:['ai-foundations','ai-lifecycle','accelerated-compute','ai-networking','ai-storage','ai-software','ai-platform','ai-deployment','ai-operations','power-cooling']},
 });
 

@@ -1,5 +1,5 @@
-import { escapeHtml } from '../learning-annotations.js?v=20261030-english-questions';
-import { aiMapUrl,aiStudyUrl,getAiStudyModule } from '../ai-study.js?v=20261030-english-questions';
+import { escapeHtml } from '../learning-annotations.js?v=20261031-sidebar-account';
+import { aiMapUrl,aiStudyUrl,getAiStudyModule } from '../ai-study.js?v=20261031-sidebar-account';
 
 export function renderAiStudyLinks(question) {
   const study=question?.aiStudy;

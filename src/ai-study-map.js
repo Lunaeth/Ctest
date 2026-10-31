@@ -1,5 +1,5 @@
-import { escapeHtml } from './learning-annotations.js?v=20261030-english-questions';
-import { AI_BANKS,getAiStudyModules,filterAiStudyQuestions,getRelatedAiQuestions,aiStudyUrl,aiMapUrl } from './ai-study.js?v=20261030-english-questions';
+import { escapeHtml } from './learning-annotations.js?v=20261031-sidebar-account';
+import { AI_BANKS,getAiStudyModules,filterAiStudyQuestions,getRelatedAiQuestions,aiStudyUrl,aiMapUrl } from './ai-study.js?v=20261031-sidebar-account';
 
 const bilingual=value=>`<span lang="zh-CN">${escapeHtml(value.zh)}</span><span lang="en" class="ai-map-english">${escapeHtml(value.en)}</span>`;
 const questionUrl=q=>q.type==='review'?`./ai-review.html#question-${q.id}`:aiStudyUrl(q.aiStudy.bankId,{moduleId:q.aiStudy.module,questionId:q.id});
