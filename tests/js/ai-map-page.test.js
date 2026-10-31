@@ -19,7 +19,7 @@ function environment(search='') {
     addEventListener(type,handler){this.listeners[type]=handler;},history:{replaceState(_state,_empty,url){win.location=new URL(url);}}};
   return {document:doc,window:win,get:id=>elements.get(`#ai-map-${id}`)};
 }
-const fetchData=async file=>({ok:true,json:async()=>structuredClone(data[file])});
+const fetchData=async file=>({ok:true,json:async()=>structuredClone(data[file.split('?')[0]])});
 
 test('map initializes from a bilingual search URL and clear/filter controls update visible results and URL',async()=>{
   const env=environment('?bank=ncaAiio&module=ai-networking&q=RDMA');
@@ -55,7 +55,7 @@ test('failed bank load offers retry and never renders stale cards as the selecte
 test('a late bank response cannot replace the newer selected bank',async()=>{
   const env=environment('?bank=ccnpDcai');let resolveOld;
   const delayed=new Promise(resolve=>{resolveOld=resolve;});
-  const loading=initializeAiMap({...env,fetch:async file=>file==='./data/questions.ccnp-dcai.json'?delayed:fetchData(file)});
+  const loading=initializeAiMap({...env,fetch:async file=>file.split('?')[0]==='./data/questions.ccnp-dcai.json'?delayed:fetchData(file)});
   env.get('bank').value='ncaAiio';env.get('bank').listeners.change();await flush();
   assert.match(env.get('status').textContent,/NCA-AIIO/);
   resolveOld(await fetchData('./data/questions.ccnp-dcai.json'));await loading;

@@ -1,10 +1,10 @@
-﻿import { escapeHtml } from '../learning-annotations.js';
+﻿import { escapeHtml } from '../learning-annotations.js?v=20261031-ai-accounts';
 
-import { renderFavoriteSyncControls } from './favorite-sync-view.js';
-import { AI_REVIEW_ENTRIES, renderQuestionMedia, renderOptionText } from './question-media.js';
-import { renderSources } from './question-analysis-view.js';
-import { aiMapUrl } from '../ai-study.js';
-import { renderAiStudyLinks } from './ai-study-links.js';
+import { renderFavoriteSyncControls } from './favorite-sync-view.js?v=20261031-ai-accounts';
+import { AI_REVIEW_ENTRIES, renderQuestionMedia, renderOptionText } from './question-media.js?v=20261031-ai-accounts';
+import { renderSources } from './question-analysis-view.js?v=20261031-ai-accounts';
+import { aiMapUrl } from '../ai-study.js?v=20261031-ai-accounts';
+import { renderAiStudyLinks } from './ai-study-links.js?v=20261031-ai-accounts';
 
 const CORE1_VISUAL_ENTRIES = [
   {

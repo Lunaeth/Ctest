@@ -1,10 +1,10 @@
-import { escapeHtml } from './learning-annotations.js?v=20260705-troubleshooting-visual';
+import { escapeHtml } from './learning-annotations.js?v=20261031-ai-accounts';
 import {
   TROUBLESHOOTING_FLOW,
   TROUBLESHOOTING_OVERVIEW,
   TROUBLESHOOTING_PATTERN_MAP,
   TROUBLESHOOTING_SECTIONS,
-} from './troubleshooting-study-map.js?v=20260705-troubleshooting-visual';
+} from './troubleshooting-study-map.js?v=20261031-ai-accounts';
 
 function getElement(id) {
   return document.getElementById(id);

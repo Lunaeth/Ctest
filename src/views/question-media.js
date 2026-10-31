@@ -1,4 +1,4 @@
-import { escapeHtml } from '../learning-annotations.js';
+import { escapeHtml } from '../learning-annotations.js?v=20261031-ai-accounts';
 
 export const AI_REVIEW_ENTRIES = [{
   href: './ai-review.html', title: 'CCNP-DCAI 图示配对题',

@@ -299,8 +299,8 @@ test('index exposes a collapsible sidebar control with fresh app cache keys', ()
   assert.match(html, /aria-controls="app-sidebar"/);
   assert.match(html, /title="收起侧边栏"/);
   assert.doesNotMatch(html, /`r`n/);
-  assert.match(html, /styles\.css\?v=20260720-security-plus/);
-  assert.match(html, /src\/app\.js\?v=20261030-ai-banks/);
+  assert.match(html, /styles\.css\?v=20261031-ai-accounts/);
+  assert.match(html, /src\/app\.js\?v=20261031-ai-accounts/);
 });
 
 test('practice options stay vertical for phone APK use', () => {
@@ -387,6 +387,7 @@ test('an invalid AI map question does not change the selected bank or current se
 function createQuestionBankFetch(questionBanks = {}) {
   const calls = [];
   const fetchImpl = async (url) => {
+    url = url.split('?')[0];
     calls.push(url);
     return {
       ok: true,

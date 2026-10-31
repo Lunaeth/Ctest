@@ -11,7 +11,7 @@ import {renderResultsView} from '../../src/views/results-view.js';
 import {createPracticeSession} from '../../src/practice.js';
 
 const banks=Object.fromEntries(Object.entries(AI_BANKS).map(([id,config])=>[id,
-  [config.file,...(config.reviewFile?[config.reviewFile]:[])].flatMap(file=>JSON.parse(fs.readFileSync(file,'utf8')))]));
+  [config.file,...(config.reviewFile?[config.reviewFile]:[])].flatMap(file=>JSON.parse(fs.readFileSync(file.split('?')[0],'utf8')))]));
 const plain=html=>html.replace(/<[^>]*>/g,'').replaceAll('&amp;','&').replaceAll('&#39;',"'").replaceAll('&quot;','"').replaceAll('&lt;','<').replaceAll('&gt;','>');
 
 test('AI topic groups cover every scored and illustrated question exactly once with usable per-bank counts',()=>{

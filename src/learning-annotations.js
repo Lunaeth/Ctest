@@ -2,7 +2,7 @@
   getCore1StudyTags,
   getCore2StudyTags,
   getSecurityPlusStudyTags,
-} from './study-modules.js?v=20260720-security-plus';
+} from './study-modules.js?v=20261031-ai-accounts';
 
 const TERM_RULES = [
   {

@@ -1,27 +1,27 @@
-﻿import { applyStoredCore2Analyses } from './core2-analysis.js?v=20260705-port-reference';
-import { applyLearningAnnotations, escapeHtml } from './learning-annotations.js?v=20260707-core2-priority-feedback';
-import { sanitizeQuestionBankData } from './question-bank-sanitizer.js';
+﻿import { applyStoredCore2Analyses } from './core2-analysis.js?v=20261031-ai-accounts';
+import { applyLearningAnnotations, escapeHtml } from './learning-annotations.js?v=20261031-ai-accounts';
+import { sanitizeQuestionBankData } from './question-bank-sanitizer.js?v=20261031-ai-accounts';
 import {
   NETWORK_OVERVIEW,
   NETWORK_PORT_MEMORY_RULES,
   NETWORK_PORT_REFERENCE,
   NETWORK_LAYERS,
   buildNetworkQuestionRows,
-} from './network-question-map.js?v=20260705-port-reference';
+} from './network-question-map.js?v=20261031-ai-accounts';
 
 const BANKS = [
   {
     id: 'en',
     label: 'Core 1',
-    file: './data/questions.en.json',
+    file: './data/questions.en.json?v=20261031-ai-accounts',
   },
   {
     id: 'core2',
     label: 'Core 2',
-    file: './data/questions.core2.json',
+    file: './data/questions.core2.json?v=20261031-ai-accounts',
     analysisFiles: [
-      './data/questions.core2.analysis.json',
-      './data/questions.core2.curated.analysis.json',
+      './data/questions.core2.analysis.json?v=20261031-ai-accounts',
+      './data/questions.core2.curated.analysis.json?v=20261031-ai-accounts',
     ],
   },
 ];

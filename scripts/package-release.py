@@ -35,6 +35,9 @@ def main():
     if git('status', '--porcelain', '--untracked-files=no').strip():
         raise SystemExit('Commit tracked changes before packaging; untracked user files are excluded.')
     commit = git('rev-parse', 'HEAD').decode().strip()
+    # Stable per commit, but changes between releases so browsers do not receive
+    # a false 304 for a changed file with the previous release's timestamp.
+    commit_time = int(git('show', '-s', '--format=%ct', commit).decode().strip())
     coverage = json.loads(git('show', f'{commit}:docs/ai-audit/coverage.json'))
     if sum(len(bank['reviewed']) for bank in coverage.values()) != 176:
         raise SystemExit('The reviewed AI layer is incomplete.')
@@ -59,6 +62,7 @@ def main():
                     hashes[member.name] = hashlib.sha256(data).hexdigest()
                     info = tarfile.TarInfo(member.name)
                     info.size = len(data)
+                    info.mtime = commit_time
                     info.mode = 0o755 if member.name.endswith('.sh') else 0o644
                     archive.addfile(info, io.BytesIO(data))
         manifest['artifacts'][group] = {'file': target.name,

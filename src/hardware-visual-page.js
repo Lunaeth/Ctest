@@ -1,11 +1,11 @@
-import { escapeHtml } from './learning-annotations.js?v=20260706-hardware-processes';
+import { escapeHtml } from './learning-annotations.js?v=20261031-ai-accounts';
 import {
   HARDWARE_OVERVIEW,
   BOOT_FLOW,
   HARDWARE_PROCESS_FLOWS,
   HARDWARE_SECTIONS,
   HARDWARE_SYMPTOM_MAP,
-} from './hardware-study-map.js?v=20260706-hardware-processes';
+} from './hardware-study-map.js?v=20261031-ai-accounts';
 
 function getElement(id) {
   return document.getElementById(id);

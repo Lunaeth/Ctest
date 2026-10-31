@@ -1,4 +1,4 @@
-import { escapeHtml } from '../learning-annotations.js';
+import { escapeHtml } from '../learning-annotations.js?v=20261031-ai-accounts';
 
 function renderOutline(analysis) {
   const outline = Array.isArray(analysis.outline) ? analysis.outline : [];

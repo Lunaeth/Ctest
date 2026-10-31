@@ -1,4 +1,4 @@
-import {snapshot,restore} from './progress-data.js';
+import {snapshot,restore} from './progress-data.js?v=20261031-ai-accounts';
 const status=document.querySelector('#status');
 const isNew=location.hostname==='learn.lunaeth.com';
 document.querySelector('#export-panel').hidden=isNew;

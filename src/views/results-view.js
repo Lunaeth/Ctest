@@ -1,8 +1,8 @@
-import { renderQuestionAnalysis } from './question-analysis-view.js';
-import { renderPracticeOptionExplanations } from './practice-view.js';
-import { renderQuestionMedia } from './question-media.js';
-import { escapeHtml } from '../learning-annotations.js';
-import { renderAiStudyLinks } from './ai-study-links.js';
+import { renderQuestionAnalysis } from './question-analysis-view.js?v=20261031-ai-accounts';
+import { renderPracticeOptionExplanations } from './practice-view.js?v=20261031-ai-accounts';
+import { renderQuestionMedia } from './question-media.js?v=20261031-ai-accounts';
+import { escapeHtml } from '../learning-annotations.js?v=20261031-ai-accounts';
+import { renderAiStudyLinks } from './ai-study-links.js?v=20261031-ai-accounts';
 
 export function renderResultsView(result, questionMap, bankLabel = '') {
   const accuracy = result.total ? Math.round((result.score / result.total) * 100) : 0;

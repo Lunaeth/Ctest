@@ -1,6 +1,6 @@
-import { accountRequest, createAccountStorage } from './account-sync.js';
-import { createStorageApi } from './storage.js';
-import { snapshot, validate } from '../portal/progress-data.js';
+import { accountRequest, createAccountStorage } from './account-sync.js?v=20261031-ai-accounts';
+import { createStorageApi } from './storage.js?v=20261031-ai-accounts';
+import { snapshot, validate } from '../portal/progress-data.js?v=20261031-ai-accounts';
 
 const archiveDisabled = {
   async initialize() { return { supported: false, bound: false, syncState: 'unsupported', message: '账号记录自动同步到服务器；可使用账号栏导出备份。' }; },

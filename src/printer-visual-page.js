@@ -1,10 +1,10 @@
-import { escapeHtml } from './learning-annotations.js?v=20260705-visual-maps-source-backed';
+import { escapeHtml } from './learning-annotations.js?v=20261031-ai-accounts';
 import {
   PRINTER_OVERVIEW,
   PRINT_PIPELINE,
   PRINTER_TYPES,
   PRINTER_SYMPTOM_MAP,
-} from './printer-study-map.js?v=20260705-visual-maps-source-backed';
+} from './printer-study-map.js?v=20261031-ai-accounts';
 
 function getElement(id) {
   return document.getElementById(id);

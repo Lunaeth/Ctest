@@ -2,6 +2,8 @@
 
 This is the acceptance record for the release candidate. The installed release is identified by the Git SHA in the server's frontend/API symlinks and the separately generated artifact manifest; this file is not a live deployment monitor.
 
+Live publication exposed stale browser assets under Cloudflare's 31-day static-resource TTL. The follow-up release versions local JS imports, CSS links and JSON requests consistently (`20261031-ai-accounts`), including nested dependencies. Archives now use the Git commit timestamp for file mtimes, retaining reproducibility without giving changed releases an identical Last-Modified timestamp. Fetch fixtures normalize resource queries; all 265 JS tests pass again. Final verification must cover the versioned resource URLs and a browser that previously loaded the old release.
+
 ## Content and study features
 
 The individual technical reviews cover all 60 DCAI source items (56 scored and four illustrated) and 116 AIIO items. Batch documents retain the primary references, answer corrections and scope decisions. Final consistency checks preserve the distinctions between training and inference, orchestration and model execution, GPU activity and memory capacity, ECN/CNP and PFC, and interconnects and storage services. Version-specific Cisco claims remain dated; DCAI 60 remains explicitly a capacity-only exercise rather than a verified firmware prediction. These are reviewed educational explanations, not official exam answer keys.

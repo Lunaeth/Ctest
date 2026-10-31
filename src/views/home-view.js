@@ -1,5 +1,5 @@
-import { AI_REVIEW_ENTRIES } from './question-media.js';
-import { aiMapUrl } from '../ai-study.js';
+import { AI_REVIEW_ENTRIES } from './question-media.js?v=20261031-ai-accounts';
+import { aiMapUrl } from '../ai-study.js?v=20261031-ai-accounts';
 
 export function renderHomeView({ stats, banks, activeBankId, storageMode = 'local' }) {
   const visualEntries = ['ccnpDcai','ncaAiio'].includes(activeBankId) ? [

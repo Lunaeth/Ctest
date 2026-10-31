@@ -14,9 +14,9 @@ const MODULES = [
 ].map(([id,label,description])=>({id,label,shortLabel:label,description}));
 
 export const AI_BANKS = Object.freeze({
-  ccnpDcai: {label:'CCNP-DCAI',file:'./data/questions.ccnp-dcai.json',reviewFile:'./data/questions.ccnp-dcai.review.json',
+  ccnpDcai: {label:'CCNP-DCAI',file:'./data/questions.ccnp-dcai.json?v=20261031-ai-accounts',reviewFile:'./data/questions.ccnp-dcai.review.json?v=20261031-ai-accounts',
     modules:['ai-foundations','ai-compute','ai-networking','ai-storage','ai-platform','ai-deployment','ai-operations','power-cooling']},
-  ncaAiio: {label:'NCA-AIIO',file:'./data/questions.nca-aiio.json',
+  ncaAiio: {label:'NCA-AIIO',file:'./data/questions.nca-aiio.json?v=20261031-ai-accounts',
     modules:['ai-foundations','ai-lifecycle','accelerated-compute','ai-networking','ai-storage','ai-software','ai-platform','ai-deployment','ai-operations','power-cooling']},
 });
 

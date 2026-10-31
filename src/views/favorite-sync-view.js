@@ -1,4 +1,4 @@
-import { escapeHtml } from '../learning-annotations.js';
+import { escapeHtml } from '../learning-annotations.js?v=20261031-ai-accounts';
 
 export function renderFavoriteSyncControls({
   favoriteCount = 0,

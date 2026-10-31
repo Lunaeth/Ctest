@@ -1,4 +1,4 @@
-import { DEFAULT_KEYS } from './storage.js';
+import { DEFAULT_KEYS } from './storage.js?v=20261031-ai-accounts';
 
 const allowed = new Set(Object.values(DEFAULT_KEYS));
 

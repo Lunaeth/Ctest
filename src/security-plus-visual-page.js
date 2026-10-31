@@ -1,5 +1,5 @@
-import { escapeHtml } from './learning-annotations.js?v=20260707-core2-priority-feedback';
-import { SECURITY_PLUS_DOMAINS } from './security-plus-study-map.js?v=20260720-security-plus-bilingual';
+import { escapeHtml } from './learning-annotations.js?v=20261031-ai-accounts';
+import { SECURITY_PLUS_DOMAINS } from './security-plus-study-map.js?v=20261031-ai-accounts';
 
 const PREFERENCES_KEY = 'question-app.preferences';
 

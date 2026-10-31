@@ -1,6 +1,6 @@
-import { escapeHtml } from './learning-annotations.js';
-import { renderQuestionMedia } from './views/question-media.js';
-import { renderAiStudyLinks } from './views/ai-study-links.js';
+import { escapeHtml } from './learning-annotations.js?v=20261031-ai-accounts';
+import { renderQuestionMedia } from './views/question-media.js?v=20261031-ai-accounts';
+import { renderAiStudyLinks } from './views/ai-study-links.js?v=20261031-ai-accounts';
 
 const bilingual = (value) => `<span lang="zh-CN">${escapeHtml(value.zh)}</span><br><span class="ai-english" lang="en">${escapeHtml(value.en)}</span>`;
 
@@ -49,7 +49,7 @@ export function renderReviewQuestions(questions) {
 
 const root = globalThis.document?.querySelector('#review-questions');
 if (root) {
-  fetch('./data/questions.ccnp-dcai.review.json')
+  fetch('./data/questions.ccnp-dcai.review.json?v=20261031-ai-accounts')
     .then((response) => {
       if (!response.ok) throw new Error('题库读取失败');
       return response.json();
