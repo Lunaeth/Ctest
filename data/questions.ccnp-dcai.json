@@ -13,23 +13,19 @@
     "options": [
       {
         "key": "A",
-        "text": "to enable AI lifecycle management through cloud-native software with hardware support limited to compute servers",
-        "translationZh": "通过云原生软件实现 AI 生命周期管理，但硬件支持仅限于计算服务器。"
+        "text": "to enable AI lifecycle management through cloud-native software with hardware support limited to compute servers"
       },
       {
         "key": "B",
-        "text": "to offer a flexible AI infrastructure focused on inferencing workloads with optional training capabilities",
-        "translationZh": "提供以推理工作负载为重点、训练能力为可选项的灵活 AI 基础设施。"
+        "text": "to offer a flexible AI infrastructure focused on inferencing workloads with optional training capabilities"
       },
       {
         "key": "C",
-        "text": "to deliver modular AI hardware components that can be integrated with third-party software platforms",
-        "translationZh": "提供可与第三方软件平台集成的模块化 AI 硬件组件。"
+        "text": "to deliver modular AI hardware components that can be integrated with third-party software platforms"
       },
       {
         "key": "D",
-        "text": "to provide a turnkey, full-stack infrastructure for AI training, fine-tuning, and inferencing",
-        "translationZh": "为 AI 训练、微调和推理提供集成式的完整基础设施方案。"
+        "text": "to provide a turnkey, full-stack infrastructure for AI training, fine-tuning, and inferencing"
       }
     ],
     "answer": [
@@ -70,7 +66,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "What is a purpose of Cisco AI PODs?<span class=\"ai-stem-translation\" lang=\"zh-CN\">Cisco AI PODs 的一项主要用途是什么？</span>",
+      "stemHtml": "What is a purpose of Cisco AI PODs?",
       "keyPointHtml": "选 D：AI POD 是面向多种 AI 工作负载阶段的集成基础设施，不只是计算服务器，也不是仅用于<strong>推理</strong>的设备。<br><span lang=\"en\" class=\"ai-english\">Choose D: an AI POD is an integrated infrastructure stack for multiple AI workload stages, not just compute hardware or an <strong>inference</strong> appliance.</span>",
       "speedTipHtml": "AI POD＝经过验证的<strong>完整技术栈</strong>＋AI 工作负载生命周期。<br><span lang=\"en\" class=\"ai-english\">AI POD = a validated stack + the AI workload lifecycle.</span>",
       "studyNotesHtml": [
@@ -231,23 +227,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Power Profiling: On Power Priority: Default Power Restore: Immediate Processor Package Power Limit (PPL): Maximum",
-        "translationZh": "功率评估：开启；功率优先级：默认；供电恢复：Immediate；处理器封装功率限制 PPL：最大。"
+        "text": "Power Profiling: On Power Priority: Default Power Restore: Immediate Processor Package Power Limit (PPL): Maximum"
       },
       {
         "key": "B",
-        "text": "Power Profiling: On Power Priority: High Power Restore: Always On Processor Package Power Limit (PPL): Default",
-        "translationZh": "功率评估：开启；功率优先级：高；供电恢复：始终开启；PPL：默认。"
+        "text": "Power Profiling: On Power Priority: High Power Restore: Always On Processor Package Power Limit (PPL): Default"
       },
       {
         "key": "C",
-        "text": "Power Profiling: On Power Priority: Default Power Restore: Always On Processor Package Power Limit (PPL): Default",
-        "translationZh": "功率评估：开启；功率优先级：默认；供电恢复：始终开启；PPL：默认。"
+        "text": "Power Profiling: On Power Priority: Default Power Restore: Always On Processor Package Power Limit (PPL): Default"
       },
       {
         "key": "D",
-        "text": "Power Profiling: On Power Priority: High Power Restore: Immediate Processor Package Power Limit (PPL): Maximum",
-        "translationZh": "功率评估：开启；功率优先级：高；供电恢复：Immediate；PPL：最大。"
+        "text": "Power Profiling: On Power Priority: High Power Restore: Immediate Processor Package Power Limit (PPL): Maximum"
       }
     ],
     "answer": [
@@ -293,7 +285,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A data center facility experienced a power outage, and the UCS X-Series servers did not restart automatically when power is restored. The configuration must be updated to prioritize these servers to boot as soon as possible to resume their work. Which set of power policy configurations must be used to meet these requirements?<span class=\"ai-stem-translation\" lang=\"zh-CN\">数据中心断电恢复后，UCS X-Series 服务器没有自动启动。要让这些服务器自动恢复上电，并在功率分配时获得较高优先级，应采用哪组电源策略设置？</span>",
+      "stemHtml": "A data center facility experienced a power outage, and the UCS X-Series servers did not restart automatically when power is restored. The configuration must be updated to prioritize these servers to boot as soon as possible to resume their work. Which set of power policy configurations must be used to meet these requirements?",
       "keyPointHtml": "选 B：Always On 指定恢复供电后上电，High 提高服务器的功率分配优先级；<strong>Power Profiling</strong> 用于评估其功率需求。<br><span lang=\"en\" class=\"ai-english\">Choose B: Always On requests power-on after power returns, and High gives the server preference in power allocation. Profiling estimates its power needs.</span>",
       "speedTipHtml": "Restore 决定是否上电；Priority 决定功率分配优先级。<br><span lang=\"en\" class=\"ai-english\">Restore controls whether to power on; priority controls allocation preference.</span>",
       "studyNotesHtml": [
@@ -453,24 +445,20 @@
     "options": [
       {
         "key": "A",
-        "text": "to enable Path MTU Discovery so that the optimal packet size can be negotiated",
-        "translationZh": "启用路径 MTU 发现，以协商最优报文大小。"
+        "text": "to enable Path MTU Discovery so that the optimal packet size can be negotiated"
       },
       {
         "key": "B",
-        "text": "to indicate to intermediate switches that the packet contains RDMA traffic requiring special handling",
-        "translationZh": "向中间交换机表明这是需要特殊处理的 RDMA 流量。"
+        "text": "to indicate to intermediate switches that the packet contains RDMA traffic requiring special handling"
       },
       {
         "key": "C",
-        "text": "to ensure that packets always take the same path through ECMP routing for consistent latency",
-        "translationZh": "确保报文通过 ECMP 时始终采用同一路径，保持一致时延。"
+        "text": "to ensure that packets always take the same path through ECMP routing for consistent latency"
       },
       {
         "key": "D",
         "text": "to prevent router fragmentation of IPv4 packets, as required by RoCEv2",
-        "originalText": "to prevent IP fragmentation that would break the InfiniBand sequence numbering and ordering guarantees",
-        "translationZh": "阻止路由器对 IPv4 报文分片，满足 RoCEv2 的要求。"
+        "originalText": "to prevent IP fragmentation that would break the InfiniBand sequence numbering and ordering guarantees"
       }
     ],
     "answer": [
@@ -516,7 +504,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A network engineer analyzes IPv4 RoCEv2 traffic in an AI training cluster and notices that the Don’t Fragment (<strong>DF</strong>) bit is set. What transport requirement does this enforce?<span class=\"ai-stem-translation\" lang=\"zh-CN\">网络工程师分析 AI 训练集群中的 IPv4 RoCEv2 流量，发现设置了禁止分片 DF 位。这样做落实了哪项传输要求？</span>",
+      "stemHtml": "A network engineer analyzes IPv4 RoCEv2 traffic in an AI training cluster and notices that the Don’t Fragment (<strong>DF</strong>) bit is set. What transport requirement does this enforce?",
       "keyPointHtml": "选 D：RoCEv2 要求 IP 报文不分片。对于 IPv4，<strong>DF</strong> 禁止路由器对其分片，因此路径必须支持实际报文大小。<br><span lang=\"en\" class=\"ai-english\">Choose D: RoCEv2 requires unfragmented IP packets. For IPv4, <strong>DF</strong> prevents routers from fragmenting them; the path must accommodate the packet size.</span>",
       "speedTipHtml": "<strong>DF</strong> 表示路由器不得分片，不表示保证送达。<br><span lang=\"en\" class=\"ai-english\"><strong>DF</strong> means no router fragmentation, not guaranteed delivery.</span>",
       "studyNotesHtml": [
@@ -680,23 +668,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Priority Flow Control reacts first to mitigate congestion, and Explicit Congestion Notification acts as a fail-safe to prevent traffic drops if Priority Flow Control is insufficient. A congestion notification packet sent toward the source by a network switch in response to receiving Explicit Congestion Notification with congestion experienced bits set.",
-        "translationZh": "PFC 先缓解拥塞，ECN 兜底防丢包；交换机收到带拥塞标记的报文后向源发送 CNP。"
+        "text": "Priority Flow Control reacts first to mitigate congestion, and Explicit Congestion Notification acts as a fail-safe to prevent traffic drops if Priority Flow Control is insufficient. A congestion notification packet sent toward the source by a network switch in response to receiving Explicit Congestion Notification with congestion experienced bits set."
       },
       {
         "key": "B",
-        "text": "Explicit Congestion Notification reacts first to mitigate congestion, and Priority Flow Control acts as a fail-safe to prevent traffic drops if Explicit Congestion Notification is insufficient. A congestion notification packet sent toward the source by hosts and the network switch in response to receiving Explicit Congestion Notification with congestion experienced bits set.",
-        "translationZh": "ECN 先缓解拥塞，PFC 兜底防丢包；主机和交换机收到拥塞标记后都向源发送 CNP。"
+        "text": "Explicit Congestion Notification reacts first to mitigate congestion, and Priority Flow Control acts as a fail-safe to prevent traffic drops if Explicit Congestion Notification is insufficient. A congestion notification packet sent toward the source by hosts and the network switch in response to receiving Explicit Congestion Notification with congestion experienced bits set."
       },
       {
         "key": "C",
-        "text": "Explicit Congestion Notification reacts first to mitigate congestion, and Priority Flow Control acts as a fail-safe to prevent traffic drops if Explicit Congestion Notification is insufficient. A congestion notification packet sent toward the source by a host in response to receiving Explicit Congestion Notification with congestion experienced bits set.",
-        "translationZh": "ECN 先缓解拥塞，PFC 兜底防丢包；接收主机收到拥塞标记后向源发送 CNP。"
+        "text": "Explicit Congestion Notification reacts first to mitigate congestion, and Priority Flow Control acts as a fail-safe to prevent traffic drops if Explicit Congestion Notification is insufficient. A congestion notification packet sent toward the source by a host in response to receiving Explicit Congestion Notification with congestion experienced bits set."
       },
       {
         "key": "D",
-        "text": "Priority Flow Control reacts first to mitigate congestion, and Explicit Congestion Notification acts as a fail-safe to prevent traffic drops if Priority Flow Control is insufficient. A congestion notification packet sent toward the source by hosts and the network switch in response to receiving Explicit Congestion Notification with congestion experienced bits set.",
-        "translationZh": "PFC 先缓解拥塞，ECN 兜底防丢包；主机和交换机收到拥塞标记后都向源发送 CNP。"
+        "text": "Priority Flow Control reacts first to mitigate congestion, and Explicit Congestion Notification acts as a fail-safe to prevent traffic drops if Priority Flow Control is insufficient. A congestion notification packet sent toward the source by hosts and the network switch in response to receiving Explicit Congestion Notification with congestion experienced bits set."
       }
     ],
     "answer": [
@@ -737,7 +721,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Which set of statements describes the <strong>ECN</strong>/<strong>PFC</strong> behavior and <strong>CNP</strong> generation in a RoCEv2 fabric configured for Data Center Quantized Congestion Notification (DCQCN)?<span class=\"ai-stem-translation\" lang=\"zh-CN\">在采用数据中心量化拥塞通知 DCQCN 的 RoCEv2 网络中，哪组说法正确描述了 ECN/PFC 的作用与 CNP 的生成方？</span>",
+      "stemHtml": "Which set of statements describes the <strong>ECN</strong>/<strong>PFC</strong> behavior and <strong>CNP</strong> generation in a RoCEv2 fabric configured for Data Center Quantized Congestion Notification (DCQCN)?",
       "keyPointHtml": "选 C：交换机标记 <strong>ECN</strong>，接收主机发送 <strong>CNP</strong> 反馈，发送端据此降速。队列压力严重时，<strong>PFC</strong> 提供逐跳暂停保护。<br><span lang=\"en\" class=\"ai-english\">Choose C: switches mark <strong>ECN</strong>, the receiving host sends <strong>CNP</strong> feedback, and the sender reduces its rate. <strong>PFC</strong> provides hop-by-hop pause protection when queue pressure becomes severe.</span>",
       "speedTipHtml": "交换机标记；接收端通知；发送端降速。<br><span lang=\"en\" class=\"ai-english\">Switch marks; receiver notifies; sender slows.</span>",
       "studyNotesHtml": [
@@ -895,23 +879,19 @@
     "options": [
       {
         "key": "A",
-        "text": "compression of large configuration files for storage efficiency",
-        "translationZh": "压缩大型配置文件，提高存储效率。"
+        "text": "compression of large configuration files for storage efficiency"
       },
       {
         "key": "B",
-        "text": "automated conversion of spoken or written content into structured data",
-        "translationZh": "自动将口语或书面内容转换为结构化数据。"
+        "text": "automated conversion of spoken or written content into structured data"
       },
       {
         "key": "C",
-        "text": "annotation of data transmission protocols for device authorization",
-        "translationZh": "为数据传输协议添加注释，以进行设备授权。"
+        "text": "annotation of data transmission protocols for device authorization"
       },
       {
         "key": "D",
-        "text": "filtration of duplicate entries from transaction records",
-        "translationZh": "过滤交易记录中的重复条目。"
+        "text": "filtration of duplicate entries from transaction records"
       }
     ],
     "answer": [
@@ -957,7 +937,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Which function is provided through natural language processing?<span class=\"ai-stem-translation\" lang=\"zh-CN\">自然语言处理可以提供以下哪项功能？</span>",
+      "stemHtml": "Which function is provided through natural language processing?",
       "keyPointHtml": "选 B：<strong>NLP</strong> 可以从人类语言中提取实体、关系等结构化信息。处理语音时，可以先转写，再提取这些信息。<br><span lang=\"en\" class=\"ai-english\">Choose B: <strong>NLP</strong> can extract entities, relationships or other structured information from human language. A speech pipeline may transcribe audio before extracting that information.</span>",
       "speedTipHtml": "输入人类语言，提取含义或结构化字段。<br><span lang=\"en\" class=\"ai-english\">Human language in; meaning or structured fields out.</span>",
       "studyNotesHtml": [
@@ -1117,23 +1097,19 @@
     "options": [
       {
         "key": "A",
-        "text": "The server immediately shuts down and stops all operations.",
-        "translationZh": "服务器立即关机并停止所有操作。"
+        "text": "The server immediately shuts down and stops all operations."
       },
       {
         "key": "B",
-        "text": "The server operates with reduced performance and caps power to GPUs at 60%.",
-        "translationZh": "服务器以较低性能运行，并把 GPU 功率限制为 60%。"
+        "text": "The server operates with reduced performance and caps power to GPUs at 60%."
       },
       {
         "key": "C",
-        "text": "The server continues to operate at full performance using redundant power supplies, but the PSU status LED glows solid amber.",
-        "translationZh": "服务器利用冗余电源继续保持完整性能，但 PSU 状态灯常亮琥珀色。"
+        "text": "The server continues to operate at full performance using redundant power supplies, but the PSU status LED glows solid amber."
       },
       {
         "key": "D",
-        "text": "The server initiates a graceful shut down of the operating system.",
-        "translationZh": "服务器启动操作系统的正常关机流程。"
+        "text": "The server initiates a graceful shut down of the operating system."
       }
     ],
     "answer": [
@@ -1174,7 +1150,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A customer deploys a UCS 885a server in a data center with two power grids. Three of the 3000W power supplies in the server connect to each grid. Due to an external event, one of the grids will be shut down for maintenance. How does the server respond to this event?<span class=\"ai-stem-translation\" lang=\"zh-CN\">客户在具有两路供电的数据中心部署一台 UCS C885A 服务器。六个 3000 W 电源中，每路供电连接三个。其中一路因维护断电时，服务器会如何响应？</span>",
+      "stemHtml": "A customer deploys a UCS 885a server in a data center with two power grids. Three of the 3000W power supplies in the server connect to each grid. Due to an external event, one of the grids will be shut down for maintenance. How does the server respond to this event?",
       "keyPointHtml": "选 B：失去连接三个电源的供电支路后，还剩三个 GPU 电源，服务器继续运行，但 GPU <strong>功率限制</strong>为 60%。<br><span lang=\"en\" class=\"ai-english\">Choose B: losing one three-<strong>PSU</strong> feed leaves three GPU <strong>PSU</strong>s, so the server remains running with GPU power capped at 60%.</span>",
       "speedTipHtml": "三个 GPU 电源：限功率运行；四个及以上：完整性能。<br><span lang=\"en\" class=\"ai-english\">Three GPU <strong>PSU</strong>s: capped operation. Four or more: full performance.</span>",
       "studyNotesHtml": [
@@ -1329,23 +1305,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Disable Platinum system class.",
-        "translationZh": "禁用 Platinum 系统类别。"
+        "text": "Disable Platinum system class."
       },
       {
         "key": "B",
-        "text": "Enable all QoS system classes.",
-        "translationZh": "启用所有 QoS 系统类别。"
+        "text": "Enable all QoS system classes."
       },
       {
         "key": "C",
-        "text": "Disable Gold system class.",
-        "translationZh": "禁用 Gold 系统类别。"
+        "text": "Disable Gold system class."
       },
       {
         "key": "D",
-        "text": "Enable Platinum class and uncheck Allow Packet Drops.",
-        "translationZh": "启用 Platinum 类别，并取消勾选 Allow Packet Drops。"
+        "text": "Enable Platinum class and uncheck Allow Packet Drops."
       }
     ],
     "answer": [
@@ -1386,7 +1358,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A customer uses Cisco AI Products within Intersight and observes packet drops for RoCEv2 traffic. Which <strong>System QoS</strong> policy configuration must be deployed to ensure that RoCEv2 traffic is classified as lossless?<span class=\"ai-stem-translation\" lang=\"zh-CN\">客户在 Intersight 管理的 Cisco AI 产品中观察到 RoCEv2 丢包。按照题目采用的 Platinum 分类方案，应部署哪项 System QoS 配置，将该流量类别设为不丢包？</span>",
+      "stemHtml": "A customer uses Cisco AI Products within Intersight and observes packet drops for RoCEv2 traffic. Which <strong>System QoS</strong> policy configuration must be deployed to ensure that RoCEv2 traffic is classified as lossless?",
       "keyPointHtml": "选 D：启用目标 Platinum 类别，并取消 Allow Packet Drops；同时将 RoCE 接口流量映射到同一个<strong>不丢包类别</strong>。<br><span lang=\"en\" class=\"ai-english\">Choose D: enable the intended Platinum class and clear Allow Packet Drops. Map the RoCE interface traffic to that same <strong>no-drop class</strong>.</span>",
       "speedTipHtml": "启用类别＋禁止丢包＋一致映射流量。<br><span lang=\"en\" class=\"ai-english\">Enable the class + disable drops + classify traffic consistently.</span>",
       "studyNotesHtml": [
@@ -1541,23 +1513,19 @@
     "options": [
       {
         "key": "A",
-        "text": "when providing greater overall total bandwidth within a single scalable unit",
-        "translationZh": "为了提高单个可扩展单元内部的总带宽。"
+        "text": "when providing greater overall total bandwidth within a single scalable unit"
       },
       {
         "key": "B",
-        "text": "when needing a greater path redundancy within a single scalable unit",
-        "translationZh": "为了增加单个可扩展单元内部的路径冗余。"
+        "text": "when needing a greater path redundancy within a single scalable unit"
       },
       {
         "key": "C",
-        "text": "when scaling out to support traffic between multiple scalable units",
-        "translationZh": "为了横向扩展，支持多个可扩展单元之间的流量。"
+        "text": "when scaling out to support traffic between multiple scalable units"
       },
       {
         "key": "D",
-        "text": "when increasing the overall available buffers that spines provide",
-        "translationZh": "为了利用 spine 提供的缓存，增加总体可用缓存。"
+        "text": "when increasing the overall available buffers that spines provide"
       }
     ],
     "answer": [
@@ -1598,7 +1566,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "When considering a rail-only network design, when would adding <strong>spine</strong> switches make sense?<span class=\"ai-stem-translation\" lang=\"zh-CN\">对于仅含 rail 层的网络设计，在哪种情况下增加 spine 交换机最有意义？</span>",
+      "stemHtml": "When considering a rail-only network design, when would adding <strong>spine</strong> switches make sense?",
       "keyPointHtml": "选 C：当多个<strong>可扩展单元</strong>之间需要网络互通时增加 <strong>spine</strong> 层。rail 内部流量已通过对应 leaf 路径转发。<br><span lang=\"en\" class=\"ai-english\">Choose C: add a <strong>spine</strong> tier when multiple <strong>scalable unit</strong>s need fabric connectivity between them. Rail-local traffic already uses its leaf path.</span>",
       "speedTipHtml": "rail 内走 leaf；跨<strong>可扩展单元</strong>增加 <strong>spine</strong> 层。<br><span lang=\"en\" class=\"ai-english\">Within a rail: leaf. Across <strong>scalable unit</strong>s: add the <strong>spine</strong> tier.</span>",
       "studyNotesHtml": [
@@ -1753,23 +1721,19 @@
     "options": [
       {
         "key": "A",
-        "text": "NetApp All-Flash FAS (AFF)",
-        "translationZh": "NetApp All-Flash FAS（AFF）全闪存储。"
+        "text": "NetApp All-Flash FAS (AFF)"
       },
       {
         "key": "B",
-        "text": "Pure Storage FlashBlade",
-        "translationZh": "Pure Storage FlashBlade 存储。"
+        "text": "Pure Storage FlashBlade"
       },
       {
         "key": "C",
-        "text": "Local NVMe SSDs within each GPU server",
-        "translationZh": "每台 GPU 服务器内部的本地 NVMe SSD。"
+        "text": "Local NVMe SSDs within each GPU server"
       },
       {
         "key": "D",
-        "text": "VAST Data Universal Storage",
-        "translationZh": "VAST Data Universal Storage 统一存储。"
+        "text": "VAST Data Universal Storage"
       }
     ],
     "answer": [
@@ -1815,7 +1779,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "An engineer is deploying Cisco AI PODs for large-scale AI workloads. The storage solution must use a Disaggregated Shared-Everything (<strong>DASE</strong>) architecture, support deployment on Cisco UCS C225 M8 <strong>EBox</strong> nodes managed through Cisco Intersight, and provide shared all-flash storage with RDMA and <strong>GPUDirect Storage</strong> integration. Which solution meets these requirements?<span class=\"ai-stem-translation\" lang=\"zh-CN\">工程师为大型 AI 工作负载部署 Cisco AI PODs。存储方案要求采用分离式共享一切 DASE 架构，支持在 Intersight 管理的 UCS C225 M8 EBox 节点上部署，并提供集成 RDMA 与 GPUDirect Storage 的共享全闪存储。应选哪项方案？</span>",
+      "stemHtml": "An engineer is deploying Cisco AI PODs for large-scale AI workloads. The storage solution must use a Disaggregated Shared-Everything (<strong>DASE</strong>) architecture, support deployment on Cisco UCS C225 M8 <strong>EBox</strong> nodes managed through Cisco Intersight, and provide shared all-flash storage with RDMA and <strong>GPUDirect Storage</strong> integration. Which solution meets these requirements?",
       "keyPointHtml": "选 D：<strong>DASE</strong> 是识别 VAST 的架构特征，Cisco 验证了在 Intersight 管理的 UCS C225 M8 <strong>EBox</strong> 节点上部署 VAST 存储的方案。<br><span lang=\"en\" class=\"ai-english\">Choose D: <strong>DASE</strong> is the identifying VAST architecture, and Cisco validates VAST storage on UCS C225 M8 <strong>EBox</strong> nodes with Intersight management.</span>",
       "speedTipHtml": "<strong>DASE</strong>＋Cisco <strong>EBox</strong>，指向 VAST。<br><span lang=\"en\" class=\"ai-english\"><strong>DASE</strong> + Cisco <strong>EBox</strong> points to VAST.</span>",
       "studyNotesHtml": [
@@ -1978,23 +1942,19 @@
     "options": [
       {
         "key": "A",
-        "text": "spanning tree topology change notifications",
-        "translationZh": "生成树拓扑变化通知。"
+        "text": "spanning tree topology change notifications"
       },
       {
         "key": "B",
-        "text": "BGP EVPN route count per leaf switch",
-        "translationZh": "每台 leaf 交换机的 BGP EVPN 路由数量。"
+        "text": "BGP EVPN route count per leaf switch"
       },
       {
         "key": "C",
-        "text": "VXLAN tunnel packet encapsulation rate",
-        "translationZh": "VXLAN 隧道报文封装速率。"
+        "text": "VXLAN tunnel packet encapsulation rate"
       },
       {
         "key": "D",
-        "text": "PFC pause frame transmission rate per interface",
-        "translationZh": "每个接口的 PFC 暂停帧发送速率。"
+        "text": "PFC pause frame transmission rate per interface"
       }
     ],
     "answer": [
@@ -2040,7 +2000,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A network operations team deploys HyperFabric AI and wants to monitor fabric health to proactively identify performance issues. The team must track metrics specifically relevant to AI training workloads. Which metric is most critical for identifying congestion issues that could impact AI training performance in a HyperFabric AI deployment?<span class=\"ai-stem-translation\" lang=\"zh-CN\">运维团队部署 HyperFabric AI，希望提前发现影响 AI 训练的拥塞问题。下列哪项指标最直接相关？</span>",
+      "stemHtml": "A network operations team deploys HyperFabric AI and wants to monitor fabric health to proactively identify performance issues. The team must track metrics specifically relevant to AI training workloads. Which metric is most critical for identifying congestion issues that could impact AI training performance in a HyperFabric AI deployment?",
       "keyPointHtml": "选 D：PFC 发送速率直接反映无损网络中的暂停信号。持续或上升的暂停活动值得结合队列、ECN 与吞吐量数据调查。<br><span lang=\"en\" class=\"ai-english\">Choose D: PFC transmission rate directly shows pause signaling on a lossless fabric. Persistent or rising pause activity warrants investigation alongside queue, ECN and throughput data.</span>",
       "speedTipHtml": "PFC 是拥塞线索，不是最终诊断。<br><span lang=\"en\" class=\"ai-english\">PFC is a congestion clue, not the diagnosis.</span>",
       "studyNotesHtml": [
@@ -2200,23 +2160,19 @@
     "options": [
       {
         "key": "A",
-        "text": "isolation of analytic functions within remote processing clusters",
-        "translationZh": "将分析功能隔离在远程处理集群内。"
+        "text": "isolation of analytic functions within remote processing clusters"
       },
       {
         "key": "B",
-        "text": "distribution of computational tasks across multiple locations",
-        "translationZh": "将计算任务分配到多个位置。"
+        "text": "distribution of computational tasks across multiple locations"
       },
       {
         "key": "C",
-        "text": "restriction of automation to local storage and performance measures",
-        "translationZh": "将自动化限制在本地存储和性能措施中。"
+        "text": "restriction of automation to local storage and performance measures"
       },
       {
         "key": "D",
-        "text": "enforcement of fixed security policies on distribution endpoints",
-        "translationZh": "在分布端点上强制执行固定安全策略。"
+        "text": "enforcement of fixed security policies on distribution endpoints"
       }
     ],
     "answer": [
@@ -2257,7 +2213,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "What does workload distribution offer in an AI infrastructure with local and external resources?<span class=\"ai-stem-translation\" lang=\"zh-CN\">在同时使用本地与外部资源的 AI 基础设施中，工作负载分布能提供什么能力？</span>",
+      "stemHtml": "What does workload distribution offer in an AI infrastructure with local and external resources?",
       "keyPointHtml": "选 B：工作负载分布将计算任务放置到不同可用位置，例如本地集群与外部云资源。<br><span lang=\"en\" class=\"ai-english\">Choose B: workload distribution places computational tasks across available locations, such as an on-premises cluster and external cloud resources.</span>",
       "speedTipHtml": "工作负载分布关注计算在哪里运行。<br><span lang=\"en\" class=\"ai-english\">Distribution is about where computation runs.</span>",
       "studyNotesHtml": [
@@ -2412,23 +2368,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Implement a power capping policy.",
-        "translationZh": "实施功率封顶策略。"
+        "text": "Implement a power capping policy."
       },
       {
         "key": "B",
-        "text": "Enable extended power capacity.",
-        "translationZh": "启用扩展功率容量。"
+        "text": "Enable extended power capacity."
       },
       {
         "key": "C",
-        "text": "Add more power supplies.",
-        "translationZh": "增加更多电源模块。"
+        "text": "Add more power supplies."
       },
       {
         "key": "D",
-        "text": "Disable extended power capacity.",
-        "translationZh": "禁用扩展功率容量。"
+        "text": "Disable extended power capacity."
       }
     ],
     "answer": [
@@ -2469,7 +2421,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Server administrators receive reports of power utilization being near capacity across multiple UCS X-Series servers in the data center after a hardware upgrade. The chassis operates with six power supply units in redundant power mode. How can the administrator use additional power without impacting redundancy?<span class=\"ai-stem-translation\" lang=\"zh-CN\">硬件升级后，多台 UCS X-Series 服务器的功率使用接近上限。机箱安装六个电源并采用冗余模式。管理员如何在保持该冗余模式的情况下提高可分配功率？</span>",
+      "stemHtml": "Server administrators receive reports of power utilization being near capacity across multiple UCS X-Series servers in the data center after a hardware upgrade. The chassis operates with six power supply units in redundant power mode. How can the administrator use additional power without impacting redundancy?",
       "keyPointHtml": "选 B：<strong>Extended Power Capacity</strong> 在保留受支持的冗余模式时提高<strong>功率预算</strong>，但并不保证供电支路故障后性能完全不变。<br><span lang=\"en\" class=\"ai-english\">Choose B: <strong>Extended Power Capacity</strong> increases the <strong>power budget</strong> while keeping a supported redundant mode. It does not guarantee unchanged performance after a supply-grid failure.</span>",
       "speedTipHtml": "扩展容量增加预算；功率封顶限制预算。<br><span lang=\"en\" class=\"ai-english\">Extended capacity adds budget; capping restricts it.</span>",
       "studyNotesHtml": [
@@ -2624,23 +2576,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Edit the IMC access policy associated to the fabric interconnects.",
-        "translationZh": "编辑关联到 fabric interconnect 的 IMC Access 策略。"
+        "text": "Edit the IMC access policy associated to the fabric interconnects."
       },
       {
         "key": "B",
-        "text": "Create a device connector policy and apply it to the blade chassis.",
-        "translationZh": "创建 Device Connector 策略，并应用到刀片机箱。"
+        "text": "Create a device connector policy and apply it to the blade chassis."
       },
       {
         "key": "C",
-        "text": "Create a network connectivity policy and apply it to the blade chassis.",
-        "translationZh": "创建 Network Connectivity 策略，并应用到刀片机箱。"
+        "text": "Create a network connectivity policy and apply it to the blade chassis."
       },
       {
         "key": "D",
-        "text": "Edit the domain profile deployed to the fabric interconnect.",
-        "translationZh": "编辑部署到 fabric interconnect 的域配置文件。"
+        "text": "Edit the domain profile deployed to the fabric interconnect."
       }
     ],
     "answer": [
@@ -2681,7 +2629,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "An engineer made changes to the corporate DNS, which caused a Cisco UCS X-Series domain to lose connectivity to Intersight. To restore connectivity, the management interface DNS and NTP settings must be updated using the device console UI. Which configuration change must be made in Intersight to allow the updated DNS configuration to persist?<span class=\"ai-stem-translation\" lang=\"zh-CN\">企业 DNS 变更导致 UCS X-Series 域无法连接 Intersight。工程师通过设备控制台更新管理接口的 DNS 与 NTP，恢复连接。为使 Intersight 管理的配置与新的 DNS 设置保持一致，应修改哪项配置？</span>",
+      "stemHtml": "An engineer made changes to the corporate DNS, which caused a Cisco UCS X-Series domain to lose connectivity to Intersight. To restore connectivity, the management interface DNS and NTP settings must be updated using the device console UI. Which configuration change must be made in Intersight to allow the updated DNS configuration to persist?",
       "keyPointHtml": "选 D：更新已部署的<strong>域配置文件</strong>及其关联的 Network Connectivity 策略，使其反映正确 DNS 设置；若 NTP 也改变，应同步对应的独立 NTP 策略。<br><span lang=\"en\" class=\"ai-english\">Choose D: update the deployed <strong>domain profile</strong> and its associated <strong>Network Connectivity policy</strong> to reflect the corrected DNS settings. Reconcile NTP in its own associated policy if it changed too.</span>",
       "speedTipHtml": "FI 的 DNS → Network Connectivity 策略 → UCS <strong>域配置文件</strong>。<br><span lang=\"en\" class=\"ai-english\">FI DNS → <strong>Network Connectivity policy</strong> → UCS <strong>domain profile</strong>.</span>",
       "studyNotesHtml": [
@@ -2836,23 +2784,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Congestion Algorithm: Weighted Random Early Detection (WRED) Congestion Notification: Enabled",
-        "translationZh": "拥塞算法：WRED；拥塞通知：启用。"
+        "text": "Congestion Algorithm: Weighted Random Early Detection (WRED) Congestion Notification: Enabled"
       },
       {
         "key": "B",
-        "text": "Congestion Algorithm: Weighted Random Early Detection (WRED) Congestion Notification: Disabled",
-        "translationZh": "拥塞算法：WRED；拥塞通知：禁用。"
+        "text": "Congestion Algorithm: Weighted Random Early Detection (WRED) Congestion Notification: Disabled"
       },
       {
         "key": "C",
-        "text": "Congestion Algorithm: Tail Drop Congestion Notification: Disabled",
-        "translationZh": "拥塞算法：尾丢弃；拥塞通知：禁用。"
+        "text": "Congestion Algorithm: Tail Drop Congestion Notification: Disabled"
       },
       {
         "key": "D",
-        "text": "Congestion Algorithm: Tail Drop Congestion Notification: Enabled",
-        "translationZh": "拥塞算法：尾丢弃；拥塞通知：启用。"
+        "text": "Congestion Algorithm: Tail Drop Congestion Notification: Enabled"
       }
     ],
     "answer": [
@@ -2898,7 +2842,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "An engineer configures the RoCEv2 storage-data QoS class in a Cisco ACI fabric connected to VAST storage servers. Which combination of congestion attributes matches the documented design?<span class=\"ai-stem-translation\" lang=\"zh-CN\">工程师为连接 VAST 存储服务器的 Cisco ACI 网络配置 RoCEv2 存储数据 QoS 类别。哪组拥塞属性符合文档设计？</span>",
+      "stemHtml": "An engineer configures the RoCEv2 storage-data QoS class in a Cisco ACI fabric connected to VAST storage servers. Which combination of congestion attributes matches the documented design?",
       "keyPointHtml": "选 A：在文档的 ACI/VAST 设计中，RoCEv2 存储数据类别采用 <strong>WRED</strong>，并启用 Congestion Notification 来提供 <strong>ECN</strong> 标记。<br><span lang=\"en\" class=\"ai-english\">Choose A: <strong>WRED</strong> with Congestion Notification enabled provides <strong>ECN</strong> marking for the RoCEv2 storage-data class in the documented ACI/VAST design.</span>",
       "speedTipHtml": "RoCE 数据类别：<strong>WRED</strong>＋<strong>ECN</strong> 标记。<br><span lang=\"en\" class=\"ai-english\">RoCE data class: <strong>WRED</strong> + <strong>ECN</strong> marking.</span>",
       "studyNotesHtml": [
@@ -3061,23 +3005,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Cisco UCS C845A M8 Server",
-        "translationZh": "Cisco UCS C845A M8 服务器。"
+        "text": "Cisco UCS C845A M8 Server"
       },
       {
         "key": "B",
-        "text": "Cisco UCS X-Series Direct",
-        "translationZh": "Cisco UCS X-Series Direct 平台。"
+        "text": "Cisco UCS X-Series Direct"
       },
       {
         "key": "C",
-        "text": "Cisco Unified Edge",
-        "translationZh": "Cisco Unified Edge 平台。"
+        "text": "Cisco Unified Edge"
       },
       {
         "key": "D",
-        "text": "Cisco UCS C240 Servers",
-        "translationZh": "Cisco UCS C240 服务器。"
+        "text": "Cisco UCS C240 Servers"
       }
     ],
     "answer": [
@@ -3123,7 +3063,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A bank is planning to deploy an AI inference solution at its branch locations. The solution must support workloads that require a balance of compute, memory, and potential GPU acceleration, and it must be suitable for installation by nontechnical onsite resources. The requirements are: high availability of the chassis management plane. support for up to 768 GB of memory for in-memory model storage and processing remote server launch requiring no on-site IT staff use of Cisco Intersight for SaaS-based infrastructure lifecycle management Which solution meets the requirements?<span class=\"ai-stem-translation\" lang=\"zh-CN\">银行要在分支部署 AI 推理，需要兼顾计算、内存及可选 GPU 加速，并方便非专业现场人员完成基础部署。要求机箱管理平面冗余、计算节点最多支持 768 GB 内存、无需现场 IT 人员即可远程启动配置，以及 Intersight SaaS 生命周期管理。应选哪个方案？</span>",
+      "stemHtml": "A bank is planning to deploy an AI inference solution at its branch locations. The solution must support workloads that require a balance of compute, memory, and potential GPU acceleration, and it must be suitable for installation by nontechnical onsite resources. The requirements are: high availability of the chassis management plane. support for up to 768 GB of memory for in-memory model storage and processing remote server launch requiring no on-site IT staff use of Cisco Intersight for SaaS-based infrastructure lifecycle management Which solution meets the requirements?",
       "keyPointHtml": "选 C：<strong>Unified Edge</strong> 结合冗余机箱控制器、最多 768 GB 内存的 XE130c M8 节点、可选 GPU 与远程管理的边缘部署。<br><span lang=\"en\" class=\"ai-english\">Choose C: <strong>Unified Edge</strong> combines redundant chassis controllers, XE130c M8 nodes with up to 768 GB RAM, optional GPUs and remotely managed edge deployment.</span>",
       "speedTipHtml": "分支设备群＋冗余边缘控制器＋节点 768 GB 内存→<strong>Unified Edge</strong>。<br><span lang=\"en\" class=\"ai-english\">Branch fleet + redundant edge controllers + 768 GB node RAM → <strong>Unified Edge</strong>.</span>",
       "studyNotesHtml": [
@@ -3283,24 +3223,20 @@
     "options": [
       {
         "key": "A",
-        "text": "Analyze feature automating the deployment and scaling of AI application containers and their underlying Kubernetes infrastructure, which reduces manual monitoring efforts",
-        "translationZh": "Analyze 功能自动部署和扩缩 AI 容器及底层 Kubernetes，以减少手动监控。"
+        "text": "Analyze feature automating the deployment and scaling of AI application containers and their underlying Kubernetes infrastructure, which reduces manual monitoring efforts"
       },
       {
         "key": "B",
-        "text": "integration with Cisco Nexus Dashboard for advanced network flow analytics and anomaly detection across the data center fabric, which ensures high-speed data transfer between GPU nodes",
-        "translationZh": "与 Nexus Dashboard 集成，提供网络流分析和异常检测，确保 GPU 节点高速传输。"
+        "text": "integration with Cisco Nexus Dashboard for advanced network flow analytics and anomaly detection across the data center fabric, which ensures high-speed data transfer between GPU nodes"
       },
       {
         "key": "C",
-        "text": "basic server health reporting, which is limited to CPU and memory statistics, and requires specialized third-party tools for any GPU-specific performance monitoring or diagnostics",
-        "translationZh": "仅提供 CPU、内存的基本健康报告；任何 GPU 专用监控与诊断都必须依赖第三方工具。"
+        "text": "basic server health reporting, which is limited to CPU and memory statistics, and requires specialized third-party tools for any GPU-specific performance monitoring or diagnostics"
       },
       {
         "key": "D",
         "text": "health and performance monitoring with supported UCS and GPU telemetry, including utilization and environmental metrics",
-        "originalText": "comprehensive health and performance monitoring, which provides real-time telemetry data for UCS servers, including granular metrics for NVIDIA GPUs, which enables direct insights into AI workload execution",
-        "translationZh": "通过受支持的 UCS 与 GPU 遥测进行健康和性能监控，包括利用率及环境指标。"
+        "originalText": "comprehensive health and performance monitoring, which provides real-time telemetry data for UCS servers, including granular metrics for NVIDIA GPUs, which enables direct insights into AI workload execution"
       }
     ],
     "answer": [
@@ -3346,7 +3282,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A solutions architect monitors supported Cisco UCS GPU servers through Cisco Intersight. The objectives are visibility into accelerator utilization, infrastructure bottlenecks and compute health. Which Intersight capability most directly supports these objectives?<span class=\"ai-stem-translation\" lang=\"zh-CN\">架构师通过 Intersight 监控受支持的 Cisco UCS GPU 服务器，希望了解加速器利用率、基础设施瓶颈及计算资源健康状况。哪项 Intersight 能力最直接满足这些目标？</span>",
+      "stemHtml": "A solutions architect monitors supported Cisco UCS GPU servers through Cisco Intersight. The objectives are visibility into accelerator utilization, infrastructure bottlenecks and compute health. Which Intersight capability most directly supports these objectives?",
       "keyPointHtml": "选 D：基础设施健康与性能<strong>遥测</strong>，包括可用 GPU 指标，直接满足监控要求。<br><span lang=\"en\" class=\"ai-english\">Choose D: infrastructure health and performance <strong>telemetry</strong>, including available GPU metrics, addresses the monitoring requirement directly.</span>",
       "speedTipHtml": "GPU 基础设施可见性→受支持的 GPU <strong>遥测</strong>，并关联服务器健康信息。<br><span lang=\"en\" class=\"ai-english\">GPU infrastructure visibility → supported GPU <strong>telemetry</strong>, correlated with server health.</span>",
       "studyNotesHtml": [
@@ -3510,24 +3446,20 @@
     "options": [
       {
         "key": "A",
-        "text": "C245 M8",
-        "translationZh": "UCS C245 M8 服务器。"
+        "text": "C245 M8"
       },
       {
         "key": "B",
         "text": "UCS X210c M8 with a UCS X580p PCIe node",
-        "originalText": "X210C M8 with x580 PCIe node",
-        "translationZh": "UCS X210c M8 搭配 UCS X580p PCIe 节点。"
+        "originalText": "X210C M8 with x580 PCIe node"
       },
       {
         "key": "C",
-        "text": "C845A M8",
-        "translationZh": "UCS C845A M8 服务器。"
+        "text": "C845A M8"
       },
       {
         "key": "D",
-        "text": "C885A M8",
-        "translationZh": "UCS C885A M8 服务器。"
+        "text": "C885A M8"
       }
     ],
     "answer": [
@@ -3578,7 +3510,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A medium-sized breadmaking operation must deploy a fleet of GPU servers that meet these requirements for their flagship application: policy managed through cloud-based interface low latency between specific pairs of GPUs at least 2 GPUs per server all GPUs should be same model Intel CPU - well suited for Inferencing customer is power conscious Which server meets the requirements?<span class=\"ai-stem-translation\" lang=\"zh-CN\">一家中型食品企业需要部署 GPU 服务器群：通过云端界面进行策略管理，特定 GPU 对之间低时延互联，每服务器至少两个同型号 GPU，采用 Intel CPU 进行推理，并关注能耗。哪个平台最符合这些约束？</span>",
+      "stemHtml": "A medium-sized breadmaking operation must deploy a fleet of GPU servers that meet these requirements for their flagship application: policy managed through cloud-based interface low latency between specific pairs of GPUs at least 2 GPUs per server all GPUs should be same model Intel CPU - well suited for Inferencing customer is power conscious Which server meets the requirements?",
       "keyPointHtml": "选 B：Intel 平台的 X210c M8 搭配 X580p，提供策略管理的 GPU 扩展。若需要这种 GPU 成对互联，应配置至少两个同型号且支持 NVLink 的 GPU。<br><span lang=\"en\" class=\"ai-english\">Choose B: Intel-based X210c M8 plus X580p provides policy-managed GPU expansion. Configure at least two matching NVLink-capable GPUs when that paired interconnect is required.</span>",
       "speedTipHtml": "Intel 要求指向 X210c；X580p 提供 GPU 扩展。<br><span lang=\"en\" class=\"ai-english\">Intel requirement selects X210c; the X580p supplies the GPU expansion.</span>",
       "studyNotesHtml": [
@@ -3744,23 +3676,19 @@
     "options": [
       {
         "key": "A",
-        "text": "UCS C240 M8 with NVIDIA L40 GPU",
-        "translationZh": "UCS C240 M8 搭配 NVIDIA L40 GPU。"
+        "text": "UCS C240 M8 with NVIDIA L40 GPU"
       },
       {
         "key": "B",
-        "text": "UCS C845A M8 with AMD MI210 GPU",
-        "translationZh": "UCS C845A M8 搭配 AMD MI210 GPU。"
+        "text": "UCS C845A M8 with AMD MI210 GPU"
       },
       {
         "key": "C",
-        "text": "UCS C220 M8 with NVIDIA A16 GPU",
-        "translationZh": "UCS C220 M8 搭配 NVIDIA A16 GPU。"
+        "text": "UCS C220 M8 with NVIDIA A16 GPU"
       },
       {
         "key": "D",
-        "text": "UCS C885A M8 with NVIDIA H200 GPU",
-        "translationZh": "UCS C885A M8 搭配 NVIDIA H200 GPU。"
+        "text": "UCS C885A M8 with NVIDIA H200 GPU"
       }
     ],
     "answer": [
@@ -3811,7 +3739,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A global enterprise is deploying a new AI-driven analytics platform that requires high-performance GPU acceleration, large memory capacity, and robust virtualization support. The compute and GPU resources selected must provide direct GPU to GPU access leveraging <strong>NVLink</strong> technology. Which set of products meets the requirements?<span class=\"ai-stem-translation\" lang=\"zh-CN\">企业部署需要 GPU 加速、大内存及虚拟化支持的 AI 分析平台。其中一项明确要求是 GPU 之间通过 NVLink 直接互联。以下哪组产品满足这一互联要求？</span>",
+      "stemHtml": "A global enterprise is deploying a new AI-driven analytics platform that requires high-performance GPU acceleration, large memory capacity, and robust virtualization support. The compute and GPU resources selected must provide direct GPU to GPU access leveraging <strong>NVLink</strong> technology. Which set of products meets the requirements?",
       "keyPointHtml": "选 D：C885A M8 的 NVIDIA <strong>HGX</strong> H200 配置包含 <strong>NVLink</strong> GPU 互联。列出的 L40、AMD MI210 与 A16 方案不提供 NVIDIA <strong>NVLink</strong>。<br><span lang=\"en\" class=\"ai-english\">Choose D: the C885A M8 NVIDIA <strong>HGX</strong> H200 configuration includes an <strong>NVLink</strong> GPU interconnect. The listed L40, AMD MI210 and A16 alternatives do not provide NVIDIA <strong>NVLink</strong>.</span>",
       "speedTipHtml": "检查具体 GPU 互联技术，而不只是有没有 GPU。<br><span lang=\"en\" class=\"ai-english\">Check the exact GPU interconnect, not just the presence of GPUs.</span>",
       "studyNotesHtml": [
@@ -3976,24 +3904,20 @@
     "options": [
       {
         "key": "A",
-        "text": "NVMe/TCP",
-        "translationZh": "NVMe/TCP 传输。"
+        "text": "NVMe/TCP"
       },
       {
         "key": "B",
-        "text": "iSCSI",
-        "translationZh": "iSCSI 存储协议。"
+        "text": "iSCSI"
       },
       {
         "key": "C",
         "text": "NVMe over RoCEv2",
-        "originalText": "NVMe/RoCE",
-        "translationZh": "通过 RoCEv2 传输 NVMe。"
+        "originalText": "NVMe/RoCE"
       },
       {
         "key": "D",
-        "text": "Fibre Channel",
-        "translationZh": "原生 Fibre Channel（光纤通道）。"
+        "text": "Fibre Channel"
       }
     ],
     "answer": [
@@ -4039,7 +3963,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Which IP-based NVMe transport uses RDMA and commonly uses priority-based, hop-by-hop Ethernet flow control in Cisco no-drop storage designs?<span class=\"ai-stem-translation\" lang=\"zh-CN\">哪种基于 IP 的 NVMe 传输使用 RDMA，并在 Cisco 不丢包存储设计中通常使用按优先级、逐跳的以太网流控？</span>",
+      "stemHtml": "Which IP-based NVMe transport uses RDMA and commonly uses priority-based, hop-by-hop Ethernet flow control in Cisco no-drop storage designs?",
       "keyPointHtml": "选 C：NVMe over RoCEv2 通过 RDMA/UDP/IP 承载存储命令，在该设计中通常使用 <strong>PFC</strong> 保护的以太网优先级。<br><span lang=\"en\" class=\"ai-english\">Choose C: NVMe over RoCEv2 carries storage commands over RDMA/UDP/IP and commonly uses <strong>PFC</strong>-protected Ethernet priorities in this design.</span>",
       "speedTipHtml": "RoCEv2：可路由 RDMA；<strong>PFC</strong>：相邻链路暂停。<br><span lang=\"en\" class=\"ai-english\">RoCEv2: routed RDMA; <strong>PFC</strong>: adjacent-link pause.</span>",
       "studyNotesHtml": [
@@ -4204,23 +4128,19 @@
       {
         "key": "A",
         "text": "NCCL-based collective benchmarks (nccl-tests)",
-        "originalText": "NCCL",
-        "translationZh": "基于 NCCL 的集合通信基准测试（nccl-tests）。"
+        "originalText": "NCCL"
       },
       {
         "key": "B",
-        "text": "Spirent",
-        "translationZh": "Spirent 网络测试平台。"
+        "text": "Spirent"
       },
       {
         "key": "C",
-        "text": "iPerf",
-        "translationZh": "iPerf 网络性能工具。"
+        "text": "iPerf"
       },
       {
         "key": "D",
-        "text": "IXIA",
-        "translationZh": "Ixia 网络测试平台。"
+        "text": "IXIA"
       }
     ],
     "answer": [
@@ -4266,7 +4186,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A customer is validating communication performance between NVIDIA GPU nodes in a new AI fabric. Which listed approach directly <strong>benchmark</strong>s GPU collective operations representative of distributed training?<span class=\"ai-stem-translation\" lang=\"zh-CN\">客户要验证新 AI 网络中 NVIDIA GPU 节点间的通信性能。哪种方法能直接测试代表分布式训练通信模式的 GPU 集合操作？</span>",
+      "stemHtml": "A customer is validating communication performance between NVIDIA GPU nodes in a new AI fabric. Which listed approach directly <strong>benchmark</strong>s GPU collective operations representative of distributed training?",
       "keyPointHtml": "选 A：<strong>nccl</strong>-tests 会沿配置的多节点数据路径，实际执行 GPU 之间的 <strong>NCCL</strong> 集合操作，例如 <strong>all-reduce</strong>。<br><span lang=\"en\" class=\"ai-english\">Choose A: <strong>nccl</strong>-tests exercises actual <strong>NCCL</strong> collectives between GPUs, such as <strong>all-reduce</strong>, across the configured multi-node data path.</span>",
       "speedTipHtml": "训练通信基准→GPU 集合操作→<strong>nccl</strong>-tests。<br><span lang=\"en\" class=\"ai-english\">Training communication <strong>benchmark</strong> → GPU collectives → <strong>nccl</strong>-tests.</span>",
       "studyNotesHtml": [
@@ -4430,23 +4350,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Under the relevant interface-level configuration, add the keyword dlb-interface.",
-        "translationZh": "在相应接口配置模式下添加 dlb-interface 关键字。"
+        "text": "Under the relevant interface-level configuration, add the keyword dlb-interface."
       },
       {
         "key": "B",
-        "text": "Create a QoS policy that enables DLB and apply that policy to the relevant interfaces.",
-        "translationZh": "创建启用 DLB 的 QoS 策略，再应用到相关接口。"
+        "text": "Create a QoS policy that enables DLB and apply that policy to the relevant interfaces."
       },
       {
         "key": "C",
-        "text": "Create a DLB hardware profile and include the list of desired interfaces.",
-        "translationZh": "创建 DLB 硬件配置，并在其中列出所需接口。"
+        "text": "Create a DLB hardware profile and include the list of desired interfaces."
       },
       {
         "key": "D",
-        "text": "Exclude the desired interfaces from DLB with the interface level configuration of no dlb-interface.",
-        "translationZh": "在接口配置下使用 no dlb-interface，将目标接口排除出 DLB。"
+        "text": "Exclude the desired interfaces from DLB with the interface level configuration of no dlb-interface."
       }
     ],
     "answer": [
@@ -4487,7 +4403,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "An engineer must configure dynamic load balancing (<strong>DLB</strong>) on a Cisco Nexus 9000 Series Switch AI fabric using a CLI. Which configuration must be implemented for only the odd-numbered interfaces?<span class=\"ai-stem-translation\" lang=\"zh-CN\">工程师要通过 CLI，在 Cisco Nexus 9000 AI 网络中只对选定的奇数编号接口启用 DLB。应采用哪项配置方式？</span>",
+      "stemHtml": "An engineer must configure dynamic load balancing (<strong>DLB</strong>) on a Cisco Nexus 9000 Series Switch AI fabric using a CLI. Which configuration must be implemented for only the odd-numbered interfaces?",
       "keyPointHtml": "选 C：进入 hardware profile <strong>dlb</strong>，在该上下文指定所需<strong>接口列表</strong>；例如接口合格时指定 Eth1/1、Eth1/3、Eth1/5。<br><span lang=\"en\" class=\"ai-english\">Choose C: enter hardware profile <strong>dlb</strong> and specify the intended <strong>interface list</strong> there, for example Eth1/1,Eth1/3,Eth1/5 when those interfaces are eligible.</span>",
       "speedTipHtml": "<strong>DLB</strong> 接口范围配置在 <strong>DLB</strong> 硬件配置上下文中。<br><span lang=\"en\" class=\"ai-english\"><strong>DLB</strong> port selection lives under the <strong>DLB</strong> hardware profile.</span>",
       "studyNotesHtml": [
@@ -4642,23 +4558,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Digital Network Architecture Center",
-        "translationZh": "数字网络架构中心（DNA Center）。"
+        "text": "Digital Network Architecture Center"
       },
       {
         "key": "B",
-        "text": "Intersight",
-        "translationZh": "Cisco Intersight 管理平台。"
+        "text": "Intersight"
       },
       {
         "key": "C",
-        "text": "HyperFabric",
-        "translationZh": "Cisco Hyperfabric 平台。"
+        "text": "HyperFabric"
       },
       {
         "key": "D",
-        "text": "Nexus Dashboard",
-        "translationZh": "Cisco Nexus Dashboard 网络管理平台。"
+        "text": "Nexus Dashboard"
       }
     ],
     "answer": [
@@ -4699,7 +4611,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "An end customer plans to deploy an AI fabric in a new data center. Their engineers are more familiar with CLI-based networks and require the capability to automate standardized <strong>configuration template</strong>s and monitor flows for the fabric. Which data center automation tool meets the requirements?<span class=\"ai-stem-translation\" lang=\"zh-CN\">客户要部署 AI 网络，工程师熟悉 CLI 网络运维，需要自动化标准配置模板，并监控网络流。哪个数据中心自动化平台最符合要求？</span>",
+      "stemHtml": "An end customer plans to deploy an AI fabric in a new data center. Their engineers are more familiar with CLI-based networks and require the capability to automate standardized <strong>configuration template</strong>s and monitor flows for the fabric. Which data center automation tool meets the requirements?",
       "keyPointHtml": "选 D：<strong>Nexus Dashboard</strong> 提供适用于 Nexus/NX-OS 运维的数据中心网络自动化、模板配置和网络遥测。<br><span lang=\"en\" class=\"ai-english\">Choose D: <strong>Nexus Dashboard</strong> supplies data-center fabric automation, template-based configuration and network telemetry suited to Nexus/NX-OS operations.</span>",
       "speedTipHtml": "Nexus 网络配置＋网络流可见性→<strong>Nexus Dashboard</strong>。<br><span lang=\"en\" class=\"ai-english\">Nexus fabric configuration + flow visibility → <strong>Nexus Dashboard</strong>.</span>",
       "studyNotesHtml": [
@@ -4854,23 +4766,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Add the “adaptive-routing” keyword under the switch load balancing configuration.",
-        "translationZh": "在交换机负载均衡配置下添加 adaptive-routing 关键字。"
+        "text": "Add the “adaptive-routing” keyword under the switch load balancing configuration."
       },
       {
         "key": "B",
-        "text": "Set the cisco_dlb=1 option in the NIC configuration so the NIC knows it can use adaptive routing.",
-        "translationZh": "在网卡配置中设置 cisco_dlb=1，使网卡知道可使用自适应路由。"
+        "text": "Set the cisco_dlb=1 option in the NIC configuration so the NIC knows it can use adaptive routing."
       },
       {
         "key": "C",
-        "text": "Include switch configuration “hardware profile spectrum-x” in global configuration mode.",
-        "translationZh": "在全局配置模式使用 hardware profile spectrum-x。"
+        "text": "Include switch configuration “hardware profile spectrum-x” in global configuration mode."
       },
       {
         "key": "D",
-        "text": "Include matching statements in your QoS policy so the switch knows which incoming packets to load balance.",
-        "translationZh": "在 QoS 策略中加入匹配语句，告诉交换机哪些入站报文应负载均衡。"
+        "text": "Include matching statements in your QoS policy so the switch knows which incoming packets to load balance."
       }
     ],
     "answer": [
@@ -4916,7 +4824,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "On a supported Cisco Nexus 9000 platform and NX-OS release, an AI fabric uses NVIDIA NIC <strong>adaptive routing</strong> and switch <strong>per-packet DLB</strong>. Which additional switch command enables the documented NVIDIA <strong>Spectrum-X interoperability</strong> feature? Assume the required licenses and LLDP are present.<span class=\"ai-stem-translation\" lang=\"zh-CN\">在受支持的 Nexus 9000 平台和 NX-OS 版本上，AI 网络已启用 NVIDIA 网卡自适应路由及交换机逐包 DLB。假设许可证与 LLDP 前提已满足，哪条附加交换机命令启用文档规定的 NVIDIA Spectrum-X 互操作功能？</span>",
+      "stemHtml": "On a supported Cisco Nexus 9000 platform and NX-OS release, an AI fabric uses NVIDIA NIC <strong>adaptive routing</strong> and switch <strong>per-packet DLB</strong>. Which additional switch command enables the documented NVIDIA <strong>Spectrum-X interoperability</strong> feature? Assume the required licenses and LLDP are present.",
       "keyPointHtml": "选 C：hardware profile spectrum-x 启用受支持的交换机侧互操作功能；DLB 仍按自身硬件配置运行。<br><span lang=\"en\" class=\"ai-english\">Choose C: hardware profile spectrum-x enables the supported switch-side interoperability feature. DLB still follows its own hardware-profile configuration.</span>",
       "speedTipHtml": "DLB 控制流量分布；spectrum-x 启用文档规定的互操作。<br><span lang=\"en\" class=\"ai-english\">DLB controls distribution; spectrum-x enables the documented interoperability.</span>",
       "studyNotesHtml": [
@@ -5079,23 +4987,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Cisco HyperFabric AI Small AI Cluster with Cisco 6000 switches and AI servers on premises",
-        "translationZh": "Cisco Hyperfabric AI Small 模板，Cisco 6000 交换机与 AI 服务器部署在本地。"
+        "text": "Cisco HyperFabric AI Small AI Cluster with Cisco 6000 switches and AI servers on premises"
       },
       {
         "key": "B",
-        "text": "Cisco HyperFabric AI Medium AI Cluster with Cisco 6000 switches and AI servers on premises",
-        "translationZh": "Cisco Hyperfabric AI Medium 模板，Cisco 6000 交换机与 AI 服务器部署在本地。"
+        "text": "Cisco HyperFabric AI Medium AI Cluster with Cisco 6000 switches and AI servers on premises"
       },
       {
         "key": "C",
-        "text": "Cisco Nexus Dashboard deployed in AWS or Azure with Nexus 9000 switches and AI servers on premises",
-        "translationZh": "Nexus Dashboard 部署在 AWS 或 Azure，本地使用 Nexus 9000 交换机和 AI 服务器。"
+        "text": "Cisco Nexus Dashboard deployed in AWS or Azure with Nexus 9000 switches and AI servers on premises"
       },
       {
         "key": "D",
-        "text": "Cisco Intersight AI fabric with Nexus 9000 switches and AI servers on premises",
-        "translationZh": "Intersight AI fabric，本地使用 Nexus 9000 交换机与 AI 服务器。"
+        "text": "Cisco Intersight AI fabric with Nexus 9000 switches and AI servers on premises"
       }
     ],
     "answer": [
@@ -5141,7 +5045,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Using the Hyperfabric AI template sizes shown in Cisco Live 2025 BRKDCN-2677 (slide 44), a company needs a 96-GPU NVIDIA-aligned on-premises AI cluster with cloud-managed Cisco networking. Which listed template fits?<span class=\"ai-stem-translation\" lang=\"zh-CN\">按 Cisco Live 2025 BRKDCN-2677 第 44 页展示的 Hyperfabric AI 模板规格，企业需要 96 GPU、遵循 NVIDIA 参考设计的本地 AI 集群，并通过云端管理 Cisco 网络。哪项模板符合要求？</span>",
+      "stemHtml": "Using the Hyperfabric AI template sizes shown in Cisco Live 2025 BRKDCN-2677 (slide 44), a company needs a 96-GPU NVIDIA-aligned on-premises AI cluster with cloud-managed Cisco networking. Which listed template fits?",
       "keyPointHtml": "选 B：所引模板把 12 台、每台 8 GPU、共 96 GPU 的配置标为 Medium；Small 模板为 4 台服务器、共 32 GPU。<br><span lang=\"en\" class=\"ai-english\">Choose B: the cited template labels 12 eight-GPU servers, totaling 96 GPUs, as Medium. Its Small template has four servers and 32 GPUs.</span>",
       "speedTipHtml": "在此模板中：4×8＝32，为 Small；12×8＝96，为 Medium。<br><span lang=\"en\" class=\"ai-english\">In this template: 4 × 8 = 32 Small; 12 × 8 = 96 Medium.</span>",
       "studyNotesHtml": [
@@ -5304,29 +5208,24 @@
     "options": [
       {
         "key": "A",
-        "text": "GPU Utilization",
-        "translationZh": "GPU 利用率。"
+        "text": "GPU Utilization"
       },
       {
         "key": "B",
-        "text": "Explorer",
-        "translationZh": "Explorer（探索工具）。"
+        "text": "Explorer"
       },
       {
         "key": "C",
-        "text": "Monitor",
-        "translationZh": "Monitor（监控功能）。"
+        "text": "Monitor"
       },
       {
         "key": "D",
         "text": "GPU Temperature",
-        "originalText": "GPU Performance",
-        "translationZh": "GPU 温度。"
+        "originalText": "GPU Performance"
       },
       {
         "key": "E",
-        "text": "System CPU Utilization",
-        "translationZh": "系统 CPU 利用率。"
+        "text": "System CPU Utilization"
       }
     ],
     "answer": [
@@ -5373,7 +5272,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "On a supported UCS GPU platform, which two GPU-specific metrics in Intersight help assess accelerator activity and investigate thermal conditions affecting performance? (Choose two.)<span class=\"ai-stem-translation\" lang=\"zh-CN\">在受支持的 UCS GPU 平台上，Intersight 中哪两个 GPU 专用指标可用于评估加速器活动程度，并调查影响性能的温度条件？（选择两项。）</span>",
+      "stemHtml": "On a supported UCS GPU platform, which two GPU-specific metrics in Intersight help assess accelerator activity and investigate thermal conditions affecting performance? (Choose two.)",
       "keyPointHtml": "选 A、D：利用率反映 GPU 活动，<strong>GPU 温度</strong>帮助调查热约束；应结合任务吞吐量以及可用的时钟、降频遥测分析。<br><span lang=\"en\" class=\"ai-english\">Choose A and D: utilization indicates GPU activity, while <strong>GPU temperature</strong> helps investigate thermal constraints. Correlate both with workload throughput and, where available, clock/throttling telemetry.</span>",
       "speedTipHtml": "活动程度看利用率；温度条件看温度。<br><span lang=\"en\" class=\"ai-english\">Activity: utilization. Thermal condition: temperature.</span>",
       "studyNotesHtml": [
@@ -5554,24 +5453,20 @@
     "options": [
       {
         "key": "A",
-        "text": "Review the AI workload configuration to optimize resource allocation (CPU, memory, GPU) for the affected applications.",
-        "translationZh": "先优化受影响 AI 应用的 CPU、内存、GPU 资源分配。"
+        "text": "Review the AI workload configuration to optimize resource allocation (CPU, memory, GPU) for the affected applications."
       },
       {
         "key": "B",
-        "text": "Examine the UCS fabric interconnect configuration for port-channel 11 on Fabric Interconnect B.",
-        "translationZh": "检查 FI B 上 port-channel 11 的配置。"
+        "text": "Examine the UCS fabric interconnect configuration for port-channel 11 on Fabric Interconnect B."
       },
       {
         "key": "C",
         "text": "Inspect link settings, physical cabling and supported transceivers on Fabric Interconnect B Ethernet port 1/11, and verify its receive-error counters.",
-        "originalText": "Check the physical cabling and SFP+ transceivers on port 11 of switch B for potential hardware failures or incorrect configurations.",
-        "translationZh": "检查 FI B 以太网端口 1/11 的链路设置、物理线缆及受支持的收发器，并核实接收错误计数。"
+        "originalText": "Check the physical cabling and SFP+ transceivers on port 11 of switch B for potential hardware failures or incorrect configurations."
       },
       {
         "key": "D",
-        "text": "Review the pause frame counters for signs of congestion on Fabric Interconnect B Port 11.",
-        "translationZh": "先查看 FI B 端口 11 的暂停帧计数，寻找拥塞。"
+        "text": "Review the pause frame counters for signs of congestion on Fabric Interconnect B Port 11."
       }
     ],
     "answer": [
@@ -5617,7 +5512,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Refer to the exhibit. Users report delayed response times and network latency when running certain AI workloads on a specific Cisco UCS Intersight Managed Mode Domain. Based on the fault message and reported symptoms, which troubleshooting action must be taken first to address the network latency issues?<span class=\"ai-stem-translation\" lang=\"zh-CN\">参照告警图：用户在某个 UCS Intersight Managed Mode 域运行 AI 任务时响应缓慢。根据 switch-B/slot-1/switch-ether/port-11 的接收错误增量告警，以下哪项排障行动应优先进行？</span>",
+      "stemHtml": "Refer to the exhibit. Users report delayed response times and network latency when running certain AI workloads on a specific Cisco UCS Intersight Managed Mode Domain. Based on the fault message and reported symptoms, which troubleshooting action must be taken first to address the network latency issues?",
       "keyPointHtml": "选 C：从告警指出的<strong>物理接口</strong>着手，检查链路配置、线缆与收发器诊断，并确认具体哪些接收错误计数持续增加。<br><span lang=\"en\" class=\"ai-english\">Choose C: start with the identified <strong>physical interface</strong>, its link configuration, cabling and transceiver diagnostics. Confirm which receive-error counters are actually increasing.</span>",
       "speedTipHtml": "告警指向物理端口 1/11，不是 <strong>port-channel</strong> 11。<br><span lang=\"en\" class=\"ai-english\">The alarm names physical port 1/11, not <strong>port-channel</strong> 11.</span>",
       "studyNotesHtml": [
@@ -5778,23 +5673,19 @@
     "options": [
       {
         "key": "A",
-        "text": "domain management",
-        "translationZh": "域管理。"
+        "text": "domain management"
       },
       {
         "key": "B",
-        "text": "server management",
-        "translationZh": "服务器管理。"
+        "text": "server management"
       },
       {
         "key": "C",
-        "text": "fleet management",
-        "translationZh": "设备群管理。"
+        "text": "fleet management"
       },
       {
         "key": "D",
-        "text": "chassis management",
-        "translationZh": "机箱管理。"
+        "text": "chassis management"
       }
     ],
     "answer": [
@@ -5835,7 +5726,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A retail organization deploys AI compute across many branches. Sites need different OS installation and configuration profiles. Which Cisco Intersight feature provides <strong>location profile</strong>s and reusable <strong>Blueprint</strong>s for deploying the hardware and operating-system foundation at scale?<span class=\"ai-stem-translation\" lang=\"zh-CN\">零售企业在许多分支部署 AI 计算资源，各站点需要不同的操作系统安装与配置。Intersight 哪项功能提供位置配置文件及可复用 Blueprint，用于规模化部署硬件与操作系统基础环境？</span>",
+      "stemHtml": "A retail organization deploys AI compute across many branches. Sites need different OS installation and configuration profiles. Which Cisco Intersight feature provides <strong>location profile</strong>s and reusable <strong>Blueprint</strong>s for deploying the hardware and operating-system foundation at scale?",
       "keyPointHtml": "选 C：<strong>Fleet Management</strong> 组织分布式站点及可复用部署 <strong>Blueprint</strong>，包括硬件与操作系统配置。<br><span lang=\"en\" class=\"ai-english\">Choose C: <strong>Fleet Management</strong> organizes distributed sites and reusable deployment <strong>Blueprint</strong>s, including hardware and OS configuration.</span>",
       "speedTipHtml": "多站点＋<strong>位置配置文件</strong>＋<strong>Blueprint</strong>→<strong>Fleet Management</strong>。<br><span lang=\"en\" class=\"ai-english\">Many sites + <strong>location profile</strong>s + <strong>Blueprint</strong>s → <strong>Fleet Management</strong>.</span>",
       "studyNotesHtml": [
@@ -5993,23 +5884,19 @@
     "options": [
       {
         "key": "A",
-        "text": "UCS X-series",
-        "translationZh": "UCS X-Series 系列。"
+        "text": "UCS X-series"
       },
       {
         "key": "B",
-        "text": "UCS M-series",
-        "translationZh": "UCS M-Series 系列。"
+        "text": "UCS M-series"
       },
       {
         "key": "C",
-        "text": "Unified Edge",
-        "translationZh": "Unified Edge 边缘平台。"
+        "text": "Unified Edge"
       },
       {
         "key": "D",
-        "text": "UCS C-series Standalone",
-        "translationZh": "独立管理的 UCS C-Series。"
+        "text": "UCS C-series Standalone"
       }
     ],
     "answer": [
@@ -6050,7 +5937,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "An enterprise wants conventional virtualized workloads and GPU-accelerated analytics to coexist in a <strong>modular chassis</strong> platform. It requires supported compute nodes with large memory capacity and separate PCIe GPU expansion nodes connected through <strong>X-Fabric</strong>, so resources can be added within chassis and compatibility limits. Which Cisco product family fits?<span class=\"ai-stem-translation\" lang=\"zh-CN\">企业希望在模块化机箱平台中同时运行传统虚拟化工作负载与 GPU 加速分析，需要大内存计算节点，以及通过 X-Fabric 连接的独立 PCIe GPU 扩展节点，以便在机箱容量和兼容性限制内扩展资源。哪个 Cisco 产品系列符合要求？</span>",
+      "stemHtml": "An enterprise wants conventional virtualized workloads and GPU-accelerated analytics to coexist in a <strong>modular chassis</strong> platform. It requires supported compute nodes with large memory capacity and separate PCIe GPU expansion nodes connected through <strong>X-Fabric</strong>, so resources can be added within chassis and compatibility limits. Which Cisco product family fits?",
       "keyPointHtml": "选 A：UCS X-Series 通过 <strong>X-Fabric</strong> 提供题述的模块化计算与 PCIe GPU 节点架构。<br><span lang=\"en\" class=\"ai-english\">Choose A: UCS X-Series provides the specified modular compute and PCIe GPU-node architecture through <strong>X-Fabric</strong>.</span>",
       "speedTipHtml": "<strong>X-Fabric</strong> 机箱内独立计算节点与 GPU 节点→X-Series。<br><span lang=\"en\" class=\"ai-english\">Separate compute and GPU nodes inside an <strong>X-Fabric</strong> chassis → X-Series.</span>",
       "studyNotesHtml": [
@@ -6208,23 +6095,19 @@
     "options": [
       {
         "key": "A",
-        "text": "IP-based storage array",
-        "translationZh": "基于 IP 的存储阵列。"
+        "text": "IP-based storage array"
       },
       {
         "key": "B",
-        "text": "local storage in a JBOD configuration",
-        "translationZh": "采用 JBOD 配置的本地存储。"
+        "text": "local storage in a JBOD configuration"
       },
       {
         "key": "C",
-        "text": "tape storage",
-        "translationZh": "磁带存储。"
+        "text": "tape storage"
       },
       {
         "key": "D",
-        "text": "local storage in a RAID 5 configuration",
-        "translationZh": "采用 RAID 5 配置的本地存储。"
+        "text": "local storage in a RAID 5 configuration"
       }
     ],
     "answer": [
@@ -6265,7 +6148,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A firm plans a RAG service over 50 TB of confidential documents using six UCS X210c compute nodes and four GPUs. The nodes need shared online access to the dataset, with storage capacity managed independently of each server. Without adding a distributed-storage software layer to local disks, which listed storage approach best fits?<span class=\"ai-stem-translation\" lang=\"zh-CN\">企业计划用六个 UCS X210c 计算节点和四个 GPU，基于 50 TB 机密文档提供 RAG 服务。各节点需共享、在线访问数据集，且存储容量要独立于单台服务器管理。在不为本地磁盘另外添加分布式存储软件层的前提下，以下哪种存储方式最合适？</span>",
+      "stemHtml": "A firm plans a RAG service over 50 TB of confidential documents using six UCS X210c compute nodes and four GPUs. The nodes need shared online access to the dataset, with storage capacity managed independently of each server. Without adding a distributed-storage software layer to local disks, which listed storage approach best fits?",
       "keyPointHtml": "选 A：共享 IP 存储阵列可为多个计算节点提供数据，并使数据容量与单台服务器分离。<br><span lang=\"en\" class=\"ai-english\">Choose A: a shared <strong>IP storage</strong> array can serve multiple compute nodes while separating data capacity from individual servers.</span>",
       "speedTipHtml": "多个计算节点、共同在线数据集→<strong>共享存储</strong>服务。<br><span lang=\"en\" class=\"ai-english\">Many compute nodes, one online dataset → <strong>shared storage</strong> services.</span>",
       "studyNotesHtml": [
@@ -6423,30 +6306,25 @@
     "options": [
       {
         "key": "A",
-        "text": "Power down all IFMs in the chassis.",
-        "translationZh": "关闭机箱中的所有 IFM。"
+        "text": "Power down all IFMs in the chassis."
       },
       {
         "key": "B",
-        "text": "Disconnect cabling between IFMs and fabric interconnects.",
-        "translationZh": "断开 IFM 与 Fabric Interconnect 之间的线缆。"
+        "text": "Disconnect cabling between IFMs and fabric interconnects."
       },
       {
         "key": "C",
         "text": "Fully power off all compute-node and PCIe-node pairs before inserting the X-Fabric modules.",
-        "originalText": "Power down all blades that would connect to the X-Fabric modules.",
-        "translationZh": "插入 X-Fabric 模块前，完全关闭所有计算节点与 PCIe 节点对的电源。"
+        "originalText": "Power down all blades that would connect to the X-Fabric modules."
       },
       {
         "key": "D",
         "text": "Equip the supported M8 compute nodes with the required UCS PCI Gen5 mezzanine cards.",
-        "originalText": "Install UCS PCI Mezzanine cards in X-Series blades.",
-        "translationZh": "为受支持的 M8 计算节点配备规定的 UCS PCI Gen5 夹层卡。"
+        "originalText": "Install UCS PCI Mezzanine cards in X-Series blades."
       },
       {
         "key": "E",
-        "text": "Disconnect device connector.",
-        "translationZh": "断开 Device Connector。"
+        "text": "Disconnect device connector."
       }
     ],
     "answer": [
@@ -6493,7 +6371,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "An existing UCS X-Series chassis is being prepared for supported M8 compute nodes, X9516 X-Fabric modules and X580p PCIe GPU expansion. Which two actions address the node power-state requirement for <strong>XFM</strong> insertion and the compute-node hardware prerequisite for PCIe connectivity? (Choose two.)<span class=\"ai-stem-translation\" lang=\"zh-CN\">现有 UCS X-Series 机箱准备采用受支持的 M8 计算节点、X9516 X-Fabric 模块和 X580p PCIe GPU 扩展。哪两项操作分别满足插入 XFM 时的节点电源状态要求，以及计算节点建立 PCIe 连接所需的硬件前提？（选择两项。）</span>",
+      "stemHtml": "An existing UCS X-Series chassis is being prepared for supported M8 compute nodes, X9516 X-Fabric modules and X580p PCIe GPU expansion. Which two actions address the node power-state requirement for <strong>XFM</strong> insertion and the compute-node hardware prerequisite for PCIe connectivity? (Choose two.)",
       "keyPointHtml": "选 C、D：插入 <strong>XFM</strong> 时，所有计算/PCIe 节点对必须完全关闭电源；受支持的 M8 计算节点还需配备规定的 <strong>PCIe 夹层卡</strong>。<br><span lang=\"en\" class=\"ai-english\">Choose C and D: fully power off every compute/PCIe node pair for <strong>XFM</strong> insertion, and equip supported M8 compute nodes with the required <strong>PCIe mezzanine card</strong>.</span>",
       "speedTipHtml": "插入 <strong>XFM</strong>：节点断电；计算节点到 <strong>XFM</strong> 的通道：兼容 <strong>PCIe 夹层卡</strong>。<br><span lang=\"en\" class=\"ai-english\"><strong>XFM</strong> insertion: nodes off. Compute-to-<strong>XFM</strong> lanes: compatible PCIe mezzanine.</span>",
       "studyNotesHtml": [
@@ -6673,23 +6551,19 @@
     "options": [
       {
         "key": "A",
-        "text": "assignment of tasks to compute elements for optimized performance",
-        "translationZh": "将任务分配给计算资源，以优化性能。"
+        "text": "assignment of tasks to compute elements for optimized performance"
       },
       {
         "key": "B",
-        "text": "optimization of licensing structures for compliance",
-        "translationZh": "优化许可证结构以满足合规要求。"
+        "text": "optimization of licensing structures for compliance"
       },
       {
         "key": "C",
-        "text": "aggregation of device statistics for reporting",
-        "translationZh": "汇总设备统计数据以生成报告。"
+        "text": "aggregation of device statistics for reporting"
       },
       {
         "key": "D",
-        "text": "generation of backup images for restoration operations",
-        "translationZh": "生成用于恢复操作的备份映像。"
+        "text": "generation of backup images for restoration operations"
       }
     ],
     "answer": [
@@ -6730,7 +6604,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "What is the process involved in <strong>workload scheduling</strong> for AI environments?<span class=\"ai-stem-translation\" lang=\"zh-CN\">AI 环境中的工作负载调度涉及哪一种过程？</span>",
+      "stemHtml": "What is the process involved in <strong>workload scheduling</strong> for AI environments?",
       "keyPointHtml": "选 A：调度依据资源需求、可用性及策略，将任务放置到合适的计算资源。<br><span lang=\"en\" class=\"ai-english\">Choose A: scheduling places tasks on eligible compute resources according to resource needs, availability and policy.</span>",
       "speedTipHtml": "调度回答：这项任务应在哪些资源上运行？<br><span lang=\"en\" class=\"ai-english\">Scheduling answers: which resources should run this task?</span>",
       "studyNotesHtml": [
@@ -6885,24 +6759,20 @@
     "options": [
       {
         "key": "A",
-        "text": "by removing the data preparation and cleaning step",
-        "translationZh": "省去数据准备与清洗步骤。"
+        "text": "by removing the data preparation and cleaning step"
       },
       {
         "key": "B",
-        "text": "by removing inherent biases from LLM outputs",
-        "translationZh": "消除大语言模型输出中的固有偏差。"
+        "text": "by removing inherent biases from LLM outputs"
       },
       {
         "key": "C",
-        "text": "by providing access to proprietary data",
-        "translationZh": "提供对专有数据的访问。"
+        "text": "by providing access to proprietary data"
       },
       {
         "key": "D",
         "text": "by retraining the LLM through changes to its core parameters",
-        "originalText": "by retaining the LLM by altering its core parameters",
-        "translationZh": "通过改变核心参数重新训练大语言模型。"
+        "originalText": "by retaining the LLM by altering its core parameters"
       }
     ],
     "answer": [
@@ -6943,7 +6813,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "How does RAG enhance the capabilities of LLMs?<span class=\"ai-stem-translation\" lang=\"zh-CN\">RAG 如何增强大语言模型的能力？</span>",
+      "stemHtml": "How does RAG enhance the capabilities of LLMs?",
       "keyPointHtml": "选 C：RAG 检索相关外部信息，包括经授权的专有文档，并将其作为生成回答的<strong>上下文</strong>。<br><span lang=\"en\" class=\"ai-english\">Choose C: RAG retrieves relevant external information, including authorized proprietary documents, and supplies it as <strong>context</strong> for generation.</span>",
       "speedTipHtml": "RAG 改变提供的<strong>上下文</strong>；<strong>微调</strong>改变模型权重。<br><span lang=\"en\" class=\"ai-english\">RAG changes the supplied <strong>context</strong>; <strong>fine-tuning</strong> changes model weights.</span>",
       "studyNotesHtml": [
@@ -7099,23 +6969,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Unified Edge profiles",
-        "translationZh": "Unified Edge 配置文件。"
+        "text": "Unified Edge profiles"
       },
       {
         "key": "B",
-        "text": "UCS Chassis profiles",
-        "translationZh": "UCS 机箱配置文件。"
+        "text": "UCS Chassis profiles"
       },
       {
         "key": "C",
-        "text": "UCS Domain profiles",
-        "translationZh": "UCS 域配置文件。"
+        "text": "UCS Domain profiles"
       },
       {
         "key": "D",
-        "text": "UCS Server profiles",
-        "translationZh": "UCS 服务器配置文件。"
+        "text": "UCS Server profiles"
       }
     ],
     "answer": [
@@ -7156,7 +7022,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Which type of Cisco Intersight profile, when deployed to fabric interconnects, includes the configuration settings for ports, <strong>VLAN</strong>s, and <strong>VSAN</strong>s?<span class=\"ai-stem-translation\" lang=\"zh-CN\">哪一种 Intersight 配置文件部署到 Fabric Interconnect 后，通过关联策略配置端口、VLAN 和 VSAN？</span>",
+      "stemHtml": "Which type of Cisco Intersight profile, when deployed to fabric interconnects, includes the configuration settings for ports, <strong>VLAN</strong>s, and <strong>VSAN</strong>s?",
       "keyPointHtml": "选 C：UCS Domain 配置文件应用关联的 FI 策略，包括端口、<strong>VLAN</strong> 与 <strong>VSAN</strong> 配置。<br><span lang=\"en\" class=\"ai-english\">Choose C: UCS <strong>Domain profile</strong>s apply the associated FI policies, including port, <strong>VLAN</strong> and <strong>VSAN</strong> configuration.</span>",
       "speedTipHtml": "Fabric Interconnect 设置→<strong>域配置文件</strong>；主机设置→服务器配置文件。<br><span lang=\"en\" class=\"ai-english\">Fabric interconnect settings → <strong>domain profile</strong>. Host settings → server profile.</span>",
       "studyNotesHtml": [
@@ -7311,23 +7177,19 @@
     "options": [
       {
         "key": "A",
-        "text": "optimizes data storage solutions for data lakes",
-        "translationZh": "优化数据湖的存储方案。"
+        "text": "optimizes data storage solutions for data lakes"
       },
       {
         "key": "B",
-        "text": "simplifies complex neural network architectures",
-        "translationZh": "简化复杂的神经网络架构。"
+        "text": "simplifies complex neural network architectures"
       },
       {
         "key": "C",
-        "text": "provides real-time decision making",
-        "translationZh": "支持实时决策。"
+        "text": "provides real-time decision making"
       },
       {
         "key": "D",
-        "text": "eliminates the need for data preparation",
-        "translationZh": "消除数据准备的需要。"
+        "text": "eliminates the need for data preparation"
       }
     ],
     "answer": [
@@ -7373,7 +7235,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Which application capability is commonly supported by low-latency <strong>online inference</strong> using a trained AI model?<span class=\"ai-stem-translation\" lang=\"zh-CN\">使用已训练 AI 模型的低时延在线推理，通常支持哪种应用能力？</span>",
+      "stemHtml": "Which application capability is commonly supported by low-latency <strong>online inference</strong> using a trained AI model?",
       "keyPointHtml": "选 C：<strong>在线推理</strong>可及时提供<strong>预测</strong>，支持应用作出及时决策。<br><span lang=\"en\" class=\"ai-english\">Choose C: <strong>online inference</strong> can provide <strong>prediction</strong>s quickly enough to support timely application decisions.</span>",
       "speedTipHtml": "训练学习规律；推理把已学行为用于新输入。<br><span lang=\"en\" class=\"ai-english\">Training learns; inference uses learned behavior on new inputs.</span>",
       "studyNotesHtml": [
@@ -7536,23 +7398,19 @@
     "options": [
       {
         "key": "A",
-        "text": "It indicates that the Nexus Dashboard has correlated this anomaly to activity by specific user account.",
-        "translationZh": "表示异常已关联到某个用户账户的操作。"
+        "text": "It indicates that the Nexus Dashboard has correlated this anomaly to activity by specific user account."
       },
       {
         "key": "B",
-        "text": "It indicates that the Nexus Dashboard has seen this anomaly across more than one device in the fabric.",
-        "translationZh": "表示多个网络设备都出现了此异常。"
+        "text": "It indicates that the Nexus Dashboard has seen this anomaly across more than one device in the fabric."
       },
       {
         "key": "C",
-        "text": "It indicates that this anomaly is a result of a higher-level root anomaly.",
-        "translationZh": "表示此异常是更上层根因异常所导致的结果。"
+        "text": "It indicates that this anomaly is a result of a higher-level root anomaly."
       },
       {
         "key": "D",
-        "text": "It indicates that the Nexus Dashboard has correlated the scope of the impact.",
-        "translationZh": "表示系统已关联出影响范围。"
+        "text": "It indicates that the Nexus Dashboard has correlated the scope of the impact."
       }
     ],
     "answer": [
@@ -7593,7 +7451,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A network engineer logs into Nexus Dashboard and sees an anomaly showing that a <strong>BGP peer</strong> connection has gone down. Next to the anomaly, a yellow bubble displays “Correlated.” What does Nexus Dashboard indicate by “Correlated” in this case?<span class=\"ai-stem-translation\" lang=\"zh-CN\">工程师在 Nexus Dashboard 中看到 BGP 邻居连接断开的异常，其旁边有黄色“Correlated”标签。这个标签在异常关联分析中表示什么？</span>",
+      "stemHtml": "A network engineer logs into Nexus Dashboard and sees an anomaly showing that a <strong>BGP peer</strong> connection has gone down. Next to the anomaly, a yellow bubble displays “Correlated.” What does Nexus Dashboard indicate by “Correlated” in this case?",
       "keyPointHtml": "选 C：系统把此症状关联到另一个被识别为<strong>根因</strong>的异常。<br><span lang=\"en\" class=\"ai-english\">Choose C: the system associates this symptom with another anomaly identified as its <strong>root cause</strong>.</span>",
       "speedTipHtml": "<strong>根因</strong>→关联症状；先检查<strong>根因</strong>关联链接。<br><span lang=\"en\" class=\"ai-english\"><strong>Root cause</strong> → correlated symptoms. Investigate the root link first.</span>",
       "studyNotesHtml": [
@@ -7748,23 +7606,19 @@
     "options": [
       {
         "key": "A",
-        "text": "distinct management for isolated components",
-        "translationZh": "分别管理相互隔离的组件。"
+        "text": "distinct management for isolated components"
       },
       {
         "key": "B",
-        "text": "limited connectivity within isolated locations",
-        "translationZh": "限制隔离地点之间的连接。"
+        "text": "limited connectivity within isolated locations"
       },
       {
         "key": "C",
-        "text": "delayed rollout of new network resources",
-        "translationZh": "推迟新网络资源的推出。"
+        "text": "delayed rollout of new network resources"
       },
       {
         "key": "D",
-        "text": "efficient launch of computational platforms",
-        "translationZh": "高效启动计算平台。"
+        "text": "efficient launch of computational platforms"
       }
     ],
     "answer": [
@@ -7805,7 +7659,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Which aspect of rapid <strong>provisioning</strong> supports a scalable workload execution in an AI infrastructure?<span class=\"ai-stem-translation\" lang=\"zh-CN\">快速配置资源的哪一方面能够支持 AI 基础设施中可扩展的工作负载执行？</span>",
+      "stemHtml": "Which aspect of rapid <strong>provisioning</strong> supports a scalable workload execution in an AI infrastructure?",
       "keyPointHtml": "选 D：高效地准备计算平台，可以让工作负载更快使用新增容量。<br><span lang=\"en\" class=\"ai-english\">Choose D: making compute platforms ready efficiently lets workloads use new capacity sooner.</span>",
       "speedTipHtml": "配置资源→准备运行环境；调度任务→分配工作。<br><span lang=\"en\" class=\"ai-english\">Provision resources → make them ready. Schedule jobs → assign work.</span>",
       "studyNotesHtml": [
@@ -7960,23 +7814,19 @@
     "options": [
       {
         "key": "A",
-        "text": "leaf-spine",
-        "translationZh": "叶脊架构。"
+        "text": "leaf-spine"
       },
       {
         "key": "B",
-        "text": "flat Layer 2",
-        "translationZh": "扁平二层网络。"
+        "text": "flat Layer 2"
       },
       {
         "key": "C",
-        "text": "rail optimized",
-        "translationZh": "Rail 优化设计。"
+        "text": "rail optimized"
       },
       {
         "key": "D",
-        "text": "traditional three-tier",
-        "translationZh": "传统三层网络架构。"
+        "text": "traditional three-tier"
       }
     ],
     "answer": [
@@ -8017,7 +7867,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A 64-node UCS C885A AI cluster uses eight GPUs and associated backend NICs per node. The design aligns corresponding GPU/NIC positions across servers to common leaf groups to reduce hops for aligned collectives, with spines used as needed for scale. What is this GPU-connectivity design approach called?<span class=\"ai-stem-translation\" lang=\"zh-CN\">一个由 64 台 UCS C885A 构成的 AI 集群，每台有八个 GPU 及相应后端网卡。设计将各服务器对应位置的 GPU/网卡连接到共同的叶交换机组，以减少对齐集合通信的跳数，并按扩展需要使用脊交换机。该 GPU 连接设计称为什么？</span>",
+      "stemHtml": "A 64-node UCS C885A AI cluster uses eight GPUs and associated backend NICs per node. The design aligns corresponding GPU/NIC positions across servers to common leaf groups to reduce hops for aligned collectives, with spines used as needed for scale. What is this GPU-connectivity design approach called?",
       "keyPointHtml": "选 C：Rail 优化将不同节点中对应的 GPU/网卡位置对齐互联，也可以应用在叶脊网络中。<br><span lang=\"en\" class=\"ai-english\">Choose C: rail optimization aligns equivalent GPU/NIC positions across nodes. It can operate within a leaf-spine fabric.</span>",
       "speedTipHtml": "Rail 对齐描述 GPU 到叶交换机的映射；叶脊描述交换机拓扑。<br><span lang=\"en\" class=\"ai-english\">Rail alignment describes GPU-to-leaf mapping; leaf-spine describes switch topology.</span>",
       "studyNotesHtml": [
@@ -8175,24 +8025,20 @@
     "options": [
       {
         "key": "A",
-        "text": "Cisco UCS S3260",
-        "translationZh": "Cisco UCS S3260 存储服务器。"
+        "text": "Cisco UCS S3260"
       },
       {
         "key": "B",
         "text": "Cisco UCS X-Series Direct",
-        "originalText": "Cisco UCS X-Direct",
-        "translationZh": "Cisco UCS X-Series Direct 平台。"
+        "originalText": "Cisco UCS X-Direct"
       },
       {
         "key": "C",
-        "text": "Cisco UCSXE Unified Edge",
-        "translationZh": "Cisco UCS Unified Edge 平台。"
+        "text": "Cisco UCSXE Unified Edge"
       },
       {
         "key": "D",
-        "text": "Cisco UCS C885A M8",
-        "translationZh": "Cisco UCS C885A M8 机架服务器。"
+        "text": "Cisco UCS C885A M8"
       }
     ],
     "answer": [
@@ -8233,7 +8079,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Branch sites need an Intersight-managed UCS modular chassis with supported compute nodes and a redundant pair of chassis-integrated fabric interconnects. Each compute node needs 200 Gbps aggregate unified-fabric connectivity, implemented as 100 Gbps to each fabric. Which listed platform fits?<span class=\"ai-stem-translation\" lang=\"zh-CN\">各分支需要 Intersight 管理的 UCS 模块化机箱、受支持计算节点，以及一对集成在机箱中的冗余 Fabric Interconnect。每个计算节点需要合计 200 Gbps 的统一网络连接，即分别连接两个 Fabric，每侧 100 Gbps。哪个平台符合要求？</span>",
+      "stemHtml": "Branch sites need an Intersight-managed UCS modular chassis with supported compute nodes and a redundant pair of chassis-integrated fabric interconnects. Each compute node needs 200 Gbps aggregate unified-fabric connectivity, implemented as 100 Gbps to each fabric. Which listed platform fits?",
       "keyPointHtml": "选 B：<strong>X-Series Direct</strong> 把 FI 对集成到机箱中，并支持指定的双 Fabric 节点连接。<br><span lang=\"en\" class=\"ai-english\">Choose B: <strong>X-Series Direct</strong> integrates the FI pair into the chassis and supports the specified dual-fabric per-node connectivity.</span>",
       "speedTipHtml": "X-Series 机箱＋集成 9108 FI→<strong>X-Series Direct</strong>。<br><span lang=\"en\" class=\"ai-english\">X-Series chassis + integrated 9108 FIs → <strong>X-Series Direct</strong>.</span>",
       "studyNotesHtml": [
@@ -8392,28 +8238,23 @@
     "options": [
       {
         "key": "A",
-        "text": "The email server configuration is not configured using the DNS name.",
-        "translationZh": "邮件服务器配置没有使用 DNS 名称。"
+        "text": "The email server configuration is not configured using the DNS name."
       },
       {
         "key": "B",
-        "text": "The recipient email address is not verified by the HyperFabric controller.",
-        "translationZh": "收件邮件地址尚未完成 Hyperfabric 验证。"
+        "text": "The recipient email address is not verified by the HyperFabric controller."
       },
       {
         "key": "C",
-        "text": "The fabric of interest and email endpoint are not configured in the default notification policy.",
-        "translationZh": "默认通知策略未配置目标 Fabric 与邮件端点的关联。"
+        "text": "The fabric of interest and email endpoint are not configured in the default notification policy."
       },
       {
         "key": "D",
-        "text": "The DNS server IP is not defined in the controller.",
-        "translationZh": "控制器没有定义 DNS 服务器 IP 地址。"
+        "text": "The DNS server IP is not defined in the controller."
       },
       {
         "key": "E",
-        "text": "The HyperFabric controller cannot reach the email server of the Acme Corporation.",
-        "translationZh": "Hyperfabric 无法向公司的邮件服务器投递邮件。"
+        "text": "The HyperFabric controller cannot reach the email server of the Acme Corporation."
       }
     ],
     "answer": [
@@ -8455,7 +8296,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "An administrator creates an email endpoint for assertion notifications in cloud-managed Nexus Hyperfabric. Assume the email delivery service and recipient mail system are working. Which two missing steps in the documented endpoint-verification and default-policy workflow can prevent the intended fabric notifications? (Choose two.)<span class=\"ai-stem-translation\" lang=\"zh-CN\">管理员在云管理的 Nexus Hyperfabric 中为 assertion 通知创建了邮件端点。假设邮件投递服务和收件邮件系统均正常，在文档规定的端点验证与默认策略流程中，缺少哪两步会导致收不到目标 Fabric 的通知？（选择两项。）</span>",
+      "stemHtml": "An administrator creates an email endpoint for assertion notifications in cloud-managed Nexus Hyperfabric. Assume the email delivery service and recipient mail system are working. Which two missing steps in the documented endpoint-verification and default-policy workflow can prevent the intended fabric notifications? (Choose two.)",
       "keyPointHtml": "选 B、C：验证并启用邮件端点，再在<strong>通知策略</strong>中关联目标 Fabric 与端点。<br><span lang=\"en\" class=\"ai-english\">Choose B and C: verify and activate the email endpoint, then associate the intended fabric and endpoint in the <strong>notification policy</strong>.</span>",
       "speedTipHtml": "已验证的目标＋匹配的<strong>通知策略</strong>→所需通知。<br><span lang=\"en\" class=\"ai-english\">Verified destination + matching <strong>notification policy</strong> → intended notifications.</span>",
       "studyNotesHtml": [
@@ -8628,23 +8469,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Delta Analysis",
-        "translationZh": "差异分析（Delta Analysis）。"
+        "text": "Delta Analysis"
       },
       {
         "key": "B",
-        "text": "Flow Telemetry",
-        "translationZh": "流遥测（Flow Telemetry）。"
+        "text": "Flow Telemetry"
       },
       {
         "key": "C",
-        "text": "Connectivity Analysis",
-        "translationZh": "连通性分析（Connectivity Analysis）。"
+        "text": "Connectivity Analysis"
       },
       {
         "key": "D",
-        "text": "SNMP Traps",
-        "translationZh": "SNMP Trap 通知。"
+        "text": "SNMP Traps"
       }
     ],
     "answer": [
@@ -8685,7 +8522,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Following the Nexus Dashboard 4.3.1 <strong>Traffic Analytics</strong> setup procedure, which existing flow-collection feature must first be disabled on all fabrics, with its <strong>flow rule</strong>s removed, before <strong>Traffic Analytics</strong> is enabled?<span class=\"ai-stem-translation\" lang=\"zh-CN\">按照 Nexus Dashboard 4.3.1 的 Traffic Analytics 配置流程，启用该功能前，必须先在所有 Fabric 上关闭哪项现有流采集功能，并删除其流规则？</span>",
+      "stemHtml": "Following the Nexus Dashboard 4.3.1 <strong>Traffic Analytics</strong> setup procedure, which existing flow-collection feature must first be disabled on all fabrics, with its <strong>flow rule</strong>s removed, before <strong>Traffic Analytics</strong> is enabled?",
       "keyPointHtml": "选 B：按文档流程切换到 <strong>Traffic Analytics</strong> 前，应关闭现有 Flow Telemetry 模式并删除其规则。<br><span lang=\"en\" class=\"ai-english\">Choose B: disable the existing <strong>Flow Telemetry mode</strong> and remove its rules before switching to <strong>Traffic Analytics</strong> under the documented procedure.</span>",
       "speedTipHtml": "主动切换采集模式，不假设系统自动清理旧配置。<br><span lang=\"en\" class=\"ai-english\">Switch collection mode deliberately; do not assume automatic cleanup.</span>",
       "studyNotesHtml": [
@@ -8843,24 +8680,20 @@
     "options": [
       {
         "key": "A",
-        "text": "Deploy separate physical networks for each project with dedicated switches and cross-connects to shared storage.",
-        "translationZh": "每个项目部署独立物理网络，使用专用交换机并交叉连接共享存储。"
+        "text": "Deploy separate physical networks for each project with dedicated switches and cross-connects to shared storage."
       },
       {
         "key": "B",
         "text": "Use separate project VNIs with VXLAN GPO and explicitly enforced SGACL contracts for permitted shared-storage access.",
-        "originalText": "Use VXLAN with separate VNIs per project and Group Policy Option to control granular access to shared storage.",
-        "translationZh": "使用独立项目 VNI、VXLAN GPO，以及明确启用执行的 SGACL 契约来允许指定共享存储访问。"
+        "originalText": "Use VXLAN with separate VNIs per project and Group Policy Option to control granular access to shared storage."
       },
       {
         "key": "C",
-        "text": "Implement port-based VLANs for each project with router ACLs controlling storage access at the distribution layer.",
-        "translationZh": "每个项目使用基于端口的 VLAN，并在汇聚层通过路由器 ACL 控制存储访问。"
+        "text": "Implement port-based VLANs for each project with router ACLs controlling storage access at the distribution layer."
       },
       {
         "key": "D",
-        "text": "Configure QoS-based traffic steering with separate DSCP markings per project and policy-based routing to shared storage.",
-        "translationZh": "每个项目使用不同 DSCP 标记进行 QoS 流量引导，并通过策略路由访问共享存储。"
+        "text": "Configure QoS-based traffic steering with separate DSCP markings per project and policy-based routing to shared storage."
       }
     ],
     "answer": [
@@ -8901,7 +8734,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A 256-GPU training cluster shares a supported Nexus VXLAN EVPN fabric. Projects need separate logical networks and group-based enforcement for unicast access to shared storage, without routing all such access through a central distribution-layer ACL device. Which approach best matches this overlay microsegmentation requirement?<span class=\"ai-stem-translation\" lang=\"zh-CN\">一个 256 GPU 训练集群共享受支持的 Nexus VXLAN EVPN 网络。各项目需要独立逻辑网络，并对访问共享存储的单播流量实施基于组的策略，且不把这些访问全部绕经中央汇聚层 ACL 设备。哪种方案最符合这一覆盖网络微分段要求？</span>",
+      "stemHtml": "A 256-GPU training cluster shares a supported Nexus VXLAN EVPN fabric. Projects need separate logical networks and group-based enforcement for unicast access to shared storage, without routing all such access through a central distribution-layer ACL device. Which approach best matches this overlay microsegmentation requirement?",
       "keyPointHtml": "选 B：项目 <strong>VNI</strong> 提供逻辑分离，已启用执行的安全组契约仅允许预期的单播存储流量。<br><span lang=\"en\" class=\"ai-english\">Choose B: project <strong>VNI</strong>s provide logical separation, while enforced security-group contracts permit only the intended unicast storage flows.</span>",
       "speedTipHtml": "<strong>VNI</strong> 分离网络段；<strong>GPO</strong> 携带组信息；执行中的契约决定访问权限。<br><span lang=\"en\" class=\"ai-english\"><strong>VNI</strong> separates segments; <strong>GPO</strong> carries group context; enforced contracts decide access.</span>",
       "studyNotesHtml": [
@@ -9060,23 +8893,19 @@
     "options": [
       {
         "key": "A",
-        "text": "selecting the appropriate Nexus Fabric and its configuration to minimize latency",
-        "translationZh": "选择合适的 Nexus 网络及其配置，以降低通信时延。"
+        "text": "selecting the appropriate Nexus Fabric and its configuration to minimize latency"
       },
       {
         "key": "B",
-        "text": "using the maximum number of CPU cores to support the virtualization overhead",
-        "translationZh": "使用最多的 CPU 核心，以承担虚拟化开销。"
+        "text": "using the maximum number of CPU cores to support the virtualization overhead"
       },
       {
         "key": "C",
-        "text": "implementing a redundant power supply configuration to ensure high availability",
-        "translationZh": "实施冗余电源配置以提高可用性。"
+        "text": "implementing a redundant power supply configuration to ensure high availability"
       },
       {
         "key": "D",
-        "text": "configuring the server with the minimum amount of RAM to reduce initial costs",
-        "translationZh": "配置最少内存以降低初始成本。"
+        "text": "configuring the server with the minimum amount of RAM to reduce initial costs"
       }
     ],
     "answer": [
@@ -9117,7 +8946,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "An AI deployment scales distributed workloads across multiple UCS C885A M8 servers. GPU-to-GPU communication between servers is the identified performance bottleneck. Which listed design action most directly addresses this inter-node scaling requirement?<span class=\"ai-stem-translation\" lang=\"zh-CN\">某 AI 部署需要跨多台 UCS C885A M8 扩展分布式工作负载，已确认服务器之间的 GPU 通信是性能瓶颈。哪项设计行动最直接针对这一跨节点扩展要求？</span>",
+      "stemHtml": "An AI deployment scales distributed workloads across multiple UCS C885A M8 servers. GPU-to-GPU communication between servers is the identified performance bottleneck. Which listed design action most directly addresses this inter-node scaling requirement?",
       "keyPointHtml": "选 A：网络设计直接影响跨服务器通信，应针对已测得的瓶颈选择合适的网络容量、拓扑与配置。<br><span lang=\"en\" class=\"ai-english\">Choose A: the network design directly affects communication across servers. Select appropriate fabric capacity, topology and configuration for that measured bottleneck.</span>",
       "speedTipHtml": "跨节点 GPU 通信瓶颈→检查<strong>后端网络</strong>。<br><span lang=\"en\" class=\"ai-english\">Inter-node GPU communication bottleneck → investigate the <strong>backend fabric</strong>.</span>",
       "studyNotesHtml": [
@@ -9275,23 +9104,19 @@
     "options": [
       {
         "key": "A",
-        "text": "embedding the model into systems with APIs",
-        "translationZh": "通过 API 将模型集成到系统。"
+        "text": "embedding the model into systems with APIs"
       },
       {
         "key": "B",
-        "text": "establishing success criteria",
-        "translationZh": "确定成功标准。"
+        "text": "establishing success criteria"
       },
       {
         "key": "C",
-        "text": "adjusting internal weights and biases",
-        "translationZh": "调整内部权重与偏置。"
+        "text": "adjusting internal weights and biases"
       },
       {
         "key": "D",
-        "text": "detecting model drift",
-        "translationZh": "检测模型漂移。"
+        "text": "detecting model drift"
       }
     ],
     "answer": [
@@ -9332,7 +9157,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "During <strong>gradient</strong>-based neural-network training, which activity most directly constitutes learning from the training objective?<span class=\"ai-stem-translation\" lang=\"zh-CN\">在基于梯度的神经网络训练中，哪项活动最直接体现依据训练目标进行学习？</span>",
+      "stemHtml": "During <strong>gradient</strong>-based neural-network training, which activity most directly constitutes learning from the training objective?",
       "keyPointHtml": "选 C：优化器依据学习目标更新可训练权重及可训练偏置。<br><span lang=\"en\" class=\"ai-english\">Choose C: the optimizer updates trainable weights and any trainable biases using the learning objective.</span>",
       "speedTipHtml": "损失→<strong>梯度</strong>→更新<strong>可训练参数</strong>。<br><span lang=\"en\" class=\"ai-english\">Loss → <strong>gradient</strong>s → <strong>trainable parameter</strong> update.</span>",
       "studyNotesHtml": [
@@ -9490,23 +9315,19 @@
     "options": [
       {
         "key": "A",
-        "text": "anonymization of audit trails for compliance objectives",
-        "translationZh": "为合规目的匿名化审计轨迹。"
+        "text": "anonymization of audit trails for compliance objectives"
       },
       {
         "key": "B",
-        "text": "detection and labeling of visual elements from digital sources",
-        "translationZh": "检测并标注数字来源中的视觉元素。"
+        "text": "detection and labeling of visual elements from digital sources"
       },
       {
         "key": "C",
-        "text": "scheduling of management tasks during maintenance periods",
-        "translationZh": "在维护时段安排管理任务。"
+        "text": "scheduling of management tasks during maintenance periods"
       },
       {
         "key": "D",
-        "text": "routing of multicast messages across network boundaries",
-        "translationZh": "跨网络边界路由组播消息。"
+        "text": "routing of multicast messages across network boundaries"
       }
     ],
     "answer": [
@@ -9547,7 +9368,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Which result is provided through image recognition using AI?<span class=\"ai-stem-translation\" lang=\"zh-CN\">使用 AI 进行图像识别，可以产生哪种结果？</span>",
+      "stemHtml": "Which result is provided through image recognition using AI?",
       "keyPointHtml": "选 B：视觉模型可以识别或标注图像内容；<strong>目标检测</strong>模型还可以定位对象。<br><span lang=\"en\" class=\"ai-english\">Choose B: visual models can identify or label content in images; detection models can also locate objects.</span>",
       "speedTipHtml": "视觉输入→视觉标签或检测到的对象。<br><span lang=\"en\" class=\"ai-english\">Visual input → visual labels or detected objects.</span>",
       "studyNotesHtml": [
@@ -9702,23 +9523,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Bring Your Own AI (BYO AI) HyperFabric with Cisco 6000 Series Switches and Essentials license",
-        "translationZh": "BYO AI Hyperfabric，使用 Cisco 6000 系列交换机和 Essentials 授权。"
+        "text": "Bring Your Own AI (BYO AI) HyperFabric with Cisco 6000 Series Switches and Essentials license"
       },
       {
         "key": "B",
-        "text": "Bring Your Own AI (BYO AI) HyperFabric with Cisco 6000 Series Switches and Premier license",
-        "translationZh": "BYO AI Hyperfabric，使用 Cisco 6000 系列交换机和 Premier 授权。"
+        "text": "Bring Your Own AI (BYO AI) HyperFabric with Cisco 6000 Series Switches and Premier license"
       },
       {
         "key": "C",
-        "text": "Nexus Dashboard with Nexus 9000 Series Switches and Cloud license",
-        "translationZh": "Nexus Dashboard，使用 Nexus 9000 系列交换机和 Cloud 授权。"
+        "text": "Nexus Dashboard with Nexus 9000 Series Switches and Cloud license"
       },
       {
         "key": "D",
-        "text": "HyperFabric AI with Cisco 6000 Series Switches and Premier license",
-        "translationZh": "全栈 Hyperfabric AI，使用 Cisco 6000 系列交换机和 Premier 授权。"
+        "text": "HyperFabric AI with Cisco 6000 Series Switches and Premier license"
       }
     ],
     "answer": [
@@ -9764,7 +9581,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Using the <strong>entitlement</strong> table in the Cisco Nexus Hyperfabric data sheet updated September 1, 2026, a company wants cloud-managed Cisco networking while retaining its existing third-party AI servers and NVMe storage. It does not require the bundled <strong>full-stack AI</strong> capabilities. Which listed option matches the table?<span class=\"ai-stem-translation\" lang=\"zh-CN\">依据 2026 年 9 月 1 日更新的 Cisco Nexus Hyperfabric 数据表中的授权功能表，企业希望保留现有第三方 AI 服务器和 NVMe 存储，并采用云管理 Cisco 网络，不要求捆绑的全栈 AI 功能。哪项符合该表？</span>",
+      "stemHtml": "Using the <strong>entitlement</strong> table in the Cisco Nexus Hyperfabric data sheet updated September 1, 2026, a company wants cloud-managed Cisco networking while retaining its existing third-party AI servers and NVMe storage. It does not require the bundled <strong>full-stack AI</strong> capabilities. Which listed option matches the table?",
       "keyPointHtml": "按所引功能表选 A：Essentials 支持云管理 <strong>BYO</strong> 场景；Premier 提供捆绑的全栈 AI 功能。<br><span lang=\"en\" class=\"ai-english\">Choose A for the cited table: Essentials supports the cloud-managed <strong>BYO</strong> use case; Premier adds the bundled <strong>full-stack AI</strong> capabilities.</span>",
       "speedTipHtml": "逐行看授权：区分 <strong>BYO</strong> 与捆绑全栈，不能只按“AI/非 AI”判断。<br><span lang=\"en\" class=\"ai-english\">Read the <strong>entitlement</strong> rows: <strong>BYO</strong> versus bundled full-stack, not simply AI versus non-AI.</span>",
       "studyNotesHtml": [
@@ -9927,24 +9744,20 @@
     "options": [
       {
         "key": "A",
-        "text": "Deploy a Cisco MDS 9000 Series Switch for Fibre Channel connectivity to storage. Use a Cisco Fabric Interconnect for management traffic only.",
-        "translationZh": "使用 MDS 9000 连接 FC 存储，FI 仅承载管理流量。"
+        "text": "Deploy a Cisco MDS 9000 Series Switch for Fibre Channel connectivity to storage. Use a Cisco Fabric Interconnect for management traffic only."
       },
       {
         "key": "B",
-        "text": "Connect UCS servers to a Cisco Nexus 3000 Series Switch using 100 Gb Ethernet. Configure a separate management network using a dedicated Cisco Catalyst switch.",
-        "translationZh": "服务器直接以 100 GbE 连接 Nexus 3000，并使用独立 Catalyst 管理网络。"
+        "text": "Connect UCS servers to a Cisco Nexus 3000 Series Switch using 100 Gb Ethernet. Configure a separate management network using a dedicated Cisco Catalyst switch."
       },
       {
         "key": "C",
-        "text": "Use a single Cisco Fabric Interconnect in a standalone configuration. Connect all UCS servers directly to it using 10 Gb Ethernet.",
-        "translationZh": "采用单个独立 FI，所有服务器通过 10 GbE 直接连接。"
+        "text": "Use a single Cisco Fabric Interconnect in a standalone configuration. Connect all UCS servers directly to it using 10 Gb Ethernet."
       },
       {
         "key": "D",
         "text": "Use two Fabric Interconnects with supported 100 GbE server links, and configure separate uplink port channels on each FI.",
-        "originalText": "Implement a dual-fabric design with two Cisco Fabric Interconnects, and use 100 Gb Ethernet for server-to-fabric connectivity. Configuring port channels for uplink connections.",
-        "translationZh": "使用两个 FI 及受支持的 100 GbE 服务器链路，并分别配置各 FI 的上联端口通道。"
+        "originalText": "Implement a dual-fabric design with two Cisco Fabric Interconnects, and use 100 Gb Ethernet for server-to-fabric connectivity. Configuring port channels for uplink connections."
       }
     ],
     "answer": [
@@ -9990,7 +9803,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A supported FI-attached Cisco UCS deployment requires two independent fabric paths, 100 GbE server links and redundant aggregated uplinks to the upstream network. Which listed approach meets those requirements?<span class=\"ai-stem-translation\" lang=\"zh-CN\">一个受支持的 FI 连接型 Cisco UCS 部署，需要两个独立 Fabric 路径、100 GbE 服务器链路，以及连接上游网络的冗余聚合上联。哪项方案满足这些要求？</span>",
+      "stemHtml": "A supported FI-attached Cisco UCS deployment requires two independent fabric paths, 100 GbE server links and redundant aggregated uplinks to the upstream network. Which listed approach meets those requirements?",
       "keyPointHtml": "选 D：使用 FI 对提供独立 Fabric 路径，并在各 FI 上配置受支持的上联<strong>端口通道</strong>。<br><span lang=\"en\" class=\"ai-english\">Choose D: use the FI pair for independent fabric paths and supported uplink <strong>port channel</strong>s on each FI.</span>",
       "speedTipHtml": "双 Fabric 提供独立路径；<strong>端口通道</strong>聚合各 Fabric 的上联。<br><span lang=\"en\" class=\"ai-english\">Dual fabric gives separate paths; <strong>port channel</strong>s aggregate each fabric uplink.</span>",
       "studyNotesHtml": [
@@ -10154,29 +9967,24 @@
     "options": [
       {
         "key": "A",
-        "text": "Monitor",
-        "translationZh": "Monitor（监控功能）。"
+        "text": "Monitor"
       },
       {
         "key": "B",
-        "text": "Insights",
-        "translationZh": "Insights（洞察功能）。"
+        "text": "Insights"
       },
       {
         "key": "C",
-        "text": "Active CPU Utilization",
-        "translationZh": "活动 CPU 利用率。"
+        "text": "Active CPU Utilization"
       },
       {
         "key": "D",
         "text": "GPU framebuffer memory usage (used and total capacity)",
-        "originalText": "GPU Memory Utilization",
-        "translationZh": "GPU 显存使用量（已用容量与总容量）。"
+        "originalText": "GPU Memory Utilization"
       },
       {
         "key": "E",
-        "text": "Explorer",
-        "translationZh": "Explorer（探索工具）。"
+        "text": "Explorer"
       }
     ],
     "answer": [
@@ -10223,7 +10031,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "An administrator combines Intersight infrastructure monitoring with available host and GPU telemetry to investigate a possible CPU-side input bottleneck and GPU memory pressure. Which two listed measurements directly address those two concerns? (Choose two.)<span class=\"ai-stem-translation\" lang=\"zh-CN\">管理员结合 Intersight 基础设施监控与可用主机、GPU 遥测，调查可能的 CPU 侧输入瓶颈和 GPU 显存压力。哪两个测量值直接对应这两项问题？（选择两项。）</span>",
+      "stemHtml": "An administrator combines Intersight infrastructure monitoring with available host and GPU telemetry to investigate a possible CPU-side input bottleneck and GPU memory pressure. Which two listed measurements directly address those two concerns? (Choose two.)",
       "keyPointHtml": "选 C、D：CPU 活动帮助调查主机侧输入约束；已用/总 <strong>GPU 显存</strong>帮助评估容量压力。<br><span lang=\"en\" class=\"ai-english\">Choose C and D: CPU activity helps investigate host-side input constraints; used/total GPU memory helps assess capacity pressure.</span>",
       "speedTipHtml": "主机 CPU 活动≠GPU 活动；显存已用容量≠显存带宽活动。<br><span lang=\"en\" class=\"ai-english\">Host CPU activity ≠ GPU activity; memory used ≠ memory bandwidth activity.</span>",
       "studyNotesHtml": [
@@ -10402,23 +10210,19 @@
     "options": [
       {
         "key": "A",
-        "text": "IP-based shared storage",
-        "translationZh": "基于 IP 的共享存储。"
+        "text": "IP-based shared storage"
       },
       {
         "key": "B",
-        "text": "Fibre Channel shared storage",
-        "translationZh": "Fibre Channel 共享存储。"
+        "text": "Fibre Channel shared storage"
       },
       {
         "key": "C",
-        "text": "Infiniband shared storage",
-        "translationZh": "InfiniBand 共享存储。"
+        "text": "Infiniband shared storage"
       },
       {
         "key": "D",
-        "text": "local storage",
-        "translationZh": "本地存储。"
+        "text": "local storage"
       }
     ],
     "answer": [
@@ -10459,7 +10263,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Stores using Unified Edge must retain 14 days of surveillance from at least 10 cameras, each writing 1 gigabit (Gb) per hour. The stores already have suitable Ethernet/IP connectivity and want shared storage rather than adding an FC or InfiniBand fabric. Which listed storage approach should be evaluated?<span class=\"ai-stem-translation\" lang=\"zh-CN\">使用 Unified Edge 的门店需要保留至少 10 路摄像头的 14 天录像，每路每小时写入 1 吉比特（Gb）。门店已有合适的 Ethernet/IP 网络，希望采用共享存储，不另建 FC 或 InfiniBand 网络。应评估哪种存储方式？</span>",
+      "stemHtml": "Stores using Unified Edge must retain 14 days of surveillance from at least 10 cameras, each writing 1 gigabit (Gb) per hour. The stores already have suitable Ethernet/IP connectivity and want shared storage rather than adding an FC or InfiniBand fabric. Which listed storage approach should be evaluated?",
       "keyPointHtml": "选 A：基于 IP 的共享存储匹配现有网络与共享访问要求。按题述比特速率，10 路摄像头在 14 天内产生 420 GB 数据，尚未计入开销。<br><span lang=\"en\" class=\"ai-english\">Choose A: IP-based shared storage fits the existing network and shared-access requirement. For ten cameras, the stated bit rate yields 420 GB over 14 days before overhead.</span>",
       "speedTipHtml": "小写 b 表示比特，大写 B 表示字节；比特转换为字节需除以八。<br><span lang=\"en\" class=\"ai-english\">Lowercase b = bits; uppercase B = bytes; divide bits by eight.</span>",
       "studyNotesHtml": [
@@ -10617,23 +10421,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Apply traffic shaping to CNP packets to prevent them from causing additional congestion.",
-        "translationZh": "对 CNP 进行流量整形，防止其造成额外拥塞。"
+        "text": "Apply traffic shaping to CNP packets to prevent them from causing additional congestion."
       },
       {
         "key": "B",
-        "text": "Classify CNP packets to a high-priority queue using their DSCP marking.",
-        "translationZh": "利用 CNP 的 DSCP 标记，将其分类到高优先级队列。"
+        "text": "Classify CNP packets to a high-priority queue using their DSCP marking."
       },
       {
         "key": "C",
-        "text": "Configure CNP packets to use the same queue as regular RoCEv2 data traffic.",
-        "translationZh": "让 CNP 与普通 RoCEv2 数据使用相同队列。"
+        "text": "Configure CNP packets to use the same queue as regular RoCEv2 data traffic."
       },
       {
         "key": "D",
-        "text": "Enable Priority Flow Control specifically for CNP packets on a dedicated CoS value.",
-        "translationZh": "在专用 CoS 上针对 CNP 启用 PFC。"
+        "text": "Enable Priority Flow Control specifically for CNP packets on a dedicated CoS value."
       }
     ],
     "answer": [
@@ -10674,7 +10474,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "In a Cisco RoCEv2 QoS design over VXLAN, congestion notification packets (<strong>CNP</strong>s) must reach senders promptly instead of waiting behind congested RDMA data. Which listed treatment best matches the documented feedback-traffic design?<span class=\"ai-stem-translation\" lang=\"zh-CN\">在基于 VXLAN 的 Cisco RoCEv2 QoS 设计中，拥塞通知报文 CNP 应及时返回发送端，而非排在拥塞的 RDMA 数据之后。哪种处理最符合文档中的反馈流量设计？</span>",
+      "stemHtml": "In a Cisco RoCEv2 QoS design over VXLAN, congestion notification packets (<strong>CNP</strong>s) must reach senders promptly instead of waiting behind congested RDMA data. Which listed treatment best matches the documented feedback-traffic design?",
       "keyPointHtml": "选 B：识别 <strong>CNP</strong> 标记，并让反馈经过独立高优先级队列。<br><span lang=\"en\" class=\"ai-english\">Choose B: recognize <strong>CNP</strong> markings and send the feedback through a separate high-priority queue.</span>",
       "speedTipHtml": "让拥塞反馈及时到达，发送端才能减速。<br><span lang=\"en\" class=\"ai-english\">Keep congestion feedback moving so the sender can slow down.</span>",
       "studyNotesHtml": [
@@ -10832,23 +10632,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Implement traffic shaping to smooth RDMA traffic bursts and prevent congestion.",
-        "translationZh": "通过流量整形平滑 RDMA 突发。"
+        "text": "Implement traffic shaping to smooth RDMA traffic bursts and prevent congestion."
       },
       {
         "key": "B",
-        "text": "Enable Priority Flow Control on the traffic class carrying RoCEv2 packets.",
-        "translationZh": "在承载 RoCEv2 报文的流量类别上启用 PFC。"
+        "text": "Enable Priority Flow Control on the traffic class carrying RoCEv2 packets."
       },
       {
         "key": "C",
-        "text": "Set the RDMA traffic to use the highest DSCP value to ensure priority forwarding.",
-        "translationZh": "把 RDMA 流量设置为最高 DSCP 值。"
+        "text": "Set the RDMA traffic to use the highest DSCP value to ensure priority forwarding."
       },
       {
         "key": "D",
-        "text": "Configure weighted fair queuing to prioritize RDMA traffic over other traffic classes.",
-        "translationZh": "配置加权公平队列以优先处理 RDMA 流量。"
+        "text": "Configure weighted fair queuing to prioritize RDMA traffic over other traffic classes."
       }
     ],
     "answer": [
@@ -10889,7 +10685,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A RoCEv2 design uses ECN-based end-to-end congestion control. Which listed Ethernet mechanism provides per-priority, hop-by-hop <strong>backpressure</strong> for the RoCE data class when buffers approach their configured pause threshold?<span class=\"ai-stem-translation\" lang=\"zh-CN\">一个 RoCEv2 设计采用基于 ECN 的端到端拥塞控制。当缓冲区接近所配置的暂停阈值时，哪种 Ethernet 机制为 RoCE 数据类别提供按优先级、逐跳的反压？</span>",
+      "stemHtml": "A RoCEv2 design uses ECN-based end-to-end congestion control. Which listed Ethernet mechanism provides per-priority, hop-by-hop <strong>backpressure</strong> for the RoCE data class when buffers approach their configured pause threshold?",
       "keyPointHtml": "选 B：<strong>PFC</strong> 在拥塞跳上暂停相关 Ethernet 优先级，作为端到端 ECN 反馈的补充。<br><span lang=\"en\" class=\"ai-english\">Choose B: <strong>PFC</strong> pauses the relevant Ethernet priority on a congested hop, complementing end-to-end ECN feedback.</span>",
       "speedTipHtml": "ECN 通知源端调整；<strong>PFC</strong> 在单跳暂停某个优先级。<br><span lang=\"en\" class=\"ai-english\">ECN tells the source to adapt; <strong>PFC</strong> pauses a priority on one hop.</span>",
       "studyNotesHtml": [
@@ -11047,23 +10843,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Review the resource utilization of the AI workload (CPU, memory, and GPU) to identify potential bottlenecks and optimize resource allocation.",
-        "translationZh": "检查 CPU、内存及 GPU 利用率，优化工作负载资源分配。"
+        "text": "Review the resource utilization of the AI workload (CPU, memory, and GPU) to identify potential bottlenecks and optimize resource allocation."
       },
       {
         "key": "B",
-        "text": "Examine the storage configuration, including the RAID configuration and disk health, to ensure that the storage subsystem is not causing latency issues.",
-        "translationZh": "检查 RAID 配置与磁盘健康，排除存储时延。"
+        "text": "Examine the storage configuration, including the RAID configuration and disk health, to ensure that the storage subsystem is not causing latency issues."
       },
       {
         "key": "C",
-        "text": "Check the power supply status and power consumption of the UCS server using UCS Manager to ensure that the server has sufficient power.",
-        "translationZh": "通过 UCS Manager 检查电源状态和功耗，确认供电充足。"
+        "text": "Check the power supply status and power consumption of the UCS server using UCS Manager to ensure that the server has sufficient power."
       },
       {
         "key": "D",
-        "text": "Inspect the physical environment of the server, including ambient temperature and airflow, and replace any failed fans.",
-        "translationZh": "检查环境温度、气流，并更换确认失效的风扇。"
+        "text": "Inspect the physical environment of the server, including ambient temperature and airflow, and replace any failed fans."
       }
     ],
     "answer": [
@@ -11109,7 +10901,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "An engineer must optimize the performance of an AI inference workload running on a Cisco UCS C-Series rack server. The workload experiences intermittent latency spikes, and Intersight system logs show frequent <strong>thermal event</strong> entries. Which troubleshooting action must be taken first to address the performance issues on the Cisco UCS server?<span class=\"ai-stem-translation\" lang=\"zh-CN\">UCS C-Series 上的 AI 推理工作负载出现间歇性时延尖峰，同时 Intersight 日志频繁记录热事件。以下哪项排障行动应优先进行？</span>",
+      "stemHtml": "An engineer must optimize the performance of an AI inference workload running on a Cisco UCS C-Series rack server. The workload experiences intermittent latency spikes, and Intersight system logs show frequent <strong>thermal event</strong> entries. Which troubleshooting action must be taken first to address the performance issues on the Cisco UCS server?",
       "keyPointHtml": "选 D：检查<strong>热事件</strong>指向的散热路径，再验证修复后时延尖峰是否消失。<br><span lang=\"en\" class=\"ai-english\">Choose D: investigate the cooling path indicated by the <strong>thermal event</strong>s, then verify whether correcting it removes the latency spikes.</span>",
       "speedTipHtml": "<strong>热事件</strong>线索→环境温度、<strong>气流</strong>与风扇健康。<br><span lang=\"en\" class=\"ai-english\">Thermal-event clue → ambient conditions, <strong>airflow</strong> and fan health.</span>",
       "studyNotesHtml": [
@@ -11269,23 +11061,19 @@
     "options": [
       {
         "key": "A",
-        "text": "Cisco UCS servers combined with high-speed networking switches and third-party storage",
-        "translationZh": "UCS 服务器、高速网络交换机与第三方存储。"
+        "text": "Cisco UCS servers combined with high-speed networking switches and third-party storage"
       },
       {
         "key": "B",
-        "text": "integrated compute and networking hardware optimized for AI workloads, with optional cloud management",
-        "translationZh": "为 AI 优化的集成计算与网络硬件，并可选云管理。"
+        "text": "integrated compute and networking hardware optimized for AI workloads, with optional cloud management"
       },
       {
         "key": "C",
-        "text": "Cisco UCS servers with NVIDIA GPUs, switches, optional VAST Data Storage and cloud-managed networking",
-        "translationZh": "配备 NVIDIA GPU 的 UCS 服务器、交换机、可选 VAST 存储及云管理网络。"
+        "text": "Cisco UCS servers with NVIDIA GPUs, switches, optional VAST Data Storage and cloud-managed networking"
       },
       {
         "key": "D",
-        "text": "combination of Cisco networking hardware and software-defined storage designed for AI scalability",
-        "translationZh": "为 AI 扩展设计的 Cisco 网络硬件与软件定义存储组合。"
+        "text": "combination of Cisco networking hardware and software-defined storage designed for AI scalability"
       }
     ],
     "answer": [
@@ -11326,7 +11114,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "Which option most completely describes the Cisco Nexus Hyperfabric full-stack AI offering, including its compute, network, management and <strong>optional integrated storage</strong> components?<span class=\"ai-stem-translation\" lang=\"zh-CN\">哪项最完整地描述 Cisco Nexus Hyperfabric 全栈 AI 产品，包括计算、网络、管理及可选集成存储组件？</span>",
+      "stemHtml": "Which option most completely describes the Cisco Nexus Hyperfabric full-stack AI offering, including its compute, network, management and <strong>optional integrated storage</strong> components?",
       "keyPointHtml": "选 C：全栈方案结合搭载 NVIDIA 的 UCS 计算、Cisco 网络与云管理，并可选集成 VAST 存储。<br><span lang=\"en\" class=\"ai-english\">Choose C: the full-stack option combines NVIDIA-equipped UCS compute, Cisco networking and cloud management, with optional integrated VAST storage.</span>",
       "speedTipHtml": "全栈：计算＋GPU＋网络＋云管理，配合受支持存储选择。<br><span lang=\"en\" class=\"ai-english\">Full stack: compute + GPU + network + cloud management, with supported storage choices.</span>",
       "studyNotesHtml": [
@@ -11484,23 +11272,19 @@
     "options": [
       {
         "key": "A",
-        "text": "configuring a firmware policy adding an operating system configuration file to the software repository",
-        "translationZh": "配置固件策略，并把操作系统配置文件加入软件仓库。"
+        "text": "configuring a firmware policy adding an operating system configuration file to the software repository"
       },
       {
         "key": "B",
-        "text": "adding an OS image to the software repository adding an operating system configuration file to the software repository",
-        "translationZh": "把 OS 镜像和操作系统配置文件加入软件仓库。"
+        "text": "adding an OS image to the software repository adding an operating system configuration file to the software repository"
       },
       {
         "key": "C",
-        "text": "adding an OS image to the software repository adding a server configuration utility to the software repository",
-        "translationZh": "把 OS 镜像与服务器配置实用程序 SCU 加入软件仓库。"
+        "text": "adding an OS image to the software repository adding a server configuration utility to the software repository"
       },
       {
         "key": "D",
-        "text": "configuring a virtual KVM policy adding a server configuration utility to the software repository",
-        "translationZh": "配置虚拟 KVM 策略，并把 SCU 加入软件仓库。"
+        "text": "configuring a virtual KVM policy adding a server configuration utility to the software repository"
       }
     ],
     "answer": [
@@ -11546,7 +11330,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A data center administrator for a medium-sized manufacturing facility uses Intersight to perform unattended operating system installation on already discovered X-Series servers with server profiles assigned. Which set of prerequisites must be met for installing an operating system on a server in <strong>Cisco Mode</strong>?<span class=\"ai-stem-translation\" lang=\"zh-CN\">管理员通过 Intersight，以 Cisco Mode 为已发现且分配了服务器配置文件的受支持 X-Series 服务器无人值守安装操作系统。以下哪一对软件仓库资源是该安装流程所需的？</span>",
+      "stemHtml": "A data center administrator for a medium-sized manufacturing facility uses Intersight to perform unattended operating system installation on already discovered X-Series servers with server profiles assigned. Which set of prerequisites must be met for installing an operating system on a server in <strong>Cisco Mode</strong>?",
       "keyPointHtml": "选 C：准备受支持的 OS 镜像与 Server Configuration Utility 镜像。<strong>Cisco Mode</strong> 提供 Cisco 管理的安装配置流程。<br><span lang=\"en\" class=\"ai-english\">Choose C: stage the supported OS image and Server Configuration Utility image. <strong>Cisco Mode</strong> supplies the Cisco-managed installation configuration workflow.</span>",
       "speedTipHtml": "<strong>Cisco Mode</strong>：OS 镜像＋<strong>SCU</strong>；Custom 模式：用户提供配置文件。<br><span lang=\"en\" class=\"ai-english\"><strong>Cisco Mode</strong>: OS image + <strong>SCU</strong>; Custom mode: user-provided configuration.</span>",
       "studyNotesHtml": [
@@ -11706,23 +11490,19 @@
     "options": [
       {
         "key": "A",
-        "text": "LAN connectivity policy",
-        "translationZh": "LAN Connectivity 策略。"
+        "text": "LAN connectivity policy"
       },
       {
         "key": "B",
-        "text": "port policy",
-        "translationZh": "Port Policy 端口策略。"
+        "text": "port policy"
       },
       {
         "key": "C",
-        "text": "network connectivity policy",
-        "translationZh": "Network Connectivity 策略。"
+        "text": "network connectivity policy"
       },
       {
         "key": "D",
-        "text": "Ethernet network group",
-        "translationZh": "Ethernet Network Group 策略。"
+        "text": "Ethernet network group"
       }
     ],
     "answer": [
@@ -11763,7 +11543,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "A network architect designs connectivity for a new Cisco AI POD operating in Intersight Managed Mode. To ensure high availability and aggregate bandwidth for external network traffic, a port channel must be established using multiple 100 GbE uplink ports on the fabric interconnects to connect to the upstream core switch infrastructure. Which specific policy, applied through the domain profile, must be modified to define and configure this port channel on the fabric interconnects for the desired uplink connectivity?<span class=\"ai-stem-translation\" lang=\"zh-CN\">在 Intersight Managed Mode 的 Cisco AI POD 中，需要用多个 100 GbE FI 上联端口建立通道，以连接上游网络。应修改通过域配置文件应用的哪种策略，来定义 FI 上的上联端口通道及成员端口？</span>",
+      "stemHtml": "A network architect designs connectivity for a new Cisco AI POD operating in Intersight Managed Mode. To ensure high availability and aggregate bandwidth for external network traffic, a port channel must be established using multiple 100 GbE uplink ports on the fabric interconnects to connect to the upstream core switch infrastructure. Which specific policy, applied through the domain profile, must be modified to define and configure this port channel on the fabric interconnects for the desired uplink connectivity?",
       "keyPointHtml": "选 B：<strong>Port Policy</strong> 定义 FI 端口角色与端口通道，并关联到域配置文件。<br><span lang=\"en\" class=\"ai-english\">Choose B: <strong>Port Policy</strong> defines FI port roles and port channels and is associated with the domain profile.</span>",
       "speedTipHtml": "创建通道：<strong>Port Policy</strong>；选择通道 VLAN：适用时使用 Ethernet Network Group。<br><span lang=\"en\" class=\"ai-english\">Create the channel: <strong>Port Policy</strong>. Choose its VLANs: Ethernet Network Group where applicable.</span>",
       "studyNotesHtml": [
@@ -11918,23 +11698,19 @@
     "options": [
       {
         "key": "A",
-        "text": "to enable remote access and virtualization of GPU resources for distributed AI development teams",
-        "translationZh": "为分布式开发团队提供 GPU 远程访问与虚拟化。"
+        "text": "to enable remote access and virtualization of GPU resources for distributed AI development teams"
       },
       {
         "key": "B",
-        "text": "to manage power distribution and thermal regulation across all installed GPU units",
-        "translationZh": "管理所有 GPU 的电源分配与温度调节。"
+        "text": "to manage power distribution and thermal regulation across all installed GPU units"
       },
       {
         "key": "C",
-        "text": "to establish a secure, encrypted channel for data transfer between the AI server and external storage",
-        "translationZh": "在 AI 服务器与外部存储之间建立安全加密通道。"
+        "text": "to establish a secure, encrypted channel for data transfer between the AI server and external storage"
       },
       {
         "key": "D",
-        "text": "to provide a high-speed, low-latency direct interconnect for GPU-to-GPU communication",
-        "translationZh": "为 GPU 之间通信提供高速、低时延互联。"
+        "text": "to provide a high-speed, low-latency direct interconnect for GPU-to-GPU communication"
       }
     ],
     "answer": [
@@ -11975,7 +11751,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "What is a function of <strong>NVLink</strong> technology within a high-performance AI server or cluster?<span class=\"ai-stem-translation\" lang=\"zh-CN\">在高性能 AI 服务器或集群中，NVLink 的一项功能是什么？</span>",
+      "stemHtml": "What is a function of <strong>NVLink</strong> technology within a high-performance AI server or cluster?",
       "keyPointHtml": "选 D：<strong>NVLink</strong> 在受支持系统中提供高带宽、低时延 GPU 通信路径。<br><span lang=\"en\" class=\"ai-english\">Choose D: <strong>NVLink</strong> provides a high-bandwidth, low-latency GPU communication path in supported systems.</span>",
       "speedTipHtml": "<strong>NVLink</strong> 连接处理器；<strong>NVSwitch</strong> 可交换 <strong>NVLink</strong> 流量。<br><span lang=\"en\" class=\"ai-english\"><strong>NVLink</strong> connects processors; <strong>NVSwitch</strong> can switch <strong>NVLink</strong> traffic.</span>",
       "studyNotesHtml": [
@@ -12130,23 +11906,19 @@
     "options": [
       {
         "key": "A",
-        "text": "0",
-        "translationZh": "零个。"
+        "text": "0"
       },
       {
         "key": "B",
-        "text": "1",
-        "translationZh": "一个。"
+        "text": "1"
       },
       {
         "key": "C",
-        "text": "2",
-        "translationZh": "两个。"
+        "text": "2"
       },
       {
         "key": "D",
-        "text": "3",
-        "translationZh": "三个。"
+        "text": "3"
       }
     ],
     "answer": [
@@ -12187,7 +11959,7 @@
       ]
     },
     "learning": {
-      "stemHtml": "For a capacity-only planning exercise, consider the six 3000 W GPU-sled PSUs in a UCS C885A M8. Assume a steady 4500 W load, full <strong>rated output</strong>, and an <strong>N+2</strong> rule requiring two additional non-<strong>standby</strong> PSUs beyond the minimum needed for the load. Exclude <strong>standby</strong> PSUs from this reserve and ignore firmware thresholds and transient margins. What is the maximum number that can be in <strong>standby</strong> under these assumptions?<span class=\"ai-stem-translation\" lang=\"zh-CN\">在一个仅按容量计算的规划练习中，UCS C885A M8 GPU 托盘有六个 3000 W 电源。假设负载恒为 4500 W、每个电源可提供完整额定功率，N+2 规则要求在最低负载需求之外保留两个非待机电源。待机电源不计入该冗余余量，并忽略固件阈值及瞬态余量。在这些假设下，最多几个电源可待机？</span>",
+      "stemHtml": "For a capacity-only planning exercise, consider the six 3000 W GPU-sled PSUs in a UCS C885A M8. Assume a steady 4500 W load, full <strong>rated output</strong>, and an <strong>N+2</strong> rule requiring two additional non-<strong>standby</strong> PSUs beyond the minimum needed for the load. Exclude <strong>standby</strong> PSUs from this reserve and ignore firmware thresholds and transient margins. What is the maximum number that can be in <strong>standby</strong> under these assumptions?",
       "keyPointHtml": "按题设模型选 C：负载需要 ceil(4500/3000)＝2 个，加上 2 个冗余电源，共需 4 个非<strong>待机</strong>电源；6−4＝2 个可<strong>待机</strong>。<br><span lang=\"en\" class=\"ai-english\">Under the stated model, choose C: ceil(4500/3000) = 2 for load, plus 2 reserve units gives 4 non-<strong>standby</strong> units; 6 − 4 = 2 can be in <strong>standby</strong>.</span>",
       "speedTipHtml": "容量练习：已安装数量−（向上取整后的负载需求＋冗余数量）。<br><span lang=\"en\" class=\"ai-english\">Capacity exercise: installed − (rounded-up load requirement + reserve).</span>",
       "studyNotesHtml": [

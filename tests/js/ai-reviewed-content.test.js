@@ -28,7 +28,7 @@ test('all 172 scored AI questions have individual bilingual options and technica
     }
   }
 });
-test('bilingual options and references appear across learning, feedback, mistakes and exam results',()=>{
+test('English questions and choices retain bilingual explanations and references across review views',()=>{
   for(const q of reviewed){
     const session=createPracticeSession([q]);
     const feedback={correct:false,correctAnswer:q.answer,selectedAnswer:[]};
@@ -36,10 +36,11 @@ test('bilingual options and references appear across learning, feedback, mistake
       renderResultsView({score:0,total:1,durationSeconds:1,wrongIds:[q.id]},new Map([[q.id,q]]),'AI')];
     for(const html of views){
       const visible=text(html);
-      assert.ok(visible.includes(q.aiStudy.stemZh));
+      assert.ok(visible.includes(q.stem));
+      assert.ok(!visible.includes(q.aiStudy.stemZh));
       for(const option of q.options){
         const detail=q.aiStudy.options[option.key];
-        assert.ok(visible.includes(detail.zh),`${q.id}${option.key}: translation`);
+        assert.ok(visible.includes(option.text),`${q.id}${option.key}: English choice`);
         assert.ok(visible.includes(detail.reason.zh),`${q.id}${option.key}: Chinese explanation`);
         assert.ok(visible.includes(detail.reason.en),`${q.id}${option.key}: English explanation`);
       }
@@ -47,20 +48,20 @@ test('bilingual options and references appear across learning, feedback, mistake
     }
   }
 });
-test('unanswered practice and exams include translations but no explanations or reference hints',()=>{
+test('unanswered practice and exams show English questions and choices without explanations or reference hints',()=>{
   for(const q of reviewed){
     const session=createPracticeSession([q]);
     for(const html of [renderPracticeView(q,session,null),renderExamView(q,session)]){
-      const visible=text(html);assert.ok(visible.includes(q.aiStudy.stemZh));
-      for(const option of q.options){assert.ok(visible.includes(option.translationZh));assert.ok(!visible.includes(q.aiStudy.options[option.key].reason.en));}
+      const visible=text(html);assert.ok(visible.includes(q.stem));assert.ok(!visible.includes(q.aiStudy.stemZh));
+      for(const option of q.options){assert.ok(visible.includes(option.text));assert.ok(!visible.includes(q.aiStudy.options[option.key].reason.en));}
       for(const ref of q.aiStudy.sources)assert.ok(!html.includes(ref.url));
       assert.doesNotMatch(html,/is-correct|正确答案：/);
     }
   }
 });
-test('option translations are escaped as plain text',()=>{
+test('English option text is escaped and legacy translations are not rendered',()=>{
   const html=renderOptionText({text:'<script>bad</script>',translationZh:'<img onerror="bad">中文'});
-  assert.ok(html.includes('&lt;script&gt;'));assert.ok(html.includes('&lt;img'));
+  assert.ok(html.includes('&lt;script&gt;'));assert.ok(!html.includes('中文'));assert.ok(!html.includes('&lt;img'));
   assert.doesNotMatch(html,/<script>|<img/);
 });
 

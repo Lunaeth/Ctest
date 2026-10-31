@@ -1,10 +1,10 @@
-import { escapeHtml } from './learning-annotations.js?v=20261031-ai-accounts';
+import { escapeHtml } from './learning-annotations.js?v=20261030-english-questions';
 import {
   TROUBLESHOOTING_FLOW,
   TROUBLESHOOTING_OVERVIEW,
   TROUBLESHOOTING_PATTERN_MAP,
   TROUBLESHOOTING_SECTIONS,
-} from './troubleshooting-study-map.js?v=20261031-ai-accounts';
+} from './troubleshooting-study-map.js?v=20261030-english-questions';
 
 function getElement(id) {
   return document.getElementById(id);

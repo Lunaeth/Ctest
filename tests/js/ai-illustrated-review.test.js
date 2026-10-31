@@ -31,10 +31,11 @@ test('illustrated answers, reasons and references stay inside a closed disclosur
     const html = renderReviewQuestions([q]);
     const [promptHtml, answerHtml] = html.split('<details>');
     assert.ok(answerHtml && !html.includes('<details open'));
-    assert.ok(visible(promptHtml).includes(q.aiStudy.stemZh));
+    assert.ok(visible(promptHtml).includes(q.stem));
+    assert.ok(!visible(promptHtml).includes(q.aiStudy.stemZh));
     for (const option of Object.values(q.aiStudy.options)) {
       assert.ok(visible(promptHtml).includes(option.en));
-      assert.ok(visible(promptHtml).includes(option.zh));
+      assert.equal(visible(promptHtml).includes(option.zh), false);
       for (const reason of [option.reason.en, option.reason.zh]) {
         assert.ok(!visible(promptHtml).includes(reason));
         assert.ok(visible(answerHtml).includes(reason));
@@ -57,7 +58,7 @@ test('illustrated answers, reasons and references stay inside a closed disclosur
 
 test('review renderer escapes bilingual labels, prompts and explanations', () => {
   const q = structuredClone(questions[0]);
-  q.aiStudy.options.A.zh = '<img src=x onerror=bad>中文';
+  q.aiStudy.options.A.en = '<img src=x onerror=bad>English';
   q.aiStudy.options.A.reason.en = '<script>bad</script>';
   q.aiStudy.matches[0].prompt.en = '<iframe>bad</iframe>';
   const html = renderReviewQuestions([q]);

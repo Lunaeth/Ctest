@@ -1,15 +1,15 @@
-import { escapeHtml } from './learning-annotations.js?v=20261031-ai-accounts';
-import { renderQuestionMedia } from './views/question-media.js?v=20261031-ai-accounts';
-import { renderAiStudyLinks } from './views/ai-study-links.js?v=20261031-ai-accounts';
+import { escapeHtml } from './learning-annotations.js?v=20261030-english-questions';
+import { renderQuestionMedia } from './views/question-media.js?v=20261030-english-questions';
+import { renderAiStudyLinks } from './views/ai-study-links.js?v=20261030-english-questions';
 
 const bilingual = (value) => `<span lang="zh-CN">${escapeHtml(value.zh)}</span><br><span class="ai-english" lang="en">${escapeHtml(value.en)}</span>`;
 
 function renderPrompts(study) {
   if (!study) return '';
-  return `<section aria-label="双语候选项"><h3>候选项 / Choices</h3>
-    <ul class="review-choices">${Object.entries(study.options).map(([key, option]) => `<li><strong>${escapeHtml(key)}.</strong> ${bilingual(option)}</li>`).join('')}</ul>
+  return `<section aria-label="候选项"><h3>候选项 / Choices</h3>
+    <ul class="review-choices" lang="en">${Object.entries(study.options).map(([key, option]) => `<li><strong>${escapeHtml(key)}.</strong> ${escapeHtml(option.en)}</li>`).join('')}</ul>
     </section><section aria-label="配对目标"><h3>按顺序配对 / Match in order</h3>
-    <ol class="review-prompts">${study.matches.map((match) => `<li>${bilingual(match.prompt)}</li>`).join('')}</ol></section>`;
+    <ol class="review-prompts" lang="en">${study.matches.map((match) => `<li>${escapeHtml(match.prompt.en)}</li>`).join('')}</ol></section>`;
 }
 
 function renderExplanation(question) {
@@ -18,7 +18,7 @@ function renderExplanation(question) {
   const used = new Set(study.matches.map((match) => match.answerKey));
   return `<p>${bilingual(study.summary)}</p>
     <h3>配对答案 / Matched answers</h3>
-    <ol class="review-matches">${study.matches.map((match) => `<li><p>${bilingual(match.prompt)}</p><p class="review-answer"><strong>${escapeHtml(match.answerKey)}.</strong> ${bilingual(study.options[match.answerKey])}</p></li>`).join('')}</ol>
+    <ol class="review-matches">${study.matches.map((match) => `<li><p lang="en">${escapeHtml(match.prompt.en)}</p><p class="review-answer" lang="en"><strong>${escapeHtml(match.answerKey)}.</strong> ${escapeHtml(study.options[match.answerKey].en)}</p></li>`).join('')}</ol>
     <h3>逐项解析 / Every choice explained</h3>
     ${Object.entries(study.options).map(([key, option]) => `<section class="review-option"><h4>${escapeHtml(key)}. ${escapeHtml(option.en)} <span class="review-choice-status">${used.has(key) ? '已使用 / Used' : '未使用 / Unused'}</span></h4><p>${bilingual(option.reason)}</p></section>`).join('')}
     <h3>记忆提示 / Memory aid</h3><p>${bilingual(study.memory)}</p>
@@ -32,8 +32,7 @@ export function renderReviewQuestions(questions) {
   return questions.map((question) => `
     <article class="panel" id="question-${question.id}">
       <h2>原题 ${question.id}</h2>
-      <p>${escapeHtml(question.stem)}</p>
-      ${question.aiStudy ? `<p lang="zh-CN">${escapeHtml(question.aiStudy.stemZh)}</p>` : ''}
+      <p class="question-stem" lang="en">${escapeHtml(question.stem)}</p>
       ${renderQuestionMedia(question)}
       ${renderPrompts(question.aiStudy)}
       <details>
@@ -49,7 +48,7 @@ export function renderReviewQuestions(questions) {
 
 const root = globalThis.document?.querySelector('#review-questions');
 if (root) {
-  fetch('./data/questions.ccnp-dcai.review.json?v=20261031-ai-accounts')
+  fetch('./data/questions.ccnp-dcai.review.json?v=20261030-english-questions')
     .then((response) => {
       if (!response.ok) throw new Error('题库读取失败');
       return response.json();

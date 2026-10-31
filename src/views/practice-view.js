@@ -1,4 +1,4 @@
-﻿import { escapeHtml } from '../learning-annotations.js?v=20261031-ai-accounts';
+﻿import { escapeHtml } from '../learning-annotations.js?v=20261030-english-questions';
 import {
   CORE2_CONFUSION_SETS,
   CORE2_HIGH_FREQUENCY_MODULES,
@@ -7,12 +7,12 @@ import {
   getCore2SymptomGroup,
   getCore2SymptomId,
   isCore2HighYieldPattern,
-} from '../core2-study-map.js?v=20261031-ai-accounts';
-import { renderQuestionAnalysis } from './question-analysis-view.js?v=20261031-ai-accounts';
-import { renderFavoriteSyncControls } from './favorite-sync-view.js?v=20261031-ai-accounts';
-import { renderQuestionMedia, renderOptionText } from './question-media.js?v=20261031-ai-accounts';
-import { getAiPracticeGuide,getAiDecision } from '../ai-study.js?v=20261031-ai-accounts';
-import { renderAiStudyLinks } from './ai-study-links.js?v=20261031-ai-accounts';
+} from '../core2-study-map.js?v=20261030-english-questions';
+import { renderQuestionAnalysis } from './question-analysis-view.js?v=20261030-english-questions';
+import { renderFavoriteSyncControls } from './favorite-sync-view.js?v=20261030-english-questions';
+import { renderQuestionMedia, renderOptionText } from './question-media.js?v=20261030-english-questions';
+import { getAiPracticeGuide,getAiDecision } from '../ai-study.js?v=20261030-english-questions';
+import { renderAiStudyLinks } from './ai-study-links.js?v=20261030-english-questions';
 
 const TEXT = {
   questionSuffix: '\u9898',

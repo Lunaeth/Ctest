@@ -1,5 +1,5 @@
-import { escapeHtml } from './learning-annotations.js?v=20261031-ai-accounts';
-import { SECURITY_PLUS_DOMAINS } from './security-plus-study-map.js?v=20261031-ai-accounts';
+import { escapeHtml } from './learning-annotations.js?v=20261030-english-questions';
+import { SECURITY_PLUS_DOMAINS } from './security-plus-study-map.js?v=20261030-english-questions';
 
 const PREFERENCES_KEY = 'question-app.preferences';
 

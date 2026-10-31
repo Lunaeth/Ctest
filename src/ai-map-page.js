@@ -1,5 +1,5 @@
-import { AI_BANKS,getAiStudyModules,aiStudyUrl,filterAiStudyQuestions } from './ai-study.js?v=20261031-ai-accounts';
-import { renderAiModuleMap,renderAiMapQuestions } from './ai-study-map.js?v=20261031-ai-accounts';
+import { AI_BANKS,getAiStudyModules,aiStudyUrl,filterAiStudyQuestions } from './ai-study.js?v=20261030-english-questions';
+import { renderAiModuleMap,renderAiMapQuestions } from './ai-study-map.js?v=20261030-english-questions';
 
 export async function initializeAiMap({document=globalThis.document,window=globalThis.window,fetch=globalThis.fetch}={}) {
   const bankSelect=document.querySelector('#ai-map-bank');

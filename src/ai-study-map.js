@@ -1,5 +1,5 @@
-import { escapeHtml } from './learning-annotations.js?v=20261031-ai-accounts';
-import { AI_BANKS,getAiStudyModules,filterAiStudyQuestions,getRelatedAiQuestions,aiStudyUrl,aiMapUrl } from './ai-study.js?v=20261031-ai-accounts';
+import { escapeHtml } from './learning-annotations.js?v=20261030-english-questions';
+import { AI_BANKS,getAiStudyModules,filterAiStudyQuestions,getRelatedAiQuestions,aiStudyUrl,aiMapUrl } from './ai-study.js?v=20261030-english-questions';
 
 const bilingual=value=>`<span lang="zh-CN">${escapeHtml(value.zh)}</span><span lang="en" class="ai-map-english">${escapeHtml(value.en)}</span>`;
 const questionUrl=q=>q.type==='review'?`./ai-review.html#question-${q.id}`:aiStudyUrl(q.aiStudy.bankId,{moduleId:q.aiStudy.module,questionId:q.id});
@@ -25,7 +25,7 @@ export function renderAiMapQuestions(questions,{bankId,moduleId='all',query=''}=
     const related=getRelatedAiQuestions(q,questions);
     return `<article class="ai-map-question" id="question-${q.id}">
       <div class="ai-map-question-meta"><span>${escapeHtml(AI_BANKS[bankId].label)} · #${q.id} · ${q.type==='review'?'图解自评 / Illustrated review':'选择题 / Scored question'}</span><a href="${escapeHtml(questionUrl(q))}">打开此题 / Open question →</a></div>
-      <h3>${escapeHtml(s.stemZh)}</h3><p lang="en">${escapeHtml(q.stem)}</p>
+      <h3 lang="en">${escapeHtml(q.stem)}</h3>
       <div class="ai-map-terms">${s.terms.map(t=>`<span>${escapeHtml(t.en)} · ${escapeHtml(t.zh)}</span>`).join('')}</div>
       <details><summary>展开知识卡片与推理流程 / Study card &amp; reasoning flow</summary>
         <h4>关键知识 / Key facts</h4><p>${bilingual(s.summary)}</p>
@@ -34,7 +34,7 @@ export function renderAiMapQuestions(questions,{bankId,moduleId='all',query=''}=
         <p>逐选项中英文解析见“打开此题”。 / Open the question for every option's bilingual explanation.</p>
         <ul class="ai-map-references">${s.sources.map(ref=>`<li><a href="${escapeHtml(ref.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(ref.title)}</a></li>`).join('')}</ul>
       </details>
-      <nav class="ai-map-related" aria-label="第 ${q.id} 题的相关题"><strong>相关题 / Related:</strong>${related.map(other=>`<a href="${escapeHtml(questionUrl(other))}" title="${escapeHtml(other.aiStudy.stemZh)}">#${other.id}${other.type==='review'?' 图解':''}</a>`).join('')}</nav>
+      <nav class="ai-map-related" aria-label="第 ${q.id} 题的相关题"><strong>相关题 / Related:</strong>${related.map(other=>`<a href="${escapeHtml(questionUrl(other))}" title="${escapeHtml(other.stem)}">#${other.id}${other.type==='review'?' 图解':''}</a>`).join('')}</nav>
     </article>`;
   }).join('');
 }

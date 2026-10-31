@@ -100,7 +100,7 @@ for (const bank of ['ccnp-dcai', 'nca-aiio']) {
       };
       const keywords = entry.terms.flatMap((term) => [term.en, term.zh]);
       question.learning = {
-        stemHtml: `${emphasizeKeywords(question.stem, keywords)}<span class="ai-stem-translation" lang="zh-CN">${escapeHtml(entry.stemZh)}</span>`,
+        stemHtml: emphasizeKeywords(question.stem, keywords),
         keyPointHtml: bilingual(entry.summary, keywords),
         speedTipHtml: bilingual(entry.memory, keywords),
         studyNotesHtml: [bilingual(entry.pitfall, keywords), ...entry.steps.map((step) => bilingual(step, keywords))],
@@ -112,7 +112,7 @@ for (const bank of ['ccnp-dcai', 'nca-aiio']) {
           explanationHtml: bilingual(entry.options[option.key].reason, keywords),
         })),
       };
-      question.options.forEach((option) => { option.translationZh = entry.options[option.key].zh; });
+      question.options.forEach((option) => { delete option.translationZh; });
       reviewed.push(question.id);
     }
     await fs.writeFile(filename, JSON.stringify(questions, null, 2) + '\n');

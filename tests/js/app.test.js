@@ -299,8 +299,8 @@ test('index exposes a collapsible sidebar control with fresh app cache keys', ()
   assert.match(html, /aria-controls="app-sidebar"/);
   assert.match(html, /title="收起侧边栏"/);
   assert.doesNotMatch(html, /`r`n/);
-  assert.match(html, /styles\.css\?v=20261030-nav-buttons/);
-  assert.match(html, /src\/app\.js\?v=20261030-focus-title/);
+  assert.match(html, /styles\.css\?v=20261030-english-questions/);
+  assert.match(html, /src\/app\.js\?v=20261030-english-questions/);
 });
 
 test('practice options stay vertical for phone APK use', () => {

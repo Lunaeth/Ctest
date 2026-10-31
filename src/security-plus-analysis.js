@@ -1,4 +1,4 @@
-import { emphasizeKeywords } from './learning-annotations.js?v=20261031-ai-accounts';
+import { emphasizeKeywords } from './learning-annotations.js?v=20261030-english-questions';
 
 const TERM_RULES = [
   [/\bhacktivist\b/i, '黑客行动主义者', '以政治、社会议题或意识形态为动机，通过攻击、泄露或破坏来表达立场'],

@@ -1,6 +1,6 @@
 # Ctest
 
-A question practice system supporting CompTIA A+ Core 1/Core 2, Security+ SY0-701, CCNP-DCAI and NCA-AIIO. The static frontend supports guest study; the optional Flask account service synchronizes each user's progress, mistakes, favourites and exam records.
+A question practice system supporting CompTIA A+ Core 1/Core 2, Security+ SY0-701, AWS SAA, CCNP-DCAI and NCA-AIIO. The static frontend supports guest study; the optional Flask account service synchronizes each user's progress, mistakes, favourites and exam records.
 
 ## Features
 
@@ -11,7 +11,7 @@ A question practice system supporting CompTIA A+ Core 1/Core 2, Security+ SY0-70
 - Mock exams: view your score and review incorrect answers after submission
 - Mistake notebook: review missed questions in one place and remove questions you have mastered
 - Local learning archives: create a `question-archive.json` file and automatically keep your complete learning progress in sync
-- AI study: bilingual questions and individual option explanations, memory cues, pitfalls, technical references, related questions and searchable knowledge maps; eight DCAI and ten AIIO study modules
+- AWS SAA and AI study: English question stems and choices; AI explanations, memory cues, pitfalls and terminology remain bilingual. AI study includes technical references, related questions and searchable knowledge maps; eight DCAI and ten AIIO study modules
 - Accounts: username/password login, Turnstile-protected registration, isolated records, explicit guest-record import, export and conflict protection when another tab or device has newer progress
 
 ## Technology Stack
@@ -50,7 +50,7 @@ The project currently includes the following question bank data files:
 - `data/questions.en.json`
 - `data/questions.core2.json`
 - `data/questions.security-plus.json`
-- `data/questions.aws-saa.json`
+- `data/questions.aws-saa.json` — 143 English questions; source-text limitations and rebuild instructions in [Question language](docs/question-language.md)
 - `data/questions.ccnp-dcai.json` — 56 scored questions, including 4 multi-select questions
 - `data/questions.nca-aiio.json` — 116 scored questions, including 5 multi-select questions
 

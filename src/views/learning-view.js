@@ -1,10 +1,10 @@
-﻿import { escapeHtml } from '../learning-annotations.js?v=20261031-ai-accounts';
+﻿import { escapeHtml } from '../learning-annotations.js?v=20261030-english-questions';
 
-import { renderFavoriteSyncControls } from './favorite-sync-view.js?v=20261031-ai-accounts';
-import { AI_REVIEW_ENTRIES, renderQuestionMedia, renderOptionText } from './question-media.js?v=20261031-ai-accounts';
-import { renderSources } from './question-analysis-view.js?v=20261031-ai-accounts';
-import { aiMapUrl } from '../ai-study.js?v=20261031-ai-accounts';
-import { renderAiStudyLinks } from './ai-study-links.js?v=20261031-ai-accounts';
+import { renderFavoriteSyncControls } from './favorite-sync-view.js?v=20261030-english-questions';
+import { AI_REVIEW_ENTRIES, renderQuestionMedia, renderOptionText } from './question-media.js?v=20261030-english-questions';
+import { renderSources } from './question-analysis-view.js?v=20261030-english-questions';
+import { aiMapUrl } from '../ai-study.js?v=20261030-english-questions';
+import { renderAiStudyLinks } from './ai-study-links.js?v=20261030-english-questions';
 
 const CORE1_VISUAL_ENTRIES = [
   {
@@ -347,7 +347,7 @@ export function renderLearningView(
         ${renderVisualEntries(activeBankId)}
         ${renderLearningModules(modules, activeModuleId)}
         <h2 class="question-stem learning-stem">${stemHtml}</h2>
-        ${renderQuestionMedia(question, { includeTranslation: !question.learning?.stemHtml })}
+        ${renderQuestionMedia(question)}
         ${renderQuestionTags(question, modules)}
         <div class="learning-keypoint">
           <strong>关键点</strong>

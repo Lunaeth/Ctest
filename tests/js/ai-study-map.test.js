@@ -123,5 +123,6 @@ test('map content and links escape imported text',()=>{
   const q=structuredClone(banks.ccnpDcai[0]);q.stem='<img src=x onerror=bad>';q.aiStudy.stemZh='<script>中文</script>';
   q.aiStudy.summary.en='<svg onload=bad>';q.aiStudy.terms[0].en='" onmouseover="bad';
   const html=renderAiMapQuestions([q],{bankId:'ccnpDcai'});
-  assert.doesNotMatch(html,/<script>|<img|<svg/);assert.match(html,/&lt;script&gt;/);
+  assert.doesNotMatch(html,/<script>|<img|<svg/);assert.match(html,/&lt;img src=x onerror=bad&gt;/);
+  assert.ok(!html.includes(q.aiStudy.stemZh));
 });

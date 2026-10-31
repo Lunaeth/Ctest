@@ -47,8 +47,8 @@ test('AWS SAA screenshot bank has no known OCR artifact markers', () => {
       if (/[。；，]\s*[a-e]\s*$/.test(text)) {
         failures.push(`Q${question.id} ${field} has trailing answer marker`);
       }
-      if (text.includes('?')) {
-        failures.push(`Q${question.id} ${field} has ASCII question mark replacement text`);
+      if (text.includes('\uFFFD')) {
+        failures.push(`Q${question.id} ${field} has replacement characters`);
       }
       if (brokenAsciiPattern.test(text)) {
         failures.push(`Q${question.id} ${field} has broken ASCII service text`);
