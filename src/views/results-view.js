@@ -2,6 +2,7 @@ import { renderQuestionAnalysis } from './question-analysis-view.js';
 import { renderPracticeOptionExplanations } from './practice-view.js';
 import { renderQuestionMedia } from './question-media.js';
 import { escapeHtml } from '../learning-annotations.js';
+import { renderAiStudyLinks } from './ai-study-links.js';
 
 export function renderResultsView(result, questionMap, bankLabel = '') {
   const accuracy = result.total ? Math.round((result.score / result.total) * 100) : 0;
@@ -13,6 +14,7 @@ export function renderResultsView(result, questionMap, bankLabel = '') {
           <strong>第 ${id} 题，正确答案：${question.answer.join(', ')}</strong>
           ${question.aiStudy ? `<h3>${escapeHtml(question.stem)}</h3>${renderQuestionMedia(question)}${renderPracticeOptionExplanations(question)}` : ''}
           ${renderQuestionAnalysis(question.analysis)}
+          ${renderAiStudyLinks(question)}
         </li>
       `;
     }).join('')

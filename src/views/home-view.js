@@ -1,8 +1,11 @@
 import { AI_REVIEW_ENTRIES } from './question-media.js';
+import { aiMapUrl } from '../ai-study.js';
 
 export function renderHomeView({ stats, banks, activeBankId, storageMode = 'local' }) {
-  const visualEntries = activeBankId === 'ccnpDcai' ? AI_REVIEW_ENTRIES
-    : activeBankId === 'ncaAiio' ? [] : activeBankId === 'securityPlus'
+  const visualEntries = ['ccnpDcai','ncaAiio'].includes(activeBankId) ? [
+    {href:aiMapUrl(activeBankId),title:'AI 知识图谱 / Knowledge map',summary:'主题模块、双语知识卡片与相关题'},
+    ...(activeBankId==='ccnpDcai'?AI_REVIEW_ENTRIES:[]),
+  ] : activeBankId === 'securityPlus'
     ? [
       {
         href: './security-plus-visual.html?v=20260720-security-plus-bilingual',

@@ -11,6 +11,8 @@ import {
 import { renderQuestionAnalysis } from './question-analysis-view.js';
 import { renderFavoriteSyncControls } from './favorite-sync-view.js';
 import { renderQuestionMedia, renderOptionText } from './question-media.js';
+import { getAiPracticeGuide,getAiDecision } from '../ai-study.js';
+import { renderAiStudyLinks } from './ai-study-links.js';
 
 const TEXT = {
   questionSuffix: '\u9898',
@@ -149,6 +151,8 @@ function renderFavoriteButton(question, isFavorite) {
 }
 
 function renderPracticeStudyTags(question) {
+  const aiGuide=getAiPracticeGuide(question);
+  if(aiGuide)return `<div class="practice-study-strip" data-section="practice-study-tags"><span>${escapeHtml(aiGuide.label)}</span></div>`;
   const tags = (question.learning?.studyTags ?? [])
     .map((tag) => ({ tag, label: CORE2_STUDY_TAG_LABELS[tag] }))
     .filter(({ label }) => Boolean(label));
@@ -290,6 +294,10 @@ export function selectPracticeModuleFlow(question, module, maxItems = 2) {
 }
 
 function getPracticeModuleGuides(question) {
+  if(question.aiStudy) {
+    const guide=getAiPracticeGuide(question);
+    return guide?[guide]:[];
+  }
   return (question.learning?.studyTags ?? [])
     .map((tag) => CORE2_MODULE_BY_ID.get(tag))
     .filter(Boolean)
@@ -414,6 +422,7 @@ function getSymptomPatternMatch(question, row) {
 }
 
 function getPracticeSymptomPatterns(question) {
+  if(question.aiStudy)return [];
   if (!question.learning?.studyTags?.length) return [];
 
   return CORE2_SYMPTOM_MAP
@@ -434,6 +443,7 @@ function scoreConfusionRow(row, questionTokens) {
 }
 
 function getPracticeConfusionRows(question, feedback, maxItems = 2) {
+  if(question.aiStudy)return [];
   const tags = new Set(question.learning?.studyTags ?? []);
   if (!tags.size) return [];
 
@@ -474,6 +484,7 @@ function getPracticeReviewQuery(primaryPattern, primaryModule) {
 
 export function buildPracticeExamDecision(question, feedback) {
   if (!question || !feedback) return null;
+  if(question.aiStudy)return getAiDecision(question,feedback);
 
   const selectedKeys = normalizeChoiceKeys(feedback.selectedAnswer);
   const answerKeys = new Set(normalizeChoiceKeys(question.answer));
@@ -528,6 +539,12 @@ export function buildPracticeExamDecision(question, feedback) {
 
 export function buildPracticeMistakeReason(question, feedback) {
   if (!question || !feedback || feedback.correct) return null;
+  if(question.aiStudy) {
+    const decision=getAiDecision(question,feedback);
+    if(!decision)return null;
+    return {text:decision.text,hint:`${question.aiStudy.memory.zh} / ${question.aiStudy.memory.en}`,
+      details:`${question.aiStudy.pitfall.zh} / ${question.aiStudy.pitfall.en}`};
+  }
 
   const moduleGuides = getPracticeModuleGuides(question);
   const primaryPattern = getPracticeSymptomPatterns(question)[0]?.row;
@@ -737,7 +754,7 @@ function renderPracticeLearningSummary(question, feedback) {
           <ul>
             ${moduleGuides.map((module) => `
               <li>
-                <a href="${escapeHtml(getCore2VisualUrl(module.id, module.label))}">${escapeHtml(module.label)}</a>:
+                <a href="${escapeHtml(module.visualUrl ?? getCore2VisualUrl(module.id, module.label))}">${escapeHtml(module.label)}</a>:
                 ${module.flow.map(escapeHtml).join(' / ')}
               </li>
             `).join('')}
@@ -892,6 +909,7 @@ export function renderPracticeView(
           ${renderPracticeExamDecision(question, feedback)}
           ${renderPracticeMistakeReason(question, feedback)}
           ${renderPracticeLearningSummary(question, feedback)}
+          ${renderAiStudyLinks(question)}
         ` : ''}
       </article>
       ${renderPracticeNavigator(

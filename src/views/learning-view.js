@@ -3,6 +3,8 @@
 import { renderFavoriteSyncControls } from './favorite-sync-view.js';
 import { AI_REVIEW_ENTRIES, renderQuestionMedia, renderOptionText } from './question-media.js';
 import { renderSources } from './question-analysis-view.js';
+import { aiMapUrl } from '../ai-study.js';
+import { renderAiStudyLinks } from './ai-study-links.js';
 
 const CORE1_VISUAL_ENTRIES = [
   {
@@ -213,8 +215,10 @@ function renderLearningBankTabs(coreBanks, activeBankId) {
 }
 
 function getVisualEntries(activeBankId) {
-  if (activeBankId === 'ccnpDcai') return AI_REVIEW_ENTRIES;
-  if (activeBankId === 'ncaAiio') return [];
+  if (['ccnpDcai','ncaAiio'].includes(activeBankId)) return [
+    {href:aiMapUrl(activeBankId),title:'AI 知识图谱 / Knowledge map',summary:'主题模块、双语搜索、推理流程与相关题'},
+    ...(activeBankId==='ccnpDcai'?AI_REVIEW_ENTRIES:[]),
+  ];
   if (activeBankId === 'securityPlus') return SECURITY_PLUS_VISUAL_ENTRIES;
   return activeBankId === 'core2' ? CORE2_VISUAL_ENTRIES : CORE1_VISUAL_ENTRIES;
 }
@@ -226,8 +230,8 @@ function renderVisualEntries(activeBankId) {
   return `
     <section class="visual-entry-panel visual-entry-panel--compact" aria-label="knowledge visualizations">
       <div>
-        <strong>${activeBankId === 'ccnpDcai' ? '图示配对题' : '知识可视化'}</strong>
-        <p>${activeBankId === 'ccnpDcai' ? '保留 PDF 图示，展开答案自评复习。' : '先看流程图，再回到模块刷题。'}</p>
+        <strong>知识可视化 / Knowledge maps</strong>
+        <p>先看流程与知识点，再回到模块刷题。</p>
       </div>
       <div class="visual-entry-grid">
         ${entries.map((entry) => `
@@ -356,6 +360,7 @@ export function renderLearningView(
           ${question.options.map((option) => renderOption(question, option)).join('')}
         </div>
         ${renderSources(question.analysis)}
+        ${renderAiStudyLinks(question)}
         <div class="toolbar">
           <button class="secondary-btn" data-action="learning-prev" ${currentIndex === 0 ? 'disabled' : ''}>上一题</button>
           <button class="secondary-btn" data-action="learning-next" ${currentIndex === total - 1 ? 'disabled' : ''}>下一题</button>

@@ -134,7 +134,9 @@ test('DCAI hardware and terminology errata preserve source options and use preci
     const session=createPracticeSession([q]);
     for(const html of [renderPracticeView(q,session,null),renderExamView(q,session),renderLearningView(q,0,1,'DCAI')]){
       assert.ok(text(html).includes(option.text));
-      if(!option.text.includes(option.originalText)) assert.ok(!text(html).includes(option.originalText));
+      // The glossary can legitimately contain a more precise term with the old
+      // term as a prefix (NVMe/RoCEv2). Check the actual choice label separately.
+      if(!option.text.includes(option.originalText)) assert.ok(!text(renderOptionText(option)).includes(option.originalText));
     }
   }
 });

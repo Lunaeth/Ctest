@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 知识图谱 · DCAI / AIIO</title>
+  <link rel="stylesheet" href="./ai-map.css">
+</head>
+<body>
+  <a class="ai-map-skip" href="#ai-map-filters">跳到搜索与筛选</a>
+  <main class="ai-map-shell">
+    <header class="ai-map-header">
+      <nav><a href="./index.html#/learn">← 返回刷题系统</a><a href="./ai-review.html">DCAI 图示配对题</a></nav>
+      <p class="ai-map-eyebrow">LEARN · CONNECT · PRACTICE</p>
+      <h1>AI 知识图谱</h1>
+      <p>从主题找到知识点，再用题目检验理解。<span lang="en">Explore a topic, connect its concepts, then test your understanding.</span></p>
+      <p class="ai-map-note">按已审校题目整理的学习分组；不是官方考试大纲或权重。图解题单独自评，不计入模拟考试。</p>
+    </header>
+    <section class="ai-map-filters" id="ai-map-filters" aria-label="筛选 AI 知识图谱">
+      <label>题库 / Bank<select id="ai-map-bank"><option value="ccnpDcai">CCNP-DCAI</option><option value="ncaAiio">NCA-AIIO</option></select></label>
+      <label>模块 / Module<select id="ai-map-module"><option value="all">全部模块</option></select></label>
+      <label class="ai-map-search-label">搜索 / Search<input id="ai-map-search" type="search" placeholder="RoCE、显存、部署、题号…" autocomplete="off"></label>
+      <button id="ai-map-clear" type="button">重置筛选 / Reset</button>
+    </section>
+    <section id="ai-map-nodes" class="ai-map-nodes" aria-label="主题模块"></section>
+    <div class="ai-map-result-header"><p id="ai-map-status" role="status" aria-live="polite">正在加载 / Loading…</p><a id="ai-map-learn" href="./index.html#/learn" hidden>学习此模块 / Learn this module →</a><button id="ai-map-retry" type="button" hidden>重试 / Retry</button></div>
+    <section id="ai-map-questions" aria-label="知识卡片与相关题目"></section>
+    <noscript>请启用 JavaScript 以浏览知识图谱。 / JavaScript is required.</noscript>
+  </main>
+  <script type="module" src="./src/ai-map-page.js"></script>
+</body>
+</html>

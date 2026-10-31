@@ -1,5 +1,6 @@
 import { escapeHtml } from './learning-annotations.js';
 import { renderQuestionMedia } from './views/question-media.js';
+import { renderAiStudyLinks } from './views/ai-study-links.js';
 
 const bilingual = (value) => `<span lang="zh-CN">${escapeHtml(value.zh)}</span><br><span class="ai-english" lang="en">${escapeHtml(value.en)}</span>`;
 
@@ -38,6 +39,7 @@ export function renderReviewQuestions(questions) {
       <details>
         <summary>查看答案与解析</summary>
         ${renderExplanation(question)}
+        ${renderAiStudyLinks(question)}
         <h3>原 PDF 答案图 / Original answer exhibit</h3>
         ${(question.answerImages ?? []).map((src) => `<figure><img src="${escapeHtml(src)}" alt="原题 ${question.id} 答案图" loading="lazy"></figure>`).join('')}
       </details>

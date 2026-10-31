@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { escapeHtml, emphasizeKeywords } from '../src/learning-annotations.js';
+import { getAiStudyModules } from '../src/ai-study.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const contentDir = path.join(root, 'scripts/ai-study-content');
@@ -30,6 +31,7 @@ for (const bank of ['ccnp-dcai', 'nca-aiio']) {
       const entry = reviews.get(question.id);
       if (!entry) { pending.push(question.id); continue; }
       if (!entry.stemZh || !entry.module || !entry.sources?.length || !entry.reviewNote) throw new Error(`Incomplete review ${bank} ${question.id}`);
+      if (!getAiStudyModules(bank==='ccnp-dcai'?'ccnpDcai':'ncaAiio').some(module=>module.id===entry.module)) throw new Error(`Unknown study module ${bank} ${question.id}: ${entry.module}`);
       for (const key of ['summary', 'memory', 'pitfall']) pair(entry[key], `${bank} ${question.id} ${key}`);
       if (!entry.steps?.length || !entry.terms?.length) throw new Error(`Missing study notes ${bank} ${question.id}`);
       entry.steps.forEach((step) => pair(step, `${question.id} step`));

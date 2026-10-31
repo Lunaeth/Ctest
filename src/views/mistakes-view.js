@@ -1,6 +1,7 @@
 import { escapeHtml } from '../learning-annotations.js';
 import { renderQuestionAnalysis } from './question-analysis-view.js';
 import { renderQuestionMedia, renderOptionText } from './question-media.js';
+import { renderAiStudyLinks } from './ai-study-links.js';
 
 function getOptionAnnotation(question, key) {
   return question.learning?.options?.find((item) => item.key === key);
@@ -123,6 +124,7 @@ function renderMistakeCard(question) {
       ${renderLearningSummary(question)}
       ${renderMistakeOptionList(question)}
       ${renderQuestionAnalysis(question.analysis)}
+      ${renderAiStudyLinks(question)}
       <div class="toolbar">
         <button class="secondary-btn" data-action="remove-mistake" data-question-id="${escapeHtml(String(question.id))}">Remove</button>
       </div>

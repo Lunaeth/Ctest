@@ -43,6 +43,7 @@ import {
   renderPracticeView,
 } from './views/practice-view.js?v=20260707-practice-font-scale';
 import { renderResultsView } from './views/results-view.js';
+import { buildAiModuleStats,readAiStudyRequest,resolveAiStudyRequest,aiMapUrl } from './ai-study.js';
 
 const QUESTION_BANKS = [
   { id: 'zh', label: '中文题库', file: './data/questions.zh.json' },
@@ -177,18 +178,7 @@ function getLearningModules() {
   }
 
   if (['ccnpDcai', 'ncaAiio'].includes(state?.bankId)) {
-    const topics = [...new Set(state.questions.map((question) => question.topic))];
-    const topicLabels = {
-      'AI Infrastructure Components and Architecture': '组件与架构',
-      'AI Infrastructure Operations and Troubleshooting': '运维与排错',
-      'AI Infrastructure Deployment and Data Management': '部署与数据管理',
-      'AI Fundamentals and Applications': 'AI 基础与应用',
-    };
-    return [
-      { id: 'all', label: '全部选择题', description: '按 PDF 原题顺序学习', count: state.questions.length },
-      ...(topics.length > 1 ? topics : []).map((topic) => ({ id: topic, label: topicLabels[topic] ?? topic, description: 'PDF 题目分组',
-        count: state.questions.filter((question) => question.topic === topic).length })),
-    ];
+    return buildAiModuleStats(state.questions,state.bankId);
   }
 
   return [];
@@ -545,6 +535,7 @@ function startActiveModulePractice() {
   state.currentPractice = createFocusedPracticeSession(
     learningQuestions,
     activeModule?.label ?? '',
+    {showAnswerReview:false},
   );
   return true;
 }
@@ -561,6 +552,35 @@ function startCore2SymptomPractice(pending) {
       source: buildCore2SymptomPracticeSource(pending),
     },
   );
+  return true;
+}
+
+async function consumeAiStudyLink() {
+  const request=readAiStudyRequest(appWindow?.location?.search);
+  if(!request)return false;
+  // Resolve against the requested bank before changing account state or sessions.
+  const questions=await loadQuestions(fetchApi,request.bankId);
+  const target=resolveAiStudyRequest(request,questions);
+  if(!target)return false;
+  await activateQuestionBank(request.bankId);
+  setActiveLearningModule(request.moduleId);
+  setLearningIndex(target.index,request.moduleId);
+  if(request.mode==='practice') {
+    const module=getLearningModules().find(item=>item.id===request.moduleId);
+    state.currentPractice=createFocusedPracticeSession(target.questions,module.label,{
+      showAnswerReview:false,
+      source:{label:'返回 AI 知识图谱 / Back to map',url:aiMapUrl(request.bankId,request.moduleId)},
+    });
+    state.currentPractice.currentIndex=target.index;
+  }
+  persistState();
+  const hash=`#/${request.mode}`;
+  if(appWindow.history?.replaceState && appWindow.location.href) {
+    const url=new URL(appWindow.location.href);
+    for(const key of ['studyBank','studyModule','studyQuestion','studyMode'])url.searchParams.delete(key);
+    url.hash=hash;
+    appWindow.history.replaceState(null,'',url);
+  } else appWindow.location.hash=hash;
   return true;
 }
 
@@ -852,7 +872,7 @@ function createFocusedPracticeSession(questions, label = '', options = {}) {
     order: questions.map((question) => question.id),
     currentIndex: 0,
     hydrateFromProgress: false,
-    showAnswerReview: options.showAnswerReview === true || matchesFavoriteOrder,
+    showAnswerReview: options.showAnswerReview ?? matchesFavoriteOrder,
     revealedAnswerIds: [],
     answers: {},
     feedback: {},
@@ -1842,6 +1862,10 @@ export async function bootstrapApp({
     ensureEventBindings(windowObject, documentObject);
     initializeSidebarState(windowObject, documentObject);
     if (reviewedAnswersChanged) persistState();
+    if (await consumeAiStudyLink()) {
+      renderApp(windowObject, documentObject);
+      return state;
+    }
     if (normalizeRoute(windowObject.location.hash) === 'learn' && !LEARNING_BANK_IDS.has(state.bankId)) {
       await activateQuestionBank(DEFAULT_LEARNING_BANK_ID);
     }

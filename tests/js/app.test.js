@@ -317,6 +317,73 @@ async function loadAppModule() {
   return import(`../../src/app.js?test=${Date.now()}-${Math.random()}`);
 }
 
+test('AI map links open the requested bank, module and question and survive reload without repeating navigation',async()=>{
+  for(const [bankId,file,id] of [['ccnpDcai','ccnp-dcai',49],['ncaAiio','nca-aiio',85]]) {
+    const questions=JSON.parse(fs.readFileSync(`data/questions.${file}.json`,'utf8'));
+    const target=questions.find(q=>q.id===id),moduleId=target.aiStudy.module;
+    const fetchImpl=createQuestionBankFetch({[`./data/questions.${file}.json`]:questions,'./data/questions.en.json':sampleEnglishQuestions});
+    const env=setupBootstrapEnvironment({fetchImpl});
+    const storage=createMutableStorage({
+      'question-app.preferences':{activeBankId:'en'},
+      'question-app.progress':{en:{101:{correct:true,selectedAnswer:['A']}}},
+      'question-app.favorites':{en:[101],[bankId]:[id]},
+    });
+    const app=await loadAppModule();
+    const location=new URL(`https://learn.test/index.html?keep=1&studyBank=${bankId}&studyModule=${moduleId}&studyQuestion=${id}#/learn`);
+    env.windowStub.location=location;
+    env.windowStub.history={replaceState(_state,_unused,url){env.windowStub.location=new URL(url);}};
+    const state=await app.bootstrapApp({fetch:fetchImpl,storage,window:env.windowStub,document:env.documentStub,archive:createArchiveStub()});
+    assert.equal(state.bankId,bankId);assert.ok(env.appElement.innerHTML.includes(target.learning.stemHtml));
+    assert.equal(state.preferences.learningModuleByBank[bankId],moduleId);
+    assert.deepEqual(state.progressByBank.en,{101:{correct:true,selectedAnswer:['A']}});
+    assert.deepEqual(state.favorites,[id]);
+    assert.equal(env.windowStub.location.search,'?keep=1');
+    assert.equal(env.windowStub.location.hash,'#/learn');
+    const reloaded=await app.bootstrapApp({fetch:fetchImpl,storage,window:env.windowStub,document:env.documentStub,archive:createArchiveStub()});
+    assert.equal(reloaded.bankId,bankId);assert.ok(env.appElement.innerHTML.includes(target.learning.stemHtml));
+  }
+});
+
+test('AI map module practice uses only that module and does not reveal answers even when it equals the favourites list',async()=>{
+  for(const [bankId,file,moduleId] of [['ccnpDcai','ccnp-dcai','power-cooling'],['ncaAiio','nca-aiio','ai-networking']]) {
+    const questions=JSON.parse(fs.readFileSync(`data/questions.${file}.json`,'utf8'));
+    const expected=questions.filter(q=>q.aiStudy.module===moduleId).map(q=>q.id);
+    const fetchImpl=createQuestionBankFetch({[`./data/questions.${file}.json`]:questions});
+    const env=setupBootstrapEnvironment({fetchImpl});
+    const storage=createMutableStorage({
+      'question-app.preferences':{activeBankId:bankId},
+      'question-app.favorites':{[bankId]:expected},
+      'question-app.progress':{[bankId]:Object.fromEntries(expected.map(id=>[id,{correct:true,selectedAnswer:questions.find(q=>q.id===id).answer}]))},
+    });
+    const app=await loadAppModule();
+    env.windowStub.location=new URL(`https://learn.test/index.html?studyBank=${bankId}&studyModule=${moduleId}&studyMode=practice#/practice`);
+    env.windowStub.history={replaceState(_state,_unused,url){env.windowStub.location=new URL(url);}};
+    const state=await app.bootstrapApp({fetch:fetchImpl,storage,window:env.windowStub,document:env.documentStub,archive:createArchiveStub()});
+    assert.deepEqual(state.currentPractice.order,expected);
+    assert.equal(state.currentPractice.showAnswerReview,false);
+    assert.equal(state.currentPractice.hydrateFromProgress,false);
+    assert.deepEqual(state.currentPractice.answers,{});
+    assert.doesNotMatch(env.appElement.innerHTML,/practice-option-explanations|practice-exam-decision/);
+    await env.listeners.click({target:{closest:selector=>selector==='[data-action]'?{dataset:{action:'practice-next'}}:null}});
+    const reloaded=await app.bootstrapApp({fetch:fetchImpl,storage,window:env.windowStub,document:env.documentStub,archive:createArchiveStub()});
+    assert.equal(reloaded.currentPractice.currentIndex,1);
+    assert.deepEqual(reloaded.currentPractice.order,expected);
+    assert.ok(reloaded.currentPractice.source.url.includes('ai-map.html'));
+  }
+});
+
+test('an invalid AI map question does not change the selected bank or current session',async()=>{
+  const questions=JSON.parse(fs.readFileSync('data/questions.ccnp-dcai.json','utf8'));
+  const fetchImpl=createQuestionBankFetch({'./data/questions.ccnp-dcai.json':questions});
+  const env=setupBootstrapEnvironment({fetchImpl,hash:'#/practice'});
+  const storage=createMutableStorage({'question-app.preferences':{activeBankId:'zh'},'question-app.favorites':{zh:[1]}});
+  const app=await loadAppModule();
+  env.windowStub.location.search='?studyBank=ccnpDcai&studyModule=ai-networking&studyQuestion=999';
+  const state=await app.bootstrapApp({fetch:fetchImpl,storage,window:env.windowStub,document:env.documentStub,archive:createArchiveStub()});
+  assert.equal(state.bankId,'zh');assert.deepEqual(state.favorites,[1]);
+  assert.deepEqual(state.currentPractice.order,[1,2]);
+});
+
 function createQuestionBankFetch(questionBanks = {}) {
   const calls = [];
   const fetchImpl = async (url) => {
