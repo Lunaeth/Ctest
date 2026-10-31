@@ -34,7 +34,7 @@ import {
   buildCore2ModuleStats,
   buildSecurityPlusModuleStats,
 } from './study-modules.js?v=20261031-ai-accounts';
-import { renderHomeView } from './views/home-view.js?v=20261031-ai-accounts';
+import { renderHomeView } from './views/home-view.js?v=20261030-focus-title';
 import { renderExamView } from './views/exam-view.js?v=20261031-ai-accounts';
 import { renderLearningView } from './views/learning-view.js?v=20261031-ai-accounts';
 import { renderMistakesView } from './views/mistakes-view.js?v=20261031-ai-accounts';

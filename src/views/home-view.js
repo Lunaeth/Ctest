@@ -107,7 +107,7 @@ export function renderHomeView({ stats, banks, activeBankId, storageMode = 'loca
           `).join('')}
         </div>
         <p class="eyebrow">Question Workspace</p>
-        <h2>专注刷题，不做多余操</h2>
+        <h2>专注刷题</h2>
         <p class="hero-copy">练习模式用于即时判题，模拟考试用于整套自测。${storageMode === 'account' ? '学习记录同步到当前账号，可在不同设备继续。' : '访客记录保存在当前浏览器。'}</p>
         <div class="hero-actions">
           <button class="primary-btn" data-action="start-practice" data-mode="sequential">练习模式</button>
