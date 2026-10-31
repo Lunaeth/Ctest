@@ -88,4 +88,3 @@ If you create a learning archive from the application:
 
 - The default filename is `question-archive.json`
 - The file will not be committed to the repository
-

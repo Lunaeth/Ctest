@@ -2,7 +2,6 @@
 
 - `https://ca.lunaeth.com/` serves the contents of `portal/` from `/var/www/lunaeth-portal/current`, the navigation portal with one button per website.
 - `https://learn.lunaeth.com/` serves the quiz application at the release root.
-- `management.example.invalid` is the SSH management hostname; HTTP/TLS does not serve a website there.
 
 Both website hostnames use proxied Cloudflare DNS, host-scoped Full (strict) configuration, separate Origin CA certificates, and a Cloudflare-only origin allowlist. The zone-wide SSL configuration is unchanged.
 
